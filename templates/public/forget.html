@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://kit.fontawesome.com/cf09389368.js" crossorigin="anonymous"></script><link rel="stylesheet" href="https://static.neshan.org/sdk/mapboxgl/v1.13.2/neshan-sdk/v1.0.8/index.css" />
+<script src="https://static.neshan.org/sdk/mapboxgl/v1.13.2/neshan-sdk/v1.0.8/index.js"></script>
+
+        <title>قراموشی رمز عبور باشگاه ورزشی حجاب</title>
+    <style>
+
+        	@font-face {
+			font-family: BYekan;
+  			font-style: normal;
+  			font-weight: normal;
+  			src: url("/static/fonts/BYekan.eot");/* IE9 Compat Modes */
+			src: url("/static/fonts/BYekan.woff") format('woff'),
+        		 url("/static/fonts/BYekan.woff") format('woff2'), /* Super Modern Browsers */
+        		 url("/static/fonts/BYekan.ttf")  format('truetype') /* Safari, Android, iOS */
+		}
+
+            body {
+                font-family: "Poppins", sans-serif;
+                display: flex;
+                flex-direction: column;
+               background: #312f2e;
+                color: #fff;
+            }
+
+
+            .otp-field {
+                flex-direction: row;
+                column-gap: 10px;
+                display: inline-block;
+               align-content: center;
+                align-items: center;
+                text-align: center;
+                justify-content: center;
+            }
+
+            .otp-field input {
+                width: 45px;
+                font-size: 32px;
+                padding: 10px;
+                text-align: center;
+                border-radius: 5px;
+                margin: 2px;
+                border: 2px solid #55525c;
+               background: #312f2e;
+                font-weight: bold;
+                color: #fff;
+                outline: none;
+                transition: all 0.1s;
+            }
+
+            .otp-field input:focus {
+                border: 2px solid #E16539;
+                box-shadow: 0 0 2px 2px #E165396a;
+            }
+
+            .disabled {
+                opacity: 0.5;
+                cursor: none;
+                pointer-events: none;
+            }
+
+            .logoHolder {
+                width: 100%;
+                margin-top: 20px;
+                position: relative;
+                display: inline-flex;
+                direction: ltr;
+                align-content: center;
+                align-items: center;
+                text-align: center;
+                justify-content: center;
+            }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+
+        }
+
+        .typography {
+            color: white;
+            font-size: 20px;
+            margin-left: 10px;
+
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+        .br-on-mobile {
+            display: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            .br-on-mobile {
+                display: block;
+            }
+        }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="logoHolder">
+
+    <img alt="" src="/media/{{ about.logo }}" class="logo">
+    <div class="typography">PowerGrow</div>
+
+</div>
+
+
+<h2 style="position: relative; margin-top: 150px ;display: flex ;vertical-align: middle;padding-right: 10px ; align-content: center;
+                align-items: center;
+                text-align: center;
+                justify-content: center;" dir="rtl">شماره موبایل خود را بدون 0 وارد کنید</h2>
+
+<div class="otp-field">
+    <label>
+        <input type="number" maxlength="1" />
+    </label>
+    <label>
+        <input type="number" maxlength="1" />
+    </label>
+     <label>
+        <input type="number" maxlength="1" />
+    </label>
+    <label>
+        <input type="number" maxlength="1" />
+    </label>
+    <label>
+        <input class="space" type="number" maxlength="1" />
+    </label>
+    <br class="br-on-mobile"/>
+    <label>
+        <input type="number" maxlength="1" />
+    </label>
+    <label>
+        <input type="number" maxlength="1" />
+    </label>
+    <label>
+        <input type="number" maxlength="1" />
+    </label>
+     <label>
+        <input type="number" maxlength="1" />
+    </label>
+    <label>
+        <input type="number" maxlength="1" />
+    </label>
+
+</div>
+
+</body>
+
+
+<script>
+
+    const btn = document.getElementById("submit")
+
+    const inputs = document.querySelectorAll(".otp-field label input");
+
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('keydown', function(event) {
+    if (event.key==="Backspace" ) {
+      inputs[i].value='' ;
+      if (i !==0) inputs[i - 1].focus();
+    }
+    else {
+        if (event.keyCode> 47 && event.keyCode < 58) {
+          inputs[i].value=event.key;
+          if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault();
+        }
+      else if (event.keyCode> 64 && event.keyCode < 91) {
+          inputs[i].value=String.fromCharCode(event.keyCode);
+          if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault();
+      }
+    }
+     if (i===inputs.length-1 && inputs[i].value !=='' ) {
+          submit()
+          return true
+      }
+        })
+    }
+
+    async function submit() {
+
+        let code = "";
+        for (let i = 0; i < inputs.length; i++) {
+            code += inputs[i].value;
+        }
+        const response = await fetch('api/' + '+98' + code, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.status === 200) {
+            window.location.assign("../verification/" + '+98' + code)
+        } else {
+            alert("بعدا دوباره تلاش کنید")
+            code = ''
+            inputs.forEach((input) => {
+                input.value = ''
+            });
+            inputs[0].select()
+        }
+    }
+
+</script>
+
+</html>

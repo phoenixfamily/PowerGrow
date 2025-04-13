@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت شرکت‌کنندگان</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <style>
+
+         body {
+            text-align: right;  /* راست‌چین کردن متن */
+            background: #312f2e;
+        }
+
+         .logoHolder {
+            width: 100%;
+            position: relative;
+            margin-top: 20px;
+            left: 0;
+            display: flex;
+            z-index: 10 !important;
+            direction: ltr;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+
+        }
+
+        .typography {
+            color: white;
+            font-size: 20px;
+            margin-left: 10px;
+
+        }
+
+         .form-control {
+             text-align: right;
+         }
+
+         label {
+             display: block; /* باعث می‌شود که لیبل‌ها به صورت بلاک نمایش داده شوند و بالای ورودی قرار بگیرند */
+             margin-bottom: 5px; /* فاصله پایین لیبل */
+             color: white; /* رنگ متن */
+             text-align: right; /* راست‌چین کردن متن */
+         }
+          .custom-btn {
+            background-color: #E16539; /* رنگ دلخواه */
+            border: none; /* حذف حاشیه */
+              color: white;
+        }
+        .custom-btn:hover {
+               background-color: #a84e2c; /* تغییر رنگ در حالت hover */
+               color: #c4c4c4; /* رنگ برای حالت هاور */
+        }
+        .margin-bottom {
+            margin-bottom: 20px; /* فاصله از پایین */
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #d3d3d3;
+            border-radius: 4px;
+            z-index: 99;
+            width: 75%;
+            max-height: 150px;
+            overflow-y: auto;
+            background-color: white;
+            box-sizing: border-box;
+        }
+
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .autocomplete-items div:hover {
+            background-color: #e9e9e9;
+        }
+
+        .autocomplete-active {
+            background-color: #e9e9e9; /* رنگ پس‌زمینه وقتی روی آیتم هاور می‌شود */
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="logoHolder">
+
+    <img alt="" src="/media/{{ about.logo }}" class="logo">
+    <div class="typography">PowerGrow</div>
+
+</div>
+
+<div class="container">
+        <form id="participant-form">
+            <div class="form-group">
+                <label for="title">:عنوان</label>
+                <input type="text" class="form-control" id="title" value="{{ course.title }}">
+            </div>
+            <div class="form-group">
+                <label for="description">:توضیحات</label>
+                <textarea class="form-control" id="description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="session">:تعداد جلسه</label>
+                <select class="form-control" id="session" required>
+                    <option value="" disabled selected>انتخاب کنید</option>
+                     {% for x in course.sessions.all %}
+                            <option dir="rtl" value="{{ x.id }}">{{ x.number }}  جلسه </option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="day">:روزها هفته</label>
+                <select class="form-control" id="day" required>
+                    <option value="" disabled selected>انتخاب کنید</option>
+                    {% for x in days %}
+                            <option dir="rtl" value="{{ x.id }}">{{ x.title }} {{ x.session }} جلسه </option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="startDay">:روز شروع</label>
+                <select class="form-control" id="startDay" required>
+                    <option value="">انتخاب کنید</option>
+                    {% for x in day %}
+                            <option dir="rtl" value="{{ x.id }}"> {{ x.name }} {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="endDay">:روز پایان</label>
+                <select class="form-control" id="endDay">
+                    <option value="">انتخاب کنید</option>
+                    {% for x in day %}
+                            <option dir="rtl" value="{{ x.id }}">{{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="price">:قیمت</label>
+                <input type="number" class="form-control" id="price" required>
+            </div>
+            <div class="form-group">
+                <label for="user">:کاربر</label>
+                <input class="form-control" dir="ltr" id="user" type="number" name="user" placeholder="شماره همراه : 9123456789" required>
+            </div>
+            <button type="submit" class="btn custom-btn margin-bottom">ثبت</button>
+        </form>
+    </div>
+
+    <script>
+        // جاوااسکریپت برای پر کردن گزینه‌ها
+        // اینجا باید API ها را برای دریافت داده‌های جلسات، روزها و دوره‌ها فراخوانی کنی و گزینه‌ها را پر کنی
+        // به عنوان مثال:
+        document.addEventListener('DOMContentLoaded', function () {
+            // مثال برای پر کردن گزینه‌ها
+            const sessionSelect = document.getElementById('session');
+            const daySelect = document.getElementById('day');
+            // ...و همینطور برای دیگر فیلدها
+        });
+
+        // ارسال فرم
+        document.getElementById('participant-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // جمع‌آوری داده‌ها و ارسال به API
+            const data = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                session: document.getElementById('session').value,
+                day: document.getElementById('day').value,
+                startDay: document.getElementById('startDay').value,
+                endDay: document.getElementById('endDay').value,
+                price: document.getElementById('price').value,
+                user: `+98${document.getElementById('user').value}`,
+            };
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            fetch('{% url 'product:manager-create-participation' course.id %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken, // اضافه کردن CSRF token
+
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('شرکت‌کننده با موفقیت ثبت شد!');
+                    // فرم را پاک کن یا به صفحه دیگر برو
+                } else {
+                    return response.json().then(errorData => {
+                        alert('خطا: ' + JSON.stringify(errorData));
+        });
+    }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+
+<script>
+
+    async function getAllUser() {
+    const userList = [];
+    let phone;
+
+    {% for x in user.all %}
+        phone = "{{ x.number }}".replace("+98", "");
+        userList.push(phone);
+    {% endfor %}
+
+    setupAutocomplete(document.getElementById("user"), userList);
+}
+
+function setupAutocomplete(input, arr) {
+    let currentFocus = -1;
+
+    input.addEventListener("input", function() {
+        const val = this.value;
+        closeAllLists();
+        if (!val) return;
+
+        // ایجاد div برای نمایش نتایج
+        const autocompleteList = document.createElement("div");
+        autocompleteList.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(autocompleteList); // اضافه کردن به parent
+
+        let hasResults = false; // متغیری برای بررسی وجود نتایج
+
+        arr.forEach(item => {
+            if (item.substr(0, val.length).toLowerCase() === val.toLowerCase()) {
+                hasResults = true; // اگر نتیجه‌ای پیدا شد
+                const itemDiv = document.createElement("div");
+                itemDiv.innerHTML = `<strong>${item.substr(0, val.length)}</strong>${item.substr(val.length)}`;
+                itemDiv.innerHTML += `<input type='hidden' value='${item}'>`;
+                itemDiv.addEventListener("click", function() {
+                    input.value = this.getElementsByTagName("input")[0].value;
+                    closeAllLists();
+                });
+                autocompleteList.appendChild(itemDiv); // اضافه کردن itemDiv به autocompleteList
+            }
+        });
+
+        if (!hasResults) {
+            const noResultsDiv = document.createElement("div");
+            noResultsDiv.innerHTML = "نتیجه‌ای یافت نشد";
+            autocompleteList.appendChild(noResultsDiv);
+        }
+    });
+
+    input.addEventListener("keydown", function(e) {
+        const items = document.querySelectorAll(".autocomplete-items div");
+        if (items.length > 0) {
+            if (e.keyCode === 40) { // down
+                currentFocus++;
+                addActive(items);
+            } else if (e.keyCode === 38) { // up
+                currentFocus--;
+                addActive(items);
+            } else if (e.keyCode === 13) { // enter
+                e.preventDefault();
+                if (currentFocus > -1) items[currentFocus].click();
+            }
+        }
+    });
+
+    document.addEventListener("click", function(e) {
+        closeAllLists(e.target);
+    });
+
+    function closeAllLists(exceptElement) {
+        const items = document.querySelectorAll(".autocomplete-items");
+        items.forEach(item => {
+            item.parentNode.removeChild(item);
+        });
+    }
+
+    function addActive(items) {
+        if (!items) return;
+        removeActive(items);
+        if (currentFocus >= items.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = items.length - 1;
+        items[currentFocus].classList.add("autocomplete-active");
+    }
+
+    function removeActive(items) {
+        items.forEach(item => {
+            item.classList.remove("autocomplete-active");
+        });
+    }
+}
+
+// Run the getAllUser function when the document is fully loaded
+document.addEventListener("DOMContentLoaded", function() {
+    getAllUser();
+});
+
+
+
+</script>
+
+
+</body>
+</html>

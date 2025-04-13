@@ -1,0 +1,337 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <meta name="csrf-token" content="{{ csrf_token }}">
+
+<script src="https://kit.fontawesome.com/cf09389368.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.min.js"></script>
+    <script src="https://unpkg.com/jalaali-js/dist/jalaali.js"></script>
+    <script src="https://unpkg.com/jalaali-js/dist/jalaali.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jalaali-moment/2.0.0/jalaali-moment.min.js"></script>
+
+
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+        <title>لیست دوره ها</title>
+
+
+   <style>
+
+           @font-face {
+            font-family: BYekan;
+            font-style: normal;
+            font-weight: normal;
+            src: url("/static/fonts/BYekan.eot");/* IE9 Compat Modes */
+            src: url("/static/fonts/BYekan.woff") format('woff'),
+            url("/static/fonts/BYekan.woff") format('woff2'), /* Super Modern Browsers */ url("../../static/fonts/BYekan.ttf") format('truetype') /* Safari, Android, iOS */
+        }
+           html, body {
+            margin: 0;
+            padding: 0 ;
+            background: #312f2e;
+            overflow-x: hidden;
+            font-family: BYekan, serif !important;
+        }
+
+        .logoHolder {
+            width: 100%;
+            position: relative;
+            margin-top: 20px;
+            left: 0;
+            display: flex;
+            z-index: 10 !important;
+            direction: ltr;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+
+        }
+
+        .typography {
+            color: white;
+            font-size: 20px;
+            margin-left: 10px;
+
+        }
+
+
+           .pagination-container {
+               display: flex;
+               justify-content: center;
+           }
+
+           .search-bar-container {
+               display: flex;
+               justify-content: center; /* مرکز کردن نوار جستجو */
+               margin: 50px auto; /* فاصله از بالا و پایین */
+               width: 80%; /* نوار جستجو تمام عرض را بگیرد */
+               direction: rtl;
+           }
+
+           .search-input {
+               flex: 1; /* به نوار جستجو اجازه می‌دهد تمام فضای در دسترس را پر کند */
+               padding: 10px 15px; /* فاصله داخلی */
+               border: 2px solid #ccc; /* حاشیه خاکستری */
+               border-radius: 25px; /* گوشه‌های گرد */
+               outline: none;
+               font-size: 16px;
+               box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* سایه خفیف */
+               transition: border-color 0.3s;
+               text-align: right;
+           }
+
+           .search-input:focus {
+               border-color: #E16539; /* رنگ حاشیه وقتی روی فیلد کلیک می‌شود */
+           }
+
+
+
+            .table-actions {
+                display: flex;
+                justify-content: space-between; /* دکمه در سمت راست قرار می‌گیرد */
+                margin-top: 20px;
+            }
+
+           .add-data-button {
+               background-color: #E16539;
+               color: white;
+               padding: 10px 20px;
+               border: none;
+               border-radius: 5px;
+               cursor: pointer;
+               font-size: 16px;
+               transition: background-color 0.3s;
+           }
+           .add-data-button:hover {
+               background-color: #a84e2c; /* تغییر رنگ در حالت hover */
+               color: #c4c4c4;
+           }
+
+    </style>
+</head>
+
+<body>
+
+<div class="logoHolder">
+
+    <img alt="" src="/media/{{ about.logo }}" class="logo">
+    <div class="typography">PowerGrow</div>
+
+</div>
+
+   <div class="search-bar-container">
+    <input type="text" id="searchInput" class="search-input" placeholder="جستجو...">
+   </div>
+
+
+<div class="pagination-container">
+
+    {% if page_obj.has_next %}
+        <a class="btn btn-outline-light mx-1" href="?page={{page_obj.next_page_number}}"><i class="fa fa-chevron-left"></i></a>
+    {% endif %}
+
+    <span class="btn btn-outline-light disabled mx-1">صفحه {{ page_obj.number }}</span>
+
+   {% if page_obj.has_previous %}
+        <a class="btn btn-outline-light mx-1" href="?page={{page_obj.previous_page_number}}"><i class="fa fa-chevron-right"></i></a>
+    {% endif %}
+
+</div>
+
+
+<div class="table-actions">
+    <button class="btn add-data-button" id="todayButton">لیست امروز</button>
+    <button class="btn add-data-button" onclick="window.open('{% url 'product:create-participant' course_id %}')">ثبت نام</button>
+</div>
+
+<div class="table-responsive" dir="rtl">
+    <table id="myTable" class="table table-hover table-bordered table-dark">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th colspan="1" class="text-center">تنظیمات</th>
+                <th>نام و نام خانوادگی</th>
+                <th>شماره تلفن</th>
+                <th>تاریخ تولد</th>
+                <th>تاریخ ثبت</th>
+                <th>تاریخ شروع</th>
+                <th>تاریخ پایان</th>
+                <th>روز</th>
+                <th>جلسه</th>
+                <th>پرداختی</th>
+                <th>توضیحات</th>
+                 <th>وضعیت</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in page_obj.object_list %}
+            <tr>
+                <th scope="row">{{ x.id }}</th>
+                <td class="text-center">
+                    <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer" title="ویرایش" onclick="window.open('{% url 'product:update-participant' x.id %}')"></i>
+                </td>
+                <td>{{ x.user.name }}</td>
+                <td dir="ltr">{{ x.user.number }}</td>
+                <td>{{ x.user.birthdate }}</td>
+                <td>{{ x.datetime }}</td>
+                <td>{{ x.startDay.month.year.number }}/{{ x.startDay.month.number }}/{{ x.startDay.number }}</td>
+                <td data-end-year="{{ x.endDay.month.year.number}}" data-end-month = "{{ x.endDay.month.number }}" data-end-day="{{ x.endDay.number }}">{{ x.endDay.month.year.number }}/{{ x.endDay.month.number }}/{{ x.endDay.number }}</td>
+                 <td>{{ x.day.title }}</td>
+                <td>{{ x.session.number }}</td>
+                <td>{{ x.price }} تومان </td>
+                <td>
+                     {{ x.description }}
+                    <br>
+                    {{ x.created.name }}
+                </td>
+                <td class="text-center">
+                    {% if x.success %}
+                        <i class="fa fa-check-circle text-success" title="معتبر"></i>
+                    {% else %}
+                        <i class="fa fa-ban text-danger" title="پرداخت ناموفق"></i>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+document.getElementById('searchInput').addEventListener('keyup', function() {
+    var input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById('searchInput');
+    filter = input.value.toUpperCase().trim().split(" "); // ورودی را به کلمات جداگانه تقسیم می‌کند
+    table = document.getElementById('myTable');
+    tr = table.getElementsByTagName('tr');
+
+    for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
+        td = tr[i].getElementsByTagName('td');
+        var rowMatches = true; // فرض می‌کنیم که ردیف با شرایط جستجو مطابقت دارد
+
+        for (j = 0; j < filter.length; j++) { // برای هر کلمه جستجو
+            var wordMatched = false; // فرض می‌کنیم که هیچ کلمه‌ای مطابقت ندارد
+
+            for (let k = 0; k < td.length; k++) { // هر سلول را بررسی می‌کنیم
+                if (td[k]) {
+                    txtValue = td[k].textContent || td[k].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter[j]) > -1) {
+                        wordMatched = true; // اگر کلمه پیدا شد
+                        break;
+                    }
+                }
+            }
+
+            if (!wordMatched) {
+                rowMatches = false; // اگر هیچ کلمه‌ای در ردیف مطابقت نداشت
+                break;
+            }
+        }
+
+        if (rowMatches) {
+            tr[i].style.display = ""; // اگر ردیف با تمام کلمات مطابقت داشت، نمایش داده شود
+        }
+    }
+});
+
+</script>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        let table = document.getElementById('myTable');
+        let rows = table.getElementsByTagName('tr');
+
+        let today = new Date().toLocaleDateString('fa-IR-u-nu-latn');
+        let parts = today.split('/'); // فرض می‌کنیم که فرمت "YYYY/MM/DD" است
+
+        let year = parseInt(parts[0].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
+        let month = parseInt(parts[1].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
+        let day = parseInt(parts[2].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
+
+        const thisDate = jalaali.j2d(year, month, day)
+
+
+        for (var i = 1; i < rows.length; i++) { // شروع از 1 برای نادیده گرفتن هدر
+            var endDateCell = rows[i].querySelector('td[data-end-year]');
+
+            if (endDateCell) {
+                // دریافت تاریخ پایان شمسی
+                var endYearStr = endDateCell.getAttribute('data-end-year');
+                var endMonthStr = endDateCell.getAttribute('data-end-month');
+                var endDayStr = endDateCell.getAttribute('data-end-day');
+
+                 var userEndYear = parseInt(endYearStr);
+                 var userEndMonth = parseInt(endMonthStr);
+                 var userEndDay = parseInt(endDayStr);
+
+                 var userEnd = jalaali.j2d(userEndYear, userEndMonth, userEndDay)
+
+
+                // بررسی اینکه آیا تاریخ پایان گذشته است
+                if (userEnd<thisDate) {
+                     var statusCell = rows[i].querySelector('td:last-child'); // فرض می‌کنیم آخرین سلول وضعیت است
+                    if(statusCell.innerHTML.includes('fa-check-circle')) {
+                        statusCell.innerHTML = '<i class="fa fa-exclamation-circle text-warning" title="تاریخ پایان گذشته"></i>'; // تغییر به آیکون دلخواه
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<script>
+
+document.getElementById('todayButton').addEventListener('click', function() {
+    // تعریف روزهای هفته با شنبه به عنوان اولین روز
+    const daysOfWeek = ["یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه","جمعه","شنبه"];
+    const today = new Date();
+    const currentDay = daysOfWeek[today.getDay()]; // 0 = شنبه, 1 = یکشنبه, ...
+
+    console.log(today.getDay());
+
+    var table = document.getElementById('myTable');
+    var tr = table.getElementsByTagName('tr');
+
+    for (var i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
+        var td = tr[i].getElementsByTagName('td');
+        var isSuccess = tr[i].querySelector('.fa-check-circle'); // چک کردن وجود آیکون موفقیت
+
+        for (var j = 0; j < td.length; j++) {
+            if (td[j]) {
+                var txtValue = td[j].textContent || td[j].innerText;
+                var daysArray = txtValue.split('،').map(day => day.trim()); // جدا کردن روزها با ',' و حذف فضاها
+
+                // بررسی اگر روز فعلی در آرایه daysArray موجود باشد و وضعیت معتبر باشد
+                if (daysArray.includes(currentDay) && isSuccess) {
+                    tr[i].style.display = ""; // اگر روز فعلی پیدا شد و وضعیت معتبر بود، ردیف نمایش داده شود
+                    break;
+                }
+            }
+        }
+    }
+});
+
+
+</script>
+
+</body>
+</html>

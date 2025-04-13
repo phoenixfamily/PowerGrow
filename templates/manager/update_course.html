@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>به‌روزرسانی دوره</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+
+      <style>
+        body {
+            text-align: right;  /* راست‌چین کردن متن */
+            background: #312f2e;
+
+        }
+
+         .logoHolder {
+            width: 100%;
+            position: relative;
+            margin-top: 20px;
+            left: 0;
+            display: flex;
+            z-index: 10 !important;
+            direction: ltr;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+
+        }
+
+        .typography {
+            color: white;
+            font-size: 20px;
+            margin-left: 10px;
+
+        }
+
+
+         .form-control {
+             text-align: right;  /* راست‌چین کردن متن در فیلدهای فرم */
+         }
+
+         label {
+        color: white;  /* تغییر رنگ متن لیبل به سفید */
+    }
+          .custom-btn {
+            background-color: #E16539; /* رنگ دلخواه */
+            border: none; /* حذف حاشیه */
+              color: white;
+        }
+        .custom-btn:hover {
+               background-color: #a84e2c; /* تغییر رنگ در حالت hover */
+               color: #c4c4c4; /* رنگ برای حالت هاور */
+        }
+        .margin-bottom {
+            margin-bottom: 20px; /* فاصله از پایین */
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center; /* تراز عمودی */
+            justify-content: flex-end; /* تراز افقی به راست */
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="logoHolder">
+
+    <img alt="" src="/media/{{ about.logo }}" class="logo">
+    <div class="typography">PowerGrow</div>
+
+</div>
+
+
+
+    <div class="container mt-5">
+        <form id="update-course-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">:عنوان</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ course.title }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="name">:نام مربی</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ course.name }}" required>
+            </div>
+
+        <div class="form-group">
+                <label for="time">:زمان</label>
+                <input type="text" class="form-control" id="time" name="time" value="{{ course.time }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="type">:نوع</label>
+            <select class="form-control" id="type" name="type" required>
+                <option value="public" {% if course.type == "public" %}selected{% endif %}>عمومی</option>
+                <option value="private" {% if course.type == "private" %}selected{% endif %}>خصوصی</option>
+                <option value="semi_private" {% if course.type == "semi_private" %}selected{% endif %}>نیمه خصوصی</option>  <!-- گزینه جدید -->
+            </select>
+            </div>
+
+            <div class="form-group">
+                <label for="description">:توضیحات</label>
+                <textarea class="form-control" id="description" name="description">{{ course.description }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">:تصویر</label>
+                <input type="file" class="form-control" id="image" name="image">
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" id="selected" name="selected" {% if course.selected %}checked{% endif %}>
+                <label for="selected">:منتخب</label>
+            </div>
+
+            <div class="form-group">
+                <label for="capacity">:ظرفیت</label>
+                <input type="number" class="form-control" id="capacity" name="capacity" value="{{ course.capacity }}">
+            </div>
+
+            <div class="form-group">
+                <label for="gender">:جنسیت</label>
+                <select class="form-control" id="gender" name="gender">
+                    <option value="male" {% if course.gender == "male" %}selected{% endif %}>مرد</option>
+                    <option value="female" {% if course.gender == "female" %}selected{% endif %}>زن</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="active">:فعال</label>
+                <input type="checkbox" id="active" name="active" {% if course.active %}checked{% endif %}>
+            </div>
+
+            <button type="submit" class="btn custom-btn margin-bottom">به‌روزرسانی دوره</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<script>
+    document.getElementById('update-course-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const data = {
+            title: document.getElementById('title').value,
+            name: document.getElementById('name').value,
+            type: document.getElementById('type').value,
+            time: document.getElementById('time').value,
+            description: document.getElementById('description').value,
+            selected: document.getElementById('selected').checked,
+            gender: document.getElementById('gender').value,
+            capacity: document.getElementById('capacity').value,
+            active: document.getElementById('active').checked
+
+        };
+
+
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        fetch(`{% url 'product:manager-update-course' course.id %}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('اطلاعات با موفقیت به‌روزرسانی شد!');
+                // به صفحه دیگر برو یا فرم را پاک کن
+            } else {
+                return response.json().then(errorData => {
+                    alert('خطا: ' + JSON.stringify(errorData));
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+</body>
+</html>

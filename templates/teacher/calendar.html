@@ -1,0 +1,458 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/cf09389368.js" crossorigin="anonymous"></script>
+
+     <script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.min.js"></script>
+
+<script src="https://unpkg.com/jalaali-js/dist/jalaali.js"></script>
+<script src="https://unpkg.com/jalaali-js/dist/jalaali.min.js"></script>
+
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+        <title>تقویم من</title>
+
+    <style>
+
+           @font-face {
+            font-family: BYekan;
+            font-style: normal;
+            font-weight: normal;
+            src: url("/static/fonts/BYekan.eot");/* IE9 Compat Modes */
+            src: url("/static/fonts/BYekan.woff") format('woff'),
+            url("/static/fonts/BYekan.woff") format('woff2'), /* Super Modern Browsers */ url("../../static/fonts/BYekan.ttf") format('truetype') /* Safari, Android, iOS */
+        }
+
+           html, body {
+               margin: 0;
+               padding: 0;
+               background: #312f2e;
+               overflow-x: hidden;
+               font-family: BYekan, serif !important;
+           }
+
+        .logoHolder {
+            width: 100%;
+            position: relative;
+            margin-top: 20px;
+            left: 0;
+            display: flex;
+            z-index: 10 !important;
+            direction: ltr;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+
+        }
+
+        .typography {
+            color: white;
+            font-size: 20px;
+            margin-left: 10px;
+
+        }
+
+        .activeButton {
+            background: #1a5bbc;
+            color: white !important
+        }
+
+         .courseButton {
+            background: green;
+            color: white !important
+        }
+
+         .holidayButton {
+            color: #ff0c0c !important;
+        }
+
+         .disActiveButton{
+             cursor: none;
+             pointer-events: none;
+             opacity:0.6;
+         }
+
+          .custom-container {
+             margin-top: 50px;
+             display: flex;
+             justify-content: center;
+             direction: rtl;
+             width: 100%; /* تغییر به 70 درصد */
+}
+
+         .date-picker, .time-picker {
+            background: #FFFFFF;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+
+          .time-picker {
+                    direction: rtl;
+                    width: 48%; /* کاهش عرض برای جایگذاری در کنار هم */
+                }
+
+                .date-picker {
+                    width: 48%; /* کاهش عرض برای جایگذاری در کنار هم */
+                }
+
+            table {
+                max-height: 280px;
+                overflow: auto;
+                display: inline-block;
+            }
+
+             .month {
+                 width: 100%;
+                 height: 25%;
+                 background: #e4633a;
+                 text-align: center;
+                 color: white;
+                 padding: 7px 0;
+             }
+
+        .month ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .month ul li {
+            display: inline;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .month .prev,
+        .month .next {
+            cursor: pointer;
+            font-size: 24px;
+            margin: 0 15px;
+        }
+
+        .weekdays {
+            margin: 0;
+            padding: 1px 0;
+            background-color: #ddd;
+            direction: rtl;
+            text-align: center;
+        }
+
+        .weekdays li {
+            display: inline-block;
+            width: 13%;
+            color: #666;
+            text-align: center;
+        }
+
+        .days {
+            padding: 4px 0;
+            margin: 0;
+            border-bottom-left-radius: 20px;
+            text-align: right;
+            direction: rtl;
+
+        }
+
+        .days li {
+            list-style-type: none;
+            display: inline-block;
+            width: 14.2%;
+            text-align: center;
+            margin-bottom: 1px;
+            font-size: 16px;
+            color: #000;
+            cursor: pointer;
+            padding: 10px 0;
+            transition: background 0.3s;
+        }
+
+             @media screen and (max-width: 600px) {
+
+                .custom-container{
+                   align-items: center;
+                   width: calc(100% - 30px);
+                   flex-wrap: wrap;
+                   justify-content: center;
+                   margin: 50px 15px 0 15px;
+
+               }
+
+               .date-picker, .time-picker {
+                width: 100%; /* در اندازه‌های موبایل، عرض کامل */
+                margin: 15px 0; /* فاصله عمودی */
+            }
+
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="logoHolder">
+
+    <img alt="" src="/media/{{ about.logo }}" class="logo">
+    <div class="typography">PowerGrow</div>
+
+</div>
+
+    <div class="custom-container">
+        <div class="date-picker">
+            <div class="month">
+                <ul>
+                    <li id="prev" class="prev">&#10094;</li>
+                    <li id="monthTitle"></li>
+                    <li id="next" class="next">&#10095;</li>
+                </ul>
+                <span id="yearTitle" style="font-size: 18px;"></span>
+            </div>
+            <ul class="weekdays">
+                <li>ش</li>
+                <li>ی</li>
+                <li>د</li>
+                <li>س</li>
+                <li>چ</li>
+                <li>پ</li>
+                <li>ج</li>
+            </ul>
+            <ul id="days" class="days">
+                <!-- روزها از سمت سرور می‌آیند -->
+            </ul>
+        </div>
+
+<div class="time-picker">
+
+ <div class="table-responsive" style="margin: 10px">
+
+<table class="table table-bordered" style="border-color: black" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+        <th scope="col"> نام </th>
+        <th scope="col">روزهای برگزاری</th>
+        <th scope="col">تعداد جلسات</th>
+        <th scope="col">تاریخ شروع</th>
+        <th scope="col">تاریخ پایان</th>
+        <th scope="col">زمان </th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for x in participants %}
+    <tr>
+      <th scope="row">{{ x.id }}</th>
+      <td>{{ x.course.title }}</td>
+        <td>{{ x.day.title }}</td>
+        <td>{{ x.session.number }}</td>
+        <td>{{ x.startDay }}</td>
+        <td>{{ x.endDay }}</td>
+
+        <td>{{ x.course.time }}</td>
+    </tr>
+   {% endfor %}
+
+   {% for x in reservation %}
+    <tr>
+      <th scope="row">{{ x.id }}</th>
+      <td>{{ x.title }}</td>
+        <td>{{ x.time.day.name }}</td>
+        <td>{{ x.session }}</td>
+        <td>{{ x.time.day }}</td>
+        <td>{{ x.endDate.day }}</td>
+        <td>{{ x.time.time | date:"G:i:s"}}</td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+</div>
+
+</div>
+</div>
+</body>
+
+<script>
+
+    let calendar = document.getElementById("calendar")
+    let monthTitle = document.getElementById("monthTitle")
+    let yearTitle = document.getElementById("yearTitle")
+    let prev = document.getElementById("next")
+    let next = document.getElementById("prev")
+    let days = document.getElementById("days")
+    let result
+    let monthSize
+    let currentDayId
+    let today = new Date().toLocaleDateString('fa-IR');
+    today = today.split('/')
+    let currentDay = today[2].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728) )
+    let currentMonth = today[1].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728) )
+    let currentYear = today[0].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728) )
+    let thisYear = today[0].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728) )
+    let monthPosition = currentMonth-1
+    let thisList = "{{ thisList }}"
+    let resList = "{{ resList }}"
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        getYear()
+
+    });
+
+      next.addEventListener("click", function () {
+            if (monthPosition > 0) {
+                monthPosition = monthPosition - 1
+                getDays(monthPosition)
+            }else if (monthPosition === 0){
+               if(currentYear>1402) {
+                   currentYear = currentYear - 1
+                   getYear(currentYear)
+               }
+            }
+        })
+
+     prev.addEventListener("click",function () {
+          if (monthPosition<monthSize-1){
+            monthPosition = monthPosition+1
+             getDays(monthPosition)
+        }else if (monthPosition === monthSize-1){
+              if(currentYear<1403) {
+                  currentYear = currentYear + 1
+                  getYear(currentYear)
+              }
+         }
+    })
+
+
+    async function getYear() {
+
+        const response = await fetch(`/calendar/api/year/${currentYear}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        result = await response.json()
+        result = JSON.parse(JSON.stringify(result))
+        monthSize = result[0].months.length
+        yearTitle.innerHTML = result[0].number
+
+         if (currentYear<thisYear){
+             monthPosition = monthSize-1
+             getDays(monthSize-1)
+         }else if(currentYear === thisYear){
+             monthPosition = currentMonth - 1
+             getDays(monthPosition)
+         }else{
+             monthPosition = 0
+             getDays(monthPosition)
+         }
+
+    }
+
+
+    function getDays(monthPosition) {
+        monthTitle.innerHTML = result[0].months[monthPosition].name
+        days.innerHTML=""
+
+        const emptyDay = document.createElement("li")
+                emptyDay.innerHTML = ' '
+
+        switch (result[0].months[monthPosition].startDay) {
+
+            case "یکشنبه" :
+                const empty0 = document.createElement("li")
+                days.appendChild(empty0)
+                break
+            case "دوشنبه" :
+                const empty1 = document.createElement("li")
+                days.appendChild(empty1)
+                const empty2 = document.createElement("li")
+                days.appendChild(empty2)
+                break
+
+            case "سه شنبه" :
+               const empty3 = document.createElement("li")
+                days.appendChild(empty3)
+                const empty4 = document.createElement("li")
+                days.appendChild(empty4)
+                const empty5 = document.createElement("li")
+                days.appendChild(empty5)
+                break
+             case "چهارشنبه" :
+                 const empty6 = document.createElement("li")
+                days.appendChild(empty6)
+                const empty7 = document.createElement("li")
+                days.appendChild(empty7)
+                const empty9 = document.createElement("li")
+                days.appendChild(empty9)
+                 const empty10 = document.createElement("li")
+                days.appendChild(empty10)
+                break
+             case "پنجشنبه" :
+                const empty11 = document.createElement("li")
+                days.appendChild(empty11)
+                const empty12 = document.createElement("li")
+                days.appendChild(empty12)
+                const empty13 = document.createElement("li")
+                days.appendChild(empty13)
+                 const empty14 = document.createElement("li")
+                days.appendChild(empty14)
+                 const empty15 = document.createElement("li")
+                days.appendChild(empty15)
+                break
+             case "جمعه" :
+                  const empty16 = document.createElement("li")
+                days.appendChild(empty16)
+                const empty17 = document.createElement("li")
+                days.appendChild(empty17)
+                const empty18 = document.createElement("li")
+                days.appendChild(empty18)
+                 const empty19 = document.createElement("li")
+                days.appendChild(empty19)
+                 const empty20 = document.createElement("li")
+                days.appendChild(empty20)
+                 const empty21 = document.createElement("li")
+                days.appendChild(empty21)
+                break
+        }
+        for (let i = 0 ; i< result[0].months[monthPosition].days.length ; i++){
+            const dayItem = document.createElement("li")
+
+            if (result[0].months[monthPosition].days[i].holiday === true) {
+                dayItem.classList.add("holidayButton")
+            }else if ( result[0].months[monthPosition].number === parseInt(currentMonth) && result[0].months[monthPosition].days[i].number === parseInt(currentDay))
+            {
+                dayItem.classList.add("activeButton")
+                currentDayId = result[0].months[monthPosition].days[i].id
+                date = `${result[0].number}-${result[0].months[monthPosition].number}-${result[0].months[monthPosition].days[i].number}`
+
+            }else if (thisList.includes(result[0].months[monthPosition].days[i].id )){
+                dayItem.classList.add("courseButton")
+            }else if (resList.includes(result[0].months[monthPosition].days[i].id )){
+                dayItem.classList.add("courseButton")
+            }
+            dayItem.innerHTML = result[0].months[monthPosition].days[i].number
+            dayItem.setAttribute("itemid",result[0].months[monthPosition].days[i].id)
+            days.appendChild(dayItem)
+        }
+    }
+
+</script>
+
+
+</html>

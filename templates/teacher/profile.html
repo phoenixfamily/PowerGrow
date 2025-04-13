@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+     <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+    <script type="text/javascript" src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+
+
+    <title>پروفایل کاربر</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #312f2e;
+            color: white;
+            text-align: right;  /* راست‌چین کردن متن */
+
+        }
+
+        .logoHolder {
+            width: 100%;
+            position: relative;
+            margin-top: 20px;
+            left: 0;
+            display: flex;
+            z-index: 10 !important;
+            direction: ltr;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+
+        }
+
+        .typography {
+            color: white;
+            font-size: 20px;
+            margin-left: 10px;
+
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .custom-btn {
+            background-color: #E16539; /* رنگ دلخواه */
+            border: none; /* حذف حاشیه */
+            color: white;
+        }
+        .custom-btn:hover {
+               background-color: #a84e2c; /* تغییر رنگ در حالت hover */
+               color: #c4c4c4; /* رنگ برای حالت هاور */
+        }
+
+        .modal-content{
+            background-color: #f7f0e8;
+            color: black
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="logoHolder">
+
+    <img alt="" src="/media/{{ about.logo }}" class="logo">
+    <div class="typography">PowerGrow</div>
+
+</div>
+
+
+<div class="container mt-5">
+    <div class="card p-4">
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="username">شماره تلفن</label>
+                <input type="tel" class="form-control" id="username" value="{{ user.number }}" disabled>
+            </div>
+             <div class="form-group">
+                <label for="fullname">نام و نام خانوادگی</label>
+                <input type="text" class="form-control" id="fullname" value="{{ user.name }}">
+            </div>
+            <div class="form-group">
+                <label for="birthdate">تاریخ تولد</label>
+                <input type="text" class="form-control" id="birthdate" value="{{ user.birthdate }}" data-jdp>
+            </div>
+            <div class="form-group">
+                <label for="email">ایمیل</label>
+                <input type="email" class="form-control" id="email" value="{{ user.email }}">
+            </div>
+              <div class="form-group">
+                <label for="salary">نوع حقوق</label>
+                <input type="text" class="form-control" id="salary" value="{{ user.salary }}" disabled>
+            </div>
+             <div class="form-group">
+                <label for="fee">مقدار حقوق</label>
+                <input type="text" class="form-control" id="fee" value="{{ user.fee }}" disabled>
+            </div>
+
+             <div class="form-group">
+                <label for="situation">وضعیت حساب</label>
+                <input type="text" class="form-control" id="situation" value="{{ user.situation }}" disabled>
+            </div>
+             <div class="form-group">
+                <label for="debt">مقدار حساب</label>
+                <input type="text" class="form-control" id="debt" value="{{ user.debt }} تومان " disabled>
+            </div>
+
+            <button type="submit" class="btn custom-btn">ثبت اطلاعات</button>
+            <button type="button" class="btn custom-btn" data-toggle="modal" data-target="#changePasswordModal">تغییر پسورد</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal برای تغییر پسورد -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">تغییر پسورد</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="currentPassword">پسورد فعلی</label>
+                        <input type="password" class="form-control" id="currentPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">پسورد جدید</label>
+                        <input type="password" class="form-control" id="newPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">تأیید پسورد جدید</label>
+                        <input type="password" class="form-control" id="confirmPassword" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn custom-btn" data-dismiss="modal">بستن</button>
+                <button id="changePasswordButton" type="button" class="btn custom-btn">تغییر پسورد</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+     jalaliDatepicker.startWatch({
+        time: false,
+    });
+
+    document.getElementById('profileForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+            const userData = {
+                birthdate: document.getElementById('birthdate').value,
+                email: document.getElementById('email').value,
+                name: document.getElementById('fullname').value
+            };
+
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            fetch('{% url 'user:update_profile' %}', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(response => {
+                if (response.ok) {
+                window.location.reload()
+            } else {
+                return response.json().then(errorData => {
+                    alert('خطا: ' + JSON.stringify(errorData));
+                });
+            }
+            })
+            .catch(error => {
+                console.error('Error updating profile:', error);
+                alert('خطا در به‌روزرسانی اطلاعات.');
+            });
+        });
+
+</script>
+
+<script>
+
+      document.getElementById('changePasswordButton').addEventListener('click', function() {
+            const oldPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('پسورد جدید و تأیید پسورد جدید مطابقت ندارد.');
+                return;
+            }
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            fetch('{% url 'user:change-profile-password' %}', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify({ old_password: oldPassword, new_password: newPassword })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('پسورد با موفقیت تفییر کرد.');
+                        window.location.reload()
+
+            } else {
+                return response.json().then(errorData => {
+                    alert('خطا: ' + JSON.stringify(errorData));
+                });
+            }
+            })
+            .catch(error => {
+                console.error('Error changing password:', error);
+                alert('خطا در تغییر پسورد.');
+            });
+        });
+
+</script>
+
+</body>
+</html>

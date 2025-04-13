@@ -1,0 +1,269 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://kit.fontawesome.com/cf09389368.js" crossorigin="anonymous"></script><link rel="stylesheet" href="https://static.neshan.org/sdk/mapboxgl/v1.13.2/neshan-sdk/v1.0.8/index.css" />
+<script src="https://static.neshan.org/sdk/mapboxgl/v1.13.2/neshan-sdk/v1.0.8/index.js"></script>
+
+        <title>خطا در پرداخت</title>
+
+
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+
+    <style>
+
+        	@font-face {
+			font-family: BYekan;
+  			font-style: normal;
+  			font-weight: normal;
+  			src: url("/static/fonts/BYekan.eot");/* IE9 Compat Modes */
+			src: url("/static/fonts/BYekan.woff") format('woff'),
+        		 url("/static/fonts/BYekan.woff") format('woff2'), /* Super Modern Browsers */
+        		 url("/static/fonts/BYekan.ttf")  format('truetype') /* Safari, Android, iOS */
+		}
+        * {
+            box-sizing: border-box
+        }
+
+             html{
+                 position: relative;
+                 font-family: BYekan, serif !important;
+        }
+
+            body {
+                display: flex;
+                direction: rtl;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background: #282a36;
+                color: #fff;
+            }
+
+             .logoHolder {
+                 position: absolute;
+                 top: 0;
+                 justify-items: center;
+                 justify-content: center;
+                 margin-top: 1%;
+                 display: inline-flex;
+                 direction: ltr;
+             }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            direction: ltr
+
+        }
+
+        .typography {
+            margin-top: 10px;
+            color: white;
+            margin-left: 10px;
+            font-size: 20px
+
+        }
+
+            ul {
+            list-style-type: none;
+        }
+
+           .card {
+               width: 35%;
+               height: auto;
+               border-radius: 1rem;
+               margin-top: 100px;
+               margin-bottom: 100px;
+               background: #f6efe7;
+               color: black;
+               left: 0;
+               right: 0;
+           }
+
+        .card-button {
+            height: 50px;
+            margin-top: 5%;
+            margin-bottom: 5%;
+            width: 90%;
+            background: #e4633a;
+            border-color: transparent;
+            color: white;
+            cursor: pointer;
+        }
+         .list-group-item-fixed {
+             width: auto;
+             margin-top: 4%;
+             padding-bottom: 4%;
+        }
+        .list-group-left {
+            text-align: center;
+            float: left;
+            display: inline;
+            width: 40%;
+        }
+        .list-group-right {
+            text-align: right;
+            float: right;
+            display: inline;
+            width: 35%;
+        }
+
+         .list-group-center {
+             text-align: center;
+             display: inline-block;
+             align-items: center;
+             justify-content: center;
+             color: red;
+             width: 100%;
+        }
+
+        div.list-group-right {
+            width: 55%;
+            display: inline-flex;
+        }
+
+        #zarinpal{
+            pointer-events: none;
+            cursor: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            flex-direction: column;
+        }
+            #zarinpal img {
+                width: 80px;
+            }
+
+        @media screen and (max-width: 600px) {
+            .card {
+               width: 90%;
+
+           }
+        }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="logoHolder">
+
+    <img alt="" src="/media/{{ about.logo }}" class="logo">
+    <div class="typography">PowerGrow</div>
+
+</div>
+
+
+
+<div class="card" id="card">
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item-fixed">
+            <h6 class="list-group-right">
+                نام سالن:
+            </h6>
+            <h6 class="list-group-left">
+                {{ reservation.gym.title }}
+            </h6>
+        </li>
+    </ul>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item-fixed">
+            <h6 class="list-group-right">
+                تاریخ رزرو:
+            </h6>
+            <h6 id="startDay" class="list-group-left">
+               {{ reservation.time.day.month.year.number }}/{{ reservation.time.day.month.number }}/{{ reservation.time.day.number }}
+            </h6>
+        </li>
+    </ul>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item-fixed">
+            <h6 class="list-group-right">
+                ساعت رزرو:
+            </h6>
+            <h6 id="startTime" class="list-group-left">
+                {{ reservation.time.time | date:"G:i:s" }}
+            </h6>
+        </li>
+    </ul>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item-fixed">
+            <h6 class="list-group-right">
+                تعداد جلسات رزرو:
+            </h6>
+            <h6 id="timeSession" class="list-group-left">
+                {{ reservation.session }} جلسه
+            </h6>
+        </li>
+    </ul>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item-fixed">
+            <h6 class="list-group-right">
+                اجاره ثابت:
+            </h6>
+            <h6 id="price" class="list-group-left">
+                {{ reservation.time.price }} تومان
+            </h6>
+        </li>
+    </ul>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item-fixed">
+            <h6 class="list-group-right">
+               تخفیف:
+            </h6>
+            <h6 id="off" class="list-group-left">
+                {{ reservation.time.off }}%
+            </h6>
+        </li>
+    </ul>
+
+     <ul class="list-group list-group-flush">
+        <li class="list-group-item-fixed">
+            <h6 class="list-group-right">
+               قیمت نهایی:
+            </h6>
+            <h6 id="final" class="list-group-left">
+                {{ reservation.price }} تومان
+            </h6>
+        </li>
+    </ul>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item-fixed list-group-center ">
+            <h4>
+               پرداخت انجام نشد
+            </h4>
+
+        </li>
+    </ul>
+
+    <ul class="list-group list-group-flush">
+        <li>
+             <button id="registerButton" class="card-button" onclick="window.location.replace('{% url 'reservation:reservation' %}')">
+        برگشت
+             </button>
+        </li>
+    </ul>
+
+
+</div>
+
+</body>
+
+</html>

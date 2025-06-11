@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="869450b2-52ab-4cc6-935a-c739e66c41a4" name="Changes" comment="font awsome updated">
+      <change beforePath="$PROJECT_DIR$/.idea/PowerGrow.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PowerGrow.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/User/urls.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2cHlPLk7oW2bi0LUGo9ESZXrvys" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Django Server.PowerGrow.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "ignore_missing_gitignore": "true",
+    "last_opened_file_path": "C:/Users/abbas/AppData/Local/Microsoft/WindowsApps/python3.13.exe",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\abbas\PycharmProjects\PowerGrow\PowerGrow" />
+      <recent name="C:\Users\abbas\PycharmProjects\PowerGrow\static\images" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="PowerGrow" type="Python.DjangoServer" factoryName="Django server">
+      <module name="PowerGrow" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="PowerGrow.settings" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\abbas\PycharmProjects\PowerGrow\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.26053.29" />
+        <option value="bundled-python-sdk-b1dbf8ef85a6-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.26053.29" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="869450b2-52ab-4cc6-935a-c739e66c41a4" name="Changes" comment="" />
+      <created>1707776361251</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1707776361251</updated>
+      <workItem from="1707776363280" duration="991000" />
+      <workItem from="1708128551010" duration="9867000" />
+      <workItem from="1708296398621" duration="1558000" />
+      <workItem from="1708298914255" duration="439000" />
+      <workItem from="1709900443183" duration="16976000" />
+      <workItem from="1710589151990" duration="14951000" />
+      <workItem from="1710754573327" duration="2404000" />
+      <workItem from="1712575507290" duration="15056000" />
+      <workItem from="1713123765609" duration="10478000" />
+      <workItem from="1713538209345" duration="27720000" />
+      <workItem from="1713781975908" duration="2776000" />
+      <workItem from="1713916116241" duration="7374000" />
+      <workItem from="1713954674388" duration="5545000" />
+      <workItem from="1713973151999" duration="1727000" />
+      <workItem from="1714385155753" duration="2964000" />
+      <workItem from="1714949103561" duration="1075000" />
+      <workItem from="1715083937197" duration="25889000" />
+      <workItem from="1715189183220" duration="2535000" />
+      <workItem from="1715371658265" duration="1910000" />
+      <workItem from="1715531176547" duration="2704000" />
+      <workItem from="1715695496486" duration="2077000" />
+      <workItem from="1715715794271" duration="600000" />
+      <workItem from="1715791367660" duration="1456000" />
+      <workItem from="1715807103950" duration="403000" />
+      <workItem from="1715954443476" duration="2534000" />
+      <workItem from="1716665282626" duration="22109000" />
+      <workItem from="1716822128791" duration="47064000" />
+      <workItem from="1717040814636" duration="71071000" />
+      <workItem from="1717248672466" duration="20732000" />
+      <workItem from="1717685022042" duration="7000" />
+      <workItem from="1717992201384" duration="249000" />
+      <workItem from="1719413332439" duration="1646000" />
+      <workItem from="1719463327290" duration="4789000" />
+      <workItem from="1719639535632" duration="1488000" />
+      <workItem from="1719824865280" duration="17267000" />
+      <workItem from="1720274743119" duration="15000" />
+      <workItem from="1721222168196" duration="8554000" />
+      <workItem from="1721258753893" duration="1598000" />
+      <workItem from="1721264876062" duration="35000" />
+      <workItem from="1721266553729" duration="2393000" />
+      <workItem from="1721272016735" duration="2241000" />
+      <workItem from="1721308666111" duration="88000" />
+      <workItem from="1721308926183" duration="2108000" />
+      <workItem from="1721410858462" duration="5153000" />
+      <workItem from="1721426783690" duration="266000" />
+      <workItem from="1721427069303" duration="97000" />
+      <workItem from="1721427186635" duration="15000" />
+      <workItem from="1721427619745" duration="336000" />
+      <workItem from="1721427977025" duration="157000" />
+      <workItem from="1721428154870" duration="130000" />
+      <workItem from="1721428306532" duration="73000" />
+      <workItem from="1721428401489" duration="396000" />
+      <workItem from="1721428824734" duration="37000" />
+      <workItem from="1721463876104" duration="2673000" />
+      <workItem from="1721467905718" duration="525000" />
+      <workItem from="1721468482355" duration="597000" />
+      <workItem from="1721603107633" duration="8805000" />
+      <workItem from="1721764492085" duration="1199000" />
+      <workItem from="1721772918642" duration="2716000" />
+      <workItem from="1722005416244" duration="602000" />
+      <workItem from="1722267009690" duration="583000" />
+      <workItem from="1722545559646" duration="1822000" />
+      <workItem from="1723317348667" duration="58000" />
+      <workItem from="1723328353140" duration="617000" />
+      <workItem from="1726870132776" duration="226651000" />
+      <workItem from="1727543699798" duration="22291000" />
+      <workItem from="1727629307111" duration="59557000" />
+      <workItem from="1728203354344" duration="7900000" />
+      <workItem from="1728376914802" duration="2435000" />
+      <workItem from="1728448829346" duration="57981000" />
+      <workItem from="1728793827654" duration="2661000" />
+      <workItem from="1728981596090" duration="57550000" />
+      <workItem from="1730484274237" duration="1186000" />
+      <workItem from="1731180678434" duration="21000" />
+      <workItem from="1731181537636" duration="5335000" />
+      <workItem from="1731224257209" duration="5888000" />
+      <workItem from="1731925286871" duration="192000" />
+      <workItem from="1732211158805" duration="157000" />
+      <workItem from="1732647946031" duration="29000" />
+      <workItem from="1732751536723" duration="890000" />
+      <workItem from="1733227756359" duration="1775000" />
+      <workItem from="1733692570730" duration="310000" />
+      <workItem from="1735013989806" duration="642000" />
+      <workItem from="1735075800481" duration="15703000" />
+      <workItem from="1735318046002" duration="1673000" />
+      <workItem from="1735346801811" duration="3471000" />
+      <workItem from="1735519232149" duration="763000" />
+      <workItem from="1735582015522" duration="1933000" />
+      <workItem from="1735873407876" duration="1586000" />
+      <workItem from="1735917845869" duration="4230000" />
+      <workItem from="1736367758938" duration="4000" />
+      <workItem from="1736539571270" duration="16782000" />
+      <workItem from="1736673835188" duration="3500000" />
+      <workItem from="1736748695792" duration="1271000" />
+      <workItem from="1736779638176" duration="120000" />
+      <workItem from="1736798193551" duration="3802000" />
+      <workItem from="1737011907266" duration="153000" />
+      <workItem from="1737012397389" duration="1289000" />
+      <workItem from="1737080414828" duration="22948000" />
+      <workItem from="1737795383036" duration="15385000" />
+      <workItem from="1739932202897" duration="6501000" />
+      <workItem from="1740176322993" duration="1367000" />
+      <workItem from="1741534788782" duration="5060000" />
+      <workItem from="1742401489014" duration="2393000" />
+      <workItem from="1743544800823" duration="15000" />
+      <workItem from="1743784872900" duration="3477000" />
+      <workItem from="1744406114134" duration="7000" />
+      <workItem from="1744488780084" duration="645000" />
+      <workItem from="1744519578812" duration="4425000" />
+      <workItem from="1744573210947" duration="111000" />
+      <workItem from="1744573388644" duration="3577000" />
+      <workItem from="1744586935717" duration="309000" />
+    </task>
+    <task id="LOCAL-02784" summary="font awsome updated">
+      <created>1737797848541</created>
+      <option name="number" value="02784" />
+      <option name="presentableId" value="LOCAL-02784" />
+      <option name="project" value="LOCAL" />
+      <updated>1737797848541</updated>
+    </task>
+    <task id="LOCAL-02785" summary="font awsome updated">
+      <created>1737798168119</created>
+      <option name="number" value="02785" />
+      <option name="presentableId" value="LOCAL-02785" />
+      <option name="project" value="LOCAL" />
+      <updated>1737798168119</updated>
+    </task>
+    <task id="LOCAL-02786" summary="font awsome updated">
+      <created>1737798296564</created>
+      <option name="number" value="02786" />
+      <option name="presentableId" value="LOCAL-02786" />
+      <option name="project" value="LOCAL" />
+      <updated>1737798296564</updated>
+    </task>
+    <task id="LOCAL-02787" summary="font awsome updated">
+      <created>1737798441988</created>
+      <option name="number" value="02787" />
+      <option name="presentableId" value="LOCAL-02787" />
+      <option name="project" value="LOCAL" />
+      <updated>1737798441988</updated>
+    </task>
+    <task id="LOCAL-02788" summary="font awsome updated">
+      <created>1737799293993</created>
+      <option name="number" value="02788" />
+      <option name="presentableId" value="LOCAL-02788" />
+      <option name="project" value="LOCAL" />
+      <updated>1737799293993</updated>
+    </task>
+    <task id="LOCAL-02789" summary="font awsome updated">
+      <created>1737799417430</created>
+      <option name="number" value="02789" />
+      <option name="presentableId" value="LOCAL-02789" />
+      <option name="project" value="LOCAL" />
+      <updated>1737799417430</updated>
+    </task>
+    <task id="LOCAL-02790" summary="font awsome updated">
+      <created>1737799818398</created>
+      <option name="number" value="02790" />
+      <option name="presentableId" value="LOCAL-02790" />
+      <option name="project" value="LOCAL" />
+      <updated>1737799818398</updated>
+    </task>
+    <task id="LOCAL-02791" summary="font awsome updated">
+      <created>1737801311349</created>
+      <option name="number" value="02791" />
+      <option name="presentableId" value="LOCAL-02791" />
+      <option name="project" value="LOCAL" />
+      <updated>1737801311349</updated>
+    </task>
+    <task id="LOCAL-02792" summary="font awsome updated">
+      <created>1737818911593</created>
+      <option name="number" value="02792" />
+      <option name="presentableId" value="LOCAL-02792" />
+      <option name="project" value="LOCAL" />
+      <updated>1737818911593</updated>
+    </task>
+    <task id="LOCAL-02793" summary="font awsome updated">
+      <created>1737820102564</created>
+      <option name="number" value="02793" />
+      <option name="presentableId" value="LOCAL-02793" />
+      <option name="project" value="LOCAL" />
+      <updated>1737820102564</updated>
+    </task>
+    <task id="LOCAL-02794" summary="font awsome updated">
+      <created>1737820299851</created>
+      <option name="number" value="02794" />
+      <option name="presentableId" value="LOCAL-02794" />
+      <option name="project" value="LOCAL" />
+      <updated>1737820299851</updated>
+    </task>
+    <task id="LOCAL-02795" summary="font awsome updated">
+      <created>1737820426821</created>
+      <option name="number" value="02795" />
+      <option name="presentableId" value="LOCAL-02795" />
+      <option name="project" value="LOCAL" />
+      <updated>1737820426821</updated>
+    </task>
+    <task id="LOCAL-02796" summary="font awsome updated">
+      <created>1737820764230</created>
+      <option name="number" value="02796" />
+      <option name="presentableId" value="LOCAL-02796" />
+      <option name="project" value="LOCAL" />
+      <updated>1737820764230</updated>
+    </task>
+    <task id="LOCAL-02797" summary="font awsome updated">
+      <created>1737821238231</created>
+      <option name="number" value="02797" />
+      <option name="presentableId" value="LOCAL-02797" />
+      <option name="project" value="LOCAL" />
+      <updated>1737821238231</updated>
+    </task>
+    <task id="LOCAL-02798" summary="font awsome updated">
+      <created>1737821980374</created>
+      <option name="number" value="02798" />
+      <option name="presentableId" value="LOCAL-02798" />
+      <option name="project" value="LOCAL" />
+      <updated>1737821980379</updated>
+    </task>
+    <task id="LOCAL-02799" summary="font awsome updated">
+      <created>1737822032262</created>
+      <option name="number" value="02799" />
+      <option name="presentableId" value="LOCAL-02799" />
+      <option name="project" value="LOCAL" />
+      <updated>1737822032262</updated>
+    </task>
+    <task id="LOCAL-02800" summary="font awsome updated">
+      <created>1737822041588</created>
+      <option name="number" value="02800" />
+      <option name="presentableId" value="LOCAL-02800" />
+      <option name="project" value="LOCAL" />
+      <updated>1737822041588</updated>
+    </task>
+    <task id="LOCAL-02801" summary="font awsome updated">
+      <created>1737822143520</created>
+      <option name="number" value="02801" />
+      <option name="presentableId" value="LOCAL-02801" />
+      <option name="project" value="LOCAL" />
+      <updated>1737822143520</updated>
+    </task>
+    <task id="LOCAL-02802" summary="font awsome updated">
+      <created>1737822417453</created>
+      <option name="number" value="02802" />
+      <option name="presentableId" value="LOCAL-02802" />
+      <option name="project" value="LOCAL" />
+      <updated>1737822417453</updated>
+    </task>
+    <task id="LOCAL-02803" summary="font awsome updated">
+      <created>1737822509310</created>
+      <option name="number" value="02803" />
+      <option name="presentableId" value="LOCAL-02803" />
+      <option name="project" value="LOCAL" />
+      <updated>1737822509310</updated>
+    </task>
+    <task id="LOCAL-02804" summary="font awsome updated">
+      <created>1737822600499</created>
+      <option name="number" value="02804" />
+      <option name="presentableId" value="LOCAL-02804" />
+      <option name="project" value="LOCAL" />
+      <updated>1737822600499</updated>
+    </task>
+    <task id="LOCAL-02805" summary="font awsome updated">
+      <created>1737822824295</created>
+      <option name="number" value="02805" />
+      <option name="presentableId" value="LOCAL-02805" />
+      <option name="project" value="LOCAL" />
+      <updated>1737822824295</updated>
+    </task>
+    <task id="LOCAL-02806" summary="font awsome updated">
+      <created>1737823510401</created>
+      <option name="number" value="02806" />
+      <option name="presentableId" value="LOCAL-02806" />
+      <option name="project" value="LOCAL" />
+      <updated>1737823510401</updated>
+    </task>
+    <task id="LOCAL-02807" summary="font awsome updated">
+      <created>1737823734714</created>
+      <option name="number" value="02807" />
+      <option name="presentableId" value="LOCAL-02807" />
+      <option name="project" value="LOCAL" />
+      <updated>1737823734714</updated>
+    </task>
+    <task id="LOCAL-02808" summary="font awsome updated">
+      <created>1737824383358</created>
+      <option name="number" value="02808" />
+      <option name="presentableId" value="LOCAL-02808" />
+      <option name="project" value="LOCAL" />
+      <updated>1737824383358</updated>
+    </task>
+    <task id="LOCAL-02809" summary="font awsome updated">
+      <created>1737824906923</created>
+      <option name="number" value="02809" />
+      <option name="presentableId" value="LOCAL-02809" />
+      <option name="project" value="LOCAL" />
+      <updated>1737824906923</updated>
+    </task>
+    <task id="LOCAL-02810" summary="font awsome updated">
+      <created>1739934071937</created>
+      <option name="number" value="02810" />
+      <option name="presentableId" value="LOCAL-02810" />
+      <option name="project" value="LOCAL" />
+      <updated>1739934071937</updated>
+    </task>
+    <task id="LOCAL-02811" summary="font awsome updated">
+      <created>1739935076821</created>
+      <option name="number" value="02811" />
+      <option name="presentableId" value="LOCAL-02811" />
+      <option name="project" value="LOCAL" />
+      <updated>1739935076821</updated>
+    </task>
+    <task id="LOCAL-02812" summary="font awsome updated">
+      <created>1739937311411</created>
+      <option name="number" value="02812" />
+      <option name="presentableId" value="LOCAL-02812" />
+      <option name="project" value="LOCAL" />
+      <updated>1739937311411</updated>
+    </task>
+    <task id="LOCAL-02813" summary="font awsome updated">
+      <created>1739937765493</created>
+      <option name="number" value="02813" />
+      <option name="presentableId" value="LOCAL-02813" />
+      <option name="project" value="LOCAL" />
+      <updated>1739937765493</updated>
+    </task>
+    <task id="LOCAL-02814" summary="font awsome updated">
+      <created>1739937863471</created>
+      <option name="number" value="02814" />
+      <option name="presentableId" value="LOCAL-02814" />
+      <option name="project" value="LOCAL" />
+      <updated>1739937863471</updated>
+    </task>
+    <task id="LOCAL-02815" summary="font awsome updated">
+      <created>1739937936879</created>
+      <option name="number" value="02815" />
+      <option name="presentableId" value="LOCAL-02815" />
+      <option name="project" value="LOCAL" />
+      <updated>1739937936879</updated>
+    </task>
+    <task id="LOCAL-02816" summary="font awsome updated">
+      <created>1739938087780</created>
+      <option name="number" value="02816" />
+      <option name="presentableId" value="LOCAL-02816" />
+      <option name="project" value="LOCAL" />
+      <updated>1739938087780</updated>
+    </task>
+    <task id="LOCAL-02817" summary="font awsome updated">
+      <created>1739938276109</created>
+      <option name="number" value="02817" />
+      <option name="presentableId" value="LOCAL-02817" />
+      <option name="project" value="LOCAL" />
+      <updated>1739938276109</updated>
+    </task>
+    <task id="LOCAL-02818" summary="font awsome updated">
+      <created>1739938573685</created>
+      <option name="number" value="02818" />
+      <option name="presentableId" value="LOCAL-02818" />
+      <option name="project" value="LOCAL" />
+      <updated>1739938573686</updated>
+    </task>
+    <task id="LOCAL-02819" summary="font awsome updated">
+      <created>1739938890872</created>
+      <option name="number" value="02819" />
+      <option name="presentableId" value="LOCAL-02819" />
+      <option name="project" value="LOCAL" />
+      <updated>1739938890872</updated>
+    </task>
+    <task id="LOCAL-02820" summary="font awsome updated">
+      <created>1739939067893</created>
+      <option name="number" value="02820" />
+      <option name="presentableId" value="LOCAL-02820" />
+      <option name="project" value="LOCAL" />
+      <updated>1739939067893</updated>
+    </task>
+    <task id="LOCAL-02821" summary="font awsome updated">
+      <created>1739939210120</created>
+      <option name="number" value="02821" />
+      <option name="presentableId" value="LOCAL-02821" />
+      <option name="project" value="LOCAL" />
+      <updated>1739939210120</updated>
+    </task>
+    <task id="LOCAL-02822" summary="font awsome updated">
+      <created>1739939291202</created>
+      <option name="number" value="02822" />
+      <option name="presentableId" value="LOCAL-02822" />
+      <option name="project" value="LOCAL" />
+      <updated>1739939291202</updated>
+    </task>
+    <task id="LOCAL-02823" summary="font awsome updated">
+      <created>1740177499924</created>
+      <option name="number" value="02823" />
+      <option name="presentableId" value="LOCAL-02823" />
+      <option name="project" value="LOCAL" />
+      <updated>1740177499924</updated>
+    </task>
+    <task id="LOCAL-02824" summary="font awsome updated">
+      <created>1740177688085</created>
+      <option name="number" value="02824" />
+      <option name="presentableId" value="LOCAL-02824" />
+      <option name="project" value="LOCAL" />
+      <updated>1740177688085</updated>
+    </task>
+    <task id="LOCAL-02825" summary="font awsome updated">
+      <created>1741559604403</created>
+      <option name="number" value="02825" />
+      <option name="presentableId" value="LOCAL-02825" />
+      <option name="project" value="LOCAL" />
+      <updated>1741559604403</updated>
+    </task>
+    <task id="LOCAL-02826" summary="font awsome updated">
+      <created>1741560192755</created>
+      <option name="number" value="02826" />
+      <option name="presentableId" value="LOCAL-02826" />
+      <option name="project" value="LOCAL" />
+      <updated>1741560192755</updated>
+    </task>
+    <task id="LOCAL-02827" summary="font awsome updated">
+      <created>1741561323671</created>
+      <option name="number" value="02827" />
+      <option name="presentableId" value="LOCAL-02827" />
+      <option name="project" value="LOCAL" />
+      <updated>1741561323671</updated>
+    </task>
+    <task id="LOCAL-02828" summary="font awsome updated">
+      <created>1741561751842</created>
+      <option name="number" value="02828" />
+      <option name="presentableId" value="LOCAL-02828" />
+      <option name="project" value="LOCAL" />
+      <updated>1741561751842</updated>
+    </task>
+    <task id="LOCAL-02829" summary="font awsome updated">
+      <created>1741562425419</created>
+      <option name="number" value="02829" />
+      <option name="presentableId" value="LOCAL-02829" />
+      <option name="project" value="LOCAL" />
+      <updated>1741562425419</updated>
+    </task>
+    <task id="LOCAL-02830" summary="font awsome updated">
+      <created>1741562557416</created>
+      <option name="number" value="02830" />
+      <option name="presentableId" value="LOCAL-02830" />
+      <option name="project" value="LOCAL" />
+      <updated>1741562557416</updated>
+    </task>
+    <task id="LOCAL-02831" summary="font awsome updated">
+      <created>1742401640763</created>
+      <option name="number" value="02831" />
+      <option name="presentableId" value="LOCAL-02831" />
+      <option name="project" value="LOCAL" />
+      <updated>1742401640763</updated>
+    </task>
+    <task id="LOCAL-02832" summary="font awsome updated">
+      <created>1743814957414</created>
+      <option name="number" value="02832" />
+      <option name="presentableId" value="LOCAL-02832" />
+      <option name="project" value="LOCAL" />
+      <updated>1743814957414</updated>
+    </task>
+    <option name="localTasksCounter" value="2833" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="all feild added" />
+    <MESSAGE value="pagination added" />
+    <MESSAGE value="salary table" />
+    <MESSAGE value="endDate added" />
+    <MESSAGE value="cron job bug fixed" />
+    <MESSAGE value="git updated" />
+    <MESSAGE value="product app clean and improved" />
+    <MESSAGE value="teacher panel updated" />
+    <MESSAGE value="Search changed" />
+    <MESSAGE value="font awsome api changed" />
+    <MESSAGE value="today list debug" />
+    <MESSAGE value="font awsome updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="font awsome updated" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/PowerGrow$views.coverage" NAME="views Coverage Results" MODIFIED="1708132358410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Product" />
+    <SUITE FILE_PATH="coverage/PowerGrow$PowerGrow.coverage" NAME="wsgi Coverage Results" MODIFIED="1721412776612" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PowerGrow" />
+    <SUITE FILE_PATH="coverage/PowerGrow$models.coverage" NAME="models Coverage Results" MODIFIED="1713614704883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Product" />
+    <SUITE FILE_PATH="coverage/PowerGrow$jobs.coverage" NAME="jobs Coverage Results" MODIFIED="1721427016281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Product" />
+  </component>
+</project>

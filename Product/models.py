@@ -35,13 +35,13 @@ class Course(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICE, verbose_name='جنسیت')
     datetime = models.DateTimeField(default=timezone.now)
     active = models.BooleanField(blank=True, null=True, verbose_name='فعال')
+    pre = models.BooleanField(blank=True, null=True, verbose_name='پیش ثبت نام')
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name='courses', null=True, blank=True,
                               verbose_name='ورزش')
     newDay = models.BooleanField(default=False, blank=True, null=True, verbose_name='تا عید')
 
     def __str__(self):
         return f"{self.title}-{self.pk}"  # به جای ID، نام ورزش را نمایش می‌دهد
-
 
 class Session(models.Model):
     number = models.IntegerField(blank=True, null=True, verbose_name="تعداد جلسات")

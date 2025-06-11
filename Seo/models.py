@@ -19,7 +19,7 @@ class News(models.Model):
     date = models.ForeignKey(Day, on_delete=models.CASCADE, related_name='news', null=True, blank=True, verbose_name="تاریخ")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='news', null=True, blank=True,
                                verbose_name="دوره")
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     users_who_read = models.ManyToManyField(User, related_name='read_news', blank=True)
 
     def is_new_for_user(self, user):

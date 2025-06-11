@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'Seo',
     'User',
     'Calendar',
+    'django_bootstrap5',
     'django_otp',
     'django_otp.plugins.otp_static',
     'django_otp.plugins.otp_totp',
@@ -81,7 +82,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'django_apscheduler',
-    'bootstrap5',
     'jquery',
     'admin_auto_filters',
 ]
@@ -193,18 +193,26 @@ TIME_ZONE = 'UTC'
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '/home/powergro/public_html/static/')
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',  # مسیر پوشه‌ی locale
+]
 
+STATIC_ROOT = '/home/powergro/public_html/static/'
+STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # اگر فایل استاتیکی دارید که در مسیر پروژه هستند.
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Base url to serve images files
+# Base url to serve images
+MEDIA_ROOT = '/home/powergro/public_html/media/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '/home/powergro/public_html/media/')
 
 
 LOGIN_URL = '/user/login/'  # URL سفارشی شما

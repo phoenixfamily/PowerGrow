@@ -585,16 +585,9 @@
             </li>
         </ul>
         <div class="d-flex justify-content-center align-items-center">
-            {% if product.previous %}
-                 <button id="registerButton" class="btn mx-3 my-3 w-80" style="background-color:#E16539 ; color: white ">
-                     پیش ثبت نام
-                 </button>
-            {% else %}
-                 <button id="registerButton" class="btn mx-3 my-3 w-80" style="background-color:#E16539 ; color: white ">
-                    ثبت نام کنید
-                 </button>
-                {% endif %}
-
+            <button id="registerButton" class="btn mx-3 my-3 w-80" style="background-color:#E16539 ; color: white ">
+                ثبت نام
+            </button>
         </div>
     </div>
 </div>
@@ -1054,7 +1047,11 @@
     if (isEnable === true) {
         if (parseInt(counter) < parseInt(capacity)) {
             registerButton.disabled = false;
-            registerButton.innerHTML = "ثبت نام کنید";
+            {% if product.previous %}
+                registerButton.innerHTML = "پیش ثبت نام";
+            {% else %}
+                registerButton.innerHTML = "ثبت نام کنید";
+            {% endif %}
         } else {
             registerButton.disabled = true;
             registerButton.innerHTML = "ظرفیت تکمیل است";

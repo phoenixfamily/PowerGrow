@@ -35,7 +35,7 @@ class Course(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICE, verbose_name='جنسیت')
     datetime = models.DateTimeField(default=timezone.now)
     active = models.BooleanField(blank=True, null=True, verbose_name='فعال')
-    pre = models.BooleanField(blank=True, null=True, verbose_name='پیش ثبت نام')
+    previous = models.BooleanField(blank=True, null=True, verbose_name='پیش ثبت نام')
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name='courses', null=True, blank=True,
                               verbose_name='ورزش')
     def __str__(self):

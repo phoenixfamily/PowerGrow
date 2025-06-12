@@ -145,8 +145,8 @@
             </div>
 
          <div class="form-group">
-                <label for="pre">:پیش ثبت نام</label>
-                <input type="checkbox" id="pre" name="pre" {% if course.pre %}checked{% endif %}>
+                <label for="previous">:پیش ثبت نام</label>
+                <input type="checkbox" id="previous" name="previous" {% if course.previous %}checked{% endif %}>
             </div>
 
             <button type="submit" class="btn custom-btn margin-bottom">به‌روزرسانی دوره</button>
@@ -172,7 +172,7 @@
             gender: document.getElementById('gender').value,
             capacity: document.getElementById('capacity').value,
             active: document.getElementById('active').checked,
-            pre: document.getElementById('pre').checked
+            previous: document.getElementById('previous').checked
 
 
         };

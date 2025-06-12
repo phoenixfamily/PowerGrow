@@ -525,6 +525,7 @@
             <li class="list-group-item d-flex justify-content-between align-items-center mb-1" dir="rtl">
                 <h6 class="mb-0 text-end">نوع دوره:</h6>
                 <h6 class="mb-0 text-start">
+
                     {% if product.type == "public" %}
                         عمومی
                     {% elif product.type == "private" %}
@@ -763,6 +764,8 @@
 
         console.log(currentYear)
         console.log(thisYear)
+
+        console.log("{{ product.previous }}")
 
     });
 

@@ -114,7 +114,7 @@ class CourseSerializer(serializers.ModelSerializer):
         instance.gender = validated_data.get('gender', instance.gender)
         instance.sport = validated_data.get('sport', instance.sport)
         instance.active = validated_data.get('active', instance.active)
-        instance.pre = validated_data.get('pre', instance.pre)
+        instance.previous = validated_data.get('previous', instance.previous)
 
 
         instance.save()

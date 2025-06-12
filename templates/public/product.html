@@ -604,10 +604,11 @@
             <ul>
                  {% if product.previous %}
                      <li id="prev" class="prev disabled">&#10094;</li>
-                     <li id="monthTitle disabled"></li>
-                     <li id="next disabled" class="next">&#10095;</li>
-                     {% else %}
+                     <li id="monthTitle"></li>
+                     <li id="next " class="next disabled">&#10095;</li>
+                 {% else %}
                      <li id="prev" class="prev">&#10094;</li>
+                     <li id="monthTitle"></li>
                      <li id="next" class="next">&#10095;</li>
                  {% endif %}
 

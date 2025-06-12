@@ -6,7 +6,6 @@ app_name = 'product'
 urlpatterns = [
     path('categories/<int:pk>/', category_view, name='category_view'),
     path('offer/', offer_view, name='offer_view'),
-
     path('products/<int:pk>/', product_view, name='product_view'),
     path('payment/<int:pk>/<int:session>/<int:day>/<int:start>/', payment_view, name='payment_view'),
     path('verify/', verify, name='verify'),
@@ -35,7 +34,8 @@ urlpatterns = [
     path('api/sports/delete/<int:pk>/', SportDetailView.as_view({'delete': 'destroy'}), name='manager-delete-sport'),
 
     path('api/courses/', CourseListCreateView.as_view(), name='manager-create-course'),
-    path('api/courses/update/<int:pk>/', CourseDetailView.as_view({'put': 'update'}), name='manager-update-course'),
+    path('api/courses/update/<int:pk>/', CourseDetailView.as_view({'patch': 'partial_update'}),
+         name='manager-update-course'),
     path('api/courses/delete/<int:pk>/', CourseDetailView.as_view({'delete': 'destroy'}), name='manager-delete-course'),
 
     path('api/days/', DaysListCreateView.as_view(), name='manager-create-day'),

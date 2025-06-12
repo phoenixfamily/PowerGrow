@@ -594,6 +594,18 @@ class CourseDetailView(viewsets.ViewSet):
         except Course.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+        serializer = self.serializer_class(course, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def partial_update(self, request, pk=None):
+        try:
+            course = Course.objects.get(pk=pk)
+        except Course.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
         serializer = self.serializer_class(course, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -607,7 +619,6 @@ class CourseDetailView(viewsets.ViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Course.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
 
 class SportListCreateView(generics.CreateAPIView):
     queryset = Sport.objects.all()

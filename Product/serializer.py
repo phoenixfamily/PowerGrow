@@ -104,21 +104,9 @@ class CourseSerializer(serializers.ModelSerializer):
         return Course.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.name = validated_data.get('name', instance.name)
-        instance.type = validated_data.get('type', instance.type)
-        instance.description = validated_data.get('description', instance.description)
-        instance.time = validated_data.get('time', instance.time)
-        instance.selected = validated_data.get('selected', instance.selected)
-        instance.capacity = validated_data.get('capacity', instance.capacity)
-        instance.gender = validated_data.get('gender', instance.gender)
-        instance.sport = validated_data.get('sport', instance.sport)
-        instance.active = validated_data.get('active', instance.active)
-        instance.previous = validated_data.get('previous', instance.previous)
+        # در صورتی که بخوای لاگ بزاری یا چیزی خاصی بعد از آپدیت انجام بدی، اینجا می‌تونی بنویسی
+        return super().update(instance, validated_data)
 
-
-        instance.save()
-        return instance
 
 
 class SportSerializer(serializers.ModelSerializer):

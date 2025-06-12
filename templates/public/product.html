@@ -317,6 +317,12 @@
             transition: background 0.3s;
         }
 
+         .disabled {
+                opacity: 0.5;
+                cursor: none;
+                pointer-events: none;
+            }
+
 
         @media screen and (max-width: 768px) {
 
@@ -596,9 +602,15 @@
     <div class="date-picker">
         <div class="month">
             <ul>
-                <li id="prev" class="prev">&#10094;</li>
-                <li id="monthTitle"></li>
-                <li id="next" class="next">&#10095;</li>
+                 {% if product.previous %}
+                     <li id="prev" class="prev disabled">&#10094;</li>
+                     <li id="monthTitle disabled"></li>
+                     <li id="next disabled" class="next">&#10095;</li>
+                     {% else %}
+                     <li id="prev" class="prev">&#10094;</li>
+                     <li id="next" class="next">&#10095;</li>
+                 {% endif %}
+
             </ul>
             <span id="yearTitle" style="font-size: 18px;"></span>
         </div>
@@ -887,7 +899,13 @@
             const yearNumber = result[0].number;
 
             if (result[0].months[monthPosition].days[i].holiday === true && dayNumber > parseInt(currentDay)) {
-                dayItem.classList.add("holidayButton");
+
+                {% if product.previous %}
+                    dayItem.classList.add("disActiveButton");
+                {% else %}
+                    dayItem.classList.add("holidayButton");
+                    {% endif %}
+
             } else if (yearNumber === parseInt(thisYear) && monthNumber === parseInt(currentMonth) && dayNumber === parseInt(currentDay)) {
                 // روز جاری را مشخص کنیم
                 dayItem.classList.add("activeButton");
@@ -900,6 +918,12 @@
                 (yearNumber === parseInt(thisYear) && monthNumber === parseInt(currentMonth) && dayNumber < parseInt(currentDay)) // روزهای گذشته در همان ماه غیر فعال شوند
             ) {
                 dayItem.classList.add("disActiveButton");
+            }
+            else {
+
+                 {% if product.previous %}
+                    dayItem.classList.add("disActiveButton");
+                 {% endif %}
             }
 
             dayItem.innerHTML = dayNumber;

@@ -612,13 +612,18 @@ class CourseDetailView(viewsets.ViewSet):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def destroy(self, request, pk):
+
+@method_decorator(csrf_exempt, name='dispatch')
+class CourseDeleteView(APIView):
+    permission_classes = [IsAdminUserOrStaff]
+
+    def delete(self, request, pk):
         try:
             course = Course.objects.get(pk=pk)
             course.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Course.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response({"detail": "دوره پیدا نشد."}, status=status.HTTP_404_NOT_FOUND)
 
 class SportListCreateView(generics.CreateAPIView):
     queryset = Sport.objects.all()

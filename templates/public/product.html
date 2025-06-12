@@ -585,8 +585,8 @@
         </ul>
         <div class="d-flex justify-content-center align-items-center">
             <button id="registerButton" class="btn mx-3 my-3 w-80" style="background-color:#E16539 ; color: white ">
-                {% if product.previous == true %}
-                	پیش ثبت نام
+                {% if product.previous %}
+                    پیش ثبت نام
                 {% else %}
                     ثبت نام کنید
                 {% endif %}
@@ -715,7 +715,7 @@
 <script>
 
     let lat = {{ about.latitude }};
-    let long =     {{ about.longitude }};
+    let long = {{ about.longitude }};
 
     const map = new nmp_mapboxgl.Map({
         mapType: nmp_mapboxgl.Map.neshanVector,
@@ -791,39 +791,39 @@
     })
 
     async function getYear() {
-    const response = await fetch(`/calendar/api/year/${currentYear}/`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
+        const response = await fetch(`/calendar/api/year/${currentYear}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
 
-    result = await response.json();
-    result = JSON.parse(JSON.stringify(result));
-    monthSize = result[0].months.length;
+        result = await response.json();
+        result = JSON.parse(JSON.stringify(result));
+        monthSize = result[0].months.length;
 
-    yearTitle.innerHTML = result[0].number;
+        yearTitle.innerHTML = result[0].number;
 
-    if (parseInt(currentYear) < parseInt(thisYear)) {  // اگر سال قبل از سال جاری است، آخرین ماه نمایش داده شود
-        monthPosition = monthSize - 1;
-    } else if (parseInt(currentYear) === parseInt(thisYear)) { // اگر سال جاری است، ماه فعلی نمایش داده شود
-        monthPosition = currentMonth - 1;
-    } else { // اگر سال آینده است، اولین ماه نمایش داده شود
-        monthPosition = 0;
+        if (parseInt(currentYear) < parseInt(thisYear)) {  // اگر سال قبل از سال جاری است، آخرین ماه نمایش داده شود
+            monthPosition = monthSize - 1;
+        } else if (parseInt(currentYear) === parseInt(thisYear)) { // اگر سال جاری است، ماه فعلی نمایش داده شود
+            monthPosition = currentMonth - 1;
+        } else { // اگر سال آینده است، اولین ماه نمایش داده شود
+            monthPosition = 0;
+        }
+
+        getDays(monthPosition);
     }
 
-    getDays(monthPosition);
-}
+    function getDays(monthPosition) {
+        monthTitle.innerHTML = result[0].months[monthPosition].name;
+        days.innerHTML = "";
+        startDay.innerHTML = "";
 
-function getDays(monthPosition) {
-    monthTitle.innerHTML = result[0].months[monthPosition].name;
-    days.innerHTML = "";
-    startDay.innerHTML = "";
+        const emptyDay = document.createElement("li");
+        emptyDay.innerHTML = ' ';
 
-    const emptyDay = document.createElement("li");
-    emptyDay.innerHTML = ' ';
-
-     switch (result[0].months[monthPosition].startDay) {
+        switch (result[0].months[monthPosition].startDay) {
 
             case "یکشنبه" :
                 const empty0 = document.createElement("li")
@@ -883,32 +883,32 @@ function getDays(monthPosition) {
                 break
         }
 
-    for (let i = 0; i < result[0].months[monthPosition].days.length; i++) {
-        const dayItem = document.createElement("li");
-        const dayNumber = result[0].months[monthPosition].days[i].number;
-        const monthNumber = result[0].months[monthPosition].number;
-        const yearNumber = result[0].number;
+        for (let i = 0; i < result[0].months[monthPosition].days.length; i++) {
+            const dayItem = document.createElement("li");
+            const dayNumber = result[0].months[monthPosition].days[i].number;
+            const monthNumber = result[0].months[monthPosition].number;
+            const yearNumber = result[0].number;
 
-        if (result[0].months[monthPosition].days[i].holiday === true && dayNumber > parseInt(currentDay)) {
-            dayItem.classList.add("holidayButton");
-        } else if (yearNumber === parseInt(thisYear) && monthNumber === parseInt(currentMonth) && dayNumber === parseInt(currentDay)) {
-            // روز جاری را مشخص کنیم
-            dayItem.classList.add("activeButton");
-            currentDayId = result[0].months[monthPosition].days[i].id;
-            startDay.innerHTML = `${yearNumber}/${monthNumber}/${dayNumber}`;
-            date = `${yearNumber}-${monthNumber}-${dayNumber}`;
-        } else if (
-            (yearNumber < parseInt(thisYear)) || // فقط سال‌های گذشته غیرفعال شود
-            (yearNumber === parseInt(thisYear) && monthNumber < parseInt(currentMonth)) || // فقط ماه‌های گذشته غیر فعال شود
-            (yearNumber === parseInt(thisYear) && monthNumber === parseInt(currentMonth) && dayNumber < parseInt(currentDay)) // روزهای گذشته در همان ماه غیر فعال شوند
-        ) {
-            dayItem.classList.add("disActiveButton");
+            if (result[0].months[monthPosition].days[i].holiday === true && dayNumber > parseInt(currentDay)) {
+                dayItem.classList.add("holidayButton");
+            } else if (yearNumber === parseInt(thisYear) && monthNumber === parseInt(currentMonth) && dayNumber === parseInt(currentDay)) {
+                // روز جاری را مشخص کنیم
+                dayItem.classList.add("activeButton");
+                currentDayId = result[0].months[monthPosition].days[i].id;
+                startDay.innerHTML = `${yearNumber}/${monthNumber}/${dayNumber}`;
+                date = `${yearNumber}-${monthNumber}-${dayNumber}`;
+            } else if (
+                (yearNumber < parseInt(thisYear)) || // فقط سال‌های گذشته غیرفعال شود
+                (yearNumber === parseInt(thisYear) && monthNumber < parseInt(currentMonth)) || // فقط ماه‌های گذشته غیر فعال شود
+                (yearNumber === parseInt(thisYear) && monthNumber === parseInt(currentMonth) && dayNumber < parseInt(currentDay)) // روزهای گذشته در همان ماه غیر فعال شوند
+            ) {
+                dayItem.classList.add("disActiveButton");
+            }
+
+            dayItem.innerHTML = dayNumber;
+            dayItem.setAttribute("itemid", result[0].months[monthPosition].days[i].id);
+            days.appendChild(dayItem);
         }
-
-        dayItem.innerHTML = dayNumber;
-        dayItem.setAttribute("itemid", result[0].months[monthPosition].days[i].id);
-        days.appendChild(dayItem);
-    }
 
         const buttons = document.querySelectorAll('.days li');
         Array.from(buttons).forEach(function (button) {

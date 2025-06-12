@@ -454,7 +454,7 @@ def admin_user_list(request, pk):
     about = AboutUs.objects.first()
 
     # بارگذاری دوره با استفاده از get_object_or_404
-    participants = Participants.objects.all().filter(course_id=pk).order_by('startDay')
+    participants = Participants.objects.all().filter(course_id=pk).order_by('-startDay')
 
     paginator = Paginator(participants, 150)
     page_number = request.GET.get('page')
@@ -482,7 +482,7 @@ def teacher_user_list(request, pk):
 
     participants = Participants.objects.all().filter(course_id=pk, success=True, user__is_teacher=False,
                                                      user__is_superuser=False,
-                                                     user__is_staff=False).order_by('startDay')
+                                                     user__is_staff=False).order_by('-startDay')
 
     # آماده‌سازی context برای الگو
     context = {

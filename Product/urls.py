@@ -37,7 +37,7 @@ urlpatterns = [
     path('api/courses/update/<int:pk>/', CourseDetailView.as_view({'patch': 'partial_update'}),
          name='manager-update-course'),
 
-    path('api/courses/delete/<int:pk>/', CourseDeleteView.as_view(), name='manager-delete-course'),
+    path('api/courses/delete/<int:pk>/', CourseDetailView.as_view({'delete': 'destroy'}), name='manager-delete-course'),
 
     path('api/days/', DaysListCreateView.as_view(), name='manager-create-day'),
     path('api/days/update/<int:pk>/', DaysDetailView.as_view({'put': 'update'}), name='manager-update-day'),

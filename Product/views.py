@@ -4,16 +4,13 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
-from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets, generics, status
 from rest_framework.decorators import api_view
 from rest_framework.generics import UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.utils import json
-from rest_framework.views import APIView
 
 from About.models import AboutUs
 from Calendar.models import Day
@@ -615,18 +612,13 @@ class CourseDetailView(viewsets.ViewSet):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-@method_decorator(csrf_exempt, name='dispatch')
-class CourseDeleteView(APIView):
-    permission_classes = [IsAdminUserOrStaff]
-
-    def delete(self, request, pk):
+    def destroy(self, request, pk):
         try:
             course = Course.objects.get(pk=pk)
             course.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Course.DoesNotExist:
-            return Response({"detail": "دوره پیدا نشد."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 class SportListCreateView(generics.CreateAPIView):
     queryset = Sport.objects.all()

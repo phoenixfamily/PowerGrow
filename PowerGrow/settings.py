@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = config("SECRET_KEY")
-SECRET_KEY = 'django-insecure-at+z71p&8n4sf$r_5=ux5jb=ha2!h7^pp&2s470qb8&4+3^-ig'
+SECRET_KEY = config("SECRET_KEY")
+# SECRET_KEY = 'django-insecure-at+z71p&8n4sf$r_5=ux5jb=ha2!h7^pp&2s470qb8&4+3^-ig'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
@@ -173,27 +173,27 @@ WSGI_APPLICATION = 'PowerGrow.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': config('DB_NAME'),
-#         'USER': config('DB_USER'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST', default='localhost'),
-#         'PORT': config('DB_PORT', default='5432'),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'powergro_powergrow',  # نام دیتابیس MySQL
-        'USER': 'powergro_powergrow',  # نام کاربری MySQL
-        'PASSWORD': '8NU45dG=5jK)',  # رمز عبور MySQL
-        'HOST': 'localhost',  # هاست MySQL (به طور پیش‌فرض 'localhost')
-        'PORT': '3306',  # پورت MySQL (به طور پیش‌فرض '3306')
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'powergro_powergrow',  # نام دیتابیس MySQL
+#         'USER': 'powergro_powergrow',  # نام کاربری MySQL
+#         'PASSWORD': '8NU45dG=5jK)',  # رمز عبور MySQL
+#         'HOST': 'localhost',  # هاست MySQL (به طور پیش‌فرض 'localhost')
+#         'PORT': '3306',  # پورت MySQL (به طور پیش‌فرض '3306')
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

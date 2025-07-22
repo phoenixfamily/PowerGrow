@@ -43,12 +43,32 @@ DRFSO2_URL_NAMESPACE = "drf"
 
 ALLOW_UNICODE_SLUGS = True
 
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+DOMAIN = 'powergrow.ir/'
+SITE_NAME = 'PowerGrow'
+SITE_URL = "https://www.powergrow.ir/"
+
+SITE_ID = 1
+
+META_SITE_PROTOCOL = "https"
+META_USE_OG_PROPERTIES = True
+META_USE_TWITTER_PROPERTIES = True
+META_USE_SCHEMAORG_PROPERTIES = True
+
+CSRF_TRUSTED_ORIGINS = ["https://powergrow.ir", "https://www.powergrow.ir"]
+
+
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'powergrow.net',
-    'https://powergrow.net/',
+    'www.powergrow.net',
+    'powergrow.ir',
+    'www.powergrow.ir',
+
 ]
 
 # Application definition
@@ -151,15 +171,12 @@ WSGI_APPLICATION = 'PowerGrow.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'powergro_powergrow',
-        'USER': 'powergro_powergrow',
-        'PASSWORD': 'jFrTKevq%uVpAsVq',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv("DB_HOST", "localhost"),
+        'PORT': os.getenv("DB_PORT", "5432"),
     }
 }
 
@@ -196,22 +213,18 @@ LOCALE_PATHS = [
     BASE_DIR / 'locale',  # مسیر پوشه‌ی locale
 ]
 
-STATIC_ROOT = '/home/powergro/public_html/static/'
-STATIC_URL = '/static/'
+# فایل‌های استاتیک (CSS, JS, Images)
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # فولدر نهایی برای nginx
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # اگر فایل استاتیکی دارید که در مسیر پروژه هستند.
-]
-
+# فایل‌های رسانه‌ای که کاربر آپلود می‌کنه
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Base url to serve images
-MEDIA_ROOT = '/home/powergro/public_html/media/'
-MEDIA_URL = '/media/'
 
 
 LOGIN_URL = '/user/login/'  # URL سفارشی شما

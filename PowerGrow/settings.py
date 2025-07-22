@@ -105,6 +105,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_apscheduler',
     'admin_auto_filters',
+    'PowerGrow'
 ]
 
 REST_FRAMEWORK = {

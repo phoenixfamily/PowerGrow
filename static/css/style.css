@@ -67,8 +67,8 @@ body.dark-mode {
 
 /* لینک‌های منو */
 .navbar-nav .nav-link {
-    color: #444 !important;
-    font-weight: 500; /* یا 600 اگه خیلی نازکه */
+    color: rgba(68, 68, 68, 0.9) !important;
+    font-weight: 300; /* یا 600 اگه خیلی نازکه */
     font-size: 1rem; /* یا 1.1rem اگه می‌خوای بزرگ‌تر شه */
     margin: 0 0.5rem;
     transition: color 0.2s ease;

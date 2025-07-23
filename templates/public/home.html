@@ -8,7 +8,6 @@
 </head>
 <body>
 
-
 {% block header %}
     <!-- آیتم‌های منو -->
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -45,244 +44,251 @@
 
 {% block content %}
 
-<section class="container my-5 py-5">
-  <div class="row align-items-center justify-content-between">
+<section class="hero-split py-5">
+    <div class="container-fluid px-lg-5">
+        <div class="row g-5 align-items-stretch">
 
-    <!-- متن و CTA -->
-    <div class="col-md-6 text-right" dir="rtl">
-      <h1 class="fw-bold mb-4">قدرت، سلامتی و آرامش در یک محیط زنانه</h1>
-      <p class="lead mb-4">
-        باشگاه ورزشی حجاب با دوره‌های متنوع برای بانوان، فضایی فراهم کرده تا با خیال راحت ورزش کنید و بدرخشید. 💪
-        همین حالا شروع کن و عضوی از خانواده‌ی سلامتی باش!
-      </p>
-      <div class="d-flex gap-3 flex-wrap justify-content-md-start justify-content-center">
-        <a href="" class="btn btn-primary px-4 py-2">مشاهده دوره‌ها</a>
-        <a href="" class="btn btn-outline-secondary px-4 py-2">درخواست مشاوره</a>
-      </div>
+            <!-- عکس سمت راست -->
+            <div class="col-lg-6 d-flex">
+                <div class="img-wrapper w-100 d-flex align-items-center justify-content-center">
+                    <img src="{% static 'images/courses.png' %}" alt="باشگاه بانوان" class="img-fluid rounded shadow">
+                </div>
+            </div>
+
+            <!-- متن سمت چپ -->
+            <div class="col-lg-6 d-flex">
+                <div class="text-wrapper bg-white shadow rounded p-4 w-100 d-flex flex-column justify-content-center" dir="rtl">
+                    <h2 class="fw-bold mb-4 text-primary">باشگاه ورزشی حجاب</h2>
+                    <p class="mb-4 lead">
+                        ما در باشگاه حجاب فضایی زنانه، حرفه‌ای و مطمئن برای رشد و سلامتی شما فراهم کرده‌ایم.
+                        دوره‌های تخصصی، مربیان مجرب، و محیطی گرم و امن منتظر شماست.
+                        همین امروز شروع کن و بدرخش 💪🌟
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="" class="btn btn-primary px-4 py-2">مشاهده دوره‌ها</a>
+                        <a href="" class="btn btn-outline-secondary px-4 py-2">درخواست مشاوره</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-
-    <!-- عکس -->
-    <div class="col-md-5 text-center mt-4 mt-md-0">
-      <img src="{% static 'images/hero-fitness.png' %}" alt="باشگاه بانوان" class="img-fluid rounded shadow">
-    </div>
-
-  </div>
 </section>
 
 
-    <h3 class="selected">دوره های منتخب</h3>
-
-    <div class="container-fluid py-4 w-100" dir="rtl">
-
-        <div class="d-flex flex-row flex-nowrap gap-3 overflow-auto example justify-content-start">
-
-            {% for x in selected %}
-
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card h-100" style="border-radius: 15px;">
-                        <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                             data-mdb-ripple-color="light">
-                            <img src="/media/{{ x.image }}"
-                                 style="border-top-left-radius: 15px; border-top-right-radius: 15px ; height: 300px ; object-fit: fill ;width: 100%"
-                                 class="img-fluid img-responsive"
-                                 alt="product"/>
-                        </div>
-                        <div class="card-body pb-0">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p><a style="text-decoration: none" class="text-dark">نام دوره</a></p>
-                                    <p class="text-dark">نام مربی</p>
-                                </div>
-                                <div>
-                                    <p class="text-dark" style="text-align: left">{{ x.title }}</p>
-                                    <p class="text-dark" style="text-align: left">{{ x.name }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="my-0"/>
-                        <div class="card-body pb-0">
-                            <div class="d-flex justify-content-between">
-                                <p><a style="text-decoration: none" class="text-dark">زمان دوره</a></p>
-                                <p class="text-dark" style="width: 65% ; text-align: left">{{ x.time }}</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <p><a style="text-decoration: none" class="text-dark">نوع دوره</a></p>
-                                <p class="text-dark" style="width: 65%; text-align: left">
-                                    {% if x.type == "public" %}
-                                        عمومی
-                                    {% elif x.type == "private" %}
-                                        خصوصی
-                                    {% elif x.type == "semi_private" %}
-                                        نیمه خصوصی
-                                    {% endif %}</p>
-                            </div>
-
-                            <p class="d-flex justify-content-center align-items-center text-dark mb-2"
-                               style="text-align: center;">مناسب برای   {% if x.gender == "male" %}
-                                آقایان
-                            {% elif x.gender == "female" %}
-                                بانوان
-                            {% endif %}</p>
-                        </div>
-                        <hr class="my-0"/>
-                        <div class="card-body">
-                            {% if x.previous == True %}
-                                <div class="d-flex align-items-center justify-content-between pb-2 mb-1">
-                <span style="background-color: #f22d34; color: white; font-size: 14px; font-weight: bold; padding: 5px 10px; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
-                    پیش ثبت نام
-                </span>
-                                    <button type="button" class="btn register-button"
-                                            onclick="location.assign('{% url "product:product_view" x.id %}')">ثبت نام
-                                    </button>
-                                </div>
-
-                            {% else %}
-                                <div style="float: left" class="d-flex align-items-center pb-2 mb-1">
-                                    <button type="button" class="btn register-button"
-                                            onclick="location.assign('{% url "product:product_view" x.id %}')">ثبت نام
-                                    </button>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-    <div class="container-fluid my-5">
-        <div class="row">
-            <div class="col-md-6" dir="rtl">
-                <h4 class="text-right">خانوادگی ورزش کنید</h4>
-                <p class="text-right" style="font-size: 18px;">
-                    در باشگاه ورزشی حجاب، ما به این باور داریم که ورزش تنها برای افراد نیست،
-                    بلکه فرصتی است برای تقویت روابط خانوادگی و ایجاد لحظات خاطره‌انگیز
-                    . با ارائه برنامه‌های ورزشی متنوع و مناسب برای تمام اعضای خانواده،
-                    از کودکان تا بزرگترها، ما به شما این امکان را می‌دهیم که با هم ورزش کنید و از فواید آن بهره‌مند
-                    شوید.
-                    ورزش کردن به صورت خانوادگی، فرصتی خوب برای ایجاد ارتباط بین اعضای خانواده و تقویت روابط خانوادگی
-                    است.
-                    با هم ورزش کردن اعضای یک خانواده باعث میشود که به یکدیگر نزدیک‌تر ‌شوند و این باعث افزایش همبستگی و
-                    تعامل میان آن‌ها
-                    می‌شود. علاوه بر این، ورزش کردن به صورت خانوادگی باعث ایجاد خاطرات خوب و لحظات شاد و خوشایند برای
-                    خانواده می‌شود. همچنین، با توجه به اینکه اعضای خانواده در یک محیط سالم و فعال شرکت می‌کنند، آن‌ها به
-                    نحوی
-                    الوگوی مناسبی برای یکدیگر هستند و این باعث تشویق به سبک زندگی سالمتر و فعال‌تر در خانواده می‌شود. در
-                    نتیجه،
-                    ورزش کردن به صورت خانوادگی، فواید بسیاری برای سلامت جسمی و روانی اعضای خانواده دارد و باعث تقویت
-                    روابط
-                    خانوادگی و افزایش همبستگی میان آن‌ها می‌شود.
-                </p>
-            </div>
-            <div class="col-md-6 text-left">
-                <img class="img-fluid" src="{% get_static_prefix %}/images/family.png" alt="Family">
-            </div>
-        </div>
-
-        <div class="container my-5">
-            <div class="row text-center my-4">
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>تقویت روابط خانوادگی</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>افزایش اعتماد به نفس</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>بهبود خلاقیت</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>ایجاد خاطرات به یاد ماندنی</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>افزایش همبستگی</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>لحظات شاد و مفرح</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="container-fluid my-5">
-        <div class="row">
-            <div class="col-md-6">
-                <img class="img-fluid" src="{% get_static_prefix %}/images/children.png" alt="Children">
-            </div>
-            <div class="col-md-6" dir="rtl">
-                <h4 class="text-right">استعداد ورزشی فرزند خود را پیدا کنید</h4>
-                <p class="text-right" style="font-size: 18px;">
-                    در باشگاه ورزشی حجاب، ما نه تنها به ورزش خانوادگی اهمیت می‌دهیم، بلکه به دنبال کشف و پرورش
-                    استعدادهای ورزشی در میان کودکان هستیم.
-                    برنامه‌های ویژه‌ای طراحی کرده‌ایم که به کودکان کمک می‌کند توانایی‌های ورزشی خود را در محیطی سالم و
-                    حمایتگر کشف کنند.
-                    با همکاری مربیان حرفه‌ای و متخصص، ما به کودکان فرصت می‌دهیم تا استعدادهای پنهان خود را در زمینه‌های
-                    مختلف ورزشی شناسایی و تقویت کنند.
-                    هدف ما این است که هر کودک در فضایی پویا و ایمن، استعدادهای منحصر به فرد خود را به نمایش بگذارد و
-                    گامی به سوی آینده‌ای روشن‌تر بردارد.
-                    استعدایابی ورزشی کودکان به معنای ارزیابی قابلیت‌های فیزیکی، شناختی و روانی کودکان با استفاده از
-                    ابزار و
-                    تست‌های مختلف است. در بسیاری از کشورها از جمله ایران، این فرایند به منظور شناسایی استعدادهای ورزشی
-                    کودکان
-                    انجام می‌شود. برای انجام این فرایند، فرد باید به صورت منظم و دوره‌ای ارزیابی شود و عوامل مختلفی از
-                    جمله
-                    خصوصیات فردی، حمایت خانواده و پشتوانه ورزشی وی در نظر گرفته شود. با این حال، باید توجه داشت که علاوه
-                    بر
-                    استعداد ورزشی، علاقه و انگیزه فرد نیز در انتخاب ورزش مناسب بسیار مهم است.
-                </p>
-            </div>
-        </div>
-
-        <div class="container my-5">
-            <div class="row text-center my-4">
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>استفاده از ابزار های حرفه ای</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>توجه به عوامل مختلف</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>دقت و تکرار ارزیابی</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>مربی های حرفه ای</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>برنامه های شخصی سازی شده</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="custom-bg">
-                        <p>تمرکز بر سلامت روحی و روانی</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{#    <h3 class="selected">دوره های منتخب</h3>#}
+{##}
+{#    <div class="container-fluid py-4 w-100" dir="rtl">#}
+{##}
+{#        <div class="d-flex flex-row flex-nowrap gap-3 overflow-auto example justify-content-start">#}
+{##}
+{#            {% for x in selected %}#}
+{##}
+{#                <div class="col-12 col-sm-6 col-md-4 col-lg-3">#}
+{#                    <div class="card h-100" style="border-radius: 15px;">#}
+{#                        <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"#}
+{#                             data-mdb-ripple-color="light">#}
+{#                            <img src="/media/{{ x.image }}"#}
+{#                                 style="border-top-left-radius: 15px; border-top-right-radius: 15px ; height: 300px ; object-fit: fill ;width: 100%"#}
+{#                                 class="img-fluid img-responsive"#}
+{#                                 alt="product"/>#}
+{#                        </div>#}
+{#                        <div class="card-body pb-0">#}
+{#                            <div class="d-flex justify-content-between">#}
+{#                                <div>#}
+{#                                    <p><a style="text-decoration: none" class="text-dark">نام دوره</a></p>#}
+{#                                    <p class="text-dark">نام مربی</p>#}
+{#                                </div>#}
+{#                                <div>#}
+{#                                    <p class="text-dark" style="text-align: left">{{ x.title }}</p>#}
+{#                                    <p class="text-dark" style="text-align: left">{{ x.name }}</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <hr class="my-0"/>#}
+{#                        <div class="card-body pb-0">#}
+{#                            <div class="d-flex justify-content-between">#}
+{#                                <p><a style="text-decoration: none" class="text-dark">زمان دوره</a></p>#}
+{#                                <p class="text-dark" style="width: 65% ; text-align: left">{{ x.time }}</p>#}
+{#                            </div>#}
+{#                            <div class="d-flex justify-content-between">#}
+{#                                <p><a style="text-decoration: none" class="text-dark">نوع دوره</a></p>#}
+{#                                <p class="text-dark" style="width: 65%; text-align: left">#}
+{#                                    {% if x.type == "public" %}#}
+{#                                        عمومی#}
+{#                                    {% elif x.type == "private" %}#}
+{#                                        خصوصی#}
+{#                                    {% elif x.type == "semi_private" %}#}
+{#                                        نیمه خصوصی#}
+{#                                    {% endif %}</p>#}
+{#                            </div>#}
+{##}
+{#                            <p class="d-flex justify-content-center align-items-center text-dark mb-2"#}
+{#                               style="text-align: center;">مناسب برای   {% if x.gender == "male" %}#}
+{#                                آقایان#}
+{#                            {% elif x.gender == "female" %}#}
+{#                                بانوان#}
+{#                            {% endif %}</p>#}
+{#                        </div>#}
+{#                        <hr class="my-0"/>#}
+{#                        <div class="card-body">#}
+{#                            {% if x.previous == True %}#}
+{#                                <div class="d-flex align-items-center justify-content-between pb-2 mb-1">#}
+{#                <span style="background-color: #f22d34; color: white; font-size: 14px; font-weight: bold; padding: 5px 10px; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">#}
+{#                    پیش ثبت نام#}
+{#                </span>#}
+{#                                    <button type="button" class="btn register-button"#}
+{#                                            onclick="location.assign('{% url "product:product_view" x.id %}')">ثبت نام#}
+{#                                    </button>#}
+{#                                </div>#}
+{##}
+{#                            {% else %}#}
+{#                                <div style="float: left" class="d-flex align-items-center pb-2 mb-1">#}
+{#                                    <button type="button" class="btn register-button"#}
+{#                                            onclick="location.assign('{% url "product:product_view" x.id %}')">ثبت نام#}
+{#                                    </button>#}
+{#                                </div>#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            {% endfor %}#}
+{##}
+{#        </div>#}
+{##}
+{#    </div>#}
+{##}
+{#    <div class="container-fluid my-5">#}
+{#        <div class="row">#}
+{#            <div class="col-md-6" dir="rtl">#}
+{#                <h4 class="text-right">خانوادگی ورزش کنید</h4>#}
+{#                <p class="text-right" style="font-size: 18px;">#}
+{#                    در باشگاه ورزشی حجاب، ما به این باور داریم که ورزش تنها برای افراد نیست،#}
+{#                    بلکه فرصتی است برای تقویت روابط خانوادگی و ایجاد لحظات خاطره‌انگیز#}
+{#                    . با ارائه برنامه‌های ورزشی متنوع و مناسب برای تمام اعضای خانواده،#}
+{#                    از کودکان تا بزرگترها، ما به شما این امکان را می‌دهیم که با هم ورزش کنید و از فواید آن بهره‌مند#}
+{#                    شوید.#}
+{#                    ورزش کردن به صورت خانوادگی، فرصتی خوب برای ایجاد ارتباط بین اعضای خانواده و تقویت روابط خانوادگی#}
+{#                    است.#}
+{#                    با هم ورزش کردن اعضای یک خانواده باعث میشود که به یکدیگر نزدیک‌تر ‌شوند و این باعث افزایش همبستگی و#}
+{#                    تعامل میان آن‌ها#}
+{#                    می‌شود. علاوه بر این، ورزش کردن به صورت خانوادگی باعث ایجاد خاطرات خوب و لحظات شاد و خوشایند برای#}
+{#                    خانواده می‌شود. همچنین، با توجه به اینکه اعضای خانواده در یک محیط سالم و فعال شرکت می‌کنند، آن‌ها به#}
+{#                    نحوی#}
+{#                    الوگوی مناسبی برای یکدیگر هستند و این باعث تشویق به سبک زندگی سالمتر و فعال‌تر در خانواده می‌شود. در#}
+{#                    نتیجه،#}
+{#                    ورزش کردن به صورت خانوادگی، فواید بسیاری برای سلامت جسمی و روانی اعضای خانواده دارد و باعث تقویت#}
+{#                    روابط#}
+{#                    خانوادگی و افزایش همبستگی میان آن‌ها می‌شود.#}
+{#                </p>#}
+{#            </div>#}
+{#            <div class="col-md-6 text-left">#}
+{#                <img class="img-fluid" src="{% get_static_prefix %}/images/family.png" alt="Family">#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="container my-5">#}
+{#            <div class="row text-center my-4">#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>تقویت روابط خانوادگی</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>افزایش اعتماد به نفس</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>بهبود خلاقیت</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>ایجاد خاطرات به یاد ماندنی</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>افزایش همبستگی</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>لحظات شاد و مفرح</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#    </div>#}
+{##}
+{#    <div class="container-fluid my-5">#}
+{#        <div class="row">#}
+{#            <div class="col-md-6">#}
+{#                <img class="img-fluid" src="{% get_static_prefix %}/images/children.png" alt="Children">#}
+{#            </div>#}
+{#            <div class="col-md-6" dir="rtl">#}
+{#                <h4 class="text-right">استعداد ورزشی فرزند خود را پیدا کنید</h4>#}
+{#                <p class="text-right" style="font-size: 18px;">#}
+{#                    در باشگاه ورزشی حجاب، ما نه تنها به ورزش خانوادگی اهمیت می‌دهیم، بلکه به دنبال کشف و پرورش#}
+{#                    استعدادهای ورزشی در میان کودکان هستیم.#}
+{#                    برنامه‌های ویژه‌ای طراحی کرده‌ایم که به کودکان کمک می‌کند توانایی‌های ورزشی خود را در محیطی سالم و#}
+{#                    حمایتگر کشف کنند.#}
+{#                    با همکاری مربیان حرفه‌ای و متخصص، ما به کودکان فرصت می‌دهیم تا استعدادهای پنهان خود را در زمینه‌های#}
+{#                    مختلف ورزشی شناسایی و تقویت کنند.#}
+{#                    هدف ما این است که هر کودک در فضایی پویا و ایمن، استعدادهای منحصر به فرد خود را به نمایش بگذارد و#}
+{#                    گامی به سوی آینده‌ای روشن‌تر بردارد.#}
+{#                    استعدایابی ورزشی کودکان به معنای ارزیابی قابلیت‌های فیزیکی، شناختی و روانی کودکان با استفاده از#}
+{#                    ابزار و#}
+{#                    تست‌های مختلف است. در بسیاری از کشورها از جمله ایران، این فرایند به منظور شناسایی استعدادهای ورزشی#}
+{#                    کودکان#}
+{#                    انجام می‌شود. برای انجام این فرایند، فرد باید به صورت منظم و دوره‌ای ارزیابی شود و عوامل مختلفی از#}
+{#                    جمله#}
+{#                    خصوصیات فردی، حمایت خانواده و پشتوانه ورزشی وی در نظر گرفته شود. با این حال، باید توجه داشت که علاوه#}
+{#                    بر#}
+{#                    استعداد ورزشی، علاقه و انگیزه فرد نیز در انتخاب ورزش مناسب بسیار مهم است.#}
+{#                </p>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="container my-5">#}
+{#            <div class="row text-center my-4">#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>استفاده از ابزار های حرفه ای</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>توجه به عوامل مختلف</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>دقت و تکرار ارزیابی</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>مربی های حرفه ای</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>برنامه های شخصی سازی شده</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-4 mb-4">#}
+{#                    <div class="custom-bg">#}
+{#                        <p>تمرکز بر سلامت روحی و روانی</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 
 {% endblock %}
 

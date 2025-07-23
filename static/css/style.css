@@ -204,3 +204,33 @@ section p {
     color: white;
     border-color: var(--btn-hover);
 }
+
+.hero-split {
+    background: linear-gradient(to left, #fff, #f9f9f9);
+}
+
+.img-wrapper img {
+    max-width: 90%;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: 0 0 25px rgba(0,0,0,0.1);
+}
+
+.text-wrapper {
+    border-right: 4px solid var(--primary-light); /* خط رنگی کنار متن */
+}
+
+@media (max-width: 768px) {
+    .hero-split .row {
+        flex-direction: column-reverse;
+    }
+
+    .text-wrapper, .img-wrapper {
+        text-align: center;
+    }
+
+    .text-wrapper {
+        border-right: none;
+        border-top: 4px solid var(--primary-light);
+    }
+}

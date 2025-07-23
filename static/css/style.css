@@ -254,9 +254,16 @@ section p {
 
 
 .swiper {
-    padding: 0 50px; /* فضای خالی دو طرف برای دکمه‌ها */
-    overflow: visible; /* تا دکمه‌ها بیرون swiper دیده بشن */
+  width: 100%;
+  padding: 0 50px;
+  overflow: visible;
 }
+
+.swiper-wrapper {
+  display: flex;
+  justify-content: center; /* این باعث میشه کارت‌ها وسط بچسبن */
+}
+
 
 .swiper-button-next,
 .swiper-button-prev {

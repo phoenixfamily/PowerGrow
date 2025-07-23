@@ -82,20 +82,32 @@
         </div>
     </section>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+
     <section class="swiper-section py-5">
 
         <div class="container-fluid px-lg-5">
             <h2 class="mb-4 text-center fw-bold">دوره‌های منتخب</h2>
-            <div class="swiper-button-prev"></div>
+        </div>
+
+        <div class="container my-5">
+            <h3 class="mb-4">دوره‌های منتخب</h3>
+
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     {% for x in selected %}
                         <div class="swiper-slide">
-                            <div class="card bg-white shadow rounded" style="width: 250px;">
-                                <img src="{% static 'images/hero.png' %}" class="card-img-top" alt="{{ course.title }}"
-                                     style="height: 180px; object-fit: cover;">
-
+                            <div class="card h-100"
+                                 style="border-radius: 15px; background: #f7f0e8; box-shadow: 0 3px 8px rgba(0,0,0,0.1);">
+                                <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
+                                     data-mdb-ripple-color="light">
+                                    <img
+                                            src="/media/{{ x.image }}"
+                                            alt="{{ x.title }}"
+                                            class="img-fluid"
+                                            style="border-top-left-radius: 15px; border-top-right-radius: 15px; height: 180px; object-fit: cover; width: 100%;"
+                                    />
+                                </div>
                                 <div class="card-body pb-0">
                                     <div class="d-flex justify-content-between">
                                         <div>
@@ -164,40 +176,47 @@
                         </div>
                     {% endfor %}
                 </div>
+
+                <!-- دکمه‌های navigation -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+
+                <!-- pagination اگر خواستی فعالش کن -->
+                <!-- <div class="swiper-pagination"></div> -->
             </div>
-            <div class="swiper-button-next"></div>
         </div>
+
         <!-- اسکریپت Swiper -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
         <script>
             const swiper = new Swiper(".mySwiper", {
-                slidesPerView: 4,
-                spaceBetween: 10,
+                slidesPerView: 3,
+                spaceBetween: 25,
                 slidesPerGroup: 1,
                 loop: false,
                 loopFillGroupWithBlank: false,
-                centeredSlides: true, // این خط را اضافه کنید
                 navigation: {
                     nextEl: ".swiper-button-next",
                     prevEl: ".swiper-button-prev",
                 },
                 breakpoints: {
-                    0: {
+                    320: {
                         slidesPerView: 1,
-                        centeredSlides: true
+                        spaceBetween: 15,
                     },
-                    768: {
+                    640: {
                         slidesPerView: 2,
-                        centeredSlides: false
+                        spaceBetween: 20,
                     },
                     992: {
                         slidesPerView: 3,
-                        centeredSlides: false
-                    }
-                }
-
+                        spaceBetween: 25,
+                    },
+                },
             });
         </script>
+
+
     </section>
 
 

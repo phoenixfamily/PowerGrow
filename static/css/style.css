@@ -209,7 +209,7 @@ section p {
     max-width: 90%;
     height: auto;
     border-radius: 1rem;
-    box-shadow: 0 0 25px rgba(0,0,0,0.1);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
 }
 
 .text-wrapper {
@@ -231,62 +231,44 @@ section p {
     }
 }
 
-.swiper-section{
-        background: linear-gradient(to left, #fff, #f9f9f9);
+.swiper-section {
+    background: linear-gradient(to left, #fff, #f9f9f9);
 }
 
 /* کارت و دکمه ثبت نام */
 .register-button {
-  background-color: #E16539;
-  border: none;
-  color: white;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.25s ease;
-  font-size: 0.9rem;
+    background-color: #E16539;
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+    font-size: 0.9rem;
 }
 
 .register-button:hover {
-  background-color: #cc4a2a;
+    background-color: #cc4a2a;
 }
 
 .swiper {
-    width: 100%;
-    padding: 0 50px;
     overflow: visible;
+    padding: 20px 10px;
 }
 
-.swiper-wrapper {
-    display: flex;
-    justify-content: center; /* این خط اختیاری است، اما Swiper ممکن است آن را نادیده بگیرد */
+.swiper-slide {
+    width: 270px !important; /* اندازه کارت‌ها */
 }
 
-.container-fluid {
-    position: relative;
+.card {
+    height: 100%;
 }
 
 .swiper-button-next,
 .swiper-button-prev {
-    color: #E16539 !important;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    position: absolute;
-}
-
-.swiper-button-prev {
-    left: 10px;
-}
-
-.swiper-button-next {
-    right: 10px;
-}
-
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-    color: #cc4a2a !important;
+    color: #000;
+    top: 40%;
 }
 
 .card-body {

@@ -101,11 +101,10 @@ INSTALLED_APPS = [
     'two_factor.plugins.yubikey',
     'otp_yubikey',
     'rest_framework.authtoken',
+    'bootstrap5',
     'django_filters',
     'django_apscheduler',
     'admin_auto_filters',
-    'PowerGrow',
-    'bootstrap5',
 
 ]
 

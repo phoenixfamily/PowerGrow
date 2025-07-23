@@ -265,12 +265,6 @@ section p {
 .swiper-button-prev:hover {
   color: #cc4a2a;
 }
-
-/* سایز عکس داخل کارت */
-.card img {
-  object-fit: cover;
-}
-
 /* فاصله داخلی کارت */
 .card-body {
   padding-top: 0.8rem;

@@ -252,41 +252,44 @@ section p {
   background-color: #cc4a2a;
 }
 
-
 .swiper {
-  width: 100%;
-  padding: 0 50px;
-  overflow: visible;
+    width: 100%;
+    padding: 0 50px;
+    overflow: visible;
 }
 
 .swiper-wrapper {
-  display: flex;
-  justify-content: center; /* این باعث میشه کارت‌ها وسط بچسبن */
+    display: flex;
+    justify-content: center; /* این خط اختیاری است، اما Swiper ممکن است آن را نادیده بگیرد */
 }
 
+.container-fluid {
+    position: relative;
+}
 
 .swiper-button-next,
 .swiper-button-prev {
-    color: #E16539!important;
-    top: 40%;
+    color: #E16539 !important;
+    top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-}
-
-.swiper-button-next {
-    right: 10px;
+    position: absolute;
 }
 
 .swiper-button-prev {
     left: 10px;
 }
 
+.swiper-button-next {
+    right: 10px;
+}
+
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-  color: #cc4a2a!important;
+    color: #cc4a2a !important;
 }
-/* فاصله داخلی کارت */
+
 .card-body {
-  padding-top: 0.8rem;
-  padding-bottom: 0.8rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
 }

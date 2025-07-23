@@ -82,16 +82,12 @@
         </div>
     </section>
 
-
     <section class="swiper-section py-5">
+
+
         <div class="container-fluid px-lg-5">
             <h2 class="mb-4 text-center fw-bold">دوره‌های منتخب</h2>
-
-            <!-- لینک CSS و JS مربوط به Swiper -->
-            <link
-                    rel="stylesheet"
-                    href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-            />
+            <div class="swiper-button-prev"></div>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     {% for x in selected %}
@@ -168,16 +164,9 @@
                         </div>
                     {% endfor %}
                 </div>
-
-                <!-- دکمه‌های navigation -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-
-                <!-- pagination اگر خواستی فعالش کن -->
-                <!-- <div class="swiper-pagination"></div> -->
             </div>
+            <div class="swiper-button-next"></div>
         </div>
-
         <!-- اسکریپت Swiper -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
         <script>
@@ -187,6 +176,7 @@
                 slidesPerGroup: 1,
                 loop: false,
                 loopFillGroupWithBlank: false,
+                centeredSlides: true, // این خط را اضافه کنید
                 navigation: {
                     nextEl: ".swiper-button-next",
                     prevEl: ".swiper-button-prev",

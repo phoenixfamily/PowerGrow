@@ -252,18 +252,31 @@ section p {
   background-color: #cc4a2a;
 }
 
-/* دکمه‌های navigation swiper */
+
+.swiper {
+    padding: 0 50px; /* فضای خالی دو طرف برای دکمه‌ها */
+    overflow: visible; /* تا دکمه‌ها بیرون swiper دیده بشن */
+}
+
 .swiper-button-next,
 .swiper-button-prev {
-  color: #E16539;
-  width: 40px;
-  height: 40px;
-  top: 40%;
+    color: #E16539!important;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.swiper-button-next {
+    right: 10px;
+}
+
+.swiper-button-prev {
+    left: 10px;
 }
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-  color: #cc4a2a;
+  color: #cc4a2a!important;
 }
 /* فاصله داخلی کارت */
 .card-body {

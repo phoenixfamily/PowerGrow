@@ -67,14 +67,16 @@ body.dark-mode {
 
 /* لینک‌های منو */
 .navbar-nav .nav-link {
-    color: #444!important;
+    color: #444 !important;
+    font-weight: 500; /* یا 600 اگه خیلی نازکه */
+    font-size: 1rem; /* یا 1.1rem اگه می‌خوای بزرگ‌تر شه */
     margin: 0 0.5rem;
     transition: color 0.2s ease;
 }
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-    color: #E16539;
+    color: black;
     font-weight: 500;
 }
 

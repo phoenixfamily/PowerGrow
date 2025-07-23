@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 
-<html lang="fa">
+<html lang="fa" dir = "rtl">
 <head>
 
     {% load bootstrap5 %}
@@ -48,7 +48,7 @@
 <body>
 
 <header>
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm" dir="rtl">
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
         <div class="container d-flex justify-content-between align-items-center">
 
 
@@ -97,18 +97,18 @@
 
             <!-- Quick Links -->
             <div class="col-md-2 mb-4">
-                <h6 class="fw-bold mb-3">Quick Links</h6>
+                <h6 class="fw-bold mb-3">دسترسی سریع</h6>
                 <ul class="list-unstyled">
-                    <li><a href="{% url 'home:home-view' %}" class="footer-link">Home</a></li>
-                    <li><a href="{% url 'about:about-view' %}" class="footer-link">About us</a></li>
-                    <li><a href="{% url 'user:login' %}" class="footer-link">Login</a></li>
+                    <li><a href="{% url 'home:home-view' %}" class="footer-link">خانه</a></li>
+                    <li><a href="{% url 'about:about-view' %}" class="footer-link">درباره ما</a></li>
+                    <li><a href="{% url 'user:login' %}" class="footer-link">ورود و عضویت</a></li>
 
                 </ul>
             </div>
 
             <!-- Contact Info -->
             <div class="col-md-3 mb-4">
-                <h6 class="fw-bold mb-3">Contact</h6>
+                <h6 class="fw-bold mb-3">راه های ارتباطی</h6>
                 <p class="mb-1"><i class="fa fa-phone me-2"></i>02188969138</p>
                 <p class="mb-1"><i class="fa fa-mobile-phone me-2"></i>09911177140</p>
                 <p><i class="fa fa-map-marker-alt me-2"></i>بلوار کشاورز،خیابان حجاب،باشگاه ورزشی حجاب</p>
@@ -116,7 +116,7 @@
 
             <!-- Social Media -->
             <div class="col-md-3 mb-4">
-                <h6 class="fw-bold mb-3">Follow Us</h6>
+                <h6 class="fw-bold mb-3">مارا دنبال کنید</h6>
                 <div class="d-flex gap-3">
                     <a href="" class="social-icon"><i class="fab fa-instagram"></i></a>
                     <a href="//linkedin.com/company/phoenixfamily" class="social-icon"><i

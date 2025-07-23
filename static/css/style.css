@@ -267,7 +267,7 @@ section p {
 
 .swiper-button-next,
 .swiper-button-prev {
-    color: #000;
+    color: #000!important;
     top: 40%;
 }
 

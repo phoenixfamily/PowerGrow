@@ -1,5 +1,146 @@
-{% extends "admin/base_site.html" %}
 {% load static %}
-{% block extrahead %}
-    <link rel="shortcut icon" href="{% static 'images/logo.jpg' %}" />
-{% endblock %}
+{% load i18n %}
+<!DOCTYPE html>
+
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+<head>
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ seo_title }}</title>
+    <meta name="description" content="{{ seo_description }}">
+    <meta name="keywords" content="{{ seo_keywords }}">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/logo.jpg' %}" type="image/x-icon">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta property="og:title" content="{{ seo_title }}">
+    <meta property="og:description" content="{{ seo_description }}">
+    <meta property="og:image" content="{% static 'images/logo.jpg' %}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta name="twitter:title" content="{{ seo_title }}">
+    <meta name="twitter:description" content="{{ seo_description }}">
+    <meta name="twitter:image" content="{% static 'images/logo.jpg' %}">
+
+
+    <script src="https://kit.fontawesome.com/1228ed801f.js" crossorigin="anonymous"></script>
+
+    <style>
+
+    </style>
+
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "PowerGrow",
+        "url": "https://www.powergrow.ir/",
+        "logo": "https://www.powergrow.ir/static/images/logo.jpg/"
+        }
+    </script>
+
+
+</head>
+<body>
+
+
+<header>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container">
+                <!-- لوگو -->
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home:home-view' %}">
+                    <img src="{% static 'images/logo-transparent.png' %}" alt="PowerGrow" height="40">
+                    <span class="fw-bold text-primary fs-5">PowerGrow</span>
+
+                </a>
+
+                <!-- دکمه موبایل -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span><i class="fa fa-bars text-primary"></i></span>
+                </button>
+
+
+                {% block header %}
+                {% endblock %}
+
+
+            </div>
+        </nav>
+    </header>
+</header>
+
+<!-- محتوای متغیر -->
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<footer class="footer bg-dark text-white pt-5 pb-4">
+    <div class="container">
+        <div class="row">
+
+            <!-- Logo + Description -->
+            <div class="col-md-4 mb-4">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home:home-view' %}">
+                    <img src="{% static 'images/simple-logo.png' %}" alt="IranianShiningPhoenix" height="40">
+                    <span class="fw-bold text-primary fs-5 d-none d-lg-inline">IranianShiningPhoenix</span>
+
+                </a>
+                <p class="small">
+                    Specialized in aircraft cleaning, detailing, and maintenance. We deliver eco-friendly and
+                    high-quality services trusted by global airlines.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-2 mb-4">
+                <h6 class="fw-bold mb-3">Quick Links</h6>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'home:home' %}" class="footer-link">Home</a></li>
+                    <li><a href="{% url 'aboutUs:aboutUs' %}" class="footer-link">About us</a></li>
+                    <li><a href="{% url 'user:login' %}" class="footer-link">Login</a></li>
+
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3">Contact</h6>
+                <p class="mb-1"><i class="fa fa-envelope me-2"></i>02188969138</p>
+                <p class="mb-1"><i class="fa fa-envelope me-2"></i>09911177140</p>>
+                <p><i class="fa fa-map-marker-alt me-2"></i>بلوار کشاورز،خیابان حجاب،باشگاه ورزشی حجاب</p>
+            </div>
+
+            <!-- Social Media -->
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3">Follow Us</h6>
+                <div class="d-flex gap-3">
+                    <a href="" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="//linkedin.com/company/phoenixfamily" class="social-icon"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="//wa.link/eai49n" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    <a href="//telegram.me/power_grow" class="social-icon"><i
+                            class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center pt-4 border-top mt-4" style="border-color: rgba(255,255,255,0.1) !important;">
+            <p class="small mb-0">&copy; 2025 PhoenixFamily Co. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+
+</html>

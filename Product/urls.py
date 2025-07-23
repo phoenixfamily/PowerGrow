@@ -4,7 +4,7 @@ from Product.views import *
 app_name = 'product'
 
 urlpatterns = [
-    path('categories/<int:pk>/', category_view, name='category_view'),
+    path('categories/<int:pk>/', category_view, name='category-view'),
     path('offer/', offer_view, name='offer_view'),
     path('products/<int:pk>/', product_view, name='product_view'),
     path('payment/<int:pk>/<int:session>/<int:day>/<int:start>/', payment_view, name='payment_view'),

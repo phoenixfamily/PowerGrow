@@ -7,7 +7,7 @@ from django.conf import settings
 app_name = 'home'
 
 urlpatterns = [
-    path('', home_view, name='home'),
+    path('', home_view, name='home-view'),
     path('slider/', slider_view, name='slider_view'),
     path('api/slider/create/', SliderView.as_view({'post': 'create'}), name='create_slider'),
     path('api/slider/update/<int:pk>/', SliderView.as_view({'put': 'update'}), name='update_slider'),

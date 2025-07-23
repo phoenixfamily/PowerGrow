@@ -182,19 +182,20 @@
                     prevEl: ".swiper-button-prev",
                 },
                 breakpoints: {
-                    320: {
+                    0: {
                         slidesPerView: 1,
-                        spaceBetween: 15,
+                        centeredSlides: true
                     },
-                    640: {
+                    768: {
                         slidesPerView: 2,
-                        spaceBetween: 20,
+                        centeredSlides: false
                     },
                     992: {
                         slidesPerView: 3,
-                        spaceBetween: 25,
-                    },
-                },
+                        centeredSlides: false
+                    }
+                }
+
             });
         </script>
     </section>

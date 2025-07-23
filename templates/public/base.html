@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 
-<html dir="ltr" lang="fa">
+<html lang="fa">
 <head>
 
     {% load bootstrap5 %}
@@ -52,15 +52,14 @@
         <div class="container d-flex justify-content-between align-items-center">
 
 
-
             {% block header %}
             {% endblock %}
 
 
             <!-- لوگو -->
             <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home:home-view' %}">
-                <img src="{% static 'images/logo-transparent.png' %}" alt="PowerGrow" height="40">
                 <span class="fw-bold fs-5">PowerGrow</span>
+                <img src="{% static 'images/logo-transparent.png' %}" alt="PowerGrow" height="40">
 
             </a>
 

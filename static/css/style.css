@@ -20,24 +20,6 @@
     --footer-copyright--text: #B1B2B2
 }
 
-body.dark-mode {
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-    --navbar-bg: #E16539;
-    --navbar-border: #E16539;
-    --nav-link-color: #e0e0e0;
-    --nav-link-hover: #E16539;
-    --btn-bg: #E16539;
-    --btn-hover: #ff6659;
-    --btn-text: #ffffff;
-    --text-color-muted: #e1e1e1; /* رنگ خاکستری روشن‌تر برای حالت دارک */
-    --navbar-toggler-border-color-dark: #666; /* رنگ حاشیه برای حالت دارک */
-    --navbar-toggler-bg-color-dark: #333; /* رنگ پس‌زمینه برای حالت دارک */
-    --navbar-toggler-icon-color-dark: #fff; /* رنگ ایکون برای حالت دارک */
-    --footer-copyright: #142657;
-    --footer-copyright--text: #B1B2B2
-}
-
 @font-face {
     font-family: BYekan;
     font-style: normal;

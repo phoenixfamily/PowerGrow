@@ -91,7 +91,6 @@ INSTALLED_APPS = [
     'Seo',
     'User',
     'Calendar',
-    'django_bootstrap5',
     'django_otp',
     'django_otp.plugins.otp_static',
     'django_otp.plugins.otp_totp',
@@ -107,7 +106,6 @@ INSTALLED_APPS = [
     'admin_auto_filters',
     'PowerGrow',
     'bootstrap5',
-    "django_bootstrap5",
 
 ]
 

@@ -167,12 +167,10 @@
 
     <script>
         const swiper = new Swiper(".mySwiper", {
-            slidesPerView: 'auto',
-            centeredSlides: false,
-            slideToClickedSlide: true,
-            spaceBetween: 20,
             loop: false,
-            resistanceRatio: 0, // 👈 این مهمه: باعث میشه تو انتها bounce نکنه
+            spaceBetween: 20,
+            resistanceRatio: 0,
+            slideToClickedSlide: true,
             navigation: {
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
@@ -180,15 +178,15 @@
             breakpoints: {
                 0: {
                     slidesPerView: 1,
-                    centeredSlides: true,
+                    centeredSlides: false,
                 },
                 576: {
                     slidesPerView: 1.5,
-                    centeredSlides: true,
+                    centeredSlides: false,
                 },
                 768: {
                     slidesPerView: 2,
-                    centeredSlides: true,
+                    centeredSlides: false,
                 },
                 992: {
                     slidesPerView: 3,
@@ -196,6 +194,7 @@
                 }
             }
         });
+
     </script>
 
 

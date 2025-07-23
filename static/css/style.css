@@ -300,3 +300,22 @@ section p {
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
 }
+
+.why-hijab {
+    background: linear-gradient(to top, #fff, #f7f7f7);
+}
+
+.feature-box {
+    background-color: #fff;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.feature-box i {
+    color: #E16539;
+}

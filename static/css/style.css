@@ -235,3 +235,6 @@ section p {
     }
 }
 
+.swiper-section{
+        background: linear-gradient(to left, #fff, #f9f9f9);
+}

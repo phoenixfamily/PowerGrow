@@ -86,7 +86,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
 <section class="swiper-section py-5">
-  <div class="container">
+    <div class="container-fluid px-lg-5">
     <h2 class="mb-4 text-center fw-bold">دوره‌های منتخب</h2>
 
     <div class="swiper mySwiper">
@@ -94,7 +94,7 @@
         {% for course in selected %}
           <div class="swiper-slide">
             <div class="card shadow-sm" style="width: 250px;">
-              <img src="/media/{{ course.image }}" class="card-img-top" alt="{{ course.title }}" style="height: 180px; object-fit: cover;">
+              <img src="{% static 'images/hero.png' %}" class="card-img-top" alt="{{ course.title }}" style="height: 180px; object-fit: cover;">
               <div class="card-body">
                 <h5 class="card-title">{{ course.title }}</h5>
                 <p class="card-text small text-muted mb-1">{{ course.time }}</p>

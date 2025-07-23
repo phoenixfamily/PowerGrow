@@ -234,3 +234,45 @@ section p {
 .swiper-section{
         background: linear-gradient(to left, #fff, #f9f9f9);
 }
+
+/* کارت و دکمه ثبت نام */
+.register-button {
+  background-color: #E16539;
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  font-size: 0.9rem;
+}
+
+.register-button:hover {
+  background-color: #cc4a2a;
+}
+
+/* دکمه‌های navigation swiper */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #E16539;
+  width: 40px;
+  height: 40px;
+  top: 40%;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #cc4a2a;
+}
+
+/* سایز عکس داخل کارت */
+.card img {
+  object-fit: cover;
+}
+
+/* فاصله داخلی کارت */
+.card-body {
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}

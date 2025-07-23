@@ -82,149 +82,21 @@
         </div>
     </section>
 
-<!-- Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <!-- لینک CSS و JS مربوط به Swiper -->
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
 
-<section class="swiper-section py-5">
-    <div class="container-fluid px-lg-5">
-    <h2 class="mb-4 text-center fw-bold">دوره‌های منتخب</h2>
+    <section class="swiper-section py-5">
+        <div class="container-fluid px-lg-5">
+            <h3 class="mb-4">دوره‌های منتخب</h3>
 
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        {% for course in selected %}
-          <div class="swiper-slide">
-            <div class="card bg-white shadow rounded" style="width: 250px;">
-              <img src="{% static 'images/hero.png' %}" class="card-img-top" alt="{{ course.title }}" style="height: 180px; object-fit: cover;">
-              <div class="card-body">
-                <h5 class="card-title">{{ course.title }}</h5>
-                <p class="card-text small text-muted mb-1">{{ course.time }}</p>
-                <a href="{% url 'product:product_view' course.id %}" class="btn btn-sm btn-primary w-100">ثبت‌نام</a>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-
-      <!-- Navigation -->
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-
-      <!-- Pagination -->
-      <div class="swiper-pagination"></div>
-    </div>
-  </div>
-</section>
-
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
-<script>
-  const swiper = new Swiper('.mySwiper', {
-    slidesPerView: 'auto',
-    spaceBetween: 20,
-    centeredSlides: false,
-    grabCursor: true,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    breakpoints: {
-      320: { slidesPerView: 1.2 },
-      576: { slidesPerView: 2 },
-      768: { slidesPerView: 3 },
-      992: { slidesPerView: 4 },
-    },
-  });
-</script>
+            ...
+        </div>
+    </section>
 
 
-
-    {#    <h3 class="selected">دوره های منتخب</h3>#}
-    {##}
-    {#    <div class="container-fluid py-4 w-100" dir="rtl">#}
-    {##}
-    {#        <div class="d-flex flex-row flex-nowrap gap-3 overflow-auto example justify-content-start">#}
-    {##}
-    {#            {% for x in selected %}#}
-    {##}
-    {#                <div class="col-12 col-sm-6 col-md-4 col-lg-3">#}
-    {#                    <div class="card h-100" style="border-radius: 15px;">#}
-    {#                        <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"#}
-    {#                             data-mdb-ripple-color="light">#}
-    {#                            <img src="/media/{{ x.image }}"#}
-    {#                                 style="border-top-left-radius: 15px; border-top-right-radius: 15px ; height: 300px ; object-fit: fill ;width: 100%"#}
-    {#                                 class="img-fluid img-responsive"#}
-    {#                                 alt="product"/>#}
-    {#                        </div>#}
-    {#                        <div class="card-body pb-0">#}
-    {#                            <div class="d-flex justify-content-between">#}
-    {#                                <div>#}
-    {#                                    <p><a style="text-decoration: none" class="text-dark">نام دوره</a></p>#}
-    {#                                    <p class="text-dark">نام مربی</p>#}
-    {#                                </div>#}
-    {#                                <div>#}
-    {#                                    <p class="text-dark" style="text-align: left">{{ x.title }}</p>#}
-    {#                                    <p class="text-dark" style="text-align: left">{{ x.name }}</p>#}
-    {#                                </div>#}
-    {#                            </div>#}
-    {#                        </div>#}
-    {#                        <hr class="my-0"/>#}
-    {#                        <div class="card-body pb-0">#}
-    {#                            <div class="d-flex justify-content-between">#}
-    {#                                <p><a style="text-decoration: none" class="text-dark">زمان دوره</a></p>#}
-    {#                                <p class="text-dark" style="width: 65% ; text-align: left">{{ x.time }}</p>#}
-    {#                            </div>#}
-    {#                            <div class="d-flex justify-content-between">#}
-    {#                                <p><a style="text-decoration: none" class="text-dark">نوع دوره</a></p>#}
-    {#                                <p class="text-dark" style="width: 65%; text-align: left">#}
-    {#                                    {% if x.type == "public" %}#}
-    {#                                        عمومی#}
-    {#                                    {% elif x.type == "private" %}#}
-    {#                                        خصوصی#}
-    {#                                    {% elif x.type == "semi_private" %}#}
-    {#                                        نیمه خصوصی#}
-    {#                                    {% endif %}</p>#}
-    {#                            </div>#}
-    {##}
-    {#                            <p class="d-flex justify-content-center align-items-center text-dark mb-2"#}
-    {#                               style="text-align: center;">مناسب برای   {% if x.gender == "male" %}#}
-    {#                                آقایان#}
-    {#                            {% elif x.gender == "female" %}#}
-    {#                                بانوان#}
-    {#                            {% endif %}</p>#}
-    {#                        </div>#}
-    {#                        <hr class="my-0"/>#}
-    {#                        <div class="card-body">#}
-    {#                            {% if x.previous == True %}#}
-    {#                                <div class="d-flex align-items-center justify-content-between pb-2 mb-1">#}
-    {#                <span style="background-color: #f22d34; color: white; font-size: 14px; font-weight: bold; padding: 5px 10px; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">#}
-    {#                    پیش ثبت نام#}
-    {#                </span>#}
-    {#                                    <button type="button" class="btn register-button"#}
-    {#                                            onclick="location.assign('{% url "product:product_view" x.id %}')">ثبت نام#}
-    {#                                    </button>#}
-    {#                                </div>#}
-    {##}
-    {#                            {% else %}#}
-    {#                                <div style="float: left" class="d-flex align-items-center pb-2 mb-1">#}
-    {#                                    <button type="button" class="btn register-button"#}
-    {#                                            onclick="location.assign('{% url "product:product_view" x.id %}')">ثبت نام#}
-    {#                                    </button>#}
-    {#                                </div>#}
-    {#                            {% endif %}#}
-    {#                        </div>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {##}
-    {#            {% endfor %}#}
-    {##}
-    {#        </div>#}
-    {##}
-    {#    </div>#}
     {##}
     {#    <div class="container-fluid my-5">#}
     {#        <div class="row">#}

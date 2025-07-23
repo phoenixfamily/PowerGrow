@@ -264,27 +264,35 @@ section p {
 .card {
     height: 100%;
 }
-
 .swiper-button-next,
 .swiper-button-prev {
-    color: #ca4c2f !important; /* رنگ برند */
-    background-color: rgba(242, 45, 52, 0.1); /* یه بک‌گراند خیلی لطیف */
-    border-radius: 50%;
-    padding: 20px;
-    width: 44px;
-    height: 44px;
+    background-color: #666; /* زمینه خاکستری */
+    color: white; /* فلش سفید */
+    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    padding: 10px;
+    font-weight: bold;
     transition: all 0.3s ease;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* فلش‌ها رو وسط دقیق قرار بده */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 /* حالت هاور */
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    background-color: #ae3b22 !important;
-    color: #fff !important;
+    background-color: #ca4c2f; /* رنگ برند در هاور */
+    color: white;
     transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
+
 
 
 .card-body {

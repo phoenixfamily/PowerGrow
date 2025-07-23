@@ -264,24 +264,25 @@ section p {
 .card {
     height: 100%;
 }
+
 .swiper-button-next,
 .swiper-button-prev {
     background-color: #666 !important; /* زمینه خاکستری */
     color: white !important; /* فلش سفید */
-    font-size: 16px;
+    font-size: 14px !important;
     border-radius: 12px;
     width: 48px;
     height: 48px;
     padding: 10px;
     font-weight: bold;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* فلش‌ها رو وسط دقیق قرار بده */
 .swiper-button-next::after,
 .swiper-button-prev::after {
-    font-size: 20px;
+    font-size: 14px !important;
     font-weight: bold;
 }
 
@@ -293,7 +294,6 @@ section p {
     transform: scale(1.1);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
-
 
 
 .card-body {

@@ -82,6 +82,50 @@
         </div>
     </section>
 
+    <section class="popular-courses py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold text-primary">دوره‌های پرطرفدار</h2>
+      <p class="text-muted">محبوب‌ترین دوره‌ها در میان بانوان و خانواده‌ها — حرفه‌ای، متنوع و قابل ثبت‌نام آنلاین</p>
+    </div>
+
+    <div class="row gy-4">
+      {% for course in selected %}
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <img src="/media/{{ course.image }}" class="card-img-top" style="height: 250px; object-fit: cover" alt="{{ course.title }}">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <h5 class="card-title fw-bold text-dark">{{ course.title }}</h5>
+                <p class="text-muted mb-1">مربی: {{ course.name }}</p>
+                <p class="text-muted mb-1">زمان برگزاری: {{ course.time }}</p>
+                <p class="text-muted mb-1">نوع دوره:
+                  {% if course.type == "public" %} عمومی
+                  {% elif course.type == "private" %} خصوصی
+                  {% elif course.type == "semi_private" %} نیمه‌خصوصی
+                  {% endif %}
+                </p>
+                <p class="text-muted mb-3">ویژه:
+                  {% if course.gender == "female" %} بانوان
+                  {% elif course.gender == "male" %} آقایان
+                  {% endif %}
+                </p>
+              </div>
+
+              <div class="mt-auto">
+                {% if course.previous %}
+                  <span class="badge bg-danger mb-2">پیش‌ثبت‌نام</span>
+                {% endif %}
+                <a href="{% url 'product:product_view' course.id %}" class="btn btn-primary w-100">مشاهده و ثبت‌نام</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
 
     {#    <h3 class="selected">دوره های منتخب</h3>#}
     {##}

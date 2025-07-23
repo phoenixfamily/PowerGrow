@@ -82,53 +82,65 @@
         </div>
     </section>
 
-<section class="featured-courses py-5">
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+<section class="swiper-section py-5">
   <div class="container">
-    <h2 class="text-center fw-bold mb-5">دوره‌های منتخب ما</h2>
+    <h2 class="mb-4 text-center fw-bold">دوره‌های منتخب</h2>
 
-    <div class="d-flex flex-column gap-5">
-      {% for course in selected %}
-        <div class="row align-items-center flex-column flex-md-row g-4">
-          <!-- تصویر دوره -->
-          <div class="col-md-5">
-            <img src="/media/{{ course.image }}" class="img-fluid rounded shadow-sm" style="object-fit: cover; height: 100%; max-height: 300px;" alt="{{ course.title }}">
-          </div>
-
-          <!-- اطلاعات دوره -->
-          <div class="col-md-7">
-            <div class="d-flex flex-column gap-2 h-100 justify-content-between">
-              <div>
-                <h4 class="fw-bold text-primary">{{ course.title }}</h4>
-                <p class="mb-1 text-muted">مربی: {{ course.name }}</p>
-                <p class="mb-1 text-muted">زمان: {{ course.time }}</p>
-                <p class="mb-1 text-muted">نوع دوره:
-                  {% if course.type == "public" %} عمومی
-                  {% elif course.type == "private" %} خصوصی
-                  {% elif course.type == "semi_private" %} نیمه‌خصوصی
-                  {% endif %}
-                </p>
-                <p class="mb-1 text-muted">ویژه:
-                  {% if course.gender == "female" %} بانوان
-                  {% elif course.gender == "male" %} آقایان
-                  {% endif %}
-                </p>
-              </div>
-
-              <!-- دکمه و نشان پیش‌ثبت‌نام -->
-              <div class="d-flex flex-wrap justify-content-between align-items-center mt-3">
-                {% if course.previous %}
-                  <span class="badge bg-danger mb-2">پیش ‌ثبت‌نام</span>
-                {% endif %}
-                <a href="{% url 'product:product_view' course.id %}" class="btn btn-outline-primary rounded-pill px-4">مشاهده و ثبت‌نام</a>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        {% for course in selected %}
+          <div class="swiper-slide">
+            <div class="card shadow-sm" style="width: 250px;">
+              <img src="/media/{{ course.image }}" class="card-img-top" alt="{{ course.title }}" style="height: 180px; object-fit: cover;">
+              <div class="card-body">
+                <h5 class="card-title">{{ course.title }}</h5>
+                <p class="card-text small text-muted mb-1">{{ course.time }}</p>
+                <a href="{% url 'product:product_view' course.id %}" class="btn btn-sm btn-primary w-100">ثبت‌نام</a>
               </div>
             </div>
           </div>
-        </div>
-        <hr class="my-4">
-      {% endfor %}
+        {% endfor %}
+      </div>
+
+      <!-- Navigation -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+
+      <!-- Pagination -->
+      <div class="swiper-pagination"></div>
     </div>
   </div>
 </section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<script>
+  const swiper = new Swiper('.mySwiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 20,
+    centeredSlides: false,
+    grabCursor: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      320: { slidesPerView: 1.2 },
+      576: { slidesPerView: 2 },
+      768: { slidesPerView: 3 },
+      992: { slidesPerView: 4 },
+    },
+  });
+</script>
+
 
 
     {#    <h3 class="selected">دوره های منتخب</h3>#}

@@ -117,3 +117,61 @@ body.dark-mode {
 ul {
     list-style-type: none;
 }
+
+.footer-link {
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #fff;
+    padding-left: 5px;
+}
+
+.social-icon {
+    color: #ccc;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.social-icon:hover {
+    color: #fff;
+    transform: scale(1.2);
+}
+
+.social-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    transition: 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
+/* رنگ شبکه‌های اجتماعی */
+
+.bg-instagram {
+    background: #E1306C;
+}
+
+.bg-linkedin {
+    background: #0077B5;
+}
+
+.bg-telegram {
+    background: #0088cc;
+}
+
+.bg-whatsapp {
+    background: #25D366;
+}

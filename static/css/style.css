@@ -266,8 +266,9 @@ section p {
 }
 .swiper-button-next,
 .swiper-button-prev {
-    background-color: #666; /* زمینه خاکستری */
-    color: white; /* فلش سفید */
+    background-color: #666 !important; /* زمینه خاکستری */
+    color: white !important; /* فلش سفید */
+    font-size: 16px;
     border-radius: 12px;
     width: 48px;
     height: 48px;
@@ -287,7 +288,7 @@ section p {
 /* حالت هاور */
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    background-color: #ca4c2f; /* رنگ برند در هاور */
+    background-color: #ca4c2f !important; /* رنگ برند در هاور */
     color: white;
     transform: scale(1.1);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);

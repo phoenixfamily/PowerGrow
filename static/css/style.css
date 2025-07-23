@@ -253,7 +253,7 @@ section p {
 }
 
 .swiper {
-    overflow: visible;
+    overflow: hidden;
     padding: 20px 10px;
 }
 

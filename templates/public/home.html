@@ -1,8 +1,7 @@
 {% extends 'public/base.html' %}
 {% load static %}
-{% load i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <title>باشگاه ورزشی حجاب</title>
 
@@ -43,6 +42,9 @@
         </ul>
     </div>
 {% endblock %}
+
+{% block content %}
+
 
 <h3 class="selected">دوره های منتخب</h3>
 
@@ -238,87 +240,7 @@
 </div>
 </div>
 
-<footer class="text-white pt-4">
-    <div class="container-fluid p-0">
-        <div class="row align-items-center py-4" dir="rtl" style="background-color: #312f2e">
-            <!-- Info Section -->
-            <div class="col-md-4">
-                <ul class="list-unstyled">
-                    <li class="mb-5">
-                        <div class="d-flex align-items-start">
-                            <i class="fa-solid fa-location-dot fa-2x mr-3"></i>
-                            <h5 class="mb-0 me-2">{{ about.address|linebreaksbr }}</h5>
-                        </div>
-                    </li>
-                    <li class="mb-5">
-                        <div class="d-flex align-items-start">
-                            <i class="fa-solid fa-phone-flip fa-2x mr-3"></i>
-                            <h5 class="mb-0 me-2">09911177140<br>02188969138</h5>
-                        </div>
-                    </li>
-                    <li class="mb-2">
-                        <div class="d-flex align-items-start">
-                            <i class="fa-brands fa-instagram fa-2x mr-3"></i>
-                            <h5 class="mb-0 me-2">{{ about.instagram }}</h5>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Map Section -->
-            <div class="col-md-4 d-flex justify-content-center mb-4">
-                <div id="map" class="img-fluid bg-light" style="width: 60%; height: 250px;"></div>
-            </div>
-
-            <!-- Logo Section -->
-            <div class="col-md-4 text-center mb-4">
-                <h3>PowerGrow</h3>
-                <img class="img-fluid mb-3" style="max-width: 200px; height: auto" src="/media/{{ about.transparent_logo }}" alt="Logo">
-            </div>
-        </div>
-
-        <!-- Copyright Section -->
-        <div class="row bg-dark">
-            <div class="col-md-12 d-flex justify-content-between align-items-center py-3">
-                <a class="mb-0 ms-3" href="https://abbaslotfinasab.com/" style="color: white; text-decoration: none" target="_blank">&copy; <span id="year">2023</span> AbbasLotfinasab, All rights reserved.</a>
-
-                <div class="d-flex align-items-center ms-auto">
-                    <span class="d-inline me-1">Follow us:</span>
-                    <a href="//www.instagram.com/abbas_lotfinasab?igsh=MmVlMjlkMTBhMg==" class="text-white ms-2 me-2">
-                        <i class="fa-brands fa-instagram fa-2x"></i>
-                    </a>
-                    <a href="//www.linkedin.com/in/abbaslotfinasab" class="text-white ms-2 me-2">
-                        <i class="fa-brands fa-linkedin fa-2x"></i>
-                    </a>
-                </div>
-            </div>
-        </div> <!-- این div را برای بستن copyright اضافه کنید -->
-    </div>
-</footer>
-
-
-<script>
-
-    let lat = {{ about.latitude }};
-    let long =     {{ about.longitude }};
-
-    const map = new nmp_mapboxgl.Map({
-        mapType: nmp_mapboxgl.Map.neshanVector,
-        container: "map",
-        zoom: 15,
-        pitch: 0,
-        center: [long, lat],
-        minZoom: 2,
-        maxZoom: 21,
-        trackResize: false,
-        mapKey: "web.3c30ab5c27a242d19aab4bca4e973288",
-        poi: true,
-        traffic: true,
-        mapTypeControllerStatus: {
-            show: false,
-        }
-    });
-</script>
+{% endblock %}
 
 </body>
 </html>

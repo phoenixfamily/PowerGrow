@@ -175,3 +175,32 @@ ul {
 .bg-whatsapp {
     background: #25D366;
 }
+
+section h1 {
+    font-size: 2.2rem;
+    color: var(--primary-dark);
+    font-family: 'BYekan', sans-serif;
+}
+
+section p {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: var(--text-color-muted);
+}
+
+.btn-primary {
+    background-color: var(--btn-bg);
+    border-color: var(--btn-bg);
+    font-weight: 600;
+}
+
+.btn-outline-secondary {
+    color: var(--btn-bg);
+    border: 2px solid var(--btn-bg);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--btn-hover);
+    color: white;
+    border-color: var(--btn-hover);
+}

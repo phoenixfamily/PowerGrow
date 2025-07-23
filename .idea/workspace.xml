@@ -69,7 +69,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
     "WebServerToolWindowFactoryState": "false",
-    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
+    "django.template.preview.state": "SHOW_EDITOR",
     "ignore.virus.scanning.warn.message": "true",
     "ignore_missing_gitignore": "true",
     "last_opened_file_path": "C:/Users/abbas/AppData/Local/Microsoft/WindowsApps/python3.13.exe",
@@ -247,6 +247,7 @@
       <workItem from="1744586935717" duration="309000" />
       <workItem from="1749679010470" duration="15988000" />
       <workItem from="1753191060998" duration="26376000" />
+      <workItem from="1753238404101" duration="10113000" />
     </task>
     <task id="LOCAL-02784" summary="font awsome updated">
       <created>1737797848541</created>

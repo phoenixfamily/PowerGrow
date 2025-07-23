@@ -82,7 +82,7 @@
         </div>
     </section>
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
 
     <section class="swiper-section py-5">
 
@@ -97,17 +97,10 @@
                 <div class="swiper-wrapper">
                     {% for x in selected %}
                         <div class="swiper-slide">
-                            <div class="card h-100"
-                                 style="border-radius: 15px; background: #f7f0e8; box-shadow: 0 3px 8px rgba(0,0,0,0.1);">
-                                <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                                     data-mdb-ripple-color="light">
-                                    <img
-                                            src="/media/{{ x.image }}"
-                                            alt="{{ x.title }}"
-                                            class="img-fluid"
-                                            style="border-top-left-radius: 15px; border-top-right-radius: 15px; height: 180px; object-fit: cover; width: 100%;"
-                                    />
-                                </div>
+                            <div class="card h-100 bg-white shadow rounded">
+                                <img src="{% static 'images/hero.png' %}" alt="باشگاه بانوان"
+                                     class="img-fluid rounded shadow">
+
                                 <div class="card-body pb-0">
                                     <div class="d-flex justify-content-between">
                                         <div>

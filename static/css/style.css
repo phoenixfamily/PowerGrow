@@ -586,7 +586,7 @@ section p {
 }
 
 .register-btn:hover {
-    background-color: var(--btn-bg);
+    background-color: #fff;
     color: var(--btn-text);
     border-color: transparent;
 }

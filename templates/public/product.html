@@ -127,7 +127,7 @@
             <div class="row d-flex flex-lg-row align-items-stretch">
 
                 <div class="col-lg-3 d-flex justify-content-center align-items-center mt-4 mt-lg-0">
-                    <a href="#" class="register-btn my-2">
+                    <a href="#" id="registerBtn" class="register-btn my-2">
                         <span>ثبت نام</span>
                         <i class="fa fa-arrow-left next-icon rtl"></i>
                     </a>
@@ -143,8 +143,9 @@
                             <label class="form-label fw-bold">روزهای برگزاری:</label>
                             <div class="d-flex flex-wrap gap-2">
                                 {% for x in days %}
-                                    <button type="button"
-                                            class="btn day-btn rounded-pill px-3">{{ x.title }}</button>
+                                    <button type="button" class="btn day-btn rounded-pill px-3"
+                                            data-id="{{ x.id }}">{{ x.title }}</button>
+
                                 {% endfor %}
                             </div>
                         </div>
@@ -154,8 +155,8 @@
                             <label class="form-label fw-bold">تعداد جلسات در ماه:</label>
                             <div class="d-flex flex-wrap gap-2">
                                 {% for x in session %}
-                                    <button type="button"
-                                            class="btn session-btn rounded-pill px-3">{{ x.number }} جلسه
+                                    <button type="button" class="btn session-btn rounded-pill px-3"
+                                            data-id="{{ x.id }}">{{ x.number }} جلسه
                                     </button>
                                 {% endfor %}
                             </div>
@@ -213,29 +214,31 @@
 
 
     <script>
+
+        let sessionId = 0;
+        let dayId = 0;
+        let currentDayId = 0;
+
         document.querySelectorAll('.day-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                // غیرفعال کردن همه دکمه‌ها
                 document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-
-                // فعال کردن فقط دکمه کلیک‌شده
                 btn.classList.add('active');
+                dayId = btn.getAttribute("data-id");  // ✅ اینجوری ID رو می‌گیری
             });
         });
-    </script>
 
-
-    <script>
         document.querySelectorAll('.session-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                // غیرفعال کردن همه دکمه‌ها
                 document.querySelectorAll('.session-btn').forEach(b => b.classList.remove('active'));
-
-                // فعال کردن فقط دکمه کلیک‌شده
                 btn.classList.add('active');
+                sessionId = btn.getAttribute("data-id");  // ✅ اینم برای جلسه
             });
         });
+
+
     </script>
+
+
 
     <script>
         const apiBase = '/calendar'; // فرض کن آدرس API اینه
@@ -264,7 +267,7 @@
                         if (day.today) classes.push("today");
 
                         daysContainer.innerHTML += `
-      <div class="${classes.join(" ")}" title="${day.description || ''}">
+      <div class="${classes.join(" ")}" data-id="${day.id}" title="${day.description || ''}">
         ${day.number}
       </div>`;
                     });
@@ -299,6 +302,16 @@
             }
         });
 
+        document.addEventListener("click", function (e) {
+            if (e.target.classList.contains("calendar-day") && !e.target.classList.contains("holiday") && !e.target.classList.contains("past")) {
+                document.querySelectorAll(".calendar-day").forEach(d => d.classList.remove("selected-day"));
+                e.target.classList.add("selected-day");
+
+                currentDayId = e.target.getAttribute("data-id");  // ✅ آیدی روز تقویم
+            }
+        });
+
+
     </script>
 
 
@@ -308,78 +321,61 @@
 </body>
 </html>
 
+<script>
 
-{##}
-{##}
-{#<script>#}
-{##}
-{#    let counter = 0#}
-{#    let capacity = "{{product.capacity}}";#}
-{#    let course = "{{ product.id }}";#}
-{#    let isEnable = ("{{ product.active }}"?.toLowerCase?.() === 'true');#}
-{#    const card = document.getElementById("card")#}
-{#    const capacityNumber = document.getElementById("number")#}
-{#    const registerButton = document.getElementById("registerButton")#}
-{#    let final_price#}
-{##}
-{#    let year = parseInt(today[0].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)))#}
-{#    let month = parseInt(today[1].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)))#}
-{#    let monthDay = parseInt(today[2].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)))#}
-{##}
-{#    const thisDate = jalaali.j2d(year, month, monthDay)#}
-{##}
-{##}
-{#    {% for x in participants.all %}#}
-{##}
-{#        var userEndYear = parseInt("{{ x.endDay.month.year.number }}");#}
-{#        var userEndMonth = parseInt("{{ x.endDay.month.number }}");#}
-{#        var userEndDay = parseInt("{{ x.endDay.number }}");#}
-{##}
-{#        var userEnd = jalaali.j2d(userEndYear, userEndMonth, userEndDay)#}
-{##}
-{#        if (0 < userEnd) {#}
-{#            if (userEnd >= thisDate) {#}
-{#                counter = counter + 1#}
-{#            }#}
-{#        }#}
-{##}
-{#    {% endfor %}#}
-{##}
-{##}
-{#    capacityNumber.innerHTML = `${counter}/${parseInt(capacity)}`#}
-{##}
-{##}
-{#    if (isEnable === true) {#}
-{#        if (parseInt(counter) < parseInt(capacity)) {#}
-{#            registerButton.disabled = false;#}
-{#            {% if product.previous %}#}
-{#                registerButton.innerHTML = "پیش ثبت نام";#}
-{#            {% else %}#}
-{#                registerButton.innerHTML = "ثبت نام کنید";#}
-{#            {% endif %}#}
-{#        } else {#}
-{#            registerButton.disabled = true;#}
-{#            registerButton.innerHTML = "ظرفیت تکمیل است";#}
-{#        }#}
-{#    } else {#}
-{#        registerButton.disabled = true;#}
-{#        registerButton.innerHTML = "دوره منقضی شده است";#}
-{#    }#}
-{##}
-{#    card.appendChild(registerButton)#}
-{##}
-{#    registerButton.addEventListener('click', function () {#}
-{##}
-{#        if (sessionId !== 0 && dayId !== 0) {#}
-{#            window.location.assign(`/product/payment/${course}/${sessionId}/${dayId}/${currentDayId}`)#}
-{#        } else if (sessionId === 0) {#}
-{#            alert("لطفا اول جلسه را انتخاب کنید")#}
-{#        } else if (dayId === 0) {#}
-{#            alert("لطفا روز را انتخاب کنید")#}
-{#        } else {#}
-{#            alert("تمامی موارد الزامی است")#}
-{#        }#}
-{##}
-{#    })#}
-{##}
-{#</script>#}
+    let course = "{{ product.id }}";
+
+    document.getElementById("registerBtn").addEventListener("click", function (event) {
+        event.preventDefault(); // جلوی رفتن به لینک رو می‌گیره
+
+        registerUser(); // 👈 مثلا یه فانکشنی که تعریف می‌کنی
+    });
+
+    function registerUser() {
+        if (sessionId !== 0 && dayId !== 0) {
+            window.location.assign(`/product/payment/${course}/${sessionId}/${dayId}/${currentDayId}`)
+        } else if (sessionId === 0) {
+            alert("لطفا اول جلسه را انتخاب کنید")
+        } else if (dayId === 0) {
+            alert("لطفا روز را انتخاب کنید")
+        } else {
+            alert("تمامی موارد الزامی است")
+        }
+    }
+</script>
+
+
+<script>
+
+    let counter = 0
+    let capacity = "{{product.capacity}}";
+    let course = "{{ product.id }}";
+    let isEnable = ("{{ product.active }}"?.toLowerCase?.() === 'true');
+    const card = document.getElementById("card")
+    const capacityNumber = document.getElementById("number")
+    const registerButton = document.getElementById("registerButton")
+    let final_price
+
+
+    registerButton.addEventListener('click', function () {
+        if (!sessionId) {
+            alert("لطفا تعداد جلسات را انتخاب کنید");
+            return;
+        }
+        if (!dayId) {
+            alert("لطفا روز هفته را انتخاب کنید");
+            return;
+        }
+        if (!currentDayId) {
+            alert("لطفا تاریخ شروع را از تقویم انتخاب کنید");
+            return;
+        }
+
+        let course = "{{ product.id }}";
+        let url = `/product/payment/${course}/${sessionId}/${dayId}/${currentDayId}`;
+        window.location.assign(url);
+
+    })
+
+
+</script>

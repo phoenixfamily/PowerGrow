@@ -199,6 +199,19 @@
 
     </section>
 
+    <section class="course-description py-5">
+        <div class="container px-lg-5">
+            <h4 class="fw-bold mb-4">توضیحات دوره</h4>
+
+            <div class="description-box p-4 shadow-sm rounded">
+                {% autoescape off %}
+                    {{ product.description|linebreaksbr }}
+                {% endautoescape %}
+            </div>
+        </div>
+    </section>
+
+
     <script>
         document.querySelectorAll('.day-btn').forEach(btn => {
             btn.addEventListener('click', () => {

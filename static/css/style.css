@@ -611,3 +611,39 @@ section p {
 .next-icon {
     transition: transform 0.3s ease;
 }
+
+.course-description {
+    background: linear-gradient(to left, #ffffff, #f9f9f9);
+    color: #333;
+}
+
+.description-box {
+    background-color: #fff;
+    border-left: 5px solid #E16539;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: #444;
+    position: relative;
+    overflow: hidden;
+}
+
+.description-box::before {
+    content: '📝';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    font-size: 4rem;
+    color: rgba(225, 101, 57, 0.1);
+    transform: rotate(-20deg);
+}
+
+.description-box p {
+    margin-bottom: 1.5rem;
+}
+
+.description-box p::before {
+    content: "• ";
+    color: #E16539;
+    font-weight: bold;
+}

@@ -501,3 +501,29 @@ section p {
     outline: none;
     box-shadow: none;
 }
+
+.calendar-day {
+  height: 70px;
+  border: 1px solid #eee;
+  text-align: center;
+  padding-top: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.calendar-day:hover {
+  background-color: #ffe5d0;
+  border-color: #f39c12;
+}
+.holiday {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+.today {
+  border: 2px solid #E16539;
+  background-color: #fff3cd;
+}
+.selected-day {
+  background-color: #E16539;
+  color: white;
+  font-weight: bold;
+}

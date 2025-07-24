@@ -12,27 +12,27 @@ class TimeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class DaySerializer(serializers.ModelSerializer):
+from rest_framework import serializers
+from .models import Year, Month, Day
 
+class YearSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Year
+        fields = ['number']
+
+class DaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Day
-        fields = "__all__"
-
+        fields = ['id', 'number', 'name', 'description', 'holiday']
 
 class MonthSerializer(serializers.ModelSerializer):
-    days = DaySerializer(read_only=True, many=True)
+    year = YearSerializer()
+    days = DaySerializer(source='days.all', many=True)
 
     class Meta:
         model = Month
-        fields = "__all__"
+        fields = ['id', 'name', 'number', 'startDay', 'max', 'year', 'days']
 
-
-class YearSerializer(serializers.ModelSerializer):
-    months = MonthSerializer(read_only=True, many=True)
-
-    class Meta:
-        model = Year
-        fields = "__all__"
 
 
 class ChangeCostSerializer(serializers.ModelSerializer):

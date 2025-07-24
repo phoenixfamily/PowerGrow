@@ -4,7 +4,6 @@ from Calendar.views import *
 from django.conf.urls.static import static
 from django.conf import settings
 
-
 app_name = 'calendar'
 
 urlpatterns = [
@@ -26,6 +25,11 @@ urlpatterns = [
     path('api/time/reset/', Reset.as_view({'put': 'update'}), name='reset'),
 
     path('api/generate-calendar/', GenerateCalendarAPIView.as_view(), name='generate_calendar'),
+
+    path('months/current/', current_month, name='calendar-current-month'),
+    path('months/<int:month_id>/', get_month, name='calendar-get-month'),
+    path('months/<int:month_id>/prev/', prev_month, name='calendar-prev-month'),
+    path('months/<int:month_id>/next/', next_month, name='calendar-next-month'),
 
 ]
 

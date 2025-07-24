@@ -1,7 +1,9 @@
+import jdatetime
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse
 from django.template import loader
 from rest_framework import viewsets, generics, status
+from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
@@ -16,6 +18,39 @@ from rest_framework.views import APIView
 from .models import Year, Month, Day
 
 
+
+@api_view(['GET'])
+def current_month(request):
+    today = jdatetime.date.today()
+    month = Month.objects.filter(number=today.month, year__number=today.year).first()
+    serializer = MonthSerializer(month)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_month(request, month_id):
+    month = Month.objects.get(id=month_id)
+    serializer = MonthSerializer(month)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def prev_month(request, month_id):
+    month = Month.objects.get(id=month_id)
+    prev = Month.objects.filter(year=month.year, number__lt=month.number).order_by('-number').first()
+    if not prev:
+        prev_year = month.year.number - 1
+        prev = Month.objects.filter(year__number=prev_year).order_by('-number').first()
+    serializer = MonthSerializer(prev)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def next_month(request, month_id):
+    month = Month.objects.get(id=month_id)
+    nxt = Month.objects.filter(year=month.year, number__gt=month.number).order_by('number').first()
+    if not nxt:
+        nxt_year = month.year.number + 1
+        nxt = Month.objects.filter(year__number=nxt_year).order_by('number').first()
+    serializer = MonthSerializer(nxt)
+    return Response(serializer.data)
 
 @session_auth_required
 def price_view(request):
@@ -309,3 +344,6 @@ class GenerateCalendarAPIView(APIView):
                 day_counter += 1
 
         return Response({"message": f"تقویم سال {year} با موفقیت ایجاد شد."}, status=status.HTTP_201_CREATED)
+
+
+

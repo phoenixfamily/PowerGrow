@@ -443,14 +443,27 @@ section p {
 }
 
 .course-schedule-form {
-  border: 1px solid #ddd;
-  transition: box-shadow 0.3s ease;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
 }
+
 .course-schedule-form:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
-button.btn-outline-primary.active {
-  background-color: #E16539!important;
-  color: white!important;
-  border-color: #E16539!important;
+
+.day-btn {
+    border: 2px solid #E16539;
+    color: #E16539;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.day-btn:hover {
+    background-color: #E16539;
+    color: #fff;
+}
+
+.day-btn.active {
+    background-color: #E16539 !important;
+    color: #fff !important;
 }

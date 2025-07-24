@@ -458,12 +458,20 @@ section p {
     transition: all 0.3s ease;
 }
 
-.day-btn:hover {
+.day-btn:hover,
+.day-btn.active {
     background-color: #E16539;
     color: #fff;
 }
 
-.day-btn.active {
-    background-color: #E16539 !important;
-    color: #fff !important;
+.day-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.15rem rgba(225, 101, 57, 0.5); /* سایه ملایم با رنگ نارنجی */
+}
+
+/* حذف focus آبی Bootstrap */
+.day-btn:focus,
+.day-btn:focus-visible {
+    outline: none;
+    box-shadow: none;
 }

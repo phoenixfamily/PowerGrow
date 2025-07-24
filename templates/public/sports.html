@@ -37,76 +37,77 @@
 
 {% block content %}
 
-<section class="py-5">
-    <div class="container-fluid px-lg-5">
+    <section class="py-5">
+        <div class="container-fluid px-lg-5">
 
-        {% for category in sports %}
-            <div class="mb-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="section-title">{{ category.title }}</h3>
-                    <a href="{% url 'product:category-view' category.id %}" class="more-link">مشاهده همه</a>
-                </div>
+            {% for item in sport_data %}
+                <div class="mb-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 class="section-title">{{ category.title }}</h3>
+                        <a href="{% url 'product:category-view' category.id %}" class="more-link">مشاهده همه</a>
+                    </div>
 
-                <div class="swiper mySwiper-{{ forloop.counter }}">
-                    <div class="swiper-wrapper">
-                        {% for course in category.courses %}
-                            <div class="swiper-slide">
-                                <div class="card shadow-sm rounded overflow-hidden h-100">
-                                    <img src="{{ course.image.url }}" alt="{{ course.title }}" class="card-img-top">
-                                    <div class="card-body">
-                                        <h5 class="card-title text-primary fw-bold">{{ course.title }}</h5>
-                                        <p class="mb-1">مربی: {{ course.coach }}</p>
-                                        <p class="mb-1">زمان: {{ course.time }}</p>
-                                        <p class="mb-1">نوع:
-                                            {% if course.type == 'public' %}عمومی{% elif course.type == 'private' %}
-                                                خصوصی{% else %}نیمه خصوصی{% endif %}
-                                        </p>
-                                        <p class="mb-0">مناسب برای:
-                                            {% if course.gender == 'male' %}آقایان{% elif course.gender == 'female' %}
-                                                بانوان{% else %}همه{% endif %}
-                                        </p>
-                                    </div>
-                                    <div class="card-footer bg-white border-top-0">
-                                        <div class="d-grid">
-                                            <a href="{% url 'product:product_view' course.id %}"
-                                               class="btn btn-primary btn-sm">ثبت‌نام</a>
+                    <div class="swiper mySwiper-{{ forloop.counter }}">
+                        <div class="swiper-wrapper">
+                            {% for course in item.courses %}
+                                <div class="swiper-slide">
+                                    <div class="card shadow-sm rounded overflow-hidden h-100">
+                                        <img src="{{ course.image.url }}" alt="{{ course.title }}" class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary fw-bold">{{ course.title }}</h5>
+                                            <p class="mb-1">مربی: {{ course.coach }}</p>
+                                            <p class="mb-1">زمان: {{ course.time }}</p>
+                                            <p class="mb-1">نوع:
+                                                {% if course.type == 'public' %}عمومی{% elif course.type == 'private' %}
+                                                    خصوصی{% else %}نیمه خصوصی{% endif %}
+                                            </p>
+                                            <p class="mb-0">مناسب برای:
+                                                {% if course.gender == 'male' %}
+                                                    آقایان{% elif course.gender == 'female' %}
+                                                    بانوان{% else %}همه{% endif %}
+                                            </p>
+                                        </div>
+                                        <div class="card-footer bg-white border-top-0">
+                                            <div class="d-grid">
+                                                <a href="{% url 'product:product_view' course.id %}"
+                                                   class="btn btn-primary btn-sm">ثبت‌نام</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-button-next swiper-button-white"></div>
+                        <div class="swiper-button-prev swiper-button-white"></div>
                     </div>
-                    <div class="swiper-button-next swiper-button-white"></div>
-                    <div class="swiper-button-prev swiper-button-white"></div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
 
-    </div>
-</section>
+        </div>
+    </section>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-    const swipers = document.querySelectorAll(".swiper");
-    swipers.forEach((el) => {
-        new Swiper(el, {
-            slidesPerView: 1.1,
-            spaceBetween: 16,
-            navigation: {
-                nextEl: el.querySelector('.swiper-button-next'),
-                prevEl: el.querySelector('.swiper-button-prev'),
-            },
-            breakpoints: {
-                768: {
-                    slidesPerView: 2.2,
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swipers = document.querySelectorAll(".swiper");
+        swipers.forEach((el) => {
+            new Swiper(el, {
+                slidesPerView: 1.1,
+                spaceBetween: 16,
+                navigation: {
+                    nextEl: el.querySelector('.swiper-button-next'),
+                    prevEl: el.querySelector('.swiper-button-prev'),
                 },
-                1200: {
-                    slidesPerView: 3.2,
-                },
-            }
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2.2,
+                    },
+                    1200: {
+                        slidesPerView: 3.2,
+                    },
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 {% endblock %}
 

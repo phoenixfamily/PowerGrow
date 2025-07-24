@@ -38,15 +38,20 @@ CallbackURL = 'https://powergrow.net/product/verify/'
 @cache_page(60 * 15)
 def sport_view(request):
     about = AboutUs.objects.first()
+    sports = Sport.objects.all()
 
-    # همه ورزش‌ها و کورس‌های مرتبط رو بگیر و Prefetch کن
-    sports = Sport.objects.prefetch_related(
-        Prefetch('courses', queryset=Course.objects.filter(active=True)[:10])
-    )
+    # برای هر ورزش، لیست دوره‌هاش رو بگیر
+    sport_data = []
+    for sport in sports:
+        courses = Course.objects.filter(sport=sport, active=True).order_by('-datetime')[:10]
+        sport_data.append({
+            'sport': sport,
+            'courses': courses
+        })
 
     context = {
         "about": about,
-        "sports": sports
+        "sport_data": sport_data
     }
 
     return render(request, 'public/sports.html', context)

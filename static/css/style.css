@@ -441,3 +441,16 @@ section p {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     background: linear-gradient(to bottom right, #e16539, #f98f4b);
 }
+
+.course-schedule-form {
+  border: 1px solid #ddd;
+  transition: box-shadow 0.3s ease;
+}
+.course-schedule-form:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+button.btn-outline-primary.active {
+  background-color: #E16539;
+  color: white;
+  border-color: #E16539;
+}

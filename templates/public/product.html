@@ -12,10 +12,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <a class="nav-link active" href="{% url 'home:home-view' %}">خانه</a>
+                <a class="nav-link" href="{% url 'home:home-view' %}">خانه</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'product:sport-view' %}">دوره ها</a>
+                <a class="nav-link active" href="{% url 'product:sport-view' %}">دوره ها</a>
             </li>
 
             <li class="nav-item">
@@ -120,6 +120,38 @@
 
             </div>
         </div>
+    </section>
+
+    <section class="hero-split py-5">
+        <div class="container-fluid px-lg-5">
+            <div class="course-schedule-form bg-white p-4 rounded shadow-sm">
+                <h4 class="fw-bold mb-4 text-primary">برنامه‌ریزی دوره</h4>
+
+                <!-- انتخاب روزهای هفته -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">روزهای برگزاری:</label>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for x in days %}
+                            <button type="button"
+                                    class="btn btn-outline-primary rounded-pill px-3">{{ x.title }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- تعداد جلسات -->
+                <div class="mb-3">
+                    <label for="session-count" class="form-label fw-bold">تعداد جلسات:</label>
+                    <input type="number" id="session-count" class="form-control w-25" placeholder="مثلاً ۸">
+                </div>
+
+                <!-- تاریخ شروع -->
+                <div class="mb-3">
+                    <label for="start-date" class="form-label fw-bold">تاریخ شروع:</label>
+                    <input type="date" id="start-date" class="form-control w-50">
+                </div>
+            </div>
+        </div>
+
     </section>
 
 

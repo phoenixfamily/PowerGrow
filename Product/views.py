@@ -11,6 +11,7 @@ from rest_framework.generics import UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.utils import json
+from django.db.models import Prefetch
 
 from About.models import AboutUs
 from Calendar.models import Day
@@ -34,17 +35,18 @@ CallbackURL = 'https://powergrow.net/product/verify/'
 
 
 
-
 @cache_page(60 * 15)
 def sport_view(request):
-    about = AboutUs.objects.first()  # Assuming there's only one AboutUs instance
-    courses = Course.objects.all()
-    sports = Sport.objects.all()
+    about = AboutUs.objects.first()
+
+    # همه ورزش‌ها و کورس‌های مرتبط رو بگیر و Prefetch کن
+    sports = Sport.objects.prefetch_related(
+        Prefetch('courses', queryset=Course.objects.filter(active=True)[:10])
+    )
 
     context = {
         "about": about,
-        "courses": courses,
-        "sports": sports  # اضافه کردن لیست ورزش‌ها به کانتکست
+        "sports": sports
     }
 
     return render(request, 'public/sports.html', context)

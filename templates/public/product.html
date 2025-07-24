@@ -34,19 +34,16 @@
 
 
 {% block content %}
-
     <section class="hero-split py-5">
         <div class="container-fluid px-lg-5">
             <div class="row g-5 align-items-stretch">
 
-
                 <!-- متن سمت راست -->
                 <div class="col-lg-6 d-flex">
-                    <div class="col-lg-6 d-flex">
-                        <div class="ground-box text-white rounded p-4 w-100 d-flex flex-column justify-content-center">
-                            <h2 class="fw-bold mb-4">نام دوره / کلاس</h2>
+                    <div class="ground-box text-white rounded p-4 w-100 d-flex flex-column justify-content-center">
+                        <h2 class="fw-bold mb-4">نام دوره / کلاس</h2>
 
-                            < class="d-flex flex-column gap-4">
+                        <div class="d-flex flex-column gap-4">
 
                             <div class="d-flex gap-3 align-items-start">
                                 <i class="fa fa-calendar-check fa-2x"></i>
@@ -87,18 +84,22 @@
                                     <p class="mb-0 small">400,000 تومان</p>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
+
                 <!-- عکس سمت چپ -->
                 <div class="col-lg-6 d-flex">
                     <div class="img-wrapper w-100 d-flex align-items-center justify-content-center">
                         <img src="{% static 'images/hero.png' %}" alt="باشگاه بانوان" class="img-fluid rounded shadow">
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
+
 
 {% endblock %}
 

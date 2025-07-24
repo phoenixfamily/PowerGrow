@@ -55,7 +55,7 @@
                                 <div class="swiper-slide">
                                     <div class="card shadow rounded overflow-hidden">
                                         <img src="{% static 'images/hero.png' %}" class="card-img-top"
-                                             alt="{{ x.title }}"
+                                             alt="{{ course.title }}"
                                              style="height: 180px; object-fit: cover;">
                                         <div class="card-body pb-0">
                                             <div class="d-flex justify-content-between">
@@ -64,8 +64,8 @@
                                                     <p class="mb-1 text-dark">نام مربی</p>
                                                 </div>
                                                 <div>
-                                                    <p class="mb-1 text-dark text-start">{{ x.title }}</p>
-                                                    <p class="mb-1 text-dark text-start">{{ x.name }}</p>
+                                                    <p class="mb-1 text-dark text-start">{{ course.title }}</p>
+                                                    <p class="mb-1 text-dark text-start">{{ course.name }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -73,20 +73,20 @@
                                         <div class="card-body pb-0">
                                             <div class="d-flex justify-content-between">
                                                 <p class="text-dark mb-1">زمان دوره</p>
-                                                <p class="text-dark text-start" style="width: 65%">{{ x.time }}</p>
+                                                <p class="text-dark text-start" style="width: 65%">{{ course.time }}</p>
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <p class="text-dark mb-1">نوع دوره</p>
                                                 <p class="text-dark text-start" style="width: 65%">
-                                                    {% if x.type == "public" %}عمومی
-                                                    {% elif x.type == "private" %}خصوصی
-                                                    {% elif x.type == "semi_private" %}نیمه خصوصی
+                                                    {% if course.type == "public" %}عمومی
+                                                    {% elif course.type == "private" %}خصوصی
+                                                    {% elif course.type == "semi_private" %}نیمه خصوصی
                                                     {% endif %}
                                                 </p>
                                             </div>
                                             <p class="text-center text-dark my-2">
-                                                مناسب برای {% if x.gender == "male" %}
-                                                آقایان{% elif x.gender == "female" %}
+                                                مناسب برای {% if course.gender == "male" %}
+                                                آقایان{% elif course.gender == "female" %}
                                                 بانوان{% endif %}
                                             </p>
                                         </div>
@@ -98,14 +98,14 @@
                                                         پیش ثبت ‌نام
                                                     </span>
                                                     <button class="btn btn-primary btn-sm"
-                                                            onclick="location.assign('{% url 'product:product_view' x.id %}')">
+                                                            onclick="location.assign('{% url 'product:product_view' course.id %}')">
                                                         ثبت نام
                                                     </button>
                                                 </div>
                                             {% else %}
                                                 <div class="d-flex justify-content-end">
                                                     <button class="btn btn-primary btn-sm"
-                                                            onclick="location.assign('{% url 'product:product_view' x.id %}')">
+                                                            onclick="location.assign('{% url 'product:product_view' course.id %}')">
                                                         ثبت نام
                                                     </button>
                                                 </div>

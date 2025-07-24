@@ -361,3 +361,13 @@ section p {
     height: 180px;
     object-fit: cover;
 }
+
+.pre-register {
+    background-color: #f22d34;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 50%;
+}
+

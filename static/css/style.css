@@ -403,34 +403,8 @@ section p {
     color: #eee;
 }
 
-.form-group {
-    margin-bottom: 20px;
-    position: relative;
-}
 
-.form-group input {
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: 10px;
-    border: none;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    font-size: 1rem;
-    outline: none;
-}
-
-.form-group label {
-    position: absolute;
-    top: -12px;
-    right: 15px;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 0 5px;
-    font-size: 0.8rem;
-    color: var(--primary-light);
-    border-radius: 5px;
-}
-
-.form-group .toggle-password {
+.form-outline .toggle-password {
     position: absolute;
     left: 15px;
     top: 50%;
@@ -440,13 +414,6 @@ section p {
 }
 
 .form-wrapper {
-    border-left: 4px solid var(--primary-light);
-}
-
-
-@media (max-width: 992px) {
-    .form-wrapper {
-        border-left: none;
         border-top: 4px solid var(--primary-light);
-    }
 }
+

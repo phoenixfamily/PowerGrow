@@ -568,28 +568,36 @@ section p {
 }
 
 .register-btn {
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 20px;
+    width: 120px;
     height: 56px;
-    border: 2px solid var(--btn-bg);
-    background-color: transparent;
-    color: var(--btn-bg);
-    text-decoration: none;
+    cursor: pointer;
     font-weight: 500;
-    border-radius: 50px;
+    text-decoration: none;
+    border: 2px solid var(--btn-bg, #E16539);
+    color: var(--btn-text, #E16539);
+    background-color: transparent;
+    border-radius: 8px;
     transition: all 0.3s ease;
-    gap: 10px;
-    font-size: 16px;
-    direction: rtl; /* چون صفحه فارسیه */
+    gap: 8px;
 }
 
 .register-btn:hover {
-    background-color: #fff;
-    color: var(--btn-text);
+    background-color: var(--btn-bg, #E16539);
+    color: #fff;
     border-color: transparent;
 }
+
+.register-btn i {
+    transition: transform 0.3s ease;
+}
+
+.register-btn:hover .rtl {
+    transform: translateX(-10px);
+}
+
 
 .register-icon {
     transition: transform 0.3s ease;

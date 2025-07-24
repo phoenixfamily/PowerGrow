@@ -33,10 +33,11 @@
     </div>
 {% endblock %}
 
-<!-- جایگزین لینک فعلی کنید -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
 
 {% block content %}
+
+    <!-- جایگزین لینک فعلی کنید -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
 
     <section class="swiper-section py-5">
         <div class="container-fluid px-lg-5">
@@ -44,7 +45,7 @@
             {% for item in sport_data %}
                 <div class="mb-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3 class="section-title">{{ category.title }}</h3>
+                        <h3 class="section-title">{{ item.sport.title }}</h3>
                         <a href="{% url 'product:category-view' item.sport.id %}" class="more-link">مشاهده همه</a>
                     </div>
 

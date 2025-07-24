@@ -48,17 +48,15 @@
                     </div>
 
                     <div class="form-outline form-white mb-4 position-relative">
+
                         <input type="password" id="password" class="form-control form-control-lg" placeholder="رمز عبور"
                                required/>
-                        <label class="form-label" for="password">رمز عبور</label>
-                        <span id="togglePassword" class="position-absolute"
-                              style="right: 15px ; top: 40%; transform: translateY(-40%); cursor: pointer;">
-                                <i class="fa fa-eye" aria-hidden="true" style="color: black"></i>
-                            </span>
+                        <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+                        <label for="password">رمز عبور</label>
                     </div>
 
                     <p class="small mb-4">
-                        <a class="text-white-50" href="{% url 'user:forget' %}">فراموشی رمز عبور؟</a>
+                        <a href="{% url 'user:forget' %}">فراموشی رمز عبور؟</a>
                     </p>
                     <button id="submit" class="btn btn-outline-light btn-lg px-5" type="submit">ورود</button>
                 </form>

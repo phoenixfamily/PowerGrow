@@ -452,16 +452,16 @@ section p {
 }
 
 .day-btn {
-    border: 2px solid #E16539!important;
-    color: #E16539!important;
+    border: 2px solid #E16539 !important;
+    color: #E16539 !important;
     background-color: transparent;
     transition: all 0.3s ease;
 }
 
 .day-btn:hover,
 .day-btn.active {
-    background-color: #E16539!important;
-    color: #fff!important;
+    background-color: #E16539 !important;
+    color: #fff !important;
 }
 
 .day-btn:focus {
@@ -478,16 +478,16 @@ section p {
 
 
 .session-btn {
-    border: 2px solid #E16539!important;
-    color: #E16539!important;
+    border: 2px solid #E16539 !important;
+    color: #E16539 !important;
     background-color: transparent;
     transition: all 0.3s ease;
 }
 
 .session-btn:hover,
 .session-btn.active {
-    background-color: #E16539!important;
-    color: #fff!important;
+    background-color: #E16539 !important;
+    color: #fff !important;
 }
 
 .session-btn:focus {
@@ -503,66 +503,108 @@ section p {
 }
 
 .calendar-wrapper {
-  max-width: 500px;
-  margin-left: auto;  /* تقویم می‌ره سمت راست */
-  margin-right: 0;
-  padding: 15px;
+    max-width: 500px;
+    margin-left: auto; /* تقویم می‌ره سمت راست */
+    margin-right: 0;
+    padding: 15px;
 }
 
 
 .calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
 }
 
 .calendar-day {
-  height: 42px;
-  font-size: 14px;
-  border: 1px solid #eee;
-  text-align: center;
-  line-height: 42px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background-color: #fff;
+    height: 42px;
+    font-size: 14px;
+    border: 1px solid #eee;
+    text-align: center;
+    line-height: 42px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #fff;
 }
 
 .calendar-day:hover {
-  background-color: #ffe5d0;
-  border-color: #f39c12;
+    background-color: #ffe5d0;
+    border-color: #f39c12;
 }
 
 .holiday {
-  background-color: #f8d7da;
-  color: #721c24;
+    background-color: #f8d7da;
+    color: #721c24;
 }
 
 .today {
-  border: 2px solid #E16539;
-  background-color: #fff3cd;
+    border: 2px solid #E16539;
+    background-color: #fff3cd;
 }
 
 .selected-day {
-  background-color: #E16539;
-  color: white;
-  font-weight: bold;
+    background-color: #E16539;
+    color: white;
+    font-weight: bold;
 }
 
 /* موبایل */
 @media (max-width: 576px) {
-  .calendar-wrapper {
-    max-width: 100%;
-    padding: 0 10px;
-  }
+    .calendar-wrapper {
+        max-width: 100%;
+        padding: 0 10px;
+    }
 
-  .calendar-day {
-    height: 36px;
-    font-size: 12px;
-    line-height: 36px;
-  }
+    .calendar-day {
+        height: 36px;
+        font-size: 12px;
+        line-height: 36px;
+    }
 
-  .calendar-grid {
-    gap: 4px;
-  }
+    .calendar-grid {
+        gap: 4px;
+    }
 }
+
+.register-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    line-height: 56px;
+    height: 56px;
+    cursor: pointer;
+    font-weight: 200;
+    text-decoration: none;
+    border: 2px solid var(--btn-bg) !important;
+    color: var(--btn-text) !important;
+    flex-direction: row;
+
+}
+
+
+.register-btn span, .register-btn i {
+    margin-top: 8px;
+}
+
+.register-btn:hover {
+    border-color: transparent !important;
+}
+
+/* حالت اولیه */
+.register-icon {
+    transform: translateX(0) !important; /* حالت اولیه */
+    transition: transform 0.3s ease !important; /* انیمیشن */
+}
+
+
+.register-btn:hover .next-icon.ltr {
+    transform: translateX(10px) !important; /* به سمت راست حرکت کند */
+}
+
+
+.register-btn:hover .next-icon.rtl {
+    transform: translateX(-10px) !important; /* به سمت چپ حرکت کند */
+}
+

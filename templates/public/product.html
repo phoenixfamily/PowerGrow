@@ -124,63 +124,73 @@
 
     <section class="hero-split py-5">
         <div class="container-fluid px-lg-5">
-            <div class="course-schedule-form bg-white p-4 rounded shadow-sm">
-                <h4 class="fw-bold mb-4">ثبت نام دوره</h4>
+            <div class="row g-5 align-items-stretch">
+                <div class="col-lg-9">
 
-                <!-- انتخاب روزهای هفته -->
-                <div class="mb-3">
-                    <label class="form-label fw-bold">روزهای برگزاری:</label>
-                    <div class="d-flex flex-wrap gap-2">
-                        {% for x in days %}
-                            <button type="button"
-                                    class="btn day-btn rounded-pill px-3">{{ x.title }}</button>
-                        {% endfor %}
+                    <div class="course-schedule-form bg-white p-4 rounded shadow-sm">
+                        <h4 class="fw-bold mb-4">ثبت نام دوره</h4>
+
+                        <!-- انتخاب روزهای هفته -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">روزهای برگزاری:</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% for x in days %}
+                                    <button type="button"
+                                            class="btn day-btn rounded-pill px-3">{{ x.title }}</button>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- تعداد جلسات -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">تعداد جلسات در ماه:</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% for x in session %}
+                                    <button type="button"
+                                            class="btn session-btn rounded-pill px-3">{{ x.number }} جلسه
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- تاریخ شروع -->
+                        <div class="mb-3">
+                            <label for="start-date" class="form-label fw-bold">تاریخ شروع:</label>
+
+                            <div class="calendar-wrapper">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <button id="prevMonth" class="btn btn-cta"><i class="fa fa-chevron-right"></i>
+                                    </button>
+                                    <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
+                                    <button id="nextMonth" class="btn btn-cta"><i class="fa fa-chevron-left"></i>
+                                    </button>
+                                </div>
+
+                                <!-- سرتیتر ایام هفته -->
+                                <div class="calendar-grid text-center fw-bold border-bottom pb-2">
+                                    <div>ش</div>
+                                    <div>ی</div>
+                                    <div>د</div>
+                                    <div>س</div>
+                                    <div>چ</div>
+                                    <div>پ</div>
+                                    <div>ج</div>
+                                </div>
+
+                                <!-- روزهای ماه -->
+                                <div id="calendarDays" class="calendar-grid mt-2">
+                                    <!-- لود میشه از JS -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- تعداد جلسات -->
-                <div class="mb-3">
-                    <label class="form-label fw-bold">تعداد جلسات در ماه:</label>
-                    <div class="d-flex flex-wrap gap-2">
-                        {% for x in session %}
-                            <button type="button"
-                                    class="btn session-btn rounded-pill px-3">{{ x.number }} جلسه
-                            </button>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- تاریخ شروع -->
-                <div class="mb-3">
-                    <label for="start-date" class="form-label fw-bold">تاریخ شروع:</label>
-
-                    <div class="calendar-wrapper">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <button id="prevMonth" class="btn btn-cta"><i class="fa fa-chevron-right"></i>
-                            </button>
-                            <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
-                            <button id="nextMonth" class="btn btn-cta"><i class="fa fa-chevron-left"></i>
-                            </button>
-                        </div>
-
-                        <!-- سرتیتر ایام هفته -->
-                        <div class="calendar-grid text-center fw-bold border-bottom pb-2">
-                            <div>ش</div>
-                            <div>ی</div>
-                            <div>د</div>
-                            <div>س</div>
-                            <div>چ</div>
-                            <div>پ</div>
-                            <div>ج</div>
-                        </div>
-
-                        <!-- روزهای ماه -->
-                        <div id="calendarDays" class="calendar-grid mt-2">
-                            <!-- لود میشه از JS -->
-                        </div>
-                    </div>
-
-
+                <div class="col-lg-3 text-center text-lg-start mt-4 mt-lg-0 d-flex justify-content-center align-items-center">
+                    <a href="" class="register-btn my-2">
+                        <span>ثبت نام</span>
+                        <i class="fa-solid next-icon"></i>
+                    </a>
                 </div>
 
             </div>

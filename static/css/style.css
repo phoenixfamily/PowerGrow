@@ -502,31 +502,65 @@ section p {
     box-shadow: none;
 }
 
-#calendarDays {
+.calendar-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: 6px;
 }
+
 .calendar-day {
-  aspect-ratio: 1 / 1;
+  height: 42px;
+  font-size: 14px;
   border: 1px solid #eee;
   text-align: center;
-  padding-top: 10px;
+  line-height: 42px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #fff;
 }
+
 .calendar-day:hover {
   background-color: #ffe5d0;
   border-color: #f39c12;
 }
+
 .holiday {
   background-color: #f8d7da;
   color: #721c24;
 }
+
 .today {
   border: 2px solid #E16539;
   background-color: #fff3cd;
 }
+
 .selected-day {
   background-color: #E16539;
   color: white;
   font-weight: bold;
+}
+
+/* موبایل */
+@media (max-width: 576px) {
+  .calendar-wrapper {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .calendar-day {
+    height: 36px;
+    font-size: 12px;
+    line-height: 36px;
+  }
+
+  .calendar-grid {
+    gap: 4px;
+  }
 }

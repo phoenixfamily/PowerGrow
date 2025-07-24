@@ -417,3 +417,18 @@ section p {
         border-top: 4px solid var(--primary-light);
 }
 
+.btn-cta {
+  background-color: #E16539;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-cta:hover {
+  background-color: #b34f28; /* تیره‌تر از رنگ اصلی */
+  transform: scale(1.05);
+  box-shadow: 0 0.5rem 1rem rgba(225, 101, 57, 0.3);
+  color: #fff;
+}

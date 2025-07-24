@@ -1,191 +1,71 @@
 {% load static %}
 <!doctype html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token }}">
-<script src="https://kit.fontawesome.com/cf09389368.js" crossorigin="anonymous"></script><link rel="stylesheet" href="https://static.neshan.org/sdk/mapboxgl/v1.13.2/neshan-sdk/v1.0.8/index.css" />
-<script src="https://static.neshan.org/sdk/mapboxgl/v1.13.2/neshan-sdk/v1.0.8/index.js"></script>
 
-        <title>تایید پرداخت</title>
+    <title>پرداخت ناموفق</title>
 
-
-
-    {% load django_bootstrap5 %}
+    {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 
 
     <style>
 
-        	@font-face {
-			font-family: BYekan;
-  			font-style: normal;
-  			font-weight: normal;
-  			src: url("/static/fonts/BYekan.eot");/* IE9 Compat Modes */
-			src: url("/static/fonts/BYekan.woff") format('woff'),
-        		 url("/static/fonts/BYekan.woff") format('woff2'), /* Super Modern Browsers */
-        		 url("/static/fonts/BYekan.ttf")  format('truetype') /* Safari, Android, iOS */
-		}
-
-            html, body {
-                margin: 0;
-                padding: 0 ;
-                overflow-x: hidden;
-                background: #312f2e;
-                font-family: BYekan, serif !important;
-        }
-            .logoHolder {
-                width: 100%;
-                position: absolute;
-                margin-top: 20px;
-                left: 0;
-                display: flex;
-                z-index: 10 !important;
-                direction: ltr;
-                align-items: center;
-                justify-content: center;
-            }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-
+        @font-face {
+            font-family: BYekan;
+            font-style: normal;
+            font-weight: normal;
+            src: url("/static/fonts/BYekan.eot");/* IE9 Compat Modes */
+            src: url("/static/fonts/BYekan.woff") format('woff'),
+            url("/static/fonts/BYekan.woff") format('woff2'), /* Super Modern Browsers */ url("/static/fonts/BYekan.ttf") format('truetype') /* Safari, Android, iOS */
         }
 
-        .typography {
-            color: white;
-            font-size: 20px;
-            margin-left: 10px;
-
+        .bg-light {
+            background-color: #fdfdfd !important;
         }
 
-            .card_holder {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: auto;
-                background: transparent; /* رنگ پس‌زمینه صفحه */
-}
+        .shadow {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+        }
 
-            .card {
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* اضافه کردن سایه برای زیبایی */
-                background-color: #f7f0e8;
-            }
+        .btn-success {
+            background-color: #E16539;
+            border-color: #E16539;
+            font-size: 18px;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
 
-            .list-group-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 40px; /* فاصله افقی بین h6 ها */
-                background-color: transparent;
+        .btn-success:hover {
+            background-color: #c74e2d;
+            border-color: #c74e2d;
+        }
 
-            }
 
-            #registerButton {
-                width: calc(100% - 20px); /* عرض دکمه 100% منهای 20px (10px فاصله از چپ و راست) */
-                margin: 10px; /* 10px فاصله از چپ و راست */
-                background-color: #E16539;
-                color: white;
-            }
-
-</style>
+    </style>
 
 </head>
 
 <body>
 
-<div class="logoHolder">
+<section class="py-5 bg-light">
+    <div class="container px-4">
+        <div class="bg-white shadow rounded p-5 text-center">
+            <i class="fa fa-check-circle fa-4x text-success mb-4"></i>
+            <h2 class="fw-bold mb-3">پرداخت با موفقیت انجام شد!</h2>
+            <p class="mb-4">شما با موفقیت در دوره <strong>{{ course.title }}</strong> ثبت‌ نام کردید.</p>
+            <p class="text-muted">کد رهگیری: <strong>{{ tracking_code }}</strong></p>
+            <p>تاریخ شروع: {{ start }} | روزهای برگزاری: {{ day }} | تعداد جلسات: {{ session }}</p>
 
-    <img alt="" src="/media/{{ about.logo }}" class="logo">
-    <div class="typography">PowerGrow</div>
-
-</div>
-
-   <div class="card_holder my-5">
-    <div class="card mt-5">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">نام دوره:</h6>
-                <h6 class="mb-0">{{ participants.course.title }} (
-                    {% if participants.course.gender == "male" %}
-                    آقایان
-                    {% elif participants.course.gender == "female" %}
-                    بانوان
-                    {% endif %}
-                    )
-                </h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">نام مربی:</h6>
-                <h6 class="mb-0 text-start">{{ participants.course.name }}</h6>
-            </li>
-
-             <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">نوع دوره:</h6>
-                <h6 class="mb-0 text-start">
-                    {% if participants.course.type == "public" %}
-                    عمومی
-                    {% elif participants.course.type == "private" %}
-                    خصوصی
-                    {% elif participants.course.type == "semi_private" %}
-                    نیمه خصوصی
-                {% endif %}</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">روزهای برگزاری:</h6>
-                <h6 class="mb-0text-start">{{ participants.day.title}}</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0">ساعت برگزاری:</h6>
-                <h6 class="mb-0 text-start">{{ participants.course.time }}</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">تاریخ شروع:</h6>
-                <h6 class="mb-0 text-start"> {{ participants.startDay.month.year.number }}/{{ participants.startDay.month.number }}/{{ participants.startDay.number }}</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">تعداد جلسات:</h6>
-                <h6 class="mb-0 text-start">{{ participants.session.number }} جلسه</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">شهریه ثابت:</h6>
-                <h6 class="mb-0 text-start">{{ participants.day.tuition }} تومان</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">تخفیف:</h6>
-                <h6 class="mb-0 text-start">{{ participants.day.off }}%</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">قیمت نهایی:</h6>
-                <h6 id="final" class="mb-0 text-start">
-                    {{ participants.price }} تومان
-                </h6>
-            </li>
-        </ul>
-
-        <div class="text-center justify-content-center my-3" style="color:#5cb85c;">
-            پرداخت شما با موفقیت انجام شد
-        </div>
-
-        <div class="d-flex justify-content-center">
-            <button id="registerButton" class="btn my-3" onclick="window.location.replace('{% url 'product:product_view' participants.course.id%}')">
-                تایید
-             </button>
+            <a href="{% url 'home:home' %}" class="btn btn-success mt-4 px-4 py-2">بازگشت به صفحه اصلی</a>
         </div>
     </div>
-</div>
+</section>
+
 
 </body>
-
 </html>

@@ -246,16 +246,6 @@
                     });
 
                 });
-
-            document.querySelectorAll('.calendar-day').forEach(dayEl => {
-                dayEl.addEventListener('click', () => {
-                    // پاک‌کردن انتخاب قبلی
-                    document.querySelectorAll('.calendar-day').forEach(el => el.classList.remove('selected-day'));
-                    // فعال کردن جدید
-                    dayEl.classList.add('selected-day');
-                });
-            });
-
         }
 
         // Navigation
@@ -271,6 +261,20 @@
             fetch(`${apiBase}/months/current/`).then(res => res.json()).then(m => loadMonth(m.id));
         };
 
+
+        document.addEventListener('click', function (e) {
+            const dayEl = e.target.closest('.calendar-day');
+            if (dayEl) {
+                // اول همه روزها از حالت انتخابی درمیاد
+                document.querySelectorAll('.calendar-day').forEach(el => {
+                    el.classList.remove('selected-day');
+                });
+
+                // فقط همونی که کلیک شد انتخاب میشه
+                dayEl.classList.add('selected-day');
+            }
+        });
+
     </script>
 
 
@@ -279,7 +283,6 @@
 
 </body>
 </html>
-
 
 
 {##}

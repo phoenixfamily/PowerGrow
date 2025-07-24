@@ -41,9 +41,25 @@
                 <!-- متن سمت راست -->
                 <div class="col-lg-6 d-flex">
                     <div class="ground-box text-white rounded p-4 w-100 d-flex flex-column justify-content-center">
-                        <h2 class="fw-bold mb-4">نام دوره / کلاس</h2>
+                        <h2 class="fw-bold mb-4">{{ product.title }}</h2>
 
                         <div class="d-flex flex-column gap-4">
+
+                            <div class="d-flex gap-3 align-items-start">
+                                <i class="fa fa-calendar-check fa-2x"></i>
+                                <div>
+                                    <h5 class="mb-1">نوع دوره</h5>
+                                    <p class="mb-0 small">
+                                        {% if product.type == "public" %}
+                                            عمومی
+                                        {% elif product.type == "private" %}
+                                            خصوصی
+                                        {% elif product.type == "semi_private" %}
+                                            نیمه خصوصی
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
 
                             <div class="d-flex gap-3 align-items-start">
                                 <i class="fa fa-calendar-check fa-2x"></i>
@@ -57,7 +73,21 @@
                                 <i class="fa fa-clock fa-2x"></i>
                                 <div>
                                     <h5 class="mb-1">ساعت کلاس</h5>
-                                    <p class="mb-0 small">16:00 الی 17:30</p>
+                                    <p class="mb-0 small">{{ product.title }}</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-3 align-items-start">
+                                <i class="fa fa-calendar-check fa-2x"></i>
+                                <div>
+                                    <h5 class="mb-1">جنسبت دوره</h5>
+                                    <p class="mb-0 small">
+                                        {% if product.gender == "male" %}
+                                            آقایان
+                                        {% elif product.gender == "female" %}
+                                            بانوان
+                                        {% endif %}
+                                    </p>
                                 </div>
                             </div>
 
@@ -65,7 +95,7 @@
                                 <i class="fa fa-user-tie fa-2x"></i>
                                 <div>
                                     <h5 class="mb-1">مربی</h5>
-                                    <p class="mb-0 small">سرکار خانم احمدی</p>
+                                    <p class="mb-0 small">{{ product.name }}</p>
                                 </div>
                             </div>
 
@@ -163,11 +193,7 @@
 {#            <li class="list-group-item d-flex justify-content-between align-items-center mb-1" dir="rtl">#}
 {#                <h6 class="mb-0 text-end">نام دوره:</h6>#}
 {#                <h6 class="mb-0 text-start">{{ product.title }} (#}
-{#                    {% if product.gender == "male" %}#}
-{#                        آقایان#}
-{#                    {% elif product.gender == "female" %}#}
-{#                        بانوان#}
-{#                    {% endif %}#}
+
 {#                    )#}
 {#                </h6>#}
 {#            </li>#}
@@ -180,14 +206,6 @@
 {#            <li class="list-group-item d-flex justify-content-between align-items-center mb-1" dir="rtl">#}
 {#                <h6 class="mb-0 text-end">نوع دوره:</h6>#}
 {#                <h6 class="mb-0 text-start">#}
-{##}
-{#                    {% if product.type == "public" %}#}
-{#                        عمومی#}
-{#                    {% elif product.type == "private" %}#}
-{#                        خصوصی#}
-{#                    {% elif product.type == "semi_private" %}#}
-{#                        نیمه خصوصی#}
-{#                    {% endif %}#}
 {#                </h6>#}
 {#            </li>#}
 {##}

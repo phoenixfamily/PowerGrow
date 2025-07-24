@@ -328,3 +328,19 @@ section p {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+.faq-icon {
+    font-size: 1.5rem; /* سایز آیکن */
+    color: #E16539!important;
+    transition: all 0.3s ease;
+}
+
+
+.accordion-button{
+    background-color: white!important;
+}
+
+.accordion-button:hover {
+    background-color: rgba(225, 101, 57, 0.7)!important; /* رنگ ملایم به جای آبی پیش‌فرض */
+    color: #333; /* متن تیره‌تر */
+}
+

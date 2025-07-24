@@ -52,7 +52,11 @@
                             {% for course in item.courses %}
                                 <div class="swiper-slide">
                                     <div class="card shadow-sm rounded overflow-hidden h-100">
-                                        <img src="{{ course.image.url }}" alt="{{ course.title }}" class="card-img-top">
+                                        {% if course.image %}
+                                            <img src="{{ course.image.url }}" alt="{{ course.title }}">
+                                        {% else %}
+                                            <img src="{% static 'images/hero.png' %}" alt="تصویر پیش ‌فرض">
+                                        {% endif %}
                                         <div class="card-body">
                                             <h5 class="card-title text-primary fw-bold">{{ course.title }}</h5>
                                             <p class="mb-1">مربی: {{ course.coach }}</p>

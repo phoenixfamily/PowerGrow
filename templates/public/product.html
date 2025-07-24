@@ -127,7 +127,7 @@
             <div class="row d-flex flex-lg-row align-items-stretch">
 
                 <div class="col-lg-3 d-flex justify-content-center align-items-center mt-4 mt-lg-0">
-                    <a href="#" id="registerBtn" class="register-btn my-2">
+                    <a id="registerBtn" class="register-btn my-2">
                         <span>ثبت نام</span>
                         <i class="fa fa-arrow-left next-icon rtl"></i>
                     </a>
@@ -342,40 +342,4 @@
             alert("تمامی موارد الزامی است")
         }
     }
-</script>
-
-
-<script>
-
-    let counter = 0
-    let capacity = "{{product.capacity}}";
-    let course = "{{ product.id }}";
-    let isEnable = ("{{ product.active }}"?.toLowerCase?.() === 'true');
-    const card = document.getElementById("card")
-    const capacityNumber = document.getElementById("number")
-    const registerButton = document.getElementById("registerButton")
-    let final_price
-
-
-    registerButton.addEventListener('click', function () {
-        if (!sessionId) {
-            alert("لطفا تعداد جلسات را انتخاب کنید");
-            return;
-        }
-        if (!dayId) {
-            alert("لطفا روز هفته را انتخاب کنید");
-            return;
-        }
-        if (!currentDayId) {
-            alert("لطفا تاریخ شروع را از تقویم انتخاب کنید");
-            return;
-        }
-
-        let course = "{{ product.id }}";
-        let url = `/product/payment/${course}/${sessionId}/${dayId}/${currentDayId}`;
-        window.location.assign(url);
-
-    })
-
-
 </script>

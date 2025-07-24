@@ -568,43 +568,38 @@ section p {
 }
 
 .register-btn {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: auto;
-    line-height: 56px;
+    padding: 0 20px;
     height: 56px;
-    cursor: pointer;
-    font-weight: 200;
+    border: 2px solid var(--btn-bg);
+    background-color: transparent;
+    color: var(--btn-bg);
     text-decoration: none;
-    border: 2px solid var(--btn-bg) !important;
-    color: var(--btn-text) !important;
-    flex-direction: row;
-
-}
-
-
-.register-btn span, .register-btn i {
-    margin-top: 8px;
+    font-weight: 500;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    gap: 10px;
+    font-size: 16px;
+    direction: rtl; /* چون صفحه فارسیه */
 }
 
 .register-btn:hover {
-    border-color: transparent !important;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border-color: transparent;
 }
 
-/* حالت اولیه */
 .register-icon {
-    transform: translateX(0) !important; /* حالت اولیه */
-    transition: transform 0.3s ease !important; /* انیمیشن */
+    transition: transform 0.3s ease;
 }
 
-
-.register-btn:hover .next-icon.ltr {
-    transform: translateX(10px) !important; /* به سمت راست حرکت کند */
-}
-
-
+/* انیمیشن فلش هنگام هاور */
 .register-btn:hover .next-icon.rtl {
-    transform: translateX(-10px) !important; /* به سمت چپ حرکت کند */
+    transform: translateX(-8px);
 }
 
+.next-icon {
+    transition: transform 0.3s ease;
+}

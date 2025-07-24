@@ -504,9 +504,11 @@ section p {
 
 .calendar-wrapper {
   max-width: 500px;
-  margin: 0 auto;
+  margin-left: auto;  /* تقویم می‌ره سمت راست */
+  margin-right: 0;
   padding: 15px;
 }
+
 
 .calendar-grid {
   display: grid;

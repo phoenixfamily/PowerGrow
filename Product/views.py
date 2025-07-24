@@ -65,7 +65,7 @@ def category_view(request, pk):
     context = {
         "about": about,
         "sport": sport,
-        "course": courses,
+        "courses": courses,
     }
 
     return render(request, 'public/category.html', context)

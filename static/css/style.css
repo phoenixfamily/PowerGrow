@@ -313,16 +313,17 @@ section p {
 
 .feature-box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .feature-box i {
-    color: #E16539!important;
+    color: #E16539 !important;
 }
 
 .hover-shadow {
     transition: all 0.3s ease-in-out;
 }
+
 .hover-shadow:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -330,11 +331,33 @@ section p {
 
 .faq-icon {
     font-size: 1.5rem; /* سایز آیکن */
-    color: #E16539!important;
+    color: #E16539 !important;
     transition: all 0.3s ease;
 }
 
 
-.accordion-button{
-    background-color: white!important;
+.accordion-button {
+    background-color: white !important;
+}
+
+
+.section-title {
+    border-right: 5px solid var(--primary-light);
+    padding-right: 15px;
+    font-weight: bold;
+}
+
+.more-link {
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--primary-light);
+}
+
+.more-link:hover {
+    color: var(--primary-light);
+}
+
+.card img {
+    height: 180px;
+    object-fit: cover;
 }

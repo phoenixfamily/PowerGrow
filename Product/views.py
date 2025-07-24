@@ -33,6 +33,22 @@ ZP_API_STARTPAY = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
 CallbackURL = 'https://powergrow.net/product/verify/'
 
 
+
+
+@cache_page(60 * 15)
+def sport_view(request):
+    about = AboutUs.objects.first()  # Assuming there's only one AboutUs instance
+    courses = Course.objects.all()
+    sports = Sport.objects.all()
+
+    context = {
+        "about": about,
+        "courses": courses,
+        "sports": sports  # اضافه کردن لیست ورزش‌ها به کانتکست
+    }
+
+    return render(request, 'public/sports.html', context)
+
 @cache_page(60 * 15)
 def category_view(request, pk):
     about = AboutUs.objects.first()  # Assuming there's only one AboutUs instance

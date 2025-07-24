@@ -345,6 +345,8 @@ section p {
     border-right: 5px solid var(--primary-light);
     padding-right: 15px;
     font-weight: bold;
+    background-color: #fff;
+    transition: all 0.3s ease;
 }
 
 .more-link {

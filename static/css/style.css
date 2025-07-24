@@ -475,3 +475,29 @@ section p {
     outline: none;
     box-shadow: none;
 }
+
+
+.session-btn {
+    border: 2px solid #E16539!important;
+    color: #E16539!important;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.session-btn:hover,
+.session-btn.active {
+    background-color: #E16539!important;
+    color: #fff!important;
+}
+
+.session-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.15rem rgba(225, 101, 57, 0.5); /* سایه ملایم با رنگ نارنجی */
+}
+
+/* حذف focus آبی Bootstrap */
+.session-btn:focus,
+.session-btn:focus-visible {
+    outline: none;
+    box-shadow: none;
+}

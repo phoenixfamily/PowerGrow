@@ -144,7 +144,7 @@
                     <div class="d-flex flex-wrap gap-2">
                         {% for x in session %}
                             <button type="button"
-                                    class="btn day-btn rounded-pill px-3">{{ x.number }} جلسه
+                                    class="btn session-btn rounded-pill px-3">{{ x.number }} جلسه
                             </button>
                         {% endfor %}
                     </div>
@@ -163,7 +163,24 @@
     <script>
         document.querySelectorAll('.day-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                btn.classList.toggle('active');
+                // غیرفعال کردن همه دکمه‌ها
+                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+
+                // فعال کردن فقط دکمه کلیک‌شده
+                btn.classList.add('active');
+            });
+        });
+    </script>
+
+
+     <script>
+        document.querySelectorAll('.session-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // غیرفعال کردن همه دکمه‌ها
+                document.querySelectorAll('.session-btn').forEach(b => b.classList.remove('active'));
+
+                // فعال کردن فقط دکمه کلیک‌شده
+                btn.classList.add('active');
             });
         });
     </script>
@@ -305,35 +322,7 @@
 {#</div>#}
 {##}
 {#<div class="custom-container">#}
-{#    <div class="date-picker">#}
-{#        <div class="month">#}
-{#            <ul>#}
-{#                 {% if product.previous %}#}
-{#                     <li id="prev" class="prev disabled">&#10094;</li>#}
-{#                     <li id="monthTitle"></li>#}
-{#                     <li id="next " class="next disabled">&#10095;</li>#}
-{#                 {% else %}#}
-{#                     <li id="prev" class="prev">&#10094;</li>#}
-{#                     <li id="monthTitle"></li>#}
-{#                     <li id="next" class="next">&#10095;</li>#}
-{#                 {% endif %}#}
-{##}
-{#            </ul>#}
-{#            <span id="yearTitle" style="font-size: 18px;"></span>#}
-{#        </div>#}
-{#        <ul class="weekdays">#}
-{#            <li>ش</li>#}
-{#            <li>ی</li>#}
-{#            <li>د</li>#}
-{#            <li>س</li>#}
-{#            <li>چ</li>#}
-{#            <li>پ</li>#}
-{#            <li>ج</li>#}
-{#        </ul>#}
-{#        <ul id="days" class="days">#}
-{#            <!-- روزها از سمت سرور می‌آیند -->#}
-{#        </ul>#}
-{#    </div>#}
+
 {##}
 {#    <div class="time-picker">#}
 {#        <div class="time-body">#}

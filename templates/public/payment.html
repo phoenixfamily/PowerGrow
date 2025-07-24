@@ -56,7 +56,7 @@
 <section class="py-5 bg-light">
     <div class="container px-4 px-lg-5">
         <div class="bg-white shadow rounded p-4">
-            <h3 class="fw-bold mb-4 text-center">تأیید ثبت‌نام دوره</h3>
+            <h3 class="fw-bold mb-4 text-center">تأیید ثبت ‌نام دوره</h3>
 
             <div class="row mb-4">
                 <div class="col-md-6 mb-3">
@@ -91,16 +91,9 @@
             </div>
 
             <div class="text-center mt-4">
-                <form method="POST" action="{% url 'product:register_user' course.id %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="session_id" value="{{ session_id }}">
-                    <input type="hidden" name="day_id" value="{{ day_id }}">
-                    <input type="hidden" name="calendar_day_id" value="{{ calendar_day_id }}">
-
-                    <button type="submit" class="btn btn-success px-5 py-2 fw-bold">
-                        ثبت نهایی و پرداخت
-                    </button>
-                </form>
+                <button type="submit" class="btn btn-success px-5 py-2 fw-bold">
+                    ثبت نهایی و پرداخت
+                </button>
             </div>
         </div>
     </div>

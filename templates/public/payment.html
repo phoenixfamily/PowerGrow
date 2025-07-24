@@ -2,201 +2,110 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token }}">
-<script src="https://kit.fontawesome.com/cf09389368.js" crossorigin="anonymous"></script><link rel="stylesheet" href="https://static.neshan.org/sdk/mapboxgl/v1.13.2/neshan-sdk/v1.0.8/index.css" />
-<script src="https://static.neshan.org/sdk/mapboxgl/v1.13.2/neshan-sdk/v1.0.8/index.js"></script>
 
-        <title>ورود به درگاه پرداخت</title>
+    <title>تاییدیه ثبت نام باشگاه ورزشی حجاب</title>
 
-
-
-    {% load django_bootstrap5 %}
+    {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 
 
     <style>
 
-        	@font-face {
-			font-family: BYekan;
-  			font-style: normal;
-  			font-weight: normal;
-  			src: url("/static/fonts/BYekan.eot");/* IE9 Compat Modes */
-			src: url("/static/fonts/BYekan.woff") format('woff'),
-        		 url("/static/fonts/BYekan.woff") format('woff2'), /* Super Modern Browsers */
-        		 url("/static/fonts/BYekan.ttf")  format('truetype') /* Safari, Android, iOS */
-		}
-
-            html, body {
-                margin: 0;
-                padding: 0 ;
-                overflow-x: hidden;
-                background: #312f2e;
-                font-family: BYekan, serif !important;
-        }
-            .logoHolder {
-                width: 100%;
-                position: absolute;
-                margin-top: 20px;
-                left: 0;
-                display: flex;
-                z-index: 10 !important;
-                direction: ltr;
-                align-items: center;
-                justify-content: center;
-            }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-
+        @font-face {
+            font-family: BYekan;
+            font-style: normal;
+            font-weight: normal;
+            src: url("/static/fonts/BYekan.eot");/* IE9 Compat Modes */
+            src: url("/static/fonts/BYekan.woff") format('woff'),
+            url("/static/fonts/BYekan.woff") format('woff2'), /* Super Modern Browsers */ url("/static/fonts/BYekan.ttf") format('truetype') /* Safari, Android, iOS */
         }
 
-        .typography {
-            color: white;
-            font-size: 20px;
-            margin-left: 10px;
-
+        .bg-light {
+            background-color: #fdfdfd !important;
         }
 
-            .card_holder {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: auto;
-                background: transparent; /* رنگ پس‌زمینه صفحه */
-}
-
-            .card {
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* اضافه کردن سایه برای زیبایی */
-                background-color: #f7f0e8;
-            }
-
-            .list-group-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 40px; /* فاصله افقی بین h6 ها */
-                background-color: transparent;
-
-            }
-
-            #registerButton {
-                width: calc(100% - 20px); /* عرض دکمه 100% منهای 20px (10px فاصله از چپ و راست) */
-                margin: 10px; /* 10px فاصله از چپ و راست */
-                background-color: #E16539;
-                color: white;
-            }
-
-        #zarinpal{
-            pointer-events: none;
-            cursor: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: auto;
-            flex-direction: column;
+        .shadow {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
         }
-            #zarinpal img {
-                width: 80px;
-            }
 
-</style>
+        .btn-success {
+            background-color: #E16539;
+            border-color: #E16539;
+            font-size: 18px;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success:hover {
+            background-color: #c74e2d;
+            border-color: #c74e2d;
+        }
+
+
+    </style>
 
 </head>
 
 <body>
 
-<div class="logoHolder">
 
-    <img alt="" src="/media/{{ about.logo }}" class="logo">
-    <div class="typography">PowerGrow</div>
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5">
+        <div class="bg-white shadow rounded p-4">
+            <h3 class="fw-bold mb-4 text-center">تأیید ثبت‌نام دوره</h3>
 
-</div>
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <strong>نام دوره:</strong> {{ course.title }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>نام مربی:</strong> {{ course.name }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>تاریخ شروع:</strong> {{ start_date }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>روزهای برگزاری:</strong> {{ week_day }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>تعداد جلسات:</strong> {{ session_count }} جلسه
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>ساعت:</strong> {{ course.time }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>قیمت:</strong> {{ price }} تومان
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>تخفیف:</strong> {{ discount }} تومان
+                </div>
+                <div class="col-md-12 mb-4">
+                    <hr>
+                    <h5 class="text-end">💰 مبلغ نهایی: <span class="text-danger fw-bold">{{ final_price }} تومان</span>
+                    </h5>
+                </div>
+            </div>
 
-   <div class="card_holder my-5">
-    <div class="card mt-5">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">نام دوره:</h6>
-                <h6 class="mb-0">{{ product.title }} (
-                    {% if product.gender == "male" %}
-                    آقایان
-                    {% elif product.gender == "female" %}
-                    بانوان
-                    {% endif %}
-                    )
-                </h6>
-            </li>
+            <div class="text-center mt-4">
+                <form method="POST" action="{% url 'product:register_user' course.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="session_id" value="{{ session_id }}">
+                    <input type="hidden" name="day_id" value="{{ day_id }}">
+                    <input type="hidden" name="calendar_day_id" value="{{ calendar_day_id }}">
 
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">نام مربی:</h6>
-                <h6 class="mb-0 text-start">{{ product.name }}</h6>
-            </li>
-
-             <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">نوع دوره:</h6>
-                <h6 class="mb-0 text-start">
-                    {% if product.type == "public" %}
-                    عمومی
-                    {% elif product.type == "private" %}
-                    خصوصی
-                    {% elif product.type == "semi_private" %}
-                    نیمه خصوصی
-                {% endif %}
-                </h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">روزهای برگزاری:</h6>
-                <h6 class="mb-0text-start">{{ day.title }}</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0">ساعت برگزاری:</h6>
-                <h6 class="mb-0 text-start">{{ product.time }}</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">تاریخ شروع:</h6>
-                <h6 class="mb-0 text-start">{{ start.month.year.number }}/{{ start.month.number }}/{{ start.number }}</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">تعداد جلسات:</h6>
-                <h6 class="mb-0 text-start">{{ session.number }} جلسه</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">شهریه ثابت:</h6>
-                <h6 class="mb-0 text-start">{{ day.tuition }} تومان</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">تخفیف:</h6>
-                <h6 class="mb-0 text-start">{{ day.off }}%</h6>
-            </li>
-
-            <li class="list-group-item d-flex justify-content-between align-items-center" dir="rtl">
-                <h6 class="mb-0 text-end">قیمت نهایی:</h6>
-                <h6 id="final" class="mb-0 text-start"></h6>
-            </li>
-        </ul>
-
-        <div id="zarinpal" class="text-center my-3">
-            <script src="https://www.zarinpal.com/webservice/TrustCode" type="text/javascript"></script>
-        </div>
-
-        <div class="d-flex justify-content-center">
-            <button id="registerButton" class="btn my-3">
-                پرداخت
-            </button>
+                    <button type="submit" class="btn btn-success px-5 py-2 fw-bold">
+                        ثبت نهایی و پرداخت
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
 
 <script>
     let off = "{{ day.off }}";

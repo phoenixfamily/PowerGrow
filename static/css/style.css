@@ -502,13 +502,16 @@ section p {
     box-shadow: none;
 }
 
+#calendarDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
 .calendar-day {
-  height: 70px;
+  aspect-ratio: 1 / 1;
   border: 1px solid #eee;
   text-align: center;
   padding-top: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 .calendar-day:hover {
   background-color: #ffe5d0;

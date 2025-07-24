@@ -235,6 +235,16 @@
           </div>`;
                     });
                 });
+
+            document.querySelectorAll('.calendar-day').forEach(dayEl => {
+                dayEl.addEventListener('click', () => {
+                    // پاک‌کردن انتخاب قبلی
+                    document.querySelectorAll('.calendar-day').forEach(el => el.classList.remove('selected-day'));
+                    // فعال کردن جدید
+                    dayEl.classList.add('selected-day');
+                });
+            });
+
         }
 
         // Navigation

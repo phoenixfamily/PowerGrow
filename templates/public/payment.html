@@ -60,32 +60,32 @@
 
             <div class="row mb-4">
                 <div class="col-md-6 mb-3">
-                    <strong>نام دوره:</strong> {{ course.title }}
+                    <strong>نام دوره:</strong> {{ product.title }}
                 </div>
                 <div class="col-md-6 mb-3">
-                    <strong>نام مربی:</strong> {{ course.name }}
+                    <strong>نام مربی:</strong> {{ product.name }}
                 </div>
                 <div class="col-md-6 mb-3">
-                    <strong>تاریخ شروع:</strong> {{ start_date }}
+                    <strong>تاریخ شروع:</strong> {{ start }}
                 </div>
                 <div class="col-md-6 mb-3">
-                    <strong>روزهای برگزاری:</strong> {{ week_day }}
+                    <strong>روزهای برگزاری:</strong> {{ day }}
                 </div>
                 <div class="col-md-6 mb-3">
-                    <strong>تعداد جلسات:</strong> {{ session_count }} جلسه
+                    <strong>تعداد جلسات:</strong> {{ session }} جلسه
                 </div>
                 <div class="col-md-6 mb-3">
-                    <strong>ساعت:</strong> {{ course.time }}
+                    <strong>ساعت:</strong> {{ product.time }}
                 </div>
                 <div class="col-md-6 mb-3">
-                    <strong>قیمت:</strong> {{ price }} تومان
+                    <strong>قیمت:</strong> {{ day.tuition }} تومان
                 </div>
                 <div class="col-md-6 mb-3">
-                    <strong>تخفیف:</strong> {{ discount }} تومان
+                    <strong>تخفیف:</strong> {{ day.off }} %
                 </div>
                 <div class="col-md-12 mb-4">
                     <hr>
-                    <h5 class="text-end">💰 مبلغ نهایی: <span class="text-danger fw-bold">{{ final_price }} تومان</span>
+                    <h5 class="text-end">💰 مبلغ نهایی: <span id="final" class="text-danger fw-bold"></span>
                     </h5>
                 </div>
             </div>

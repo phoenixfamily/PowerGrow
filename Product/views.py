@@ -81,7 +81,6 @@ def offer_view(request):
     context = {
         "course": course,
         "about": about,
-
     }
 
     return render(request, 'public/offer.html', context)

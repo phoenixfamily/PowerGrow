@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,7 +69,7 @@
                     <strong>تاریخ شروع:</strong> {{ start }}
                 </div>
                 <div class="col-md-6 mb-3">
-                    <strong>روزهای برگزاری:</strong> {{ day }}
+                    <strong>روزهای برگزاری:</strong> {{ day.title }}
                 </div>
                 <div class="col-md-6 mb-3">
                     <strong>تعداد جلسات:</strong> {{ session }} جلسه
@@ -85,7 +85,7 @@
                 </div>
                 <div class="col-md-12 mb-4">
                     <hr>
-                    <h5 class="text-end">💰 مبلغ نهایی: <span id="final" class="text-danger fw-bold"></span>
+                    <h5 class="text-end">💰 مبلغ نهایی: <span id="final" class="text-success fw-bold"></span>
                     </h5>
                 </div>
             </div>

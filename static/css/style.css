@@ -450,7 +450,7 @@ section p {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 button.btn-outline-primary.active {
-  background-color: #E16539;
-  color: white;
-  border-color: #E16539;
+  background-color: #E16539!important;
+  color: white!important;
+  border-color: #E16539!important;
 }

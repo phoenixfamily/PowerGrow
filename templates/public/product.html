@@ -133,15 +133,20 @@
                     <div class="d-flex flex-wrap gap-2">
                         {% for x in days %}
                             <button type="button"
-                                    class="btn btn-cta rounded-pill px-3">{{ x.title }}</button>
+                                    class="btn btn-outline-primary rounded-pill px-3">{{ x.title }}</button>
                         {% endfor %}
                     </div>
                 </div>
 
                 <!-- تعداد جلسات -->
                 <div class="mb-3">
-                    <label for="session-count" class="form-label fw-bold">تعداد جلسات:</label>
-                    <input type="number" id="session-count" class="form-control w-25" placeholder="مثلاً ۸">
+                    <label class="form-label fw-bold">تعداد جلسات در ماه:</label>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for x in session %}
+                            <button type="button"
+                                    class="btn btn-outline-primary rounded-pill px-3">{{ x.number }} جلسه </button>
+                        {% endfor %}
+                    </div>
                 </div>
 
                 <!-- تاریخ شروع -->

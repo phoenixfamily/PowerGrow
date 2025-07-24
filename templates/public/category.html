@@ -37,32 +37,68 @@
 {% block content %}
     <section class="py-5">
         <div class="container">
-            <h2 class="fw-bold mb-4 text-center">دوره‌های مرتبط با {{ sport.title }}</h2>
+            <h2 class="fw-bold mb-4 text-center">دوره های {{ sport.title }}</h2>
             <div class="row g-4">
                 {% for course in courses %}
                     <div class="col-md-6 col-lg-4">
-                        <div class="card shadow-sm h-100">
+                        <div class="card shadow rounded overflow-hidden">
                             {% if course.image %}
                                 <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
                             {% else %}
                                 <img src="{% static 'images/hero.png' %}" class="card-img-top" alt="تصویر پیش‌فرض">
-                            {% endif %}
-                            <div class="card-body">
-                                <h5 class="card-title text-primary">{{ course.title }}</h5>
-                                <p class="mb-1">مربی: {{ course.name }}</p>
-                                <p class="mb-1">زمان: {{ course.time }}</p>
-                                <p class="mb-1">نوع:
-                                    {% if course.type == 'public' %}عمومی{% elif course.type == 'private' %}
-                                        خصوصی{% else %}نیمه خصوصی{% endif %}
-                                </p>
-                                <p class="mb-0">مناسب برای:
-                                    {% if course.gender == 'male' %}
-                                        آقایان{% elif course.gender == 'female' %}
-                                        بانوان{% else %}همه{% endif %}
+                            {% endif %}                                 style="height: 180px; object-fit: cover;">
+                            <div class="card-body pb-0">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <p class="mb-1 text-dark">نام دوره</p>
+                                        <p class="mb-1 text-dark">نام مربی</p>
+                                    </div>
+                                    <div>
+                                        <p class="mb-1 text-dark text-start">{{ x.title }}</p>
+                                        <p class="mb-1 text-dark text-start">{{ x.name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="my-0"/>
+                            <div class="card-body pb-0">
+                                <div class="d-flex justify-content-between">
+                                    <p class="text-dark mb-1">زمان دوره</p>
+                                    <p class="text-dark text-start" style="width: 65%">{{ x.time }}</p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p class="text-dark mb-1">نوع دوره</p>
+                                    <p class="text-dark text-start" style="width: 65%">
+                                        {% if x.type == "public" %}عمومی
+                                        {% elif x.type == "private" %}خصوصی
+                                        {% elif x.type == "semi_private" %}نیمه خصوصی
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <p class="text-center text-dark my-2">
+                                    مناسب برای {% if x.gender == "male" %}آقایان{% elif x.gender == "female" %}
+                                    بانوان{% endif %}
                                 </p>
                             </div>
-                            <div class="card-footer bg-white border-top-0">
-                                <a href="{% url 'product:product_view' course.id %}" class="btn btn-primary w-100">ثبت‌نام</a>
+                            <hr class="my-0"/>
+                            <div class="card-body">
+                                {% if x.previous %}
+                                    <div class="d-flex justify-content-between align-items-center">
+                                            <span class="pre-register">
+                                                پیش ثبت ‌نام
+                                            </span>
+                                        <button class="btn btn-primary btn-sm"
+                                                onclick="location.assign('{% url 'product:product_view' x.id %}')">
+                                            ثبت نام
+                                        </button>
+                                    </div>
+                                {% else %}
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-primary btn-sm"
+                                                onclick="location.assign('{% url 'product:product_view' x.id %}')">
+                                            ثبت نام
+                                        </button>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

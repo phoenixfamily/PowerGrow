@@ -84,8 +84,11 @@
                     {% for x in selected %}
                         <div class="swiper-slide">
                             <div class="card shadow rounded overflow-hidden">
-                                <img src="{% static 'images/hero.png' %}" class="card-img-top" alt="{{ x.title }}"
-                                     style="height: 180px; object-fit: cover;">
+                                {% if course.image %}
+                                    <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                                {% else %}
+                                    <img src="{% static 'images/hero.png' %}" class="card-img-top" alt="تصویر پیش‌فرض">
+                                {% endif %}
                                 <div class="card-body pb-0">
                                     <div class="d-flex justify-content-between">
                                         <div>

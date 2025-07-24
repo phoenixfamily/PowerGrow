@@ -439,33 +439,6 @@ section p {
     color: #ccc;
 }
 
-.login-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: var(--primary-light);
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    color: black;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-.login-btn:hover {
-    background-color: #b34f28; /* حدوداً ۱۵٪ تیره‌تر */
-}
-
-.login-card a {
-    color: #ccc;
-    text-decoration: none;
-    font-size: 0.85rem;
-}
-
-.login-card a:hover {
-    text-decoration: underline;
-}
-
 .form-wrapper {
     border-left: 4px solid var(--primary-light);
 }

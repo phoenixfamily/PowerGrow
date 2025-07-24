@@ -378,3 +378,90 @@ section p {
 .about-hero {
     background-color: var(--primary-light) !important;
 }
+
+.login-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 420px;
+    color: white;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+}
+
+.login-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: gold;
+}
+
+.login-card p {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #eee;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+.form-group label {
+    position: absolute;
+    top: -12px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0 5px;
+    font-size: 0.8rem;
+    color: var(--primary-light);
+    border-radius: 5px;
+}
+
+.form-group .toggle-password {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ccc;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-light);
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #b34f28; /* حدوداً ۱۵٪ تیره‌تر */
+}
+
+.login-card a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.login-card a:hover {
+    text-decoration: underline;
+}

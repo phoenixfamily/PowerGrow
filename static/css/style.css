@@ -465,3 +465,14 @@ section p {
 .login-card a:hover {
     text-decoration: underline;
 }
+
+.form-wrapper {
+    border-left: 4px solid var(--primary-light);
+}
+
+
+@media (max-width: 992px) {
+    .form-wrapper {
+        border-left: none;
+        border-top: 4px solid var(--primary-light);
+    }

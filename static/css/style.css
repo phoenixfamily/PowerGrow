@@ -343,10 +343,12 @@ section p {
 
 .section-title {
     border-right: 5px solid var(--primary-light);
-    padding-right: 15px;
+    padding: 5px 10px;
+    text-align: center;
     font-weight: bold;
     background-color: #fff;
     transition: all 0.3s ease;
+
 }
 
 .more-link {

@@ -394,7 +394,7 @@ section p {
 .login-card h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: gold;
+    color: var(--primary-light);
 }
 
 .login-card p {

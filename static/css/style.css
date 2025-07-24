@@ -407,7 +407,7 @@ section p {
 .form-outline .toggle-password {
     position: absolute;
     right: 15px;
-    top: 50%;
+    top: 45%;
     transform: translateY(-45%);
     cursor: pointer;
     color: #ccc;

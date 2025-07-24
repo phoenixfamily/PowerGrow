@@ -452,16 +452,16 @@ section p {
 }
 
 .day-btn {
-    border: 2px solid #E16539;
-    color: #E16539;
+    border: 2px solid #E16539!important;
+    color: #E16539!important;
     background-color: transparent;
     transition: all 0.3s ease;
 }
 
 .day-btn:hover,
 .day-btn.active {
-    background-color: #E16539;
-    color: #fff;
+    background-color: #E16539!important;
+    color: #fff!important;
 }
 
 .day-btn:focus {

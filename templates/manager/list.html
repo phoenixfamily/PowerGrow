@@ -9,37 +9,40 @@
 
 
 <body>
- {% block content %}
 
-   <div class="search-bar-container">
-    <input type="text" id="searchInput" class="search-input" placeholder="جستجو...">
-   </div>
+{% block  header %}
+    <a href="{% url 'user:logout_api' %}" class="btn btn-cta" id="todayButton">لیست امروز</a>
+    <a href="{% url 'product:create-participant' course_id %}" class="btn btn-cta" id="todayButton">ثبت نام</a>
 
+{% endblock %}
 
-<div class="pagination-container">
+{% block content %}
 
-    {% if page_obj.has_next %}
-        <a class="btn btn-outline-light mx-1" href="?page={{page_obj.next_page_number}}"><i class="fa fa-chevron-left"></i></a>
-    {% endif %}
-
-    <span class="btn btn-outline-light disabled mx-1">صفحه {{ page_obj.number }}</span>
-
-   {% if page_obj.has_previous %}
-        <a class="btn btn-outline-light mx-1" href="?page={{page_obj.previous_page_number}}"><i class="fa fa-chevron-right"></i></a>
-    {% endif %}
-
-</div>
+    <div class="search-bar-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="جستجو...">
+    </div>
 
 
-<div class="table-actions">
-    <button class="btn add-data-button" id="todayButton">لیست امروز</button>
-    <button class="btn add-data-button" onclick="window.open('{% url 'product:create-participant' course_id %}')">ثبت نام</button>
-</div>
+    <div class="pagination-container">
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-light mx-1" href="?page={{ page_obj.next_page_number }}"><i
+                    class="fa fa-chevron-left"></i></a>
+        {% endif %}
+
+        <span class="btn btn-outline-light disabled mx-1">صفحه {{ page_obj.number }}</span>
+
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-light mx-1" href="?page={{ page_obj.previous_page_number }}"><i
+                    class="fa fa-chevron-right"></i></a>
+        {% endif %}
+
+    </div>
 
 
-<div class="table-responsive" dir="rtl">
-    <table id="myTable" class="table table-hover table-bordered table-dark">
-        <thead>
+    <div class="table-responsive" dir="rtl">
+        <table id="myTable" class="table table-hover table-bordered table-dark">
+            <thead>
             <tr>
                 <th>#</th>
                 <th colspan="2" class="text-center">تنظیمات</th>
@@ -55,166 +58,169 @@
                 <th>توضیحات</th>
                 <th>وضعیت</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for x in page_obj.object_list %}
-            <tr>
-                <th scope="row">{{ x.id }}</th>
-                <td class="text-center">
-                    <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer" title="ویرایش" onclick="window.open('{% url 'product:update-participant' x.id %}')"></i>
-                </td>
-                 <td class="text-center">
-                    <i class="fa fa-times text-danger" aria-hidden="true" style="cursor: pointer" title="حذف" onclick="window.open('{% url 'product:manager-delete-participation' x.id %}')"></i>
-                </td>
-                <td>{{ x.user.name }}</td>
-                <td dir="ltr">{{ x.user.number }}</td>
-                <td>{{ x.user.birthdate }}</td>
-                <td>{{ x.datetime }}</td>
-                <td>{{ x.startDay.month.year.number }}/{{ x.startDay.month.number }}/{{ x.startDay.number }}</td>
-                <td data-end-year="{{ x.endDay.month.year.number}}" data-end-month = "{{ x.endDay.month.number }}" data-end-day="{{ x.endDay.number }}">{{ x.endDay.month.year.number }}/{{ x.endDay.month.number }}/{{ x.endDay.number }}</td>
-                 <td>{{ x.day.title }}</td>
-                <td>{{ x.session.number }}</td>
-                <td>{{ x.price }} تومان </td>
-                <td>
-                    {{ x.description }}
-                    <br>
-                    {{ x.created.name }}
-                </td>
-                <td class="text-center">
-                    {% if x.success %}
-                        <i class="fa fa-check-circle text-success" title="معتبر"></i>
-                    {% else %}
-                        <i class="fa fa-ban text-danger" title="پرداخت ناموفق"></i>
-                    {% endif %}
-                </td>
-            </tr>
+                <tr>
+                    <th scope="row">{{ x.id }}</th>
+                    <td class="text-center">
+                        <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer" title="ویرایش"
+                           onclick="window.open('{% url 'product:update-participant' x.id %}')"></i>
+                    </td>
+                    <td class="text-center">
+                        <i class="fa fa-times text-danger" aria-hidden="true" style="cursor: pointer" title="حذف"
+                           onclick="window.open('{% url 'product:manager-delete-participation' x.id %}')"></i>
+                    </td>
+                    <td>{{ x.user.name }}</td>
+                    <td dir="ltr">{{ x.user.number }}</td>
+                    <td>{{ x.user.birthdate }}</td>
+                    <td>{{ x.datetime }}</td>
+                    <td>{{ x.startDay.month.year.number }}/{{ x.startDay.month.number }}/{{ x.startDay.number }}</td>
+                    <td data-end-year="{{ x.endDay.month.year.number }}" data-end-month="{{ x.endDay.month.number }}"
+                        data-end-day="{{ x.endDay.number }}">{{ x.endDay.month.year.number }}/{{ x.endDay.month.number }}/{{ x.endDay.number }}</td>
+                    <td>{{ x.day.title }}</td>
+                    <td>{{ x.session.number }}</td>
+                    <td>{{ x.price }} تومان</td>
+                    <td>
+                        {{ x.description }}
+                        <br>
+                        {{ x.created.name }}
+                    </td>
+                    <td class="text-center">
+                        {% if x.success %}
+                            <i class="fa fa-check-circle text-success" title="معتبر"></i>
+                        {% else %}
+                            <i class="fa fa-ban text-danger" title="پرداخت ناموفق"></i>
+                        {% endif %}
+                    </td>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 
-<script>
-document.getElementById('searchInput').addEventListener('keyup', function() {
-    var input, filter, table, tr, td, i, j, txtValue;
-    input = document.getElementById('searchInput');
-    filter = input.value.toUpperCase().trim().split(" "); // ورودی را به کلمات جداگانه تقسیم می‌کند
-    table = document.getElementById('myTable');
-    tr = table.getElementsByTagName('tr');
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function () {
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById('searchInput');
+            filter = input.value.toUpperCase().trim().split(" "); // ورودی را به کلمات جداگانه تقسیم می‌کند
+            table = document.getElementById('myTable');
+            tr = table.getElementsByTagName('tr');
 
-    for (i = 1; i < tr.length; i++) {
-        tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
-        td = tr[i].getElementsByTagName('td');
-        var rowMatches = true; // فرض می‌کنیم که ردیف با شرایط جستجو مطابقت دارد
+            for (i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
+                td = tr[i].getElementsByTagName('td');
+                var rowMatches = true; // فرض می‌کنیم که ردیف با شرایط جستجو مطابقت دارد
 
-        for (j = 0; j < filter.length; j++) { // برای هر کلمه جستجو
-            var wordMatched = false; // فرض می‌کنیم که هیچ کلمه‌ای مطابقت ندارد
+                for (j = 0; j < filter.length; j++) { // برای هر کلمه جستجو
+                    var wordMatched = false; // فرض می‌کنیم که هیچ کلمه‌ای مطابقت ندارد
 
-            for (let k = 0; k < td.length; k++) { // هر سلول را بررسی می‌کنیم
-                if (td[k]) {
-                    txtValue = td[k].textContent || td[k].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter[j]) > -1) {
-                        wordMatched = true; // اگر کلمه پیدا شد
+                    for (let k = 0; k < td.length; k++) { // هر سلول را بررسی می‌کنیم
+                        if (td[k]) {
+                            txtValue = td[k].textContent || td[k].innerText;
+                            if (txtValue.toUpperCase().indexOf(filter[j]) > -1) {
+                                wordMatched = true; // اگر کلمه پیدا شد
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!wordMatched) {
+                        rowMatches = false; // اگر هیچ کلمه‌ای در ردیف مطابقت نداشت
                         break;
                     }
                 }
+
+                if (rowMatches) {
+                    tr[i].style.display = ""; // اگر ردیف با تمام کلمات مطابقت داشت، نمایش داده شود
+                }
             }
+        });
 
-            if (!wordMatched) {
-                rowMatches = false; // اگر هیچ کلمه‌ای در ردیف مطابقت نداشت
-                break;
-            }
-        }
-
-        if (rowMatches) {
-            tr[i].style.display = ""; // اگر ردیف با تمام کلمات مطابقت داشت، نمایش داده شود
-        }
-    }
-});
-
-</script>
+    </script>
 
 
-<script>
+    <script>
 
-    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
 
-        let table = document.getElementById('myTable');
-        let rows = table.getElementsByTagName('tr');
+            let table = document.getElementById('myTable');
+            let rows = table.getElementsByTagName('tr');
 
-        let today = new Date().toLocaleDateString('fa-IR-u-nu-latn');
-        let parts = today.split('/'); // فرض می‌کنیم که فرمت "YYYY/MM/DD" است
+            let today = new Date().toLocaleDateString('fa-IR-u-nu-latn');
+            let parts = today.split('/'); // فرض می‌کنیم که فرمت "YYYY/MM/DD" است
 
-        let year = parseInt(parts[0].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
-        let month = parseInt(parts[1].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
-        let day = parseInt(parts[2].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
+            let year = parseInt(parts[0].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
+            let month = parseInt(parts[1].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
+            let day = parseInt(parts[2].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
 
-        const thisDate = jalaali.j2d(year, month, day)
-
-
-        for (var i = 1; i < rows.length; i++) { // شروع از 1 برای نادیده گرفتن هدر
-            var endDateCell = rows[i].querySelector('td[data-end-year]');
-
-            if (endDateCell) {
-                // دریافت تاریخ پایان شمسی
-                var endYearStr = endDateCell.getAttribute('data-end-year');
-                var endMonthStr = endDateCell.getAttribute('data-end-month');
-                var endDayStr = endDateCell.getAttribute('data-end-day');
-
-                 var userEndYear = parseInt(endYearStr);
-                 var userEndMonth = parseInt(endMonthStr);
-                 var userEndDay = parseInt(endDayStr);
-
-                 var userEnd = jalaali.j2d(userEndYear, userEndMonth, userEndDay)
+            const thisDate = jalaali.j2d(year, month, day)
 
 
-                // بررسی اینکه آیا تاریخ پایان گذشته است
-                if (userEnd<thisDate) {
-                     var statusCell = rows[i].querySelector('td:last-child'); // فرض می‌کنیم آخرین سلول وضعیت است
-                    if(statusCell.innerHTML.includes('fa-check-circle')) {
-                        statusCell.innerHTML = '<i class="fa fa-exclamation-circle text-warning" title="تاریخ پایان گذشته"></i>'; // تغییر به آیکون دلخواه
+            for (var i = 1; i < rows.length; i++) { // شروع از 1 برای نادیده گرفتن هدر
+                var endDateCell = rows[i].querySelector('td[data-end-year]');
+
+                if (endDateCell) {
+                    // دریافت تاریخ پایان شمسی
+                    var endYearStr = endDateCell.getAttribute('data-end-year');
+                    var endMonthStr = endDateCell.getAttribute('data-end-month');
+                    var endDayStr = endDateCell.getAttribute('data-end-day');
+
+                    var userEndYear = parseInt(endYearStr);
+                    var userEndMonth = parseInt(endMonthStr);
+                    var userEndDay = parseInt(endDayStr);
+
+                    var userEnd = jalaali.j2d(userEndYear, userEndMonth, userEndDay)
+
+
+                    // بررسی اینکه آیا تاریخ پایان گذشته است
+                    if (userEnd < thisDate) {
+                        var statusCell = rows[i].querySelector('td:last-child'); // فرض می‌کنیم آخرین سلول وضعیت است
+                        if (statusCell.innerHTML.includes('fa-check-circle')) {
+                            statusCell.innerHTML = '<i class="fa fa-exclamation-circle text-warning" title="تاریخ پایان گذشته"></i>'; // تغییر به آیکون دلخواه
+                        }
                     }
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
 
 
-<script>
+    <script>
 
-document.getElementById('todayButton').addEventListener('click', function() {
-    // تعریف روزهای هفته با شنبه به عنوان اولین روز
-    const daysOfWeek = ["یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه","جمعه","شنبه"];
-    const today = new Date();
-    const currentDay = daysOfWeek[today.getDay()]; // 0 = شنبه, 1 = یکشنبه, ...
+        document.getElementById('todayButton').addEventListener('click', function () {
+            // تعریف روزهای هفته با شنبه به عنوان اولین روز
+            const daysOfWeek = ["یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه"];
+            const today = new Date();
+            const currentDay = daysOfWeek[today.getDay()]; // 0 = شنبه, 1 = یکشنبه, ...
 
-    console.log(today.getDay());
+            console.log(today.getDay());
 
-    var table = document.getElementById('myTable');
-    var tr = table.getElementsByTagName('tr');
+            var table = document.getElementById('myTable');
+            var tr = table.getElementsByTagName('tr');
 
-    for (var i = 1; i < tr.length; i++) {
-        tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
-        var td = tr[i].getElementsByTagName('td');
-        var isSuccess = tr[i].querySelector('.fa-check-circle'); // چک کردن وجود آیکون موفقیت
+            for (var i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
+                var td = tr[i].getElementsByTagName('td');
+                var isSuccess = tr[i].querySelector('.fa-check-circle'); // چک کردن وجود آیکون موفقیت
 
-        for (var j = 0; j < td.length; j++) {
-            if (td[j]) {
-                var txtValue = td[j].textContent || td[j].innerText;
-                var daysArray = txtValue.split('،').map(day => day.trim()); // جدا کردن روزها با ',' و حذف فضاها
+                for (var j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        var txtValue = td[j].textContent || td[j].innerText;
+                        var daysArray = txtValue.split('،').map(day => day.trim()); // جدا کردن روزها با ',' و حذف فضاها
 
-                // بررسی اگر روز فعلی در آرایه daysArray موجود باشد و وضعیت معتبر باشد
-                if (daysArray.includes(currentDay) && isSuccess) {
-                    tr[i].style.display = ""; // اگر روز فعلی پیدا شد و وضعیت معتبر بود، ردیف نمایش داده شود
-                    break;
+                        // بررسی اگر روز فعلی در آرایه daysArray موجود باشد و وضعیت معتبر باشد
+                        if (daysArray.includes(currentDay) && isSuccess) {
+                            tr[i].style.display = ""; // اگر روز فعلی پیدا شد و وضعیت معتبر بود، ردیف نمایش داده شود
+                            break;
+                        }
+                    }
                 }
             }
-        }
-    }
-});
+        });
 
 
-</script>
+    </script>
 
 {% endblock %}
 </body>

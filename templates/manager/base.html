@@ -27,30 +27,9 @@
 
 </head>
 <body>
+{% block content %}
 
-
-<div class="d-flex">
-
-    <main class="flex-grow-1 p-4" id="main-content">
-    </main>
-</div>
-
-
-<div class="d-flex">
-    <!-- سایدبار -->
-    <aside class="sidebar bg-dark text-white p-3" style="min-width: 220px; height: 100vh;">
-        <h4 class="text-white mb-4">PowerGrow</h4>
-            {% block content %}{% endblock %}
-
-
-    </aside>
-
-    <!-- بدنه داشبورد -->
-    <main class="p-4 w-100">
-        <h2 class="fw-bold mb-4">داشبورد مدیریت</h2>
-        <!-- کارت‌ها، جدول‌ها و نمودارهای اصلی -->
-    </main>
-</div>
+{% endblock %}
 
 </body>
 

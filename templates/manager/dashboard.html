@@ -10,45 +10,34 @@
 <body>
 
 {% block content %}
+<div class="d-flex">
+    <!-- سایدبار -->
+    <aside class="sidebar bg-dark text-white p-3" style="min-width: 220px; height: 100vh;">
+        <h4 class="text-white mb-4">PowerGrow</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_courses' %}active{% endif %}"
+                   href="{% url 'product:manager_courses' %}">
+                   <i class="fa fa-book me-2"></i> دوره‌ها
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
+                   href="{% url 'product:manager_sessions' %}">
+                   <i class="fa fa-hourglass me-2"></i> جلسه‌ها
+                </a>
+            </li>
+            <!-- و بقیه لینک‌ها همینطوری -->
+        </ul>
+    </aside>
 
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_courses' %}active{% endif %}"
-               href="{% url 'product:manager_courses' %}">
-                <i class="fa fa-book me-2"></i> دوره‌ها
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
-               href="{% url 'product:manager_sessions' %}">
-                <i class="fa fa-hourglass me-2"></i> جلسه‌ها
-            </a>
-        </li>
-
-    <li class="nav-item">
-            <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
-               href="{% url 'product:manager_sessions' %}">
-                <i class="fa fa-hourglass me-2"></i> جلسه‌ها
-            </a>
-        </li>
-
-    <li class="nav-item">
-            <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
-               href="{% url 'product:manager_sessions' %}">
-                <i class="fa fa-hourglass me-2"></i> جلسه‌ها
-            </a>
-        </li>
-
-    <li class="nav-item">
-            <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
-               href="{% url 'product:manager_sessions' %}">
-                <i class="fa fa-hourglass me-2"></i> جلسه‌ها
-            </a>
-        </li>
-    </ul>
-
+    <!-- بدنه داشبورد -->
+    <main class="p-4 w-100">
+        <h2 class="fw-bold mb-4">داشبورد مدیریت</h2>
+        <!-- کارت‌ها، جدول‌ها و نمودارهای اصلی -->
+    </main>
+</div>
 {% endblock %}
-
 
 </body>
 

@@ -17,13 +17,13 @@
 
     <section class="hero-split py-5">
         <div class="container-fluid px-lg-5">
-            <div class="row g-4">
+            <div class="row g-4 flex-row-reverse">
                 <!-- دوره‌ها -->
                 <div class="col-md-3 col-sm-6">
                     <a href="{% url 'product:manager_courses' %}"
                        class="card dashboard-card text-center bg-white  shadow-sm p-4 h-100 text-decoration-none">
                         <i class="fa fa-superpowers fa-2x mb-2" style="color: rgba(119, 178, 88, 0.9);"></i>
-                        <h5 class="m-0">دوره‌ها</h5>
+                        <h5 class="dashboard-title m-0">دوره‌ها</h5>
                     </a>
                 </div>
 
@@ -32,7 +32,7 @@
                     <a href="{% url 'product:manager_sessions' %}"
                        class="card dashboard-card text-center bg-white  shadow-sm p-4 h-100 text-decoration-none">
                         <i class="fa fa-hourglass fa-2x mb-2" style="color: rgba(121, 90, 71, 0.9);"></i>
-                        <h5 class="m-0">جلسه‌ها</h5>
+                        <h5 class="dashboard-title m-0">جلسه‌ها</h5>
                     </a>
                 </div>
 
@@ -42,7 +42,7 @@
                        class="card dashboard-card text-center bg-white  shadow-sm p-4 h-100 text-decoration-none">
                         <i class="fa fa-thermometer-three-quarters fa-2x mb-2"
                            style="color: rgba(130, 93, 9, 0.9);"></i>
-                        <h5 class="m-0">روزها</h5>
+                        <h5 class="dashboard-title m-0">روزها</h5>
                     </a>
                 </div>
 
@@ -51,7 +51,7 @@
                     <a href="{% url 'product:manager_sports' %}"
                        class="card dashboard-card text-center bg-white  shadow-sm p-4 h-100 text-decoration-none">
                         <i class="fa fa-futbol-o fa-2x mb-2" style="color: rgba(213, 15, 37, 0.9);"></i>
-                        <h5 class="m-0">ورزش‌ها</h5>
+                        <h5 class="dashboard-title m-0">ورزش‌ها</h5>
                     </a>
                 </div>
 
@@ -60,7 +60,7 @@
                     <a href="{% url 'reservation:gym_view' %}"
                        class="card dashboard-card text-center bg-white  shadow-sm p-4 h-100 text-decoration-none">
                         <i class="fa fa-fort-awesome fa-2x mb-2" style="color: rgba(51, 105, 232, 0.9);"></i>
-                        <h5 class="m-0">سالن‌ها</h5>
+                        <h5 class="dashboard-title m-0">سالن‌ها</h5>
                     </a>
                 </div>
 
@@ -69,7 +69,7 @@
                     <a href="{% url 'calendar:price' %}"
                        class="card dashboard-card text-center bg-white  shadow-sm p-4 h-100 text-decoration-none">
                         <i class="fa fa-usd fa-2x mb-2" style="color: rgba(250, 188, 9, 0.9);"></i>
-                        <h5 class="m-0">قیمت‌گذاری</h5>
+                        <h5 class="dashboard-title m-0">قیمت‌گذاری</h5>
                     </a>
                 </div>
 
@@ -78,7 +78,7 @@
                     <a href="{% url 'reservation:reserve_view' %}"
                        class="card dashboard-card text-center bg-white  shadow-sm p-4 h-100 text-decoration-none">
                         <i class="fa fa-calendar-check-o fa-2x mb-2" style="color: rgba(119, 178, 88, 0.9);"></i>
-                        <h5 class="m-0">رزروها</h5>
+                        <h5 class="dashboard-title m-0">رزروها</h5>
                     </a>
                 </div>
 
@@ -87,7 +87,7 @@
                     <a href="{% url 'user:manager_users_view' %}"
                        class="card dashboard-card text-center bg-white  shadow-sm p-4 h-100 text-decoration-none">
                         <i class="fa fa-users fa-2x mb-2 text-secondary"></i>
-                        <h5 class="m-0">کاربران</h5>
+                        <h5 class="dashboard-title m-0">کاربران</h5>
                     </a>
                 </div>
 
@@ -96,7 +96,7 @@
                     <a href="{% url 'calendar:calendar' %}"
                        class="card dashboard-card text-center bg-white  shadow-sm p-4 h-100 text-decoration-none">
                         <i class="fa fa-calendar fa-2x mb-2" style="color: rgba(119, 178, 88, 0.9);"></i>
-                        <h5 class="m-0">تقویم</h5>
+                        <h5 class="dashboard-title m-0">تقویم</h5>
                     </a>
                 </div>
 
@@ -108,7 +108,7 @@
                         {% if unread_news_count > 0 %}
                             <span class="badge bg-danger position-absolute top-0 end-0 m-2">جدید</span>
                         {% endif %}
-                        <h5 class="m-0">اطلاعیه‌ها</h5>
+                        <h5 class="dashboard-title m-0">اطلاعیه‌ها</h5>
                     </a>
                 </div>
 
@@ -117,7 +117,7 @@
                     <a href="{% url 'product:manager_offers' %}"
                        class="card dashboard-card text-center bg-white  shadow-sm p-4 h-100 text-decoration-none">
                         <i class="fa fa-tags fa-2x mb-2 text-primary"></i>
-                        <h5 class="m-0">تخفیف‌ها</h5>
+                        <h5 class="dashboard-title m-0">تخفیف‌ها</h5>
                     </a>
                 </div>
 
@@ -126,7 +126,7 @@
                     <a href="{% url 'product:change-day-salary' %}"
                        class="card dashboard-card text-center bg-white  shadow-sm p-4 h-100 text-decoration-none">
                         <i class="fa fa-money-bill fa-2x mb-2" style="color: rgb(133, 187, 101);"></i>
-                        <h5 class="m-0">حقوق</h5>
+                        <h5 class="dashboard-title m-0">حقوق</h5>
                     </a>
                 </div>
             </div>

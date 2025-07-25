@@ -39,7 +39,7 @@
             <thead class="table-light">
             <tr>
                 <th>#</th>
-                <th>تنظیمات</th>
+                <th>عملیات</th>
                 <th>نام</th>
                 <th>موبایل</th>
                 <th>تولد</th>
@@ -56,27 +56,46 @@
             <tbody>
             {% for x in page_obj.object_list %}
                 <tr>
-                    <th>{{ x.id }}</th>
+                    <td>{{ x.id }}</td>
+
+                    <!-- عملیات -->
                     <td>
-                        <a href="{% url 'product:update-participant' x.id %}" class="text-success mx-1"><i
-                                class="fa fa-pencil text-warning" title="ویرایش"></i></a>
-                        <a href="{% url 'product:manager-delete-participation' x.id %}" class="text-danger mx-1"><i
-                                class="fa fa-solid fa-address-book" title="حذف"></i></a>
+                        <a href="{% url 'product:update-participant' x.id %}" class="text-warning mx-1" title="ویرایش">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a href="{% url 'product:manager-delete-participation' x.id %}" class="text-danger mx-1"
+                           title="حذف">
+                            <i class="fa fa-trash"></i>
+                        </a>
                     </td>
+
+                    <!-- اطلاعات کاربر -->
                     <td>{{ x.user.name }}</td>
                     <td dir="ltr">{{ x.user.number }}</td>
                     <td>{{ x.user.birthdate }}</td>
                     <td>{{ x.datetime }}</td>
+
+                    <!-- تاریخ‌ها -->
                     <td>{{ x.startDay.month.year.number }}/{{ x.startDay.month.number }}/{{ x.startDay.number }}</td>
                     <td data-end-year="{{ x.endDay.month.year.number }}"
                         data-end-month="{{ x.endDay.month.number }}"
                         data-end-day="{{ x.endDay.number }}">
                         {{ x.endDay.month.year.number }}/{{ x.endDay.month.number }}/{{ x.endDay.number }}
                     </td>
+
+                    <!-- جزئیات جلسه -->
                     <td>{{ x.day.title }}</td>
                     <td>{{ x.session.number }}</td>
                     <td>{{ x.price }} تومان</td>
-                    <td>{{ x.description }} <br> <small class="text-muted">{{ x.created.name }}</small></td>
+
+                    <!-- توضیح -->
+                    <td>
+                        {{ x.description }}
+                        <br>
+                        <small class="text-muted">{{ x.created.name }}</small>
+                    </td>
+
+                    <!-- وضعیت -->
                     <td class="text-center">
                         {% if x.success %}
                             <i class="fa fa-check-circle text-success" title="معتبر"></i>
@@ -89,6 +108,7 @@
             </tbody>
         </table>
     </div>
+
 
 
     <script>

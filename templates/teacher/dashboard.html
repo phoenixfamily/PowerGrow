@@ -18,76 +18,77 @@
 
     <section class="hero-split py-5">
 
-    <div class="container-fluid px-lg-5">
-        <div class="row g-4 justify-content-center">
+        <div class="container-fluid px-lg-5">
+            <div class="row g-4 justify-content-center">
 
-            <!-- آیتم 1: دوره‌ها -->
-            <div class="col-md-4 col-sm-6">
-                <a href="{% url 'product:teacher_courses' user.id %}" class="text-decoration-none">
-                    <div class="card dashboard-card text-center bg-white  shadow-sm border-0 h-100 hover-card">
-                        <div class="card-body d-flex flex-column align-items-center justify-content-center gap-3">
-                            <i class="fa fa-superpowers fa-3x icon-main"></i>
-                            <h5 class="text-dark fw-bold">دوره‌ها</h5>
+                <!-- آیتم 1: دوره‌ها -->
+                <div class="col-md-4 col-sm-6">
+                    <a href="{% url 'product:teacher_courses' user.id %}" class="text-decoration-none">
+                        <div class="card dashboard-card text-center bg-white  shadow-sm border-0 h-100 hover-card">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center gap-3">
+                                <i class="fa fa-calendar-check-o fa-2x mb-2"
+                                   style="color: rgba(119, 178, 88, 0.9);"></i>
+                                <h5 class="text-dark fw-bold">دوره‌ها</h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
 
-            <!-- آیتم 2: حقوق -->
-            <div class="col-md-4 col-sm-6">
-                <a href="{% url 'user:salary' user.id %}" class="text-decoration-none">
-                    <div class="card text-center shadow-sm border-0 h-100 hover-card">
-                        <div class="card-body d-flex flex-column align-items-center justify-content-center gap-3">
-                            <i class="fa fa-usd fa-3x icon-main"></i>
-                            <h5 class="text-dark fw-bold">حقوق</h5>
+                <!-- آیتم 2: حقوق -->
+                <div class="col-md-4 col-sm-6">
+                    <a href="{% url 'user:salary' user.id %}" class="text-decoration-none">
+                        <div class="card text-center shadow-sm border-0 h-100 hover-card">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center gap-3">
+                                <i class="fa fa-money-bill fa-2x mb-2" style="color: rgb(133, 187, 101);"></i>
+                                <h5 class="text-dark fw-bold">حقوق</h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
 
-            <!-- آیتم 3: تقویم -->
-            <div class="col-md-4 col-sm-6">
-                <a href="{% url 'calendar:teacher_calendar' user.id %}" class="text-decoration-none">
-                    <div class="card dashboard-card text-center bg-white  shadow-sm border-0 h-100 hover-card">
-                        <div class="card-body d-flex flex-column align-items-center justify-content-center gap-3">
-                            <i class="fa fa-calendar fa-3x icon-main"></i>
-                            <h5 class="text-dark fw-bold">تقویم</h5>
+                <!-- آیتم 3: تقویم -->
+                <div class="col-md-4 col-sm-6">
+                    <a href="{% url 'calendar:teacher_calendar' user.id %}" class="text-decoration-none">
+                        <div class="card dashboard-card text-center bg-white  shadow-sm border-0 h-100 hover-card">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center gap-3">
+                                <i class="fa fa-calendar fa-2x mb-2" style="color: rgba(119, 178, 88, 0.9);"></i>
+                                <h5 class="text-dark fw-bold">تقویم</h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
 
-            <!-- آیتم 4: اطلاعیه‌ها -->
-            <div class="col-md-4 col-sm-6">
-                <a href="{% url 'seo:teacher_news_view' %}" class="text-decoration-none position-relative">
-                    <div class="card dashboard-card text-center bg-white shadow-sm border-0 h-100 hover-card">
-                        <div class="card-body d-flex flex-column align-items-center justify-content-center gap-3">
-                            <i class="fa fa-edge fa-3x icon-main"></i>
-                            <h5 class="text-dark fw-bold">اطلاعیه‌ها</h5>
-                            {% if unread_news_count > 0 %}
-                                <span class="position-absolute top-0 end-0 badge rounded-pill bg-danger mt-2 me-2">
+                <!-- آیتم 4: اطلاعیه‌ها -->
+                <div class="col-md-4 col-sm-6">
+                    <a href="{% url 'seo:teacher_news_view' %}" class="text-decoration-none position-relative">
+                        <div class="card dashboard-card text-center bg-white shadow-sm border-0 h-100 hover-card">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center gap-3">
+                                <i class="fa fa-edge fa-3x icon-main"></i>
+                                <i class="fa fa-edge fa-2x mb-2" style="color: rgba(213, 15, 37, 0.9);"></i>
+                                {% if unread_news_count > 0 %}
+                                    <span class="position-absolute top-0 end-0 badge rounded-pill bg-danger mt-2 me-2">
                             جدید
                         </span>
-                            {% endif %}
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
 
-            <!-- آیتم 5: پروفایل -->
-            <div class="col-md-4 col-sm-6">
-                <a href="{% url 'user:teacher_profile' %}" class="text-decoration-none">
-                    <div class="card dashboard-card text-center bg-white  shadow-sm border-0 h-100 hover-card">
-                        <div class="card-body d-flex flex-column align-items-center justify-content-center gap-3">
-                            <i class="fa fa-user fa-3x icon-main"></i>
-                            <h5 class="text-dark fw-bold">پروفایل</h5>
+                <!-- آیتم 5: پروفایل -->
+                <div class="col-md-4 col-sm-6">
+                    <a href="{% url 'user:teacher_profile' %}" class="text-decoration-none">
+                        <div class="card dashboard-card text-center bg-white  shadow-sm border-0 h-100 hover-card">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center gap-3">
+                                <i class="fa fa-user fa-3x icon-main"></i>
+                                <h5 class="text-dark fw-bold">پروفایل</h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
 
+            </div>
         </div>
-    </div>
 
     </section>
 

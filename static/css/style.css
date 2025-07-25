@@ -771,3 +771,7 @@ section p {
     background-color: #a84e2c; /* تغییر رنگ در حالت hover */
     color: #c4c4c4;
 }
+
+.dashboard-card h5 {
+    color: #E16539!important;
+}

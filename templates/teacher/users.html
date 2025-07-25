@@ -9,15 +9,17 @@
 
 <body>
 
+{% block  header %}
+    <a href="{% url 'user:logout_api' %}" class="btn btn-cta" id="todayButton">لیست امروز</a>
+{% endblock %}
+
+
 {% block content %}
 
    <div class="search-bar-container">
     <input type="text" id="searchInput" class="search-input" placeholder="جستجو...">
    </div>
 
-<div class="table-actions">
-    <button id="todayButton" class="btn add-data-button">لیست امروز</button>
-</div>
 
 <div class="table-responsive" dir="rtl">
     <table id="myTable" class="table table-hover table-bordered table-dark">

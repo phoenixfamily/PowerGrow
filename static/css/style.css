@@ -37,6 +37,8 @@
 html, body {
     max-width: 100%;
     overflow-x: hidden;
+    font-family: BYekan, serif !important;
+
 }
 
 
@@ -751,8 +753,15 @@ section p {
 
 .table-responsive {
     overflow-x: auto;
+    width: 100%;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.table-responsive table {
+    width: 100% !important;
+    min-width: 800px; /* برای اینکه ستون‌ها نچسبن */
+    table-layout: auto;
 }
 
 table thead {

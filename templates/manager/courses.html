@@ -9,8 +9,10 @@
 
 <body>
 
-{% block  header %}
-    <a href="{% url 'product:manager-create-course' %}" class="btn btn-cta">افزودن دوره</a>
+{% block header %}
+    <div class="d-flex justify-content-end my-3 me-3">
+        <a href="{% url 'product:manager-create-course' %}" class="btn btn-cta">افزودن دوره</a>
+    </div>
 {% endblock %}
 
 {% block content %}

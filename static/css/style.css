@@ -738,3 +738,22 @@ section p {
     color: #E16539;
     font-weight: 600;
 }
+.table-responsive{
+    overflow-x:auto
+}
+table thead {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    text-align: center;
+}
+
+table i {
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+table i:hover {
+    background-color: #f1f1f1;
+}
+

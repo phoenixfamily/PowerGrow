@@ -1,37 +1,114 @@
+<!-- templates/dashboard_base.html -->
 {% load static %}
-<!DOCTYPE html>
 
-<html lang="fa" dir = "rtl">
+<!DOCTYPE html>
+<html lang="fa">
 <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}پنل مدیریت{% endblock %}</title>
 
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ seo_title }}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" href="{% static 'images/logo.jpg' %}" type="image/x-icon">
 
-
-    <script src="https://kit.fontawesome.com/1228ed801f.js" crossorigin="anonymous"></script>
-
-    <style>
-
-    </style>
-
-
-
-
 </head>
 <body>
-{% block content %}
+<div class="d-flex">
+    <!-- ✅ سایدبار ثابت برای همه صفحات مدیریتی -->
+    <aside class="sidebar bg-dark text-white p-3" style="min-width: 220px; height: 100vh;">
+        <h4 class="text-white mb-4">PowerGrow</h4>
+        <ul class="nav flex-column">
 
-{% endblock %}
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_courses' %}active{% endif %}"
+                   href="{% url 'product:manager_courses' %}">
+                    <i class="fa fa-book me-2"></i> دوره‌ها
+                </a>
+            </li>
 
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
+                   href="{% url 'product:manager_sessions' %}">
+                    <i class="fa fa-user me-2"></i> کاربران
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
+                   href="{% url 'product:manager_sessions' %}">
+                    <i class="fa fa-hourglass me-2"></i> جلسه‌ها
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
+                   href="{% url 'product:manager_sessions' %}">
+                    <i class="fa fa-times me-2"></i> روزها
+                </a>
+            </li>
+
+         <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
+                   href="{% url 'product:manager_sessions' %}">
+                    <i class="fa fa-times me-2"></i> حقوق
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_courses' %}active{% endif %}"
+                   href="{% url 'product:manager_courses' %}">
+                    <i class="fa fa-book me-2"></i> ورزش ها
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
+                   href="{% url 'product:manager_sessions' %}">
+                    <i class="fa fa-user me-2"></i>تقویم
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
+                   href="{% url 'product:manager_sessions' %}">
+                    <i class="fa fa-user me-2"></i>تقویم
+                </a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
+                   href="{% url 'product:manager_sessions' %}">
+                    <i class="fa fa-user me-2"></i> قیمت گذاری
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
+                   href="{% url 'product:manager_sessions' %}">
+                    <i class="fa fa-user me-2"></i> رزرو ها
+                </a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link text-white {% if request.resolver_match.url_name == 'manager_sessions' %}active{% endif %}"
+                   href="{% url 'product:manager_sessions' %}">
+                    <i class="fa fa-user me-2"></i> سالن ها
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- ✅ محتوای اختصاصی هر صفحه مدیریتی -->
+    <main class="p-4 w-100">
+        {% block content %}
+        {% endblock %}
+    </main>
+</div>
 </body>
-
-
 </html>

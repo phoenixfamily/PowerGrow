@@ -5,8 +5,6 @@
 <head>
     {% block title %}مدیریت دوره ها{% endblock %}
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 </head>
 
 
@@ -92,7 +90,7 @@
 
                     <!-- توضیح -->
                     <td>
-                        {{ x.description }}
+                        {{ x.description|truncatechars:100}}
                         <br>
                         <small class="text-muted">{{ x.created.name }}</small>
                     </td>

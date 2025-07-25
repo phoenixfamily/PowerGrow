@@ -760,7 +760,6 @@ section p {
 
 .table-responsive table {
     width: 100% !important;
-    min-width: 800px; /* برای اینکه ستون‌ها نچسبن */
     table-layout: auto;
 }
 

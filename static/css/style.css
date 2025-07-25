@@ -680,7 +680,7 @@ section p {
 }
 
 .main-content {
-    margin-right: 240px; /* به اندازه سایدبار فاصله بده */
+    margin-left: 300px; /* به اندازه سایدبار فاصله بده */
     padding: 30px;
     min-height: 100vh;
     background-color: #f8f9fa;

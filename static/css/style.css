@@ -748,10 +748,9 @@ section p {
     color: #E16539;
     font-weight: 600;
 }
+
 .table-responsive {
     overflow-x: auto;
-    margin-left: -10px;
-    margin-right: -10px;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -774,10 +773,18 @@ table i {
 table i:hover {
     background-color: #f1f1f1;
 }
+
 @media (max-width: 768px) {
     table {
         width: 100%;
         display: block;
+        min-width: 900px;
+
+    }
+
+    table i {
+        font-size: 0.9rem;
+        padding: 2px 4px;
     }
 
     .table-responsive {
@@ -790,6 +797,7 @@ table i:hover {
     }
 
 }
+
 .card h5, table thead th {
     color: var(--primary-light); /* رنگ برند */
     font-weight: bold;

@@ -11,37 +11,159 @@
 
 {% block content %}
 
-    <section><
+    <section>
+        <div class="container-fluid px-lg-5">
+            <div class="row g-4">
+                <!-- دوره‌ها -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'product:manager_courses' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-superpowers fa-2x mb-2" style="color: rgba(119, 178, 88, 0.9);"></i>
+                        <h5 class="m-0">دوره‌ها</h5>
+                    </a>
+                </div>
 
-    <div class="container my-5">
-        <div class="row g-4">
-            <div class="col-md-3 col-sm-6">
-                <a href="{% url 'product:manager_courses' %}"
-                   class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
-                    <i class="fa fa-book fa-2x mb-2 text-primary"></i>
-                    <h5 class="m-0">دوره‌ها</h5>
-                </a>
+                <!-- جلسه‌ها -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'product:manager_sessions' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-hourglass fa-2x mb-2" style="color: rgba(121, 90, 71, 0.9);"></i>
+                        <h5 class="m-0">جلسه‌ها</h5>
+                    </a>
+                </div>
+
+                <!-- روزها -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'product:manager_days' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-thermometer-three-quarters fa-2x mb-2"
+                           style="color: rgba(130, 93, 9, 0.9);"></i>
+                        <h5 class="m-0">روزها</h5>
+                    </a>
+                </div>
+
+                <!-- ورزش‌ها -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'product:manager_sports' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-futbol-o fa-2x mb-2" style="color: rgba(213, 15, 37, 0.9);"></i>
+                        <h5 class="m-0">ورزش‌ها</h5>
+                    </a>
+                </div>
+
+                <!-- سالن‌ها -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'reservation:gym_view' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-fort-awesome fa-2x mb-2" style="color: rgba(51, 105, 232, 0.9);"></i>
+                        <h5 class="m-0">سالن‌ها</h5>
+                    </a>
+                </div>
+
+                <!-- قیمت‌گذاری -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'calendar:price' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-usd fa-2x mb-2" style="color: rgba(250, 188, 9, 0.9);"></i>
+                        <h5 class="m-0">قیمت‌گذاری</h5>
+                    </a>
+                </div>
+
+                <!-- رزروها -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'reservation:reserve_view' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-calendar-check-o fa-2x mb-2" style="color: rgba(119, 178, 88, 0.9);"></i>
+                        <h5 class="m-0">رزروها</h5>
+                    </a>
+                </div>
+
+                <!-- کاربران -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'user:manager_users_view' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-users fa-2x mb-2 text-secondary"></i>
+                        <h5 class="m-0">کاربران</h5>
+                    </a>
+                </div>
+
+                <!-- تقویم -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'calendar:calendar' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-calendar fa-2x mb-2" style="color: rgba(119, 178, 88, 0.9);"></i>
+                        <h5 class="m-0">تقویم</h5>
+                    </a>
+                </div>
+
+                <!-- اطلاعیه‌ها -->
+                <div class="col-md-3 col-sm-6 position-relative">
+                    <a href="{% url 'seo:manager_news_view' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none position-relative">
+                        <i class="fa fa-edge fa-2x mb-2" style="color: rgba(213, 15, 37, 0.9);"></i>
+                        {% if unread_news_count > 0 %}
+                            <span class="badge bg-danger position-absolute top-0 end-0 m-2">جدید</span>
+                        {% endif %}
+                        <h5 class="m-0">اطلاعیه‌ها</h5>
+                    </a>
+                </div>
+
+                <!-- بنرها -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'home:slider_view' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-wordpress fa-2x mb-2" style="color: rgba(51, 105, 232, 0.9);"></i>
+                        <h5 class="m-0">بنرها</h5>
+                    </a>
+                </div>
+
+                <!-- درباره ما -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'aboutUs:about' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-wikipedia-w fa-2x mb-2" style="color: rgba(121, 90, 71, 0.9);"></i>
+                        <h5 class="m-0">درباره ما</h5>
+                    </a>
+                </div>
+
+                <!-- تخفیف‌ها -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'product:manager_offers' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-tags fa-2x mb-2 text-primary"></i>
+                        <h5 class="m-0">تخفیف‌ها</h5>
+                    </a>
+                </div>
+
+                <!-- حقوق -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'product:change-day-salary' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-money-bill fa-2x mb-2" style="color: rgb(133, 187, 101);"></i>
+                        <h5 class="m-0">حقوق</h5>
+                    </a>
+                </div>
+
+                <!-- صفحه اصلی -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'home:home' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-house fa-2x mb-2" style="color: rgba(225,101,57,0.9);"></i>
+                        <h5 class="m-0">صفحه اصلی</h5>
+                    </a>
+                </div>
+
+                <!-- خروج -->
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'user:logout_api' %}"
+                       class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
+                        <i class="fa fa-right-from-bracket fa-2x mb-2" style="color: rgba(121,71,71,0.9);"></i>
+                        <h5 class="m-0">خروج</h5>
+                    </a>
+                </div>
             </div>
-
-            <div class="col-md-3 col-sm-6">
-                <a href="{% url 'product:manager_sessions' %}"
-                   class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
-                    <i class="fa fa-hourglass fa-2x mb-2 text-success"></i>
-                    <h5 class="m-0">جلسه‌ها</h5>
-                </a>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <a href="{% url 'product:manager_days' %}"
-                   class="card text-center bg-light shadow-sm p-4 h-100 text-decoration-none">
-                    <i class="fa fa-calendar fa-2x mb-2 text-warning"></i>
-                    <h5 class="m-0">روزها</h5>
-                </a>
-            </div>
-
-            <!-- بقیه کارت‌ها همین فرم ولی با آدرس‌ها و آیکن‌های مربوطه -->
         </div>
-    </div>
+
     </section>
 
 
@@ -51,207 +173,3 @@
 
 
 </html>
-
-{#<div class="container-fluid" style="margin-top: 100px" >#}
-{#	<div class="row">#}
-{#        <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#           <a href="{% url 'product:manager_sports'  %}">#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(213, 15, 37, 0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-futbol-o" aria-hidden="true" style="display: inline-block ; color: rgba(213, 15, 37, 0.9)"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">ورزش ها</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#</div>#}
-{#	<div class="col-md-3 col-sm-4">#}
-{#	<div class="wrimagecard wrimagecard-topimage">#}
-{#          <a href="{% url 'product:manager_courses'  %}">#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(119, 178, 88, 0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-superpowers" aria-hidden="true" style="display: inline-block ; color: rgba(119, 178, 88, 0.9)"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">دوره ها</h4>#}
-{#          </div>#}
-{#        </a>#}
-{#      </div>#}
-{#      </div>#}
-{#        <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#            <a href="{% url 'product:manager_sessions'  %}">#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(121, 90, 71, 0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-hourglass" aria-hidden="true" style="display: inline-block ; color: rgba(121, 90, 71, 0.9)"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">جلسه ها</h4>#}
-{#          </div>#}
-{#        </a>#}
-{#      </div>#}
-{#	</div>#}
-{#        	<div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#          <a href="{% url 'product:manager_days'  %}">#}
-{#          <div class="wrimagecard-topimage_header" style="background-color: rgba(130, 93, 9, 0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-thermometer-three-quarters" aria-hidden="true" style="display: inline-block ; color: rgba(130, 93, 9, 0.9)"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">روز ها</h4>#}
-{#          </div>#}
-{#        </a>#}
-{#      </div>#}
-{#	</div>#}
-{#        <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#           <a href="{% url 'reservation:gym_view'%}">#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(51, 105, 232, 0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-fort-awesome" aria-hidden="true" style="display: inline-block ; color: rgba(51, 105, 232, 0.9)"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">سالن ها</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#	</div>#}
-{#        <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#             <a href="{% url 'calendar:price' %}">#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(250, 188, 9, 0.1) ; text-align: center; ">#}
-{#              <i class="fa fa fa-usd" aria-hidden="true" style="display: inline-block ; color: rgba(250, 188, 9, 0.9)"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">قیمت گذاری</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#	</div>#}
-{#    <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#          <a href="{% url 'reservation:reserve_view'%}">#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(119, 178, 88, 0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-calendar-check-o" aria-hidden="true" style="display: inline-block ; color: rgba(119, 178, 88, 0.9)"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">رزرو ها</h4>#}
-{#          </div>#}
-{#        </a>#}
-{#      </div>#}
-{#    </div>#}
-{#         <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#             <a href="{% url 'user:manager_users_view' %}">#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(250, 188, 9, 0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-users" aria-hidden="true" style="display: inline-block"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">کاربر ها</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#	</div>#}
-{#         <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#             <a href="{% url 'calendar:calendar' %}">#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(119, 178, 88, 0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-calendar" aria-hidden="true" style="display: inline-block ; color: rgba(119, 178, 88, 0.9)"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">تقویم</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#         </div>#}
-{#              <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#             <a href='{% url 'seo:manager_news_view' %}'>#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(213, 15, 37, 0.1); text-align: center; ">#}
-{#              <i class="fa fa-edge" aria-hidden="true" style="display: inline-block ; color:rgba(213, 15, 37, 0.9)"></i>#}
-{#              {% if unread_news_count > 0 %}#}
-{#                  <span class="badge badge-danger" style="position: absolute; top: 10px; right: 10px;color: red; font-size: 18px">جدید</span>#}
-{#              {% endif %}#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">اطلاعیه ها</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#	</div>#}
-{#         <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#             <a href='{% url 'home:slider_view' %}'>#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(51, 105, 232, 0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-wordpress" aria-hidden="true" style="display: inline-block ; color: rgba(51, 105, 232, 0.9)"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">بنر ها</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#	</div>#}
-{#         <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#             <a href='{% url 'aboutUs:about' %}'>#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(121, 90, 71, 0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-wikipedia-w" aria-hidden="true" style="display: inline-block ; color: rgba(121, 90, 71, 0.9) "></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">درباره ما</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#	</div>#}
-{##}
-{#      <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#             <a href="{% url 'product:manager_offers' %}">#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(119, 178, 88, 0.1) ; text-align: center; ">#}
-{#             <i class="fa fa-solid fa-tags" aria-hidden="true" style="display: inline-block ; color: rgb(0, 123, 255)"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">تخفیف ها</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#         </div>#}
-{##}
-{##}
-{#          <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#             <a href="{% url 'product:change-day-salary' %}">#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(119, 178, 88, 0.1) ; text-align: center; ">#}
-{#             <i class="fa fa-solid fa-money-bill" aria-hidden="true" style="display: inline-block ; color: rgb(133, 187, 101)"></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">حقوق</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#         </div>#}
-{##}
-{#           <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#             <a href='{% url 'home:home' %}'>#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(225,101,57,0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-solid fa-house " aria-hidden="true" style="display: inline-block ; color: rgba(225,101,57,0.9) "></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">صفحه اصلی</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#	</div>#}
-{#          <div class="col-md-3 col-sm-4">#}
-{#      <div class="wrimagecard wrimagecard-topimage">#}
-{#             <a href='{% url 'user:logout_api' %}'>#}
-{#          <div class="wrimagecard-topimage_header" style="background-color:rgba(121,71,71,0.1) ; text-align: center; ">#}
-{#              <i class="fa fa-solid fa-right-from-bracket" aria-hidden="true" style="display: inline-block ; color: rgba(121,71,71,0.9) "></i>#}
-{#          </div>#}
-{#          <div class="wrimagecard-topimage_title" style="text-align: center">#}
-{#            <h4 style="display: inline-block">خروج</h4>#}
-{#          </div>#}
-{#           </a>#}
-{#      </div>#}
-{#	</div>#}
-{#</div>#}
-{#</div>#}

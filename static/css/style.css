@@ -648,69 +648,6 @@ section p {
     font-weight: bold;
 }
 
-.sidebar {
-    width: 240px;
-    background-color: #2c3e50;
-    color: white;
-    min-height: 100vh;
-    position: fixed;
-    right: 0;
-    top: 0;
-    padding-top: 60px;
-    transition: transform 0.3s ease;
-    z-index: 1000;
-}
-
-
-.sidebar a {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    color: white;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.sidebar a:hover,
-.sidebar a.active {
-    background-color: #34495e;
-}
-
-.sidebar i {
-    margin-left: 10px;
-}
-
-.main-content {
-    margin-right: 240px;
-    padding: 30px;
-    min-height: 100vh;
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        transform: translateX(100%); /* مخفیش کن */
-    }
-
-    .sidebar.show {
-        transform: translateX(0); /* نمایش بده */
-    }
-
-    .main-content {
-        margin-right: 0;
-    }
-
-    .toggle-sidebar {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1100;
-        background-color: #2c3e50;
-        color: white;
-        border: none;
-        padding: 10px 12px;
-        border-radius: 6px;
-    }
-}
 
 .typography {
     color: white;
@@ -718,7 +655,6 @@ section p {
     margin-left: 10px;
 
 }
-
 
 .pagination-container {
     display: flex;
@@ -756,25 +692,11 @@ section p {
     margin-top: 20px;
 }
 
-.add-data-button {
-    background-color: #E16539;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
 .add-data-button:hover {
     background-color: #a84e2c; /* تغییر رنگ در حالت hover */
     color: #c4c4c4;
 }
 
-.dashboard-card h5 {
-    color: #E16539 !important;
-}
 
 .custom-btn {
     background-color: #E16539; /* رنگ دلخواه */
@@ -785,10 +707,6 @@ section p {
 .custom-btn:hover {
     background-color: #a84e2c; /* تغییر رنگ در حالت hover */
     color: #c4c4c4; /* رنگ برای حالت هاور */
-}
-
-.margin-bottom {
-    margin-bottom: 20px; /* فاصله از پایین */
 }
 
 .container {

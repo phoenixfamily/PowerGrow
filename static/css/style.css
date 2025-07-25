@@ -787,7 +787,6 @@ table i:hover {
     table {
         width: 100%;
         display: block;
-        min-width: 900px;
 
     }
 
@@ -799,10 +798,12 @@ table i:hover {
     .table-responsive {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     table td, table th {
-        white-space: nowrap; /* نذار متن بشکنه */
+        white-space: normal; /* نذار متن بشکنه */
     }
 
 }

@@ -30,22 +30,3 @@ def home_view(request):
 
     }
     return HttpResponse(template.render(context, request))
-
-
-@cache_page(60 * 15)
-@csrf_exempt
-def slider_view(request):
-    about = AboutUs.objects.values().first()
-    slider = Slider.objects.all().values()
-    template = loader.get_template('manager/banners.html')
-    context = {
-        "slider": slider,
-        "about": about,
-    }
-    return HttpResponse(template.render(context, request))
-
-
-class SliderView(viewsets.ModelViewSet):
-    queryset = Slider.objects.all()
-    serializer_class = SliderSerializer
-    permission_classes = [IsAdminUserOrStaff]

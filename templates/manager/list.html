@@ -22,7 +22,7 @@
         <input type="text" id="searchInput" class="search-input" placeholder="جستجو در لیست...">
     </div>
 
-   <div class="d-flex justify-content-center my-3">
+    <div class="d-flex justify-content-center my-3">
         {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-cta mx-1"><i
                     class="fa fa-chevron-right"></i></a>
@@ -33,13 +33,13 @@
                     class="fa fa-chevron-left"></i></a>
         {% endif %}
     </div>
-    <div class="table-responsive" dir="rtl">
-        <table id="myTable" class="table table-hover table-bordered">
-            <thead>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle text-center">
+            <thead class="table-light">
             <tr>
                 <th>#</th>
-                <th colspan="2" class="text-center">تنظیمات</th>
-                <th>نام کامل</th>
+                <th>تنظیمات</th>
+                <th>نام</th>
                 <th>موبایل</th>
                 <th>تولد</th>
                 <th>ثبت</th>
@@ -56,13 +56,11 @@
             {% for x in page_obj.object_list %}
                 <tr>
                     <th>{{ x.id }}</th>
-                    <td class="text-center">
-                        <i class="fa fa-pencil text-warning" title="ویرایش"
-                           onclick="window.open('{% url 'product:update-participant' x.id %}')"></i>
-                    </td>
-                    <td class="text-center">
-                        <i class="fa fa-times text-danger" title="حذف"
-                           onclick="window.open('{% url 'product:manager-delete-participation' x.id %}')"></i>
+                    <td>
+                        <a href="{% url 'product:update-participant' x.id %}" class="text-success mx-1"><i
+                                class="fa fa-pencil text-warning" title="ویرایش"></i></a>
+                        <a href="{% url 'product:manager-delete-participation' x.id %}" class="text-danger mx-1"><i
+                                class="fa fa-solid fa-address-book" title="حذف"></i></a>
                     </td>
                     <td>{{ x.user.name }}</td>
                     <td dir="ltr">{{ x.user.number }}</td>
@@ -212,88 +210,5 @@
 
 
 {% endblock %}
-{##}
-{#{% block content %}#}
-{##}
-{#    <div class="search-bar-container">#}
-{#        <input type="text" id="searchInput" class="search-input" placeholder="جستجو...">#}
-{#    </div>#}
-{##}
-{##}
-{#    <div class="pagination-container">#}
-{##}
-{#        {% if page_obj.has_next %}#}
-{#            <a class="btn btn-outline-light mx-1" href="?page={{ page_obj.next_page_number }}"><i#}
-{#                    class="fa fa-chevron-left"></i></a>#}
-{#        {% endif %}#}
-{##}
-{#        <span class="btn btn-outline-light disabled mx-1">صفحه {{ page_obj.number }}</span>#}
-{##}
-{#        {% if page_obj.has_previous %}#}
-{#            <a class="btn btn-outline-light mx-1" href="?page={{ page_obj.previous_page_number }}"><i#}
-{#                    class="fa fa-chevron-right"></i></a>#}
-{#        {% endif %}#}
-{##}
-{#    </div>#}
-{##}
-{##}
-{#    <div class="table-responsive" dir="rtl">#}
-{#        <table id="myTable" class="table table-hover table-bordered">#}
-{#            <thead>#}
-{#            <tr>#}
-{#                <th>#</th>#}
-{#                <th colspan="2" class="text-center">تنظیمات</th>#}
-{#                <th>نام و نام خانوادگی</th>#}
-{#                <th>شماره تلفن</th>#}
-{#                <th>تاریخ تولد</th>#}
-{#                <th>تاریخ ثبت</th>#}
-{#                <th>تاریخ شروع</th>#}
-{#                <th>تاریخ پایان</th>#}
-{#                <th>روز</th>#}
-{#                <th>جلسه</th>#}
-{#                <th>پرداختی</th>#}
-{#                <th>توضیحات</th>#}
-{#                <th>وضعیت</th>#}
-{#            </tr>#}
-{#            </thead>#}
-{#            <tbody>#}
-{#            {% for x in page_obj.object_list %}#}
-{#                <tr>#}
-{#                    <th scope="row">{{ x.id }}</th>#}
-{#                    <td class="text-center">#}
-{#                        <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer" title="ویرایش"#}
-{#                           onclick="window.open('{% url 'product:update-participant' x.id %}')"></i>#}
-{#                    </td>#}
-{#                    <td class="text-center">#}
-{#                        <i class="fa fa-times text-danger" aria-hidden="true" style="cursor: pointer" title="حذف"#}
-{#                           onclick="window.open('{% url 'product:manager-delete-participation' x.id %}')"></i>#}
-{#                    </td>#}
-{#                    <td>{{ x.user.name }}</td>#}
-{#                    <td dir="ltr">{{ x.user.number }}</td>#}
-{#                    <td>{{ x.user.birthdate }}</td>#}
-{#                    <td>{{ x.datetime }}</td>#}
-{#                    <td>{{ x.startDay.month.year.number }}/{{ x.startDay.month.number }}/{{ x.startDay.number }}</td>#}
-{#                    <td data-end-year="{{ x.endDay.month.year.number }}" data-end-month="{{ x.endDay.month.number }}"#}
-{#                        data-end-day="{{ x.endDay.number }}">{{ x.endDay.month.year.number }}/{{ x.endDay.month.number }}/{{ x.endDay.number }}</td>#}
-{#                    <td>{{ x.day.title }}</td>#}
-{#                    <td>{{ x.session.number }}</td>#}
-{#                    <td>{{ x.price }} تومان</td>#}
-{#                    <td>#}
-{#                        {{ x.description }}#}
-{#                        <br>#}
-{#                        {{ x.created.name }}#}
-{#                    </td>#}
-{#                    <td class="text-center">#}
-{#                        {% if x.success %}#}
-{#                            <i class="fa fa-check-circle text-success" title="معتبر"></i>#}
-{#                        {% else %}#}
-{#                            <i class="fa fa-ban text-danger" title="پرداخت ناموفق"></i>#}
-{#                        {% endif %}#}
-{#                    </td>#}
-{#                </tr>#}
-{#            {% endfor %}#}
-{#            </tbody>#}
-{#        </table>#}
-{#    </div>#}
 </body>
 </html>

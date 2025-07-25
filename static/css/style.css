@@ -709,10 +709,6 @@ section p {
     color: #c4c4c4; /* رنگ برای حالت هاور */
 }
 
-.container {
-    margin-top: 50px;
-}
-
 .autocomplete-items {
     position: absolute;
     border: 1px solid #d3d3d3;

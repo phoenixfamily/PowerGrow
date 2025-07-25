@@ -9,6 +9,10 @@
 
 <body>
 
+{% block  header %}
+    <a href="{% url 'product:manager-create-course' %}" class="btn btn-cta">اضافه کردن دوره</a>
+{% endblock %}
+
 {% block content %}
 
     <div class="search-bar-container">
@@ -31,13 +35,6 @@
                     class="fa fa-chevron-right"></i></a>
         {% endif %}
 
-    </div>
-
-
-    <div class="table-actions">
-        <button class="btn add-data-button" onclick="window.open('{% url 'product:manager-create-course' %}')">افزودن
-            دوره
-        </button>
     </div>
 
     <div class="table-responsive" dir="rtl">

@@ -20,15 +20,17 @@
 </head>
 <body>
 
-<header>
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
-    <div class="d-flex container align-items-center">
+
+<header class="navbar navbar-dark bg-dark px-4 py-3 d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
         <img src="{% static 'images/logo-transparent.png' %}" alt="Logo" class="ms-2"
              style="width: 40px; height: 40px;">
         <h4 class="text-white m-0">پنل مدیریت PowerGrow</h4>
     </div>
-    <a href="{% url 'user:logout_api' %}" class="btn btn-cta">خروج</a>
-    </nav>
+
+    {% block header %}
+
+    {% endblock %}
 </header>
 
 

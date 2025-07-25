@@ -22,18 +22,17 @@
         <input type="text" id="searchInput" class="search-input" placeholder="جستجو در لیست...">
     </div>
 
-    <div class="pagination-container">
-        {% if page_obj.has_next %}
-            <a class="btn custom-btn mx-1" href="?page={{ page_obj.next_page_number }}"><i
-                    class="fa fa-chevron-left"></i></a>
-        {% endif %}
-        <span class="btn disabled custom-btn mx-1">صفحه {{ page_obj.number }}</span>
+   <div class="d-flex justify-content-center my-3">
         {% if page_obj.has_previous %}
-            <a class="btn custom-btn mx-1" href="?page={{ page_obj.previous_page_number }}"><i
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-cta mx-1"><i
                     class="fa fa-chevron-right"></i></a>
         {% endif %}
+        <span class="btn btn-secondary mx-1 disabled">صفحه {{ page_obj.number }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-cta mx-1"><i
+                    class="fa fa-chevron-left"></i></a>
+        {% endif %}
     </div>
-
     <div class="table-responsive" dir="rtl">
         <table id="myTable" class="table table-hover table-bordered">
             <thead>

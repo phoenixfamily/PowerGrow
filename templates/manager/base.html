@@ -1,4 +1,3 @@
-<!-- templates/dashboard_base.html -->
 {% load static %}
 
 <!DOCTYPE html>
@@ -15,13 +14,17 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" href="{% static 'images/logo.jpg' %}" type="image/x-icon">
 
+    <script src="https://kit.fontawesome.com/1228ed801f.js" crossorigin="anonymous"></script>
+
+
 </head>
 <body>
 
 
- <header class="navbar navbar-dark bg-dark px-4 py-3 d-flex justify-content-between align-items-center">
+<header class="navbar navbar-dark bg-dark px-4 py-3 d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center">
-        <img src="{% static 'images/logo.png' %}" alt="Logo" class="me-2" style="width: 40px; height: 40px;">
+        <img src="{% static 'images/logo-transparent.png' %}" alt="Logo" class="me-2"
+             style="width: 40px; height: 40px;">
         <h4 class="text-white m-0">پنل مدیریت PowerGrow</h4>
     </div>
     <a href="{% url 'user:logout_api' %}" class="btn btn-sm btn-outline-light">خروج</a>
@@ -33,8 +36,6 @@
     {% block content %}
     {% endblock %}
 </div>
-
-
 
 
 </body>

@@ -133,88 +133,84 @@
 
     </script>
 
-
     <script>
+        // جستجو چندکلمه‌ای
+        document.getElementById('searchInput').addEventListener('keyup', function () {
+            const filter = this.value.toUpperCase().trim().split(" ");
+            const table = document.getElementById('myTable');
+            const rows = table.getElementsByTagName('tr');
 
-        document.addEventListener('DOMContentLoaded', function () {
-
-            let table = document.getElementById('myTable');
-            let rows = table.getElementsByTagName('tr');
-
-            let today = new Date().toLocaleDateString('fa-IR-u-nu-latn');
-            let parts = today.split('/'); // فرض می‌کنیم که فرمت "YYYY/MM/DD" است
-
-            let year = parseInt(parts[0].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
-            let month = parseInt(parts[1].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
-            let day = parseInt(parts[2].replace(/[۰-۹]/g, w => String.fromCharCode(w.charCodeAt(0) - 1728)));
-
-            const thisDate = jalaali.j2d(year, month, day)
-
-
-            for (var i = 1; i < rows.length; i++) { // شروع از 1 برای نادیده گرفتن هدر
-                var endDateCell = rows[i].querySelector('td[data-end-year]');
-
-                if (endDateCell) {
-                    // دریافت تاریخ پایان شمسی
-                    var endYearStr = endDateCell.getAttribute('data-end-year');
-                    var endMonthStr = endDateCell.getAttribute('data-end-month');
-                    var endDayStr = endDateCell.getAttribute('data-end-day');
-
-                    var userEndYear = parseInt(endYearStr);
-                    var userEndMonth = parseInt(endMonthStr);
-                    var userEndDay = parseInt(endDayStr);
-
-                    var userEnd = jalaali.j2d(userEndYear, userEndMonth, userEndDay)
-
-
-                    // بررسی اینکه آیا تاریخ پایان گذشته است
-                    if (userEnd < thisDate) {
-                        var statusCell = rows[i].querySelector('td:last-child'); // فرض می‌کنیم آخرین سلول وضعیت است
-                        if (statusCell.innerHTML.includes('fa-check-circle')) {
-                            statusCell.innerHTML = '<i class="fa fa-exclamation-circle text-warning" title="تاریخ پایان گذشته"></i>'; // تغییر به آیکون دلخواه
-                        }
-                    }
-                }
-            }
-        });
-    </script>
-
-
-    <script>
-
-        document.getElementById('todayButton').addEventListener('click', function () {
-            // تعریف روزهای هفته با شنبه به عنوان اولین روز
-            const daysOfWeek = ["یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه"];
-            const today = new Date();
-            const currentDay = daysOfWeek[today.getDay()]; // 0 = شنبه, 1 = یکشنبه, ...
-
-            console.log(today.getDay());
-
-            var table = document.getElementById('myTable');
-            var tr = table.getElementsByTagName('tr');
-
-            for (var i = 1; i < tr.length; i++) {
-                tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
-                var td = tr[i].getElementsByTagName('td');
-                var isSuccess = tr[i].querySelector('.fa-check-circle'); // چک کردن وجود آیکون موفقیت
-
-                for (var j = 0; j < td.length; j++) {
-                    if (td[j]) {
-                        var txtValue = td[j].textContent || td[j].innerText;
-                        var daysArray = txtValue.split('،').map(day => day.trim()); // جدا کردن روزها با ',' و حذف فضاها
-
-                        // بررسی اگر روز فعلی در آرایه daysArray موجود باشد و وضعیت معتبر باشد
-                        if (daysArray.includes(currentDay) && isSuccess) {
-                            tr[i].style.display = ""; // اگر روز فعلی پیدا شد و وضعیت معتبر بود، ردیف نمایش داده شود
+            for (let i = 1; i < rows.length; i++) {
+                let show = true;
+                const cells = rows[i].getElementsByTagName('td');
+                for (let word of filter) {
+                    let matched = false;
+                    for (let cell of cells) {
+                        const text = cell.textContent || cell.innerText;
+                        if (text.toUpperCase().includes(word)) {
+                            matched = true;
                             break;
                         }
                     }
+                    if (!matched) {
+                        show = false;
+                        break;
+                    }
                 }
+                rows[i].style.display = show ? "" : "none";
             }
         });
 
+        // بررسی تاریخ پایان
+        document.addEventListener('DOMContentLoaded', function () {
+            const rows = document.querySelectorAll('#myTable tbody tr');
+            const todayFa = new Date().toLocaleDateString('fa-IR-u-nu-latn');
+            const parts = todayFa.split('/');
+            const todayJ = jalaali.j2d(
+                parseInt(parts[0].replace(/[۰-۹]/g, d => String.fromCharCode(d.charCodeAt(0) - 1728))),
+                parseInt(parts[1].replace(/[۰-۹]/g, d => String.fromCharCode(d.charCodeAt(0) - 1728))),
+                parseInt(parts[2].replace(/[۰-۹]/g, d => String.fromCharCode(d.charCodeAt(0) - 1728)))
+            );
 
+            rows.forEach(row => {
+                const end = row.querySelector('[data-end-year]');
+                if (end) {
+                    const endDate = jalaali.j2d(
+                        parseInt(end.dataset.endYear),
+                        parseInt(end.dataset.endMonth),
+                        parseInt(end.dataset.endDay)
+                    );
+                    if (endDate < todayJ) {
+                        const status = row.querySelector('td:last-child');
+                        if (status.innerHTML.includes('fa-check-circle')) {
+                            status.innerHTML = '<i class="fa fa-exclamation-circle text-warning" title="تاریخ پایان گذشته"></i>';
+                        }
+                    }
+                }
+            });
+        });
+
+        // فیلتر "امروز"
+        document.getElementById('todayButton').addEventListener('click', function () {
+            const daysOfWeek = ["یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه", "شنبه"];
+            const today = new Date();
+            const currentDay = daysOfWeek[today.getDay()];
+            const table = document.getElementById('myTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                const isValid = row.querySelector('.fa-check-circle');
+                const dayCell = row.querySelectorAll('td')[9]; // ستون "روز"
+                if (dayCell && isValid && dayCell.innerText.includes(currentDay)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        });
     </script>
+
 
 {% endblock %}
 {##}

@@ -898,25 +898,26 @@ class ManagerParticipationView(viewsets.ViewSet):
         # پردازش روزهای هفته
         day_names = [self.normalize_day(d.strip()) for d in week.title.split("،")]
 
-        # فیلتر کردن روزهای آینده
-        valid_days_qs = Day.objects.filter(
-            month__year__number__gte=start.month.year.number,
-            month__number__gte=start.month.number,
-            number__gte=start.number,
+        start_jdate = start.jdate
+        if not start_jdate:
+            return Response({'error': 'تاریخ شروع معتبر نیست.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # دریافت همه روزهای مرتبط با روزهای هفته
+        raw_days = Day.objects.filter(
             name__in=day_names,
-            holiday=False
-        ).order_by('month__year__number', 'month__number', 'number')
+            holiday=False,
+            month__year__number__gte=start.month.year.number - 1  # فقط سال جاری و بعد
+        ).select_related("month", "month__year")
 
-        print(f"Valid days found: {valid_days_qs.count()}")  # لاگ تعداد روزهای پیدا شده
-        print(f"Day names: {day_names}")  # لاگ نام‌های روزهای هفته
-        print(f"Session number: {session.number}")  # لاگ تعداد جلسات
+        # فیلتر کردن بر اساس تاریخ شمسی
+        valid_days = sorted(
+            [d for d in raw_days if d.jdate and d.jdate >= start_jdate],
+            key=lambda d: d.jdate
+        )[:session.number]
 
-        # انتخاب روزهای معتبر به تعداد جلسات
-        valid_days = list(valid_days_qs)[:int(session.number)]
-        if len(valid_days) < int(session.number):
+        if len(valid_days) < session.number:
             return Response({'error': 'تعداد روزهای در دسترس کمتر از جلسات مورد نیاز است.'},
                             status=status.HTTP_400_BAD_REQUEST)
-
         # تنظیم روز شروع و پایان
         startDay = valid_days[0]
         endDay = valid_days[-1]

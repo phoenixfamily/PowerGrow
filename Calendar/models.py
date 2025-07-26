@@ -1,3 +1,4 @@
+import jdatetime
 from django.db import models
 
 TYPE_CALENDAR = (
@@ -39,11 +40,13 @@ class Day(models.Model):
         year = self.month.year.number if self.month and self.month.year else "Unknown Year"
         return f"{year}/{self.month.number}/{self.number}"  # به فرمت YYYY/MM/DD
 
-    def to_jdate(self):
+    @property
+    def jdate(self):
         try:
-            return jdate(self.month.year.number, self.month.number, self.number)
+            return jdatetime.date(self.month.year.number, self.month.number, self.number)
         except:
             return None
+
 
 
 class Time(models.Model):

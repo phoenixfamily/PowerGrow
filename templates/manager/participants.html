@@ -16,63 +16,95 @@
 
 
 {% block content %}
-
-<div class="container">
+<div class="container py-5">
+    <div class="card shadow rounded-4 p-4">
+        <h4 class="fw-bold mb-4 text-center panel-form-h4">افزودن شرکت‌ کننده</h4>
         <form id="participant-form">
-            <div class="form-group">
-                <label for="title">:عنوان</label>
-                <input type="text" class="form-control" id="title" value="{{ course.title }}">
-            </div>
-            <div class="form-group">
-                <label for="description">:توضیحات</label>
-                <textarea class="form-control" id="description" rows="3"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="session">:تعداد جلسه</label>
-                <select class="form-control" id="session" required>
-                    <option value="" disabled selected>انتخاب کنید</option>
-                     {% for x in course.sessions.all %}
-                            <option dir="rtl" value="{{ x.id }}">{{ x.number }}  جلسه </option>
+            <div class="row g-3">
+                <!-- عنوان -->
+                <div class="col-md-6">
+                    <label for="title" class="form-label fw-semibold">عنوان دوره</label>
+                    <input type="text" class="form-control rounded-3" id="title" value="{{ course.title }}" readonly>
+                </div>
+
+                <!-- توضیحات -->
+                <div class="col-md-6">
+                    <label for="description" class="form-label fw-semibold">توضیحات</label>
+                    <textarea class="form-control rounded-3" id="description" rows="3"></textarea>
+                </div>
+
+                <!-- تعداد جلسه -->
+                <div class="col-md-6">
+                    <label for="session" class="form-label fw-semibold">تعداد جلسه</label>
+                    <select class="form-select rounded-3" id="session" required>
+                        <option value="" disabled selected>انتخاب کنید</option>
+                        {% for x in course.sessions.all %}
+                            <option dir="rtl" value="{{ x.id }}">{{ x.number }} جلسه</option>
                         {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="day">:روزها هفته</label>
-                <select class="form-control" id="day" required>
-                    <option value="" disabled selected>انتخاب کنید</option>
-                    {% for x in days %}
-                            <option dir="rtl" value="{{ x.id }}">{{ x.title }} {{ x.session }} جلسه </option>
+                    </select>
+                </div>
+
+                <!-- روزهای هفته -->
+                <div class="col-md-6">
+                    <label for="day" class="form-label fw-semibold">روزهای هفته</label>
+                    <select class="form-select rounded-3" id="day" required>
+                        <option value="" disabled selected>انتخاب کنید</option>
+                        {% for x in days %}
+                            <option dir="rtl" value="{{ x.id }}">{{ x.title }} | {{ x.session }} جلسه</option>
                         {% endfor %}
-                </select>
+                    </select>
+                </div>
+
+                <!-- تاریخ شروع -->
+                <div class="col-md-6">
+                    <label for="startDay" class="form-label fw-semibold">تاریخ شروع</label>
+                    <select class="form-select rounded-3" id="startDay" required>
+                        <option value="">انتخاب کنید</option>
+                        {% for x in day %}
+                            <option dir="rtl" value="{{ x.id }}">
+                                {{ x.name }} {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- تاریخ پایان -->
+                <div class="col-md-6">
+                    <label for="endDay" class="form-label fw-semibold">تاریخ پایان</label>
+                    <select class="form-select rounded-3" id="endDay">
+                        <option value="">انتخاب کنید</option>
+                        {% for x in day %}
+                            <option dir="rtl" value="{{ x.id }}">
+                                {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- قیمت -->
+                <div class="col-md-6">
+                    <label for="price" class="form-label fw-semibold">قیمت (تومان)</label>
+                    <input type="number" class="form-control rounded-3" id="price" required>
+                </div>
+
+                <!-- کاربر -->
+                <div class="col-md-6">
+                    <label for="user" class="form-label fw-semibold">کاربر (شماره همراه)</label>
+                    <input class="form-control rounded-3" dir="ltr" id="user" type="number" name="user"
+                           placeholder="مثلاً: 9123456789" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="startDay">:روز شروع</label>
-                <select class="form-control" id="startDay" required>
-                    <option value="">انتخاب کنید</option>
-                    {% for x in day %}
-                            <option dir="rtl" value="{{ x.id }}"> {{ x.name }} {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="endDay">:روز پایان</label>
-                <select class="form-control" id="endDay">
-                    <option value="">انتخاب کنید</option>
-                    {% for x in day %}
-                            <option dir="rtl" value="{{ x.id }}">{{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="price">:قیمت</label>
-                <input type="number" class="form-control" id="price" required>
-            </div>
-            <div class="form-group">
-                <label for="user">:کاربر</label>
-                <input class="form-control" dir="ltr" id="user" type="number" name="user" placeholder="شماره همراه : 9123456789" required>
+
+            <!-- دکمه ارسال -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success px-5 py-2 rounded-pill">
+                    ثبت شرکت‌کننده
+                </button>
             </div>
         </form>
     </div>
+</div>
+
 
     <script>
         // جاوااسکریپت برای پر کردن گزینه‌ها

@@ -22,6 +22,9 @@ import json
 from PowerGrow.permissions import *
 
 from Product.services.enrollment import EnrollmentService
+import logging
+
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -887,12 +890,13 @@ class ManagerParticipationView(viewsets.ViewSet):
         start = Day.objects.filter(id=data["startDay"]).select_related('month', 'month__year').first()
         session = Session.objects.filter(id=data["session"]).first()
 
+
         if not all([course, user, week, start, session]):
             return Response({
                 'error': 'برخی از داده‌ها نامعتبر هستند.',
                 'debug': {
                     'course': bool(course),
-                    'user': data["user"],
+                    'user': bool(user),
                     'week': bool(week),
                     'start': bool(start),
                     'session': bool(session),
@@ -900,6 +904,8 @@ class ManagerParticipationView(viewsets.ViewSet):
             }, status=status.HTTP_400_BAD_REQUEST)
 
         day_names = week.title.split("،")
+
+        logger.debug("💥 day_names = %s", [repr(d) for d in day_names])
 
         try:
             service = EnrollmentService(start_day=start, session_count=session.number, allowed_day_names=day_names)

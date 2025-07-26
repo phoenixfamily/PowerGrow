@@ -11,7 +11,7 @@
 
 {% block header %}
     <div class="d-flex justify-content-end my-3 me-3">
-        <a href="{% url 'product:manager-create-course' %}" class="btn btn-cta">افزودن دوره</a>
+        <a href="{% url 'product:manager-create-course' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن دوره</a>
     </div>
 {% endblock %}
 
@@ -56,17 +56,17 @@
                 <tr>
                     <td>{{ x.id }}</td>
                     <td>
-                        <a href="{% url 'product:product_view' x.id %}" class="text-info mx-1"><i
+                        <a href="{% url 'product:product_view' x.id %}" class="text-info mx-1" target="_blank" rel="noopener noreferrer"><i
                                 class="fa fa-eye"></i></a>
-                        <a href="{% url 'product:update_course' x.id %}" class="text-warning mx-1"><i
+                        <a href="{% url 'product:update_course' x.id %}" class="text-warning mx-1" target="_blank" rel="noopener noreferrer"><i
                                 class="fa fa-pencil"></i></a>
                         <a href="{% url 'product:manager-delete-course' x.id %}" class="text-danger mx-1"><i
                                 class="fa fa-trash"></i></a>
                     </td>
                     <td>
-                        <a href="{% url 'product:create-participant' x.id %}" class="text-success mx-1"><i
+                        <a href="{% url 'product:create-participant' x.id %}" class="text-success mx-1" target="_blank" rel="noopener noreferrer"><i
                                 class="fa fa-solid fa-square-plus"></i></a>
-                        <a href="{% url 'product:manager_user_list' x.id %}" class="text-info mx-1"><i
+                        <a href="{% url 'product:manager_user_list' x.id %}" class="text-info mx-1" target="_blank" rel="noopener noreferrer"><i
                                 class="fa fa-solid fa-address-book"></i></a>
                     </td>
                     <td>{{ x.title }}</td>

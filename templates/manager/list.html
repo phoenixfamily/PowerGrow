@@ -14,7 +14,7 @@
 {% block header %}
     <div class="d-flex justify-content-end my-3 mx-3">
         <a href="#" class="btn btn-cta mx-2" id="todayButton">لیست امروز</a>
-        <a href="{% url 'product:create-participant' course_id %}" class="btn btn-cta mx-2">ثبت نام</a>
+        <a href="{% url 'product:create-participant' course_id %}" class="btn btn-cta mx-2" target="_blank" rel="noopener noreferrer">ثبت نام</a>
     </div>
 {% endblock %}
 
@@ -64,11 +64,11 @@
 
                     <!-- عملیات -->
                     <td>
-                        <a href="{% url 'product:update-participant' x.id %}" class="text-warning mx-1" title="ویرایش">
+                        <a href="{% url 'product:update-participant' x.id %}" class="text-warning mx-1" title="ویرایش" target="_blank" rel="noopener noreferrer">
                             <i class="fa fa-pencil"></i>
                         </a>
                         <a href="{% url 'product:manager-delete-participation' x.id %}" class="text-danger mx-1"
-                           title="حذف">
+                           title="حذف" target="_blank" rel="noopener noreferrer">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>

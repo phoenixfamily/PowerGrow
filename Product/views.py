@@ -907,6 +907,10 @@ class ManagerParticipationView(viewsets.ViewSet):
             holiday=False
         ).order_by('month__year__number', 'month__number', 'number')
 
+        print(f"Valid days found: {valid_days_qs.count()}")  # لاگ تعداد روزهای پیدا شده
+        print(f"Day names: {day_names}")  # لاگ نام‌های روزهای هفته
+        print(f"Session number: {session.number}")  # لاگ تعداد جلسات
+
         # انتخاب روزهای معتبر به تعداد جلسات
         valid_days = list(valid_days_qs)[:int(session.number)]
         if len(valid_days) < int(session.number):

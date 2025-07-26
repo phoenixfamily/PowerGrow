@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from jdatetime import date as jdate
 
 from Calendar.models import Day
 from PowerGrow import settings
@@ -78,6 +79,13 @@ class Participants(models.Model):
                                 blank=True, null=True)
     authority = models.TextField(unique=True, blank=True, null=True)
     success = models.BooleanField(blank=True, null=True)
+
+    # 👇 متد جدید برای تبدیل به jdate
+    def to_jdate(self):
+        try:
+            return jdate(self.month.year.number, self.month.number, self.number)
+        except Exception:
+            return None
 
 
 class Offers(models.Model):

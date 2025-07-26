@@ -444,25 +444,25 @@ def admin_offers_view(request):
     return render(request, 'admin/offers.html', context)
 
 
+
+
 @session_staff_required
 def manager_user_list(request, pk):
     about = AboutUs.objects.first()
-    participants_qs = Participants.objects.filter(course_id=pk).select_related('endDay__month__year')
+    participants_qs = Participants.objects.filter(course_id=pk).order_by('-endDay', 'startDay')
 
     today = jdate.today()
 
-    # ⬇️ قبل از paginate: چسبوندن خاصیت موقت is_expired به هر object
     for p in participants_qs:
         try:
-            end = jdate(p.endDay.month.year.number, p.endDay.month.number, p.endDay.number)
-            p.is_expired = end < today
-        except:
-            p.is_expired = False  # اگر دیتای تاریخ مشکل داشت
+            end_date = p.endDay.to_jdate()
+            p.is_expired = end_date < today if end_date else False
+        except Exception as e:
+            print(f"❌ Error in endDay.to_jdate for participant {p.id}: {e}")
+            p.is_expired = False
 
-    # paginate
-    paginator = Paginator(participants_qs.order_by('-endDay', 'startDay'), 150)
+    paginator = Paginator(participants_qs, 150)
     page_number = request.GET.get('page')
-
     try:
         page_obj = paginator.get_page(page_number)
     except (PageNotAnInteger, EmptyPage):

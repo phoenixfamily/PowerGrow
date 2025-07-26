@@ -1,130 +1,64 @@
+{% extends 'admin/base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ساخت تخفیف</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <meta name="csrf-token" content="{{ csrf_token }}">
-
-        {% load django_bootstrap5 %}
-
-
-      <style>
-
-        body {
-            text-align: right;  /* راست‌چین کردن متن */
-            background: #312f2e;
-
-        }
-
-         .logoHolder {
-            width: 100%;
-            position: relative;
-            margin-top: 20px;
-            left: 0;
-            display: flex;
-            z-index: 10 !important;
-            direction: ltr;
-            align-items: center;
-            justify-content: center;
-
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-
-        }
-
-        .typography {
-            color: white;
-            font-size: 20px;
-            margin-left: 10px;
-
-        }
-
-
-         .form-control {
-             text-align: right;  /* راست‌چین کردن متن در فیلدهای فرم */
-         }
-
-         label {
-        color: white;  /* تغییر رنگ متن لیبل به سفید */
-    }
-          .custom-btn {
-            background-color: #E16539; /* رنگ دلخواه */
-            border: none; /* حذف حاشیه */
-              color: white;
-        }
-        .custom-btn:hover {
-               background-color: #a84e2c; /* تغییر رنگ در حالت hover */
-               color: #c4c4c4; /* رنگ برای حالت هاور */
-        }
-        .margin-bottom {
-            margin-bottom: 20px; /* فاصله از پایین */
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center; /* تراز عمودی */
-            justify-content: flex-end; /* تراز افقی به راست */
-        }
-
-    </style>
+    {% block title %}مدیریت تخفیف ها{% endblock %}
 
 </head>
+
 <body>
 
-<div class="logoHolder">
+{% block  header %}
+    <a href="#" id="submit" class="btn btn-cta">ٍثبت تخفیف</a>
+{% endblock %}
 
-    <img alt="" src="/media/{{ about.logo }}" class="logo">
-    <div class="typography">PowerGrow</div>
-
-</div>
-
+{% block content %}
 
 
-    <div class="container mt-5">
+    <div class="container py-5">
+    <div class="card shadow rounded-4 p-4">
+        <h4 class="fw-bold mb-4 text-center text-primary">ایجاد تخفیف جدید</h4>
         <form id="offForm">
             {% csrf_token %}
+            <div class="row g-3">
+                <!-- نوع تخفیف -->
+                <div class="col-md-6">
+                    <label for="type" class="form-label fw-semibold">نوع تخفیف</label>
+                    <select class="form-select rounded-3" id="type" required>
+                        <option value="ALL">همه</option>
+                        <option value="SPORT">ورزش</option>
+                        <option value="COURSE">دوره</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-            <label for="type">نوع تخفیف</label>
-            <select class="form-control" id="type" required>
-                <option value="ALL">همه</option>
-                <option value="SPORT">ورزش</option>
-                <option value="COURSE">دوره</option>
-            </select>
+                <!-- محصول -->
+                <div class="col-md-6">
+                    <label for="product" class="form-label fw-semibold">محصول</label>
+                    <select class="form-select rounded-3" id="product" required>
+                        <option value="">انتخاب کنید</option>
+                    </select>
+                </div>
+
+                <!-- جلسه -->
+                <div class="col-md-6">
+                    <label for="session" class="form-label fw-semibold">تعداد جلسات</label>
+                    <input type="number" class="form-control rounded-3" id="session" name="session" required>
+                </div>
+
+                <!-- درصد تخفیف -->
+                <div class="col-md-6">
+                    <label for="off" class="form-label fw-semibold">درصد تخفیف</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control rounded-start" id="off" name="off" required>
+                        <span class="input-group-text rounded-end">%</span>
+                    </div>
+                </div>
             </div>
-
-
-            <div class="form-group">
-            <label for="product">محصول</label>
-            <select class="form-control" id="product" required>
-                <option value="">انتخاب کنید</option>
-            </select>
-        </div>
-
-            <div class="form-group">
-                 <label for="session">جلسه</label>
-                 <input type="number" class="form-control" id="session" name="session" required>
-            </div>
-
-            <div class="form-group">
-                 <label for="off">تخفیف</label>
-                 <input type="number" class="form-control" id="off" name="off" required>
-            </div>
-
-
-            <button type="submit" class="btn custom-btn margin-bottom">ساخت تخفیف </button>
         </form>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 <script>
@@ -156,7 +90,7 @@
         selectElement.appendChild(option); // افزودن گزینه به سلکت
     }
 
-      document.getElementById('offForm').addEventListener('submit', function (event) {
+      document.getElementById('submit').addEventListener('click', function (event) {
             event.preventDefault(); // جلوگیری از رفتار پیش‌فرض ارسال فرم
 
             const form = event.target;
@@ -190,5 +124,8 @@
 
 
 </script>
+
+{% endblock %}
+
 </body>
 </html>

@@ -1,7 +1,6 @@
 import requests
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
@@ -19,9 +18,10 @@ from Product.serializer import *
 from django.conf import settings
 import json
 from PowerGrow.permissions import *
+from rest_framework import viewsets, status
+from rest_framework.response import Response
 from django.db.models import Q
 from .models import Course, Participants, Session, Days, Day, User
-from .serializers import ManagerParticipantsSerializer
 
 
 User = get_user_model()

@@ -22,7 +22,7 @@
 
 
     <div class="table-responsive">
-        <table class="table table-striped table-bordered align-middle text-center">
+        <table  id="listTable" class="table table-striped table-bordered align-middle text-center">
             <thead class="table-light">
             <tr>
                 <th>#</th>
@@ -55,7 +55,7 @@
             var input, filter, table, tr, td, i, j, txtValue;
             input = document.getElementById('searchInput');
             filter = input.value.toUpperCase().trim().split(" "); // ورودی را به کلمات جداگانه تقسیم می‌کند
-            table = document.getElementById('myTable');
+            table = document.getElementById('listTable');
             tr = table.getElementsByTagName('tr');
 
             for (i = 1; i < tr.length; i++) {
@@ -101,7 +101,7 @@
 
             console.log(today.getDay());
 
-            var table = document.getElementById('myTable');
+            var table = document.getElementById('listTable');
             var tr = table.getElementsByTagName('tr');
 
             for (var i = 1; i < tr.length; i++) {

@@ -94,14 +94,12 @@
                 <label for="user">:کاربر</label>
                 <input class="form-control" dir="ltr" id="user" type="number" name="user" required>
             </div>
-
-        <button type="submit" class="btn custom-btn margin-bottom">به‌روزرسانی</button>
     </form>
 </div>
 
 
 <script>
-    document.getElementById('update-participant-form').addEventListener('submit', function(event) {
+    document.getElementById('submit').addEventListener('click', function(event) {
         event.preventDefault();
 
         const data = {

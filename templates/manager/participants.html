@@ -7,6 +7,14 @@
 
 </head>
 <body>
+
+{% block header %}
+    <div class="d-flex justify-content-end my-3 me-3">
+        <a href="#" id="submit" class="btn btn-cta">ثبت نام</a>
+    </div>
+{% endblock %}
+
+
 {% block content %}
 
 <div class="container">
@@ -63,7 +71,6 @@
                 <label for="user">:کاربر</label>
                 <input class="form-control" dir="ltr" id="user" type="number" name="user" placeholder="شماره همراه : 9123456789" required>
             </div>
-            <button type="submit" class="btn custom-btn margin-bottom">ثبت</button>
         </form>
     </div>
 
@@ -79,7 +86,7 @@
         });
 
         // ارسال فرم
-        document.getElementById('participant-form').addEventListener('submit', function(event) {
+        document.getElementById('submit').addEventListener('click', function(event) {
             event.preventDefault();
             // جمع‌آوری داده‌ها و ارسال به API
             const data = {

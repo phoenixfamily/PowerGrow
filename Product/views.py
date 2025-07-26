@@ -890,6 +890,10 @@ class ManagerParticipationView(viewsets.ViewSet):
         start = Day.objects.filter(id=data["startDay"]).select_related('month', 'month__year').first()
         session = Session.objects.filter(id=data["session"]).first()
 
+        day_names = week.title.split("،")
+
+        raise Exception(f"😡 DAY_NAMES: {[repr(d) for d in day_names]}")
+
         if not all([course, user, week, start, session]):
             return Response({
                 'error': 'برخی از داده‌ها نامعتبر هستند.',
@@ -901,10 +905,6 @@ class ManagerParticipationView(viewsets.ViewSet):
                     'session': bool(session),
                 }
             }, status=status.HTTP_400_BAD_REQUEST)
-
-        day_names = week.title.split("،")
-
-        raise Exception(f"😡 DAY_NAMES: {[repr(d) for d in day_names]}")
 
         try:
             service = EnrollmentService(start_day=start, session_count=session.number, allowed_day_names=day_names)

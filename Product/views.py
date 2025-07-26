@@ -892,7 +892,7 @@ class ManagerParticipationView(viewsets.ViewSet):
                 'error': 'برخی از داده‌ها نامعتبر هستند.',
                 'debug': {
                     'course': bool(course),
-                    'user': bool(user),
+                    'user': data["user"],
                     'week': bool(week),
                     'start': bool(start),
                     'session': bool(session),

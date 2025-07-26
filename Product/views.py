@@ -882,7 +882,7 @@ class ManagerParticipationView(viewsets.ViewSet):
 
         # گرفتن آبجکت‌ها
         course = Course.objects.filter(id=course).first()
-        user = User.objects.filter(id=data["user"]).first()
+        user = User.objects.filter(number=data["user"]).first()
         week = Days.objects.filter(id=data["day"]).first()
         start = Day.objects.filter(id=data["startDay"]).select_related('month', 'month__year').first()
         session = Session.objects.filter(id=data["session"]).first()

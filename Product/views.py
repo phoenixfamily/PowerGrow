@@ -888,7 +888,16 @@ class ManagerParticipationView(viewsets.ViewSet):
         session = Session.objects.filter(id=data["session"]).first()
 
         if not all([course, user, week, start, session]):
-            return Response({'error': 'برخی از داده‌ها نامعتبر هستند.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({
+                'error': 'برخی از داده‌ها نامعتبر هستند.',
+                'debug': {
+                    'course': bool(course),
+                    'user': bool(user),
+                    'week': bool(week),
+                    'start': bool(start),
+                    'session': bool(session),
+                }
+            }, status=status.HTTP_400_BAD_REQUEST)
 
         day_names = week.title.split("،")
 

@@ -1,88 +1,22 @@
+{% extends 'manager/base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>به‌روزرسانی دوره</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <meta name="csrf-token" content="{{ csrf_token }}">
-
-    {% load django_bootstrap5 %}
-
-      <style>
-        body {
-            text-align: right;  /* راست‌چین کردن متن */
-            background: #312f2e;
-
-        }
-
-         .logoHolder {
-            width: 100%;
-            position: relative;
-            margin-top: 20px;
-            left: 0;
-            display: flex;
-            z-index: 10 !important;
-            direction: ltr;
-            align-items: center;
-            justify-content: center;
-
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-
-        }
-
-        .typography {
-            color: white;
-            font-size: 20px;
-            margin-left: 10px;
-
-        }
-
-
-         .form-control {
-             text-align: right;  /* راست‌چین کردن متن در فیلدهای فرم */
-         }
-
-         label {
-        color: white;  /* تغییر رنگ متن لیبل به سفید */
-    }
-          .custom-btn {
-            background-color: #E16539; /* رنگ دلخواه */
-            border: none; /* حذف حاشیه */
-              color: white;
-        }
-        .custom-btn:hover {
-               background-color: #a84e2c; /* تغییر رنگ در حالت hover */
-               color: #c4c4c4; /* رنگ برای حالت هاور */
-        }
-        .margin-bottom {
-            margin-bottom: 20px; /* فاصله از پایین */
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center; /* تراز عمودی */
-            justify-content: flex-end; /* تراز افقی به راست */
-        }
-
-    </style>
+    {% block title %}بروزرسانی دوره{% endblock %}
 
 </head>
+
 <body>
 
-<div class="logoHolder">
+{% block header %}
+    <div class="d-flex justify-content-end my-3 me-3">
+        <a href="#" id="submit" class="btn btn-cta">بروزرسانی</a>
+    </div>
+{% endblock %}
 
-    <img alt="" src="/media/{{ about.logo }}" class="logo">
-    <div class="typography">PowerGrow</div>
 
-</div>
-
-
+{% block content %}
 
     <div class="container mt-5">
         <form id="update-course-form">
@@ -148,18 +82,11 @@
                 <label for="previous">:پیش ثبت نام</label>
                 <input type="checkbox" id="previous" name="previous" {% if course.previous %}checked{% endif %}>
             </div>
-
-            <button type="submit" class="btn custom-btn margin-bottom">به‌روزرسانی دوره</button>
         </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
 <script>
-document.getElementById('update-course-form').addEventListener('submit', function(event) {
+document.getElementById('submit').addEventListener('click', function(event) {
     event.preventDefault();
 
     const formData = new FormData();
@@ -203,5 +130,8 @@ document.getElementById('update-course-form').addEventListener('submit', functio
 });
 
 </script>
+
+{% endblock %}
+
 </body>
 </html>

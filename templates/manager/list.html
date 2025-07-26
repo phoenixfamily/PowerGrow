@@ -58,7 +58,9 @@
             <tbody>
             {% for x in page_obj.object_list %}
                 <tr>
-                    <td>{{ x.id }}</td>
+{#                    <td>{{ x.id }}</td>#}
+                <td>{{ x.is_expired }}</td>
+
 
                     <!-- عملیات -->
                     <td>

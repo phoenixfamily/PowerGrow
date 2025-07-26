@@ -215,15 +215,16 @@ class DayView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         data = self.request.data
 
+        normalized_name = normalize_persian_space(data.get("name", ""))
+
         day = Day.objects.create(
             number=data["number"],
-            name=data["name"],
+            name=normalized_name,
             description=data["description"],
             holiday=bool(self.request.POST.get('holiday', False)),
             month_id=data["month"],
         )
 
-        day.save()
 
         times = list([
             "06:30:00", "08:00:00", "09:30:00", "11:00:00", "12:30:00", "14:00:00", "15:30:00", "17:00:00", "18:30:00",

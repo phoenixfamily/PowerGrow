@@ -890,9 +890,7 @@ class ManagerParticipationView(viewsets.ViewSet):
         start = Day.objects.filter(id=data["startDay"]).select_related('month', 'month__year').first()
         session = Session.objects.filter(id=data["session"]).first()
 
-        day_names = week.title.split("،")
-
-        raise Exception(f"😡 DAY_NAMES: {[repr(d) for d in day_names]}")
+        day_names = [normalize_persian_space(d) for d in week.title.split("،")]
 
         if not all([course, user, week, start, session]):
             return Response({

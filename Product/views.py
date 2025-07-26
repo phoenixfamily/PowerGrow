@@ -1,6 +1,7 @@
 import requests
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
@@ -13,16 +14,12 @@ from rest_framework.utils import json
 import jdatetime
 
 from About.models import AboutUs
+from Calendar.models import Day
 from PowerGrow.decorators import *
 from Product.serializer import *
 from django.conf import settings
 import json
 from PowerGrow.permissions import *
-from rest_framework import viewsets, status
-from rest_framework.response import Response
-from django.db.models import Q
-from .models import Course, Participants, Session, Days, Day, User
-
 
 User = get_user_model()
 
@@ -871,13 +868,12 @@ class ParticipationCreateView(viewsets.ViewSet):
             return Response({'error': 'An unexpected error occurred', 'details': str(e)},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
 class ManagerParticipationView(viewsets.ViewSet):
     serializer_class = ManagerParticipantsSerializer
     permission_classes = [IsAdminUserOrStaff]
 
     def normalize_day(self, name):
-        return name.replace('‌', '').replace(' ', '') if name else ''
+        return name.replace('', '').replace(' ', '') if name else ''
 
     def create(self, request, course):
         data = request.data
@@ -972,6 +968,8 @@ class ManagerParticipationView(viewsets.ViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Participants.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 
 class ChangeDayPriceView(UpdateAPIView):
     serializer_class = ChangeDayPriceSerializer

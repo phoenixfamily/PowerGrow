@@ -518,9 +518,23 @@ def teacher_user_list(request, pk):
     # بارگذاری اطلاعات مربوط به AboutUs
     about = AboutUs.objects.first()
 
-    participants = Participants.objects.all().filter(course_id=pk, success=True, user__is_teacher=False,
-                                                     user__is_superuser=False,
-                                                     user__is_staff=False).order_by('-startDay')
+    participants_qs = Participants.objects.filter(course_id=pk)
+
+    # 💥 قبل از paginate، بروز رسانی وضعیت انقضا
+    for p in participants_qs:
+        if p.endDay and p.endDay.month and p.endDay.month.year:
+            end_date = jdatetime.date(
+                p.endDay.month.year.number,
+                p.endDay.month.number,
+                p.endDay.number
+            )
+            if end_date < jdatetime.date.today():
+                if not p.expired:  # فقط اگر هنوز False بود، ذخیره کن
+                    p.expired = True
+                    p.save(update_fields=["expired"])  # فقط این فیلد آپدیت شه
+
+    # ✅ بعد از بروزرسانی، paginate کن
+    participants = participants_qs.filter(expired=False).order_by('-endDay', 'startDay')
 
     # آماده‌سازی context برای الگو
     context = {

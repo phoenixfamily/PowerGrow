@@ -20,7 +20,8 @@ from Product.serializer import *
 from django.conf import settings
 import json
 from PowerGrow.permissions import *
-import re
+
+from Product.services.enrollment import EnrollmentService
 
 User = get_user_model()
 
@@ -445,9 +446,6 @@ def admin_offers_view(request):
     return render(request, 'admin/offers.html', context)
 
 
-
-
-
 @session_staff_required
 def manager_user_list(request, pk):
     about = AboutUs.objects.first()
@@ -484,7 +482,6 @@ def manager_user_list(request, pk):
         "course_id": pk
     }
     return render(request, 'manager/list.html', context)
-
 
 
 @session_admin_required
@@ -547,7 +544,6 @@ def teacher_user_list(request, pk):
     return render(request, 'teacher/users.html', context)
 
 
-
 @session_admin_required
 def create_course_view(request):
     about = AboutUs.objects.first()
@@ -557,6 +553,7 @@ def create_course_view(request):
     }
 
     return render(request, 'manager/create-course.html', context)
+
 
 @session_admin_required
 def update_course(request, pk):
@@ -869,12 +866,10 @@ class ParticipationCreateView(viewsets.ViewSet):
             return Response({'error': 'An unexpected error occurred', 'details': str(e)},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 class ManagerParticipationView(viewsets.ViewSet):
     serializer_class = ManagerParticipantsSerializer
     permission_classes = [IsAdminUserOrStaff]
-
-    def normalize_day(self, name):
-        return re.sub(r'\s+', '', name) if name else ''
 
     def create(self, request, course):
         data = request.data
@@ -885,44 +880,24 @@ class ManagerParticipationView(viewsets.ViewSet):
             if field not in data:
                 return Response({'error': f'فیلد {field} الزامی است.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # دریافت داده‌های اصلی
+        # گرفتن آبجکت‌ها
         course = Course.objects.filter(id=course).first()
         user = User.objects.filter(number=data["user"]).first()
         week = Days.objects.filter(id=data["day"]).first()
-        start = Day.objects.filter(id=data["startDay"]).first()
+        start = Day.objects.filter(id=data["startDay"]).select_related('month', 'month__year').first()
         session = Session.objects.filter(id=data["session"]).first()
 
         if not all([course, user, week, start, session]):
             return Response({'error': 'برخی از داده‌ها نامعتبر هستند.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # پردازش روزهای هفته
-        day_names = [self.normalize_day(d.strip()) for d in week.title.split("،")]
+        day_names = week.title.split("،")
 
-        start_jdate = start.jdate
-        if not start_jdate:
-            return Response({'error': 'تاریخ شروع معتبر نیست.'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            service = EnrollmentService(start_day=start, session_count=session.number, allowed_day_names=day_names)
+            startDay, endDay = service.get_start_and_end_day()
+        except ValueError as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-        # دریافت همه روزهای مرتبط با روزهای هفته
-        raw_days = Day.objects.filter(
-            name__in=day_names,
-            holiday=False,
-            month__year__number__gte=start.month.year.number - 1  # فقط سال جاری و بعد
-        ).select_related("month", "month__year")
-
-        # فیلتر کردن بر اساس تاریخ شمسی
-        valid_days = sorted(
-            [d for d in raw_days if d.jdate and d.jdate >= start_jdate],
-            key=lambda d: d.jdate
-        )[:session.number]
-
-        if len(valid_days) < session.number:
-            return Response({'error': 'تعداد روزهای در دسترس کمتر از جلسات مورد نیاز است.'},
-                            status=status.HTTP_400_BAD_REQUEST)
-        # تنظیم روز شروع و پایان
-        startDay = valid_days[0]
-        endDay = valid_days[-1]
-
-        # ذخیره اطلاعات
         participant_data = {
             'description': data.get("description", ""),
             'startDay': startDay.id,
@@ -940,8 +915,8 @@ class ManagerParticipationView(viewsets.ViewSet):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response({
-                'startDay': startDay,
-                'endDay': endDay,
+                'startDay': startDay.to_jdate(),
+                'endDay': endDay.to_jdate(),
                 'status': 'موفقیت‌آمیز'
             }, status=status.HTTP_201_CREATED)
         else:
@@ -955,7 +930,6 @@ class ManagerParticipationView(viewsets.ViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Participants.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
 
 
 class ChangeDayPriceView(UpdateAPIView):

@@ -1,7 +1,6 @@
 import requests
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
@@ -814,33 +813,26 @@ class ParticipationCreateView(viewsets.ViewSet):
                 start = Day.objects.filter(id=data["startDay"]).first()
                 course = Course.objects.get(id=data["course"])
 
-                day = week.title.split("،")
-                startIds = Day.objects.filter(name__in=day, month__number__gte=start.month.number,
-                                              month__year__number__gte=start.month.year.number, holiday=False).exclude(
-                    month__number=start.month.number,
-                    number__lt=start.number) \
-                               .order_by('pk').values_list('pk', flat=True)[:int(session.number)]
-                startDay = Day.objects.filter(pk__in=list(startIds)).first()
+                day_names = [normalize_persian_space(d) for d in week.title.split("،")]
 
-                qs = Day.objects.filter(
-                    Q(
-                        month__year__number=start.month.year.number,
-                        month__number=start.month.number,
-                        number__gte=start.number
-                    ) |
-                    Q(
-                        month__year__number=start.month.year.number,
-                        month__number__gt=start.month.number
-                    ) |
-                    Q(
-                        month__year__number__gt=start.month.year.number
-                    ),
-                    name__in=day,
-                    holiday=False
-                ).order_by('month__year__number', 'month__number', 'number')
+                if not all([course, week, start, session]):
+                    return Response({
+                        'error': 'برخی از داده‌ها نامعتبر هستند.',
+                        'debug': {
+                            'course': bool(course),
+                            'week': bool(week),
+                            'start': bool(start),
+                            'session': bool(session),
+                        }
+                    }, status=status.HTTP_400_BAD_REQUEST)
 
-                endIds = qs.values_list('pk', flat=True)[:int(session.number)]
-                endDay = Day.objects.filter(pk__in=list(endIds)).last()
+                try:
+                    service = EnrollmentService(start_day=start, session_count=session.number,
+                                                allowed_day_names=day_names)
+                    startDay, endDay = service.get_start_and_end_day()
+                except ValueError as e:
+                    return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
                 participant_data = {
                     'description': data["description"],

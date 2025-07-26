@@ -555,7 +555,7 @@ def create_course_view(request):
         'about': about,
     }
 
-    return render(request, 'manager/create_course.html', context)
+    return render(request, 'manager/create-course.html', context)
 
 @session_admin_required
 def update_course(request, pk):

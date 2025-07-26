@@ -24,6 +24,8 @@ from PowerGrow.permissions import *
 from Product.services.enrollment import EnrollmentService
 import logging
 
+from Product.utils import normalize_persian_space
+
 logger = logging.getLogger(__name__)
 
 User = get_user_model()

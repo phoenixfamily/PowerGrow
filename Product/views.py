@@ -20,6 +20,7 @@ from Product.serializer import *
 from django.conf import settings
 import json
 from PowerGrow.permissions import *
+import re
 
 User = get_user_model()
 
@@ -873,16 +874,18 @@ class ManagerParticipationView(viewsets.ViewSet):
     permission_classes = [IsAdminUserOrStaff]
 
     def normalize_day(self, name):
-        return name.replace('', '').replace(' ', '') if name else ''
+        return re.sub(r'\s+', '', name) if name else ''
 
     def create(self, request, course):
         data = request.data
 
+        # بررسی فیلدهای اجباری
         required_fields = ['price', 'session', 'day', 'startDay', 'user']
         for field in required_fields:
             if field not in data:
-                return Response({'error': f'Missing field: {field}'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': f'فیلد {field} الزامی است.'}, status=status.HTTP_400_BAD_REQUEST)
 
+        # دریافت داده‌های اصلی
         course = Course.objects.filter(id=course).first()
         user = User.objects.filter(number=data["user"]).first()
         week = Days.objects.filter(id=data["day"]).first()
@@ -890,37 +893,36 @@ class ManagerParticipationView(viewsets.ViewSet):
         session = Session.objects.filter(id=data["session"]).first()
 
         if not all([course, user, week, start, session]):
-            return Response({'error': 'Invalid course, user, day, startDay or session'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'برخی از داده‌ها نامعتبر هستند.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Normalize day titles
-        normalized_days = [self.normalize_day(d) for d in week.title.split("،") if d.strip()]
+        # پردازش روزهای هفته (مثلاً: "یکشنبه،سه‌شنبه")
+        day_names = [self.normalize_day(d.strip()) for d in week.title.split("،")]
 
-        # Filter days matching normalized names
-        all_valid_days = Day.objects.filter(
-            Q(
-                month__year__number__gt=start.month.year.number
-            ) |
-            Q(
-                month__year__number=start.month.year.number,
-                month__number__gt=start.month.number
-            ) |
-            Q(
-                month__year__number=start.month.year.number,
-                month__number=start.month.number,
-                number__gte=start.number
-            ),
+        all_days = Day.objects.filter(
+            pk__gte=start.pk,
             holiday=False
-        ).select_related('month__year').order_by('month__year__number', 'month__number', 'number')
+        ).order_by('pk')
 
-        filtered_days = [d for d in all_valid_days if self.normalize_day(d.name) in normalized_days]
+        # فیلتر دستی با تطبیق نرمال‌شده نام‌ها
+        valid_days = [d for d in all_days if self.normalize_day(d.name) in day_names]
 
-        selected_day_ids = [d.pk for d in filtered_days[:int(session.number)]]
-        startDay = filtered_days[0] if filtered_days else None
-        endDay = filtered_days[-1] if filtered_days else None
+        # فیلتر کردن روزهای آینده از start.pk بر اساس روزهای هفته و غیرتعطیل
+        valid_days_qs = Day.objects.filter(
+            pk__gte=start.pk,
+            name__in=day_names,
+            holiday=False
+        ).order_by('pk')
 
-        if not startDay or not endDay:
-            return Response({'error': 'Could not determine startDay or endDay'}, status=status.HTTP_400_BAD_REQUEST)
+        valid_day_ids = list(valid_days_qs.values_list('pk', flat=True))[:int(session.number)]
+        if not valid_day_ids or len(valid_day_ids) < int(session.number):
+            return Response({'error': 'تعداد روزهای در دسترس کمتر از جلسات مورد نیاز است.'},
+                            status=status.HTTP_400_BAD_REQUEST)
 
+        # تنظیم روز شروع و پایان
+        startDay = Day.objects.get(pk=valid_day_ids[0])
+        endDay = Day.objects.get(pk=valid_day_ids[-1])
+
+        # ذخیره اطلاعات
         participant_data = {
             'description': data.get("description", ""),
             'startDay': startDay.id,
@@ -935,40 +937,12 @@ class ManagerParticipationView(viewsets.ViewSet):
         }
 
         serializer = self.serializer_class(data=participant_data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         else:
-            return Response({'error': 'Validation failed', 'details': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
-    def update(self, request, pk):
-        try:
-            participant = Participants.objects.get(pk=pk)
-        except Participants.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        data = request.data
-
-        if 'user' in data:
-            user = User.objects.filter(number=data['user']).first()
-            if not user:
-                return Response({'error': 'کاربری با این شماره تلفن یافت نشد.'}, status=status.HTTP_400_BAD_REQUEST)
-            data['user'] = user.id
-
-        serializer = self.serializer_class(participant, data=data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def destroy(self, request, pk):
-        try:
-            participant = Participants.objects.get(pk=pk)
-            participant.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except Participants.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
+            return Response({'error': 'ولیدیشن ناموفق', 'details': serializer.errors},
+                            status=status.HTTP_400_BAD_REQUEST)
 
 
 class ChangeDayPriceView(UpdateAPIView):

@@ -898,14 +898,6 @@ class ManagerParticipationView(viewsets.ViewSet):
         # پردازش روزهای هفته (مثلاً: "یکشنبه،سه‌شنبه")
         day_names = [self.normalize_day(d.strip()) for d in week.title.split("،")]
 
-        all_days = Day.objects.filter(
-            pk__gte=start.pk,
-            holiday=False
-        ).order_by('pk')
-
-        # فیلتر دستی با تطبیق نرمال‌شده نام‌ها
-        valid_days = [d for d in all_days if self.normalize_day(d.name) in day_names]
-
         # فیلتر کردن روزهای آینده از start.pk بر اساس روزهای هفته و غیرتعطیل
         valid_days_qs = Day.objects.filter(
             pk__gte=start.pk,
@@ -943,6 +935,15 @@ class ManagerParticipationView(viewsets.ViewSet):
         else:
             return Response({'error': 'ولیدیشن ناموفق', 'details': serializer.errors},
                             status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, pk):
+        try:
+            participant = Participants.objects.get(pk=pk)
+            participant.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Participants.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 
 class ChangeDayPriceView(UpdateAPIView):

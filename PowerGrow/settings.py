@@ -276,7 +276,7 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console', 'file'],  # هم تو کنسول هم فایل
-            'level': 'INFO',
+            'level': 'DEBUG',
             'propagate': True,
         },
         # لاگر اختصاصی برای اپ خودت

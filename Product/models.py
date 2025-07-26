@@ -79,6 +79,7 @@ class Participants(models.Model):
                                 blank=True, null=True)
     authority = models.TextField(unique=True, blank=True, null=True)
     success = models.BooleanField(blank=True, null=True)
+    expired = models.BooleanField(default=False)
 
     # 👇 متد جدید برای تبدیل به jdate
     def to_jdate(self):

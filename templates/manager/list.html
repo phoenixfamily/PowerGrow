@@ -58,8 +58,7 @@
             <tbody>
             {% for x in page_obj.object_list %}
                 <tr>
-{#                    <td>{{ x.id }}</td>#}
-                <td>{{ x.is_expired }}</td>
+                    <td>{{ x.id }}</td>
 
 
                     <!-- عملیات -->
@@ -102,7 +101,7 @@
                     <!-- وضعیت -->
                     <td class="text-center">
                         {% if x.success %}
-                            {% if x.is_expired %}
+                            {% if x.expired %}
                                 <i class="fa fa-exclamation-circle text-warning" title="تاریخ پایان گذشته"></i>
                             {% else %}
                                 <i class="fa fa-check-circle text-success" title="معتبر"></i>

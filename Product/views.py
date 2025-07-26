@@ -11,7 +11,7 @@ from rest_framework.generics import UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.utils import json
-from jdatetime import date as jdate
+import jdatetime
 
 from About.models import AboutUs
 from Calendar.models import Day
@@ -446,23 +446,32 @@ def admin_offers_view(request):
 
 
 
+
 @session_staff_required
 def manager_user_list(request, pk):
     about = AboutUs.objects.first()
-    participants_qs = Participants.objects.filter(course_id=pk).order_by('-endDay', 'startDay')
 
-    today = jdate.today()
+    participants_qs = Participants.objects.filter(course_id=pk)
 
+    # 💥 قبل از paginate، بروز رسانی وضعیت انقضا
     for p in participants_qs:
-        try:
-            end_date = p.endDay.to_jdate()
-            p.is_expired = end_date < today if end_date else False
-        except Exception as e:
-            print(f"❌ Error in endDay.to_jdate for participant {p.id}: {e}")
-            p.is_expired = False
+        if p.endDay and p.endDay.month and p.endDay.month.year:
+            end_date = jdatetime.date(
+                p.endDay.month.year.number,
+                p.endDay.month.number,
+                p.endDay.number
+            )
+            if end_date < jdatetime.date.today():
+                if not p.expired:  # فقط اگر هنوز False بود، ذخیره کن
+                    p.expired = True
+                    p.save(update_fields=["expired"])  # فقط این فیلد آپدیت شه
 
-    paginator = Paginator(participants_qs, 150)
+    # ✅ بعد از بروزرسانی، paginate کن
+    participants = participants_qs.order_by('-endDay', 'startDay')
+
+    paginator = Paginator(participants, 150)
     page_number = request.GET.get('page')
+
     try:
         page_obj = paginator.get_page(page_number)
     except (PageNotAnInteger, EmptyPage):
@@ -474,6 +483,7 @@ def manager_user_list(request, pk):
         "course_id": pk
     }
     return render(request, 'manager/list.html', context)
+
 
 
 @session_admin_required

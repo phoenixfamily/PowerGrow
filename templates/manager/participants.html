@@ -68,18 +68,6 @@
                     </select>
                 </div>
 
-                <!-- تاریخ پایان -->
-                <div class="col-md-6">
-                    <label for="endDay" class="form-label fw-semibold">تاریخ پایان</label>
-                    <select class="form-select rounded-3" id="endDay">
-                        <option value="">انتخاب کنید</option>
-                        {% for x in day %}
-                            <option dir="rtl" value="{{ x.id }}">
-                                {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
 
                 <!-- قیمت -->
                 <div class="col-md-6">
@@ -88,19 +76,13 @@
                 </div>
 
                 <!-- کاربر -->
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="user" class="form-label fw-semibold">کاربر (شماره همراه)</label>
                     <input class="form-control rounded-3" dir="ltr" id="user" type="number" name="user"
                            placeholder="مثلاً: 9123456789" required>
                 </div>
             </div>
 
-            <!-- دکمه ارسال -->
-            <div class="text-center mt-4">
-                <button type="submit" class="btn btn-success px-5 py-2 rounded-pill">
-                    ثبت شرکت‌کننده
-                </button>
-            </div>
         </form>
     </div>
 </div>

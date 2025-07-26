@@ -895,24 +895,27 @@ class ManagerParticipationView(viewsets.ViewSet):
         if not all([course, user, week, start, session]):
             return Response({'error': 'برخی از داده‌ها نامعتبر هستند.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # پردازش روزهای هفته (مثلاً: "یکشنبه،سه‌شنبه")
+        # پردازش روزهای هفته
         day_names = [self.normalize_day(d.strip()) for d in week.title.split("،")]
 
-        # فیلتر کردن روزهای آینده از start.pk بر اساس روزهای هفته و غیرتعطیل
+        # فیلتر کردن روزهای آینده
         valid_days_qs = Day.objects.filter(
-            pk__gte=start.pk,
+            month__year__number__gte=start.month.year.number,
+            month__number__gte=start.month.number,
+            number__gte=start.number,
             name__in=day_names,
             holiday=False
-        ).order_by('pk')
+        ).order_by('month__year__number', 'month__number', 'number')
 
-        valid_day_ids = list(valid_days_qs.values_list('pk', flat=True))[:int(session.number)]
-        if not valid_day_ids or len(valid_day_ids) < int(session.number):
+        # انتخاب روزهای معتبر به تعداد جلسات
+        valid_days = list(valid_days_qs)[:int(session.number)]
+        if len(valid_days) < int(session.number):
             return Response({'error': 'تعداد روزهای در دسترس کمتر از جلسات مورد نیاز است.'},
                             status=status.HTTP_400_BAD_REQUEST)
 
         # تنظیم روز شروع و پایان
-        startDay = Day.objects.get(pk=valid_day_ids[0])
-        endDay = Day.objects.get(pk=valid_day_ids[-1])
+        startDay = valid_days[0]
+        endDay = valid_days[-1]
 
         # ذخیره اطلاعات
         participant_data = {
@@ -931,7 +934,11 @@ class ManagerParticipationView(viewsets.ViewSet):
         serializer = self.serializer_class(data=participant_data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
+            return Response({
+                'startDay': startDay.to_jdate(),
+                'endDay': endDay.to_jdate(),
+                'status': 'موفقیت‌آمیز'
+            }, status=status.HTTP_201_CREATED)
         else:
             return Response({'error': 'ولیدیشن ناموفق', 'details': serializer.errors},
                             status=status.HTTP_400_BAD_REQUEST)

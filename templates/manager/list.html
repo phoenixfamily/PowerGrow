@@ -13,6 +13,7 @@
 
 {% block header %}
     <div class="d-flex justify-content-end my-3 me-3">
+        <a href="#" class="btn btn-cta" id="todayButton">لیست امروز</a>
         <a href="{% url 'product:create-participant' course_id %}" class="btn btn-cta">ثبت نام</a>
     </div>
 {% endblock %}
@@ -156,6 +157,42 @@
         });
 
     </script>
+
+    <script>
+
+        document.getElementById('todayButton').addEventListener('click', function () {
+            // تعریف روزهای هفته با شنبه به عنوان اولین روز
+            const daysOfWeek = ["یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه"];
+            const today = new Date();
+            const currentDay = daysOfWeek[today.getDay()]; // 0 = شنبه, 1 = یکشنبه, ...
+
+            console.log(today.getDay());
+
+            var table = document.getElementById('myTable');
+            var tr = table.getElementsByTagName('tr');
+
+            for (var i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
+                var td = tr[i].getElementsByTagName('td');
+
+                for (var j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        var txtValue = td[j].textContent || td[j].innerText;
+                        var daysArray = txtValue.split('،').map(day => day.trim()); // جدا کردن روزها با ',' و حذف فضاها
+
+                        // بررسی اگر روز فعلی در آرایه daysArray موجود باشد و وضعیت معتبر باشد
+                        if (daysArray.includes(currentDay)) {
+                            tr[i].style.display = ""; // اگر روز فعلی پیدا شد و وضعیت معتبر بود، ردیف نمایش داده شود
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+
+
+    </script>
+
 
 {% endblock %}
 

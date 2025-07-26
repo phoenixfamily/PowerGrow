@@ -18,84 +18,102 @@
 
 {% block content %}
 
-<div class="container">
-    <form id="update-participant-form">
-        <div class="form-group">
-            <label for="description">:توضیحات</label>
-            <textarea class="form-control" id="description" rows="3" required>{{ participant.description }}</textarea>
-        </div>
+<<div class="container py-5">
+    <div class="card shadow rounded-4 p-4">
+        <h4 class="fw-bold mb-4 text-center text-primary">ویرایش اطلاعات شرکت‌کننده</h4>
+        <form id="update-participant-form">
+            <div class="row g-3">
+                <!-- توضیحات -->
+                <div class="col-12">
+                    <label for="description" class="form-label fw-semibold">توضیحات</label>
+                    <textarea class="form-control rounded-3" id="description" rows="3" required>{{ participant.description }}</textarea>
+                </div>
 
-        <div class="form-group">
-            <label for="session">:تعداد جلسه</label>
-            <select class="form-control" id="session" required>
-                <option value="" disabled selected>انتخاب کنید</option>
-                {% for x in session %}
-                    <option value="{{ x.id }}" {% if x.id == participant.session.id %}selected{% endif %}>
-                        {{ x.number }} جلسه
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
+                <!-- تعداد جلسه -->
+                <div class="col-md-6">
+                    <label for="session" class="form-label fw-semibold">تعداد جلسه</label>
+                    <select class="form-select rounded-3" id="session" required>
+                        <option value="" disabled selected>انتخاب کنید</option>
+                        {% for x in session %}
+                            <option value="{{ x.id }}" {% if x.id == participant.session.id %}selected{% endif %}>
+                                {{ x.number }} جلسه
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-        <div class="form-group">
-            <label for="day">:روزها هفته</label>
-            <select class="form-control" id="day" required>
-                <option value="" disabled selected>انتخاب کنید</option>
-                {% for x in days %}
-                    <option value="{{ x.id }}" {% if x.id == participant.day.id %}selected{% endif %}>
-                        {{ x.title }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
+                <!-- روز هفته -->
+                <div class="col-md-6">
+                    <label for="day" class="form-label fw-semibold">روزهای هفته</label>
+                    <select class="form-select rounded-3" id="day" required>
+                        <option value="" disabled selected>انتخاب کنید</option>
+                        {% for x in days %}
+                            <option value="{{ x.id }}" {% if x.id == participant.day.id %}selected{% endif %}>
+                                {{ x.title }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-        <div class="form-group">
-            <label for="startDay">:روز شروع</label>
-            <select class="form-control" id="startDay" required>
-                <option value="">انتخاب کنید</option>
-                {% for x in day %}
-                    <option value="{{ x.id }}" {% if x.id == participant.startDay.id %}selected{% endif %}>
-                        {{ x.name }} {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
+                <!-- تاریخ شروع -->
+                <div class="col-md-6">
+                    <label for="startDay" class="form-label fw-semibold">تاریخ شروع</label>
+                    <select class="form-select rounded-3" id="startDay" required>
+                        <option value="">انتخاب کنید</option>
+                        {% for x in day %}
+                            <option value="{{ x.id }}" {% if x.id == participant.startDay.id %}selected{% endif %}>
+                                {{ x.name }} {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-        <div class="form-group">
-            <label for="endDay">:روز پایان</label>
-            <select class="form-control" id="endDay" required>
-                <option value="">انتخاب کنید</option>
-                {% for x in day %}
-                    <option value="{{ x.id }}" {% if x.id == participant.endDay.id %}selected{% endif %}>
-                        {{ x.name }} {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
+                <!-- تاریخ پایان -->
+                <div class="col-md-6">
+                    <label for="endDay" class="form-label fw-semibold">تاریخ پایان</label>
+                    <select class="form-select rounded-3" id="endDay" required>
+                        <option value="">انتخاب کنید</option>
+                        {% for x in day %}
+                            <option value="{{ x.id }}" {% if x.id == participant.endDay.id %}selected{% endif %}>
+                                {{ x.name }} {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-    <div class="form-group">
-                <label for="price">:قیمت</label>
-                <input type="number" class="form-control" id="price" value="{{ participant.price }}" required>
+                <!-- قیمت -->
+                <div class="col-md-6">
+                    <label for="price" class="form-label fw-semibold">قیمت</label>
+                    <input type="number" class="form-control rounded-3" id="price" value="{{ participant.price }}" required>
+                </div>
+
+                <!-- دوره -->
+                <div class="col-md-6">
+                    <label for="course" class="form-label fw-semibold">دوره</label>
+                    <select class="form-select rounded-3" id="course" required>
+                        <option value="">انتخاب کنید</option>
+                        {% for x in course %}
+                            <option value="{{ x.id }}" {% if x.id == participant.course.id %}selected{% endif %}>
+                                {{ x.title }} - {{ x.id }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- کاربر -->
+                <div class="col-12">
+                    <label for="user" class="form-label fw-semibold">کاربر (ID)</label>
+                    <input type="number" class="form-control rounded-3" dir="ltr" id="user" name="user" required>
+                </div>
             </div>
 
-     <div class="form-group">
-            <label for="course">:دوره</label>
-            <select class="form-control" id="course" required>
-                <option value="">انتخاب کنید</option>
-                {% for x in course %}
-                    <option value="{{ x.id }}" {% if x.id == participant.course.id %}selected{% endif %}>
-                        {{ x.title }}-{{ x.id }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group">
-                <label for="user">:کاربر</label>
-                <input class="form-control" dir="ltr" id="user" type="number" name="user" required>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary px-5 rounded-pill">ذخیره تغییرات</button>
             </div>
-    </form>
+        </form>
+    </div>
 </div>
+
 
 
 <script>

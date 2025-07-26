@@ -11,7 +11,7 @@ from rest_framework.generics import UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.utils import json
-from django.db.models import Prefetch
+from jdatetime import date as jdate
 
 from About.models import AboutUs
 from Calendar.models import Day
@@ -34,7 +34,6 @@ ZP_API_STARTPAY = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
 CallbackURL = 'https://powergrow.ir/product/verify/'
 
 
-
 @cache_page(60 * 15)
 def sport_view(request):
     about = AboutUs.objects.first()
@@ -55,6 +54,7 @@ def sport_view(request):
     }
 
     return render(request, 'public/sports.html', context)
+
 
 @cache_page(60 * 15)
 def category_view(request, pk):
@@ -446,28 +446,33 @@ def admin_offers_view(request):
 
 @session_staff_required
 def manager_user_list(request, pk):
-    # بارگذاری اطلاعات مربوط به AboutUs
     about = AboutUs.objects.first()
+    participants_qs = Participants.objects.filter(course_id=pk).select_related('endDay__month__year')
 
-    # بارگذاری دوره با استفاده از get_object_or_404
-    participants = Participants.objects.all().filter(course_id=pk).order_by('-endDay', 'startDay')
+    today = jdate.today()
 
-    paginator = Paginator(participants, 150)
+    # ⬇️ قبل از paginate: چسبوندن خاصیت موقت is_expired به هر object
+    for p in participants_qs:
+        try:
+            end = jdate(p.endDay.month.year.number, p.endDay.month.number, p.endDay.number)
+            p.is_expired = end < today
+        except:
+            p.is_expired = False  # اگر دیتای تاریخ مشکل داشت
+
+    # paginate
+    paginator = Paginator(participants_qs.order_by('-endDay', 'startDay'), 150)
     page_number = request.GET.get('page')
 
     try:
         page_obj = paginator.get_page(page_number)
     except (PageNotAnInteger, EmptyPage):
-        page_obj = paginator.page(1)  # اگر شماره صفحه معتبر نبود، به صفحه اول برگردیم
+        page_obj = paginator.page(1)
 
-    # آماده‌سازی context برای الگو
     context = {
         "about": about,
         "page_obj": page_obj,
         "course_id": pk
     }
-
-    # استفاده از render برای بارگذاری الگو
     return render(request, 'manager/list.html', context)
 
 
@@ -642,6 +647,7 @@ class CourseDetailView(viewsets.ViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Course.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 class SportListCreateView(generics.CreateAPIView):
     queryset = Sport.objects.all()

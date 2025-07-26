@@ -546,6 +546,17 @@ def teacher_user_list(request, pk):
     return render(request, 'teacher/users.html', context)
 
 
+
+@session_admin_required
+def create_course_view(request):
+    about = AboutUs.objects.first()
+
+    context = {
+        'about': about,
+    }
+
+    return render(request, 'manager/create_course.html', context)
+
 @session_admin_required
 def update_course(request, pk):
     course = get_object_or_404(Course, pk=pk)

@@ -1,0 +1,145 @@
+{% extends 'manager/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    {% block title %}ساخت دوره{% endblock %}
+
+</head>
+
+<body>
+
+{% block header %}
+    <div class="d-flex justify-content-end my-3 me-3">
+        <a href="#" id="submit" class="btn btn-cta">بروزرسانی</a>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+
+   <div class="container my-5">
+    <form id="update-course-form" class="bg-white rounded shadow p-4" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h4 class="mb-4 text-center fw-bold panel-form-h4"> ساخت دوره جدید</h4>
+        <div class="row g-4">
+            <!-- عنوان و مربی -->
+            <div class="col-md-6">
+                <label for="title" class="form-label">عنوان:</label>
+                <input type="text" class="form-control" id="title" name="title"  required>
+            </div>
+            <div class="col-md-6">
+                <label for="name" class="form-label">نام مربی:</label>
+                <input type="text" class="form-control" id="name" name="name"  required>
+            </div>
+
+            <!-- زمان و نوع -->
+            <div class="col-md-6">
+                <label for="time" class="form-label">زمان:</label>
+                <input type="text" class="form-control" id="time" name="time" required>
+            </div>
+            <div class="col-md-6">
+                <label for="type" class="form-label">نوع:</label>
+                <select class="form-select" id="type" name="type" required>
+                    <option value="public">عمومی</option>
+                    <option value="private">خصوصی</option>
+                    <option value="semi_private">نیمه‌خصوصی</option>
+                </select>
+            </div>
+
+            <!-- توضیحات -->
+            <div class="col-12">
+                <label for="description" class="form-label">توضیحات:</label>
+                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+            </div>
+
+            <!-- تصویر -->
+            <div class="col-12">
+                <label for="image" class="form-label">تصویر:</label>
+                <input type="file" class="form-control" id="image" name="image">
+            </div>
+
+            <!-- ظرفیت و جنسیت -->
+            <div class="col-md-6">
+                <label for="capacity" class="form-label">ظرفیت:</label>
+                <input type="number" class="form-control" id="capacity" name="capacity">
+            </div>
+            <div class="col-md-6">
+                <label for="gender" class="form-label">جنسیت:</label>
+                <select class="form-select" id="gender" name="gender">
+                    <option value="male" >مرد</option>
+                    <option value="female">زن</option>
+                </select>
+            </div>
+
+            <!-- چک‌باکس‌ها -->
+            <div class="col-12 d-flex flex-wrap gap-4">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="selected" name="selected">
+                    <label class="form-check-label" for="selected">منتخب</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="active" name="active">
+                    <label class="form-check-label" for="active">فعال</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="previous" name="previous">
+                    <label class="form-check-label" for="previous">پیش ثبت ‌نام</label>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<script>
+document.getElementById('submit').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('title', document.getElementById('title').value);
+    formData.append('name', document.getElementById('name').value);
+    formData.append('type', document.getElementById('type').value);
+    formData.append('time', document.getElementById('time').value);
+    formData.append('description', document.getElementById('description').value);
+    formData.append('selected', document.getElementById('selected').checked);
+    formData.append('gender', document.getElementById('gender').value);
+    formData.append('capacity', document.getElementById('capacity').value);
+    formData.append('active', document.getElementById('active').checked);
+    formData.append('previous', document.getElementById('previous').checked);
+
+    const imageInput = document.getElementById('image');
+    if (imageInput.files.length > 0) {
+        formData.append('image', imageInput.files[0]);
+    }
+
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    fetch(`{% url 'product:manager-create-course'%}`, {
+            method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+        },
+        body: formData,
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('اطلاعات با موفقیت ثیت شد!');
+        } else {
+            return response.json().then(errorData => {
+                alert('خطا: ' + JSON.stringify(errorData));
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+</script>
+
+{% endblock %}
+
+</body>
+</html>

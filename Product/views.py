@@ -915,8 +915,8 @@ class ManagerParticipationView(viewsets.ViewSet):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response({
-                'startDay': startDay.to_jdate(),
-                'endDay': endDay.to_jdate(),
+                'startDay': startDay,
+                'endDay': endDay,
                 'status': 'موفقیت‌آمیز'
             }, status=status.HTTP_201_CREATED)
         else:

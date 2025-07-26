@@ -814,3 +814,6 @@ table i:hover {
 }
 
 
+.panel-card h4 {
+    color: var(--primary-light);
+}

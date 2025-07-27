@@ -24,6 +24,8 @@ from Product.services.enrollment import EnrollmentService
 import logging
 
 from Product.utils import normalize_persian_space
+from rest_framework.parsers import MultiPartParser, FormParser
+
 
 logger = logging.getLogger(__name__)
 
@@ -652,6 +654,8 @@ class CourseDetailView(viewsets.ViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsAdminUserOrStaff]
+    parser_classes = [MultiPartParser, FormParser]
+
 
     def update(self, request, pk):
         try:

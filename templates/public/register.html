@@ -144,6 +144,7 @@
                     });
 
                     if (response.ok) { // اگر وضعیت پاسخ موفقیت‌آمیز بود
+                        alert('ثبت نام باموفقیت انجام شد');
                         window.location.assign(`{% url 'user:login' %}`);
                     } else {
                         const errorData = await response.json();

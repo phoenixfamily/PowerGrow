@@ -3,21 +3,34 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    {% block title %}اطلاعیه ها{% endblock %}
+    {% block title %}اطلاعیه های من{% endblock %}
 
 </head>
 
 <body>
 
 {% block content %}
-   <div class="search-bar-container">
-    <input type="text" id="searchInput" class="search-input" placeholder="جستجو...">
-   </div>
+    <div class="search-bar-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="جستجو...">
+    </div>
 
 
-<div class="table-responsive" dir="rtl">
-    <table id="myTable" class="table table-hover table-bordered">
-        <thead>
+    <div class="d-flex justify-content-center my-3">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-cta mx-1"><i
+                    class="fa fa-chevron-right"></i></a>
+        {% endif %}
+        <span class="btn btn-secondary mx-1 disabled">صفحه {{ page_obj.number }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-cta mx-1"><i
+                    class="fa fa-chevron-left"></i></a>
+        {% endif %}
+    </div>
+
+
+    <div class="table-responsive">
+        <table id="listTable" class="table table-striped table-bordered align-middle text-center">
+            <thead class="table-light">
             <tr>
                 <th>#</th>
                 <th scope="col">تاریخ</th>
@@ -27,63 +40,61 @@
                 <th scope="col">زمان دوره</th>
                 <th scope="col">نام مربی</th>
             </tr>
-        </thead>
-        <tbody>
-            {% for x in news %}
-            <tr>
-                <th scope="row">{{ x.id }}</th>
-                <td>{{ x.date.month.year.number }}/{{ x.date.month.number }}/{{ x.date.number }}</td>
-                <td>{{ x.title }}</td>
-                <td>{{ x.description }}</td>
-                <td>{{ x.course.title }}</td>
-                <td>{{ x.course.time }}</td>
-                <td>{{ x.course.name }}</td>
-            </tr>
+            </thead>
+            <tbody>
+            {% for x in page_obj.object_list %}
+                    <td>{{ x.date.month.year.number }}/{{ x.date.month.number }}/{{ x.date.number }}</td>
+                    <td>{{ x.title }}</td>
+                    <td>{{ x.description }}</td>
+                    <td>{{ x.course.title }}</td>
+                    <td>{{ x.course.time }}</td>
+                    <td>{{ x.course.name }}</td>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 
-<script>
+    <script>
 
-document.getElementById('searchInput').addEventListener('keyup', function() {
-    var input, filter, table, tr, td, i, j, txtValue;
-    input = document.getElementById('searchInput');
-    filter = input.value.toUpperCase().trim().split(" "); // ورودی را به کلمات جداگانه تقسیم می‌کند
-    table = document.getElementById('myTable');
-    tr = table.getElementsByTagName('tr');
+        document.getElementById('searchInput').addEventListener('keyup', function () {
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById('searchInput');
+            filter = input.value.toUpperCase().trim().split(" "); // ورودی را به کلمات جداگانه تقسیم می‌کند
+            table = document.getElementById('listTable');
+            tr = table.getElementsByTagName('tr');
 
-    for (i = 1; i < tr.length; i++) {
-        tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
-        td = tr[i].getElementsByTagName('td');
-        var rowMatches = true; // فرض می‌کنیم که ردیف با شرایط جستجو مطابقت دارد
+            for (i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
+                td = tr[i].getElementsByTagName('td');
+                var rowMatches = true; // فرض می‌کنیم که ردیف با شرایط جستجو مطابقت دارد
 
-        for (j = 0; j < filter.length; j++) { // برای هر کلمه جستجو
-            var wordMatched = false; // فرض می‌کنیم که هیچ کلمه‌ای مطابقت ندارد
+                for (j = 0; j < filter.length; j++) { // برای هر کلمه جستجو
+                    var wordMatched = false; // فرض می‌کنیم که هیچ کلمه‌ای مطابقت ندارد
 
-            for (let k = 0; k < td.length; k++) { // هر سلول را بررسی می‌کنیم
-                if (td[k]) {
-                    txtValue = td[k].textContent || td[k].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter[j]) > -1) {
-                        wordMatched = true; // اگر کلمه پیدا شد
+                    for (let k = 0; k < td.length; k++) { // هر سلول را بررسی می‌کنیم
+                        if (td[k]) {
+                            txtValue = td[k].textContent || td[k].innerText;
+                            if (txtValue.toUpperCase().indexOf(filter[j]) > -1) {
+                                wordMatched = true; // اگر کلمه پیدا شد
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!wordMatched) {
+                        rowMatches = false; // اگر هیچ کلمه‌ای در ردیف مطابقت نداشت
                         break;
                     }
                 }
+
+                if (rowMatches) {
+                    tr[i].style.display = ""; // اگر ردیف با تمام کلمات مطابقت داشت، نمایش داده شود
+                }
             }
+        });
 
-            if (!wordMatched) {
-                rowMatches = false; // اگر هیچ کلمه‌ای در ردیف مطابقت نداشت
-                break;
-            }
-        }
-
-        if (rowMatches) {
-            tr[i].style.display = ""; // اگر ردیف با تمام کلمات مطابقت داشت، نمایش داده شود
-        }
-    }
-});
-
-</script>
+    </script>
 
 {% endblock %}
 

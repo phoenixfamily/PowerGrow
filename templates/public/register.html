@@ -56,22 +56,22 @@
                     </div>
 
                     <div class="form-outline form-white mb-4">
-                    <input type="text" id="birthdate" name="birthdate"
-                           class="form-control form-control-lg" placeholder="تاریخ تولد" required  data-jdp/>
-                    <label class="form-label" for="birthdate">تاریخ تولد</label>
-                </div>
+                        <input type="text" id="birthdate" name="birthdate"
+                               class="form-control form-control-lg" placeholder="تاریخ تولد" required data-jdp/>
+                        <label class="form-label" for="birthdate">تاریخ تولد</label>
+                    </div>
 
                     <div class="form-outline form-white mb-4 position-relative" dir="ltr">
                         <input type="password" id="password" name="password"
                                class="form-control form-control-lg px-2" placeholder="رمز عبور" required/>
-                        <i class="fas fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
+                        <i class="fas fa-eye toggle-password" id="togglePassword1"></i>
                         <label for="password">رمز عبور</label>
                     </div>
 
                     <div class="form-outline form-white mb-4 position-relative" dir="ltr">
                         <input type="password" id="confirm_password" name="confirm_password"
                                class="form-control form-control-lg px-2" placeholder="تکرار رمز عبور" required/>
-                        <i class="fas fa-eye toggle-password" onclick="togglePassword('confirm_password', this)"></i>
+                        <i class="fas fa-eye toggle-password" id="togglePassword2"></i>
                         <label for="confirm_password">تکرار رمز عبور</label>
                     </div>
 
@@ -93,13 +93,31 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const submit = document.getElementById('submit');
+            const togglePassword = document.getElementById("togglePassword1");
+            const confirmTogglePassword = document.getElementById("togglePassword2");
+
+
+            togglePassword.addEventListener("click", () => {
+                const passwordField = document.getElementById("password");
+                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+                passwordField.setAttribute("type", type);
+                togglePassword.classList.toggle("fa-eye-slash");
+            });
+
+              confirmTogglePassword.addEventListener("click", () => {
+                const passwordField = document.getElementById("confirm_password");
+                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+                passwordField.setAttribute("type", type);
+                togglePassword.classList.toggle("fa-eye-slash");
+            });
+
 
             if (submit) { // چک کردن وجود دکمه
                 submit.addEventListener('click', async (event) => {
                     event.preventDefault(); // جلوگیری از ارسال پیش‌فرض فرم
 
                     const name = document.getElementById('name').value.trim();
-                    const username = document.getElementById('phone').value.trim();
+                    const username = document.getElementById('number').value.trim();
                     const birthdate = document.getElementById('birthdate').value;
                     const pass1 = document.getElementById('password1').value;
                     const pass2 = document.getElementById('password2').value;

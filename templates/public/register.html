@@ -1,4 +1,4 @@
-s{% extends 'public/base.html' %}
+{% extends 'public/base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="fa">
@@ -34,41 +34,54 @@ s{% extends 'public/base.html' %}
 
 {% block  content %}
 
-<section class="swiper-section py-5">
-    <div class="container">
-        <div class="form-wrapper bg-white shadow rounded p-4 w-100">
-            <h3 class="mb-4 text-center fw-bold">ثبت‌نام</h3>
-            <p>برای ایجاد حساب، لطفاً اطلاعات زیر را وارد کنید</p>
+    <section class="swiper-section py-5">
+        <div class="container">
+            <div class="form-wrapper bg-white shadow rounded p-4 w-100">
+                <h3 class="mb-4 text-center fw-bold">ثبت‌نام</h3>
+                <p>برای ایجاد حساب، لطفاً اطلاعات زیر را وارد کنید</p>
 
-            {% csrf_token %}
-            <form method="post">
-                <div class="form-outline form-white mb-4">
-                    <input type="tel" id="number" name="number" class="form-control form-control-lg"
-                           placeholder="9123456780" required />
-                    <label class="form-label" for="number">موبایل</label>
+                {% csrf_token %}
+                <form method="post">
+
+                    <div class="form-outline form-white mb-4">
+                        <input type="text" id="name" name="name" class="form-control form-control-lg"
+                               placeholder="نام نام خانوادگی" required/>
+                        <label class="form-label" for="name">نام</label>
+                    </div>
+
+                    <div class="form-outline form-white mb-4">
+                        <input type="tel" id="number" name="number" class="form-control form-control-lg"
+                               placeholder="9123456780" required/>
+                        <label class="form-label" for="number">موبایل</label>
+                    </div>
+
+                    <div class="form-outline form-white mb-4">
+                    <input type="text" id="birthdate" name="birthdate"
+                           class="form-control form-control-lg" placeholder="تاریخ تولد" required  data-jdp/>
+                    <label class="form-label" for="birthdate">تاریخ تولد</label>
                 </div>
 
-                <div class="form-outline form-white mb-4 position-relative" dir="ltr">
-                    <input type="password" id="password" name="password"
-                           class="form-control form-control-lg px-2" placeholder="رمز عبور" required />
-                    <i class="fas fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
-                    <label for="password">رمز عبور</label>
-                </div>
+                    <div class="form-outline form-white mb-4 position-relative" dir="ltr">
+                        <input type="password" id="password" name="password"
+                               class="form-control form-control-lg px-2" placeholder="رمز عبور" required/>
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
+                        <label for="password">رمز عبور</label>
+                    </div>
 
-                <div class="form-outline form-white mb-4 position-relative" dir="ltr">
-                    <input type="password" id="confirm_password" name="confirm_password"
-                           class="form-control form-control-lg px-2" placeholder="تکرار رمز عبور" required />
-                    <i class="fas fa-eye toggle-password" onclick="togglePassword('confirm_password', this)"></i>
-                    <label for="confirm_password">تکرار رمز عبور</label>
-                </div>
+                    <div class="form-outline form-white mb-4 position-relative" dir="ltr">
+                        <input type="password" id="confirm_password" name="confirm_password"
+                               class="form-control form-control-lg px-2" placeholder="تکرار رمز عبور" required/>
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('confirm_password', this)"></i>
+                        <label for="confirm_password">تکرار رمز عبور</label>
+                    </div>
 
-                <button id="submit" class="btn btn-outline-light btn-lg px-5" type="submit">ثبت‌نام</button>
-            </form>
+                    <button id="submit" class="btn btn-outline-light btn-lg px-5" type="submit">ثبت‌نام</button>
+                </form>
 
-            <p class="mt-4">قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'user:login' %}">وارد شوید</a></p>
+                <p class="mt-4">قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'user:login' %}">وارد شوید</a></p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
     <script>

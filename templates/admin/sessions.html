@@ -11,7 +11,7 @@
 
 {% block header %}
     <div class="d-flex justify-content-end my-3 me-3">
-        <a href="{% url 'product:manager-create-day' %}" class="btn btn-cta">افزودن جلسه</a>
+        <a href="{% url 'product:manager-create-day' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن جلسه</a>
     </div>
 {% endblock %}
 
@@ -39,9 +39,11 @@
             <thead class="table-light">
             <tr>
                 <th>#</th>
-                <th colspan="1" class="text-center">تنظیمات</th>
+                <th>تنظیمات</th>
                 <th scope="col">تعداد جلسات</th>
                 <th scope="col">شناسه دوره</th>
+                <th scope="col">نام دوره</th>
+                <th scope="col">نام دوره</th>
                 <th scope="col">نام دوره</th>
                 <th scope="col">نام مربی</th>
                 <th scope="col">زمان</th>
@@ -59,6 +61,8 @@
                     <td>{{ x.number }}</td>
                     <td>{{ x.course.id }}</td>
                     <td>{{ x.course.title }}</td>
+                    <td>{{ x.course.title }}</td>
+                    <td>{{ x.course.title }}</td>
                     <td>{{ x.course.name }}</td>
                     <td>{{ x.course.time }}</td>
                     <td class="text-center">
@@ -68,7 +72,6 @@
                             <i title="غیرفعال" class="fa fa-ban text-danger"></i>
                         {% endif %}
                     </td>
-
                 </tr>
             {% endfor %}
             </tbody>

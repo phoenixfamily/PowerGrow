@@ -10,84 +10,88 @@
 
 {% block content %}
 
-    <div class="table-responsive" dir="rtl" style="margin-top: 100px">
-
-        <table id="table" class="table table-hover table-bordered">
-
-            <tr>
-                <th scope="col">تعداد دوره ها :</th>
-                <th scope="col">{{ total_courses }}</th>
-            </tr>
-
-
-            <tr>
-                <th scope="col">تعداد کل شاگرد ها :</th>
-                <th scope="col">{{ total_participants }}</th>
-            </tr>
-
-            <tr>
-                <th scope="col">تعداد شاگرد های موثر :</th>
-                <th scope="col"> {{ total_participants_count }}</th>
-
-            </tr>
-
-            <tr id="canceled">
-                <th scope="col">تعداد جلسات کنسل شده :</th>
-                <th scope="col">{{ total_news }}</th>
-
-            </tr>
-
-            <tr>
-                <th scope="col">نوع حقوق :</th>
-                <th scope="col">{{ user.salary }}</th>
-            </tr>
-
-            <tr>
-                <th scope="col">حقوق پایه :</th>
-                {% if user.salary == "ثابت" %}
-                    <th scope="col">{{ user.fee }} تومان</th>
-
-                {% else %}
-                    <th scope="col">{{ user.fee }} درصد</th>
-
-                {% endif %}
-            </tr>
-
-            <tr>
-                <th scope="col">وضعیت تسویه حساب:</th>
-                <th scope="col">{{ user.situation }}</th>
-            </tr>
-
-            <tr>
-                <th scope="col">مقدار حساب:</th>
-                {% if user.situation == "بدهکار" %}
-                    <th scope="col" style="color: red">{{ user.debt }} تومان</th>
-                {% elif user.situation == "پستانکار" %}
-                    <th scope="col" style="color: green">{{ user.debt }} تومان</th>
-
-                {% else %}
-                    <th scope="col">{{ user.debt }} تومان</th>
-                {% endif %}
-            </tr>
-
-            <tr id="submit">
-                <th scope="col">مجموع :</th>
-                <th scope="col">{{ total_salary }} تومان</th>
-            </tr>
-
-
-        </table>
-
+<div class="container mt-5" dir="rtl">
+    <!-- Header Card -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h4 class="card-title">اطلاعات مربی</h4>
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>نام مربی:</strong> {{ user.name }}
+                </div>
+                <div class="col-md-3">
+                    <strong>نوع حقوق:</strong> {{ user.salary }}
+                </div>
+                <div class="col-md-3">
+                    <strong>وضعیت تسویه:</strong> {{ user.situation }}
+                </div>
+                <div class="col-md-3">
+                    <strong>مقدار حساب:</strong>
+                    {% if user.situation == "بدهکار" %}
+                        <span class="text-danger">{{ user.debt }} تومان</span>
+                    {% elif user.situation == "بستانکار" %}
+                        <span class="text-success">{{ user.debt }} تومان</span>
+                    {% else %}
+                        {{ user.debt }} تومان
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- Statistic Cards -->
+    <div class="row text-center mb-4">
+        <div class="col-md-3">
+            <div class="card bg-light shadow">
+                <div class="card-body">
+                    <h6>تعداد دوره‌ها</h6>
+                    <h5>{{ total_courses }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-light shadow">
+                <div class="card-body">
+                    <h6>کل شاگردها</h6>
+                    <h5>{{ total_participants }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-light shadow">
+                <div class="card-body">
+                    <h6>شاگردهای موثر</h6>
+                    <h5>{{ total_participants_count }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-light shadow">
+                <div class="card-body">
+                    <h6>جلسات کنسل شده</h6>
+                    <h5>{{ total_news }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        {% for participant in calculated_participant_data %}
-            console.log('شناسه: {{ participant.id }} ، نام شرکت‌کننده: {{ participant.name }} ، مبلغ: {{ participant.price }}');
+    <!-- Salary Calculation Card -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h4 class="card-title">جزئیات حقوق</h4>
+            {% if user.salary == "ثابت" %}
+                <p>این مربی دارای حقوق ثابت است.</p>
+                <p><strong>مبلغ حقوق:</strong> {{ user.fee }} تومان</p>
+            {% else %}
+                <p>این مربی دارای حقوق درصدی است.</p>
+                <p><strong>درصد مربی:</strong> {{ user.fee }}%</p>
+                <p><strong>جمع کل شهریه شاگردهای مؤثر:</strong> {{ total_participants_fee }} تومان</p>
+                <p><strong>حقوق نهایی (درصد × مجموع):</strong> {{ total_salary }} تومان</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
-        {% endfor %}
-
-    </script>
 
 {% endblock %}
 

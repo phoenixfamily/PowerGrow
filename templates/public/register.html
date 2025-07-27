@@ -119,11 +119,11 @@
                     const name = document.getElementById('name').value.trim();
                     const username = document.getElementById('number').value.trim();
                     const birthdate = document.getElementById('birthdate').value;
-                    const pass1 = document.getElementById('password1').value;
-                    const pass2 = document.getElementById('password2').value;
+                    const password = document.getElementById('password').value;
+                    const confirmPassword = document.getElementById('confirm_password').value;
 
                     // بررسی تطابق پسوردها
-                    if (pass1 !== pass2) {
+                    if (password !== confirmPassword) {
                         alert("پسوردها یکسان نیستند");
                         return;
                     }

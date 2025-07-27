@@ -931,6 +931,64 @@ class ManagerParticipationView(viewsets.ViewSet):
             return Response({'error': 'ولیدیشن ناموفق', 'details': serializer.errors},
                             status=status.HTTP_400_BAD_REQUEST)
 
+    def update(self, request, pk=None):
+        try:
+            participant = Participants.objects.get(pk=pk)
+        except Participants.DoesNotExist:
+            return Response({'error': 'موردی با این شناسه پیدا نشد.'}, status=status.HTTP_404_NOT_FOUND)
+
+        data = request.data
+        updatable_fields = ['description', 'price', 'session', 'day', 'startDay', 'endDay', 'user', 'course']
+
+        for field in updatable_fields:
+            if field not in data:
+                continue
+
+            value = data[field]
+
+            if field == 'user':
+                user = User.objects.filter(number=value).first()
+                if not user:
+                    return Response({'error': 'کاربر نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
+                participant.user = user
+
+            elif field == 'course':
+                course = Course.objects.filter(id=value).first()
+                if not course:
+                    return Response({'error': 'دوره نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
+                participant.course = course
+
+            elif field == 'day':
+                day_obj = Days.objects.filter(id=value).first()
+                if not day_obj:
+                    return Response({'error': 'روز هفته نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
+                participant.day = day_obj
+
+            elif field == 'session':
+                session = Session.objects.filter(id=value).first()
+                if not session:
+                    return Response({'error': 'جلسه نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
+                participant.session = session
+
+            elif field == 'startDay':
+                start_day = Day.objects.filter(id=value).first()
+                if not start_day:
+                    return Response({'error': 'روز شروع نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
+                participant.startDay = start_day
+
+            elif field == 'endDay':
+                end_day = Day.objects.filter(id=value).first()
+                if not end_day:
+                    return Response({'error': 'روز پایان نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
+                participant.endDay = end_day
+
+            else:
+                setattr(participant, field, value)
+
+        participant.save()
+        serializer = self.serializer_class(participant)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def destroy(self, request, pk):
         try:
             participant = Participants.objects.get(pk=pk)

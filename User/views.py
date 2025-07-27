@@ -431,12 +431,12 @@ class UserView(viewsets.ViewSet):
 
 
 class ProfileView(viewsets.ViewSet):
-    permission_classes = [IsAuthenticated]  # برای ثبت‌نام، در ابتدا می‌توانیم AllowAny را قرار دهیم
-    serializer_class = UserProfileSerializer  # برای ثبت‌نام
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserProfileSerializer
 
-    def update(self, request):
-        user = self.request.user
-        serializer = self.serializer_class(user, data=request.data)
+    def partial_update(self, request, pk=None):  # PATCH requests
+        user = request.user
+        serializer = self.serializer_class(user, data=request.data, partial=True)
 
         if serializer.is_valid(raise_exception=True):
             serializer.save()

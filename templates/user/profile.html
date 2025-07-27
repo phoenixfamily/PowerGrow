@@ -64,7 +64,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="changePasswordForm">
-                            {% csrf_token %}
+                        {% csrf_token %}
                         <div class="mb-3">
                             <label for="currentPassword" class="form-label">رمز فعلی</label>
                             <input type="password" class="form-control" id="currentPassword" required>
@@ -107,7 +107,7 @@
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             fetch('{% url 'user:update_profile' %}', {
-                method: 'PUT',
+                method: 'PATCH',  // ⬅ تغییر از PUT به PATCH
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

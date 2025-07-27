@@ -1,9 +1,7 @@
 from django.urls import path
 from User.views import *
 
-
 app_name = 'user'
-
 
 urlpatterns = [
 
@@ -26,7 +24,7 @@ urlpatterns = [
     path('update/user/<int:user_id>/', UserView.as_view({'put': 'update'}), name='user-update'),  # حذف کاربر
     path('delete/user/<int:user_id>/', UserView.as_view({'delete': 'destroy'}), name='user-delete'),  # حذف کاربر
 
-    path('update/profile/', ProfileView.as_view({'put': 'update'}), name='update_profile'),
+    path('update/profile/', ProfileView.as_view({'patch': 'partial_update'}), name='update_profile'),
 
     path('change-password/<int:user_id>/', ChangePasswordView.as_view(), name='change-password'),
     path('profile/change-password/', ChangeProfilePasswordView.as_view(), name='change-profile-password'),

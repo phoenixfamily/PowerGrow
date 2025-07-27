@@ -64,6 +64,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="changePasswordForm">
+                            {% csrf_token %}
                         <div class="mb-3">
                             <label for="currentPassword" class="form-label">رمز فعلی</label>
                             <input type="password" class="form-control" id="currentPassword" required>

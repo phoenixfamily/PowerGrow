@@ -112,33 +112,6 @@
 
         document.addEventListener('DOMContentLoaded', () => {
 
-            const toggleCurrentPassword = document.getElementById("togglePassword");
-            const newTogglePassword = document.getElementById("newTogglePassword");
-            const confirmNewTogglePassword = document.getElementById("confirmNewTogglePassword");
-
-
-            toggleCurrentPassword.addEventListener("click", () => {
-                const passwordField = document.getElementById("currentPassword");
-                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
-                passwordField.setAttribute("type", type);
-                toggleCurrentPassword.classList.toggle("fa-eye-slash");
-            });
-
-            newTogglePassword.addEventListener("click", () => {
-                const passwordField = document.getElementById("newPassword");
-                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
-                passwordField.setAttribute("type", type);
-                newTogglePassword.classList.toggle("fa-eye-slash");
-            });
-
-
-              confirmNewTogglePassword.addEventListener("click", () => {
-                const passwordField = document.getElementById("confirmPassword");
-                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
-                passwordField.setAttribute("type", type);
-                confirmNewTogglePassword.classList.toggle("fa-eye-slash");
-            });
-
             document.getElementById('profileForm').addEventListener('submit', function (event) {
                 event.preventDefault();
 
@@ -183,41 +156,72 @@
 
     <script>
 
-        document.getElementById('changePasswordButton').addEventListener('click', function () {
-            const oldPassword = document.getElementById('currentPassword').value;
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+        document.addEventListener('DOMContentLoaded', () => {
 
-            if (newPassword !== confirmPassword) {
-                alert('پسورد جدید و تأیید پسورد جدید مطابقت ندارد.');
-                return;
-            }
+            const toggleCurrentPassword = document.getElementById("togglePassword");
+            const newTogglePassword = document.getElementById("newTogglePassword");
+            const confirmNewTogglePassword = document.getElementById("confirmNewTogglePassword");
 
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-            fetch('{% url 'user:change-profile-password' %}', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken,
-                },
-                body: JSON.stringify({old_password: oldPassword, new_password: newPassword})
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert('پسورد با موفقیت تفییر کرد.');
-                        window.location.reload()
-                    } else {
-                        return response.json().then(errorData => {
-                            alert('خطا: ' + JSON.stringify(errorData));
-                        });
-                    }
+            toggleCurrentPassword.addEventListener("click", () => {
+                const passwordField = document.getElementById("currentPassword");
+                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+                passwordField.setAttribute("type", type);
+                toggleCurrentPassword.classList.toggle("fa-eye-slash");
+            });
+
+            newTogglePassword.addEventListener("click", () => {
+                const passwordField = document.getElementById("newPassword");
+                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+                passwordField.setAttribute("type", type);
+                newTogglePassword.classList.toggle("fa-eye-slash");
+            });
+
+
+            confirmNewTogglePassword.addEventListener("click", () => {
+                const passwordField = document.getElementById("confirmPassword");
+                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+                passwordField.setAttribute("type", type);
+                confirmNewTogglePassword.classList.toggle("fa-eye-slash");
+            });
+
+            document.getElementById('changePasswordButton').addEventListener('click', function () {
+                const oldPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                if (newPassword !== confirmPassword) {
+                    alert('پسورد جدید و تأیید پسورد جدید مطابقت ندارد.');
+                    return;
+                }
+
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+                fetch('{% url 'user:change-profile-password' %}', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,
+                    },
+                    body: JSON.stringify({old_password: oldPassword, new_password: newPassword})
                 })
-                .catch(error => {
-                    console.error('Error changing password:', error);
-                    alert('خطا در تغییر پسورد.');
-                });
+                    .then(response => {
+                        if (response.ok) {
+                            alert('پسورد با موفقیت تفییر کرد.');
+                            window.location.reload()
+                        } else {
+                            return response.json().then(errorData => {
+                                alert('خطا: ' + JSON.stringify(errorData));
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error changing password:', error);
+                        alert('خطا در تغییر پسورد.');
+                    });
+            });
         });
+
 
     </script>
 

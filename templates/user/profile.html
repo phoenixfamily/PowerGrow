@@ -17,6 +17,7 @@
             <div class="profile-card bg-white shadow rounded p-4 mx-auto" style="max-width: 700px;">
                 <h3 class="fw-bold mb-4 text-center">پروفایل کاربری</h3>
                 <form id="profileForm" class="row g-3">
+                    {% csrf_token %}
                     <div class="col-md-6">
                         <label for="username" class="form-label">شماره موبایل</label>
                         <input type="tel" class="form-control" id="username" value="{{ user.number }}" disabled>
@@ -104,7 +105,7 @@
             };
 
 
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
             fetch('{% url 'user:update_profile' %}', {
                 method: 'PATCH',  // ⬅ تغییر از PUT به PATCH
@@ -112,6 +113,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
                 },
+
                 body: JSON.stringify(userData)
             })
                 .then(response => {

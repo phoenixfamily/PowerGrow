@@ -12,86 +12,89 @@
 
 {% block content %}
 
-<section class="py-5">
-  <div class="container">
-    <div class="profile-card bg-white shadow rounded p-4 mx-auto" style="max-width: 700px;">
-      <h3 class="fw-bold mb-4 text-center">پروفایل کاربری</h3>
-      <form id="profileForm" class="row g-3">
-        <div class="col-md-6">
-          <label for="username" class="form-label">شماره موبایل</label>
-          <input type="tel" class="form-control" id="username" value="{{ user.number }}" disabled>
-        </div>
-        <div class="col-md-6">
-          <label for="fullname" class="form-label">نام و نام خانوادگی</label>
-          <input type="text" class="form-control" id="fullname" value="{{ user.name }}">
-        </div>
-        <div class="col-md-6">
-          <label for="birthdate" class="form-label">تاریخ تولد</label>
-          <input type="text" class="form-control" id="birthdate" value="{{ user.birthdate }}" data-jdp>
-        </div>
-        <div class="col-md-6">
-          <label for="email" class="form-label">ایمیل</label>
-          <input type="email" class="form-control" id="email" value="{{ user.email }}">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">وضعیت حساب</label>
-          <input type="text" class="form-control" value="{{ user.situation }}" disabled>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">مقدار حساب</label>
-          <input type="text" class="form-control" value="{{ user.debt }} تومان" disabled>
-        </div>
+    <section class="py-5">
+        <div class="container">
+            <div class="profile-card bg-white shadow rounded p-4 mx-auto" style="max-width: 700px;">
+                <h3 class="fw-bold mb-4 text-center">پروفایل کاربری</h3>
+                <form id="profileForm" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="username" class="form-label">شماره موبایل</label>
+                        <input type="tel" class="form-control" id="username" value="{{ user.number }}" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="fullname" class="form-label">نام و نام خانوادگی</label>
+                        <input type="text" class="form-control" id="fullname" value="{{ user.name }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="birthdate" class="form-label">تاریخ تولد</label>
+                        <input type="text" class="form-control" id="birthdate" value="{{ user.birthdate }}" data-jdp>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">ایمیل</label>
+                        <input type="email" class="form-control" id="email" value="{{ user.email }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">وضعیت حساب</label>
+                        <input type="text" class="form-control" value="{{ user.situation }}" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">مقدار حساب</label>
+                        <input type="text" class="form-control" value="{{ user.debt }} تومان" disabled>
+                    </div>
 
-        <div class="col-12 d-flex justify-content-between">
-          <button type="submit" class="btn btn-cta">ثبت تغییرات</button>
-          <button type="button" class="btn btn-cta" data-bs-toggle="modal" data-bs-target="#changePasswordModal">تغییر رمز عبور</button>
+                    <div class="col-12 d-flex justify-content-between">
+                        <button type="submit" class="btn btn-cta">ثبت تغییرات</button>
+                        <button type="button" class="btn btn-cta" data-bs-toggle="modal"
+                                data-bs-target="#changePasswordModal">تغییر رمز عبور
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </form>
+    </section>
+
+    <!-- Modal تغییر رمز عبور -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">تغییر رمز عبور</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="changePasswordForm">
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">رمز فعلی</label>
+                            <input type="password" class="form-control" id="currentPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">رمز جدید</label>
+                            <input type="password" class="form-control" id="newPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">تکرار رمز جدید</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                    <button id="changePasswordButton" type="button" class="btn custom-btn">تأیید تغییر</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</section>
-
-<!-- Modal تغییر رمز عبور -->
-<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content rounded shadow">
-      <div class="modal-header">
-        <h5 class="modal-title" id="changePasswordModalLabel">تغییر رمز عبور</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
-      </div>
-      <div class="modal-body">
-        <form id="changePasswordForm">
-          <div class="mb-3">
-            <label for="currentPassword" class="form-label">رمز فعلی</label>
-            <input type="password" class="form-control" id="currentPassword" required>
-          </div>
-          <div class="mb-3">
-            <label for="newPassword" class="form-label">رمز جدید</label>
-            <input type="password" class="form-control" id="newPassword" required>
-          </div>
-          <div class="mb-3">
-            <label for="confirmPassword" class="form-label">تکرار رمز جدید</label>
-            <input type="password" class="form-control" id="confirmPassword" required>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
-        <button id="changePasswordButton" type="button" class="btn custom-btn">تأیید تغییر</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
-<script>
+    <script>
 
-     jalaliDatepicker.startWatch({
-        time: false,
-    });
+        jalaliDatepicker.startWatch({
+            time: false,
+        });
 
-    document.getElementById('profileForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+        document.getElementById('profileForm').addEventListener('submit', function (event) {
+            event.preventDefault();
 
             const userData = {
                 birthdate: document.getElementById('birthdate').value,
@@ -110,26 +113,26 @@
                 },
                 body: JSON.stringify(userData)
             })
-            .then(response => {
-                if (response.ok) {
-                window.location.reload()
-            } else {
-                return response.json().then(errorData => {
-                    alert('خطا: ' + JSON.stringify(errorData));
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload()
+                    } else {
+                        return response.json().then(errorData => {
+                            alert('خطا: ' + JSON.stringify(errorData));
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating profile:', error);
+                    alert('خطا در به‌روزرسانی اطلاعات.');
                 });
-            }
-            })
-            .catch(error => {
-                console.error('Error updating profile:', error);
-                alert('خطا در به‌روزرسانی اطلاعات.');
-            });
         });
 
-</script>
+    </script>
 
-<script>
+    <script>
 
-      document.getElementById('changePasswordButton').addEventListener('click', function() {
+        document.getElementById('changePasswordButton').addEventListener('click', function () {
             const oldPassword = document.getElementById('currentPassword').value;
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
@@ -139,7 +142,7 @@
                 return;
             }
 
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
             fetch('{% url 'user:change-profile-password' %}', {
                 method: 'PUT',
@@ -147,25 +150,25 @@
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
                 },
-                body: JSON.stringify({ old_password: oldPassword, new_password: newPassword })
+                body: JSON.stringify({old_password: oldPassword, new_password: newPassword})
             })
                 .then(response => {
                     if (response.ok) {
                         alert('پسورد با موفقیت تفییر کرد.');
                         window.location.reload()
-            } else {
-                return response.json().then(errorData => {
-                    alert('خطا: ' + JSON.stringify(errorData));
+                    } else {
+                        return response.json().then(errorData => {
+                            alert('خطا: ' + JSON.stringify(errorData));
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error changing password:', error);
+                    alert('خطا در تغییر پسورد.');
                 });
-            }
-            })
-            .catch(error => {
-                console.error('Error changing password:', error);
-                alert('خطا در تغییر پسورد.');
-            });
         });
 
-</script>
+    </script>
 
 {% endblock %}
 </body>

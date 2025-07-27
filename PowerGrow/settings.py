@@ -61,7 +61,7 @@ META_USE_SCHEMAORG_PROPERTIES = True
 
 CSRF_TRUSTED_ORIGINS = ["https://powergrow.ir", "https://www.powergrow.ir"]
 
-
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20971520  # 20 MB
 
 ALLOWED_HOSTS = [
     '127.0.0.1',

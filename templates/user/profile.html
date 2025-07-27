@@ -118,6 +118,7 @@
             })
                 .then(response => {
                     if (response.ok) {
+                        alert('پروفایل با موفقیت بروزرسانی شد');
                         window.location.reload()
                     } else {
                         return response.json().then(errorData => {

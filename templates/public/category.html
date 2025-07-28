@@ -37,11 +37,21 @@
 {% block content %}
     <section class="py-5">
         <div class="container">
+
+            <div class="row mb-4">
+                <div class="col-md-6 offset-md-3">
+                    <input type="text" id="courseSearch" class="form-control text-center"
+                           placeholder="جستجو در دوره‌ها یا نام مربی...">
+                </div>
+            </div>
+
+
             <h2 class="fw-bold mb-4 text-center">دوره های {{ sport.title }}</h2>
             <div class="row g-4">
                 {% for course in courses %}
                     <div class="col-md-6 col-lg-4">
-                        <div class="card shadow rounded overflow-hidden">
+                        <div class="card shadow rounded overflow-hidden" data-title="{{ course.title }}"
+                             data-name="{{ course.name }}">
                             {% if course.image %}
                                 <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
                             {% else %}
@@ -107,4 +117,25 @@
             </div>
         </div>
     </section>
+
+
+    <script>
+        document.getElementById('courseSearch').addEventListener('input', function () {
+            const query = this.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.card[data-title]');
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                const name = card.getAttribute('data-name').toLowerCase();
+
+                if (title.includes(query) || name.includes(query)) {
+                    card.parentElement.style.display = 'block'; // col-md-6 col-lg-4
+                } else {
+                    card.parentElement.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
 {% endblock %}
+</body>

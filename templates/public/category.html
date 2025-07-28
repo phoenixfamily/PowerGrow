@@ -47,8 +47,10 @@
             <div class="row g-4">
                 {% for course in courses %}
                     <div class="col-md-6 col-lg-4">
-                        <div class="card shadow rounded overflow-hidden" data-title="{{ course.title }}"
-                             data-name="{{ course.name }}">
+                        <div class="card shadow rounded overflow-hidden"
+                             data-title="{{ course.title }}"
+                             data-name="{{ course.name }}"
+                             data-time="{{ course.time }}">
                             {% if course.image %}
                                 <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
                             {% else %}
@@ -124,15 +126,15 @@
             cards.forEach(card => {
                 const title = card.getAttribute('data-title').toLowerCase();
                 const name = card.getAttribute('data-name').toLowerCase();
+                const time = card.getAttribute('data-time').toLowerCase();
 
-                if (title.includes(query) || name.includes(query)) {
-                    card.parentElement.style.display = 'block'; // col-md-6 col-lg-4
-                } else {
-                    card.parentElement.style.display = 'none';
-                }
+                const match = title.includes(query) || name.includes(query) || time.includes(query);
+
+                card.parentElement.style.display = match ? 'block' : 'none'; // col-...
             });
         });
     </script>
+
 
 {% endblock %}
 </body>

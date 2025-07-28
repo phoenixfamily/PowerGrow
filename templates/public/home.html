@@ -70,9 +70,6 @@
         </div>
     </section>
 
-    <!-- لینک CSS Swiper -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
-
     <section class="swiper-section py-5">
         <div class="container-fluid px-lg-5">
             <h2 class="mb-4 text-center fw-bold">دوره‌های منتخب</h2>
@@ -84,7 +81,7 @@
                         <div class="swiper-slide">
                             <div class="card shadow rounded overflow-hidden">
                                 {% if x.image %}
-                                    <img src="{{ x.image }}" class="card-img-top" alt="{{ x.title }}">
+                                    <img src="{{ x.image.url }}" class="card-img-top" alt="{{ x.title }}">
                                 {% else %}
                                     <img src="{% static 'images/hero.png' %}" class="card-img-top" alt="تصویر پیش‌فرض">
                                 {% endif %}
@@ -153,8 +150,6 @@
         </div>
     </section>
 
-    <!-- لینک JS Swiper -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
     <script>
         const swiper = new Swiper(".mySwiper", {

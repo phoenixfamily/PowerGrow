@@ -84,7 +84,7 @@
                         <div class="swiper-slide">
                             <div class="card shadow rounded overflow-hidden">
                                 {% if x.image %}
-                                    <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                                    <img src="{{ x.image.url }}" class="card-img-top" alt="{{ course.title }}">
                                 {% else %}
                                     <img src="{% static 'images/hero.png' %}" class="card-img-top" alt="تصویر پیش‌فرض">
                                 {% endif %}

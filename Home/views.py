@@ -30,3 +30,9 @@ def home_view(request):
 
     }
     return HttpResponse(template.render(context, request))
+
+
+class SliderViewSet(viewsets.ModelViewSet):
+    queryset = Slider.objects.all().order_by('-datetime')
+    serializer_class = SliderSerializer
+    permission_classes = [IsAdminUserOrStaff]

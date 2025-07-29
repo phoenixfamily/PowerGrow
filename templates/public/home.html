@@ -59,10 +59,40 @@
                     </div>
                 </div>
 
-                <!-- عکس سمت چپ -->
+                <!-- اسلایدر سمت چپ -->
                 <div class="col-lg-6 d-flex">
-                    <div class="img-wrapper w-100 d-flex align-items-center justify-content-center">
-                        <img src="{% static 'images/hero.png' %}" alt="باشگاه بانوان" class="img-fluid rounded shadow">
+                    <div class="w-100">
+                        {% if images %}
+                            <div id="sliderCarousel" class="carousel slide shadow rounded overflow-hidden mb-4"
+                                 data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    {% for slide in images %}
+                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                            <img src="{{ slide.image.url }}" class="d-block w-100"
+                                                 alt="{{ slide.title }}">
+                                            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+                                                {% if slide.title %}
+                                                    <h5 class="text-white">{{ slide.title }}</h5>{% endif %}
+                                                {% if slide.description %}
+                                                    <p class="text-white">{{ slide.description }}</p>{% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#sliderCarousel"
+                                        data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-2"
+                                          aria-hidden="true"></span>
+                                    <span class="visually-hidden">قبلی</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#sliderCarousel"
+                                        data-bs-slide="next">
+                                    <span class="carousel-control-next-icon bg-dark rounded-circle p-2"
+                                          aria-hidden="true"></span>
+                                    <span class="visually-hidden">بعدی</span>
+                                </button>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 

@@ -35,7 +35,7 @@
 
     <section class="hero-split py-5">
         <div class="container-fluid px-lg-5">
-            <div class="row g-5 align-items-stretch">
+            <div class="row g-5 align-items-stretch h-100">
 
                 <!-- متن سمت راست -->
                 <div class="col-lg-6 d-flex">
@@ -63,8 +63,10 @@
                 <div class="col-lg-6 d-flex">
                     <div class="w-100">
                         {% if images %}
-                            <div id="sliderCarousel" class="carousel slide shadow rounded overflow-hidden mb-4"
+                            <div id="sliderCarousel"
+                                 class="carousel slide hero-carousel shadow rounded overflow-hidden mb-4"
                                  data-bs-ride="carousel">
+                                data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     {% for slide in images %}
                                         <div class="carousel-item {% if forloop.first %}active{% endif %}">

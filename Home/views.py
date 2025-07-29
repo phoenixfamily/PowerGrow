@@ -12,7 +12,7 @@ from PowerGrow.permissions import *
 @cache_page(60 * 15)
 @csrf_exempt
 def home_view(request):
-    images = Slider.objects.all().order_by("datetime").values()
+    images = Slider.objects.all().order_by("datetime")
     selected = Course.objects.filter(selected=True, active=True).order_by("datetime")
 
     day = Days.objects.filter(off__gt=0).order_by('pk').values_list('session__course__id', flat=True)[:6]

@@ -95,17 +95,6 @@
                                         </div>
                                         <hr class="my-0"/>
                                         <div class="card-body">
-                                            {% if x.previous %}
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="pre-register">
-                                                        پیش ثبت ‌نام
-                                                    </span>
-                                                    <button class="btn btn-cta btn-sm"
-                                                            onclick="location.assign('{% url 'product:product_view' course.id %}')">
-                                                        ثبت نام
-                                                    </button>
-                                                </div>
-                                            {% else %}
                                                 <div class="d-flex justify-content-end">
                                                     <button class="btn btn-cta btn-sm"
                                                             onclick="location.assign('{% url 'product:product_view' course.id %}')">

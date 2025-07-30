@@ -47,6 +47,9 @@
             <div class="row g-4">
                 {% for course in courses %}
                     <div class="col-md-6 col-lg-4">
+                        {% if course.previous %}
+                            <div class="ribbon"><span>پیش ثبت ‌نام</span></div>
+                        {% endif %}
                         <div class="card shadow rounded overflow-hidden"
                              data-title="{{ course.title }}"
                              data-name="{{ course.name }}"

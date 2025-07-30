@@ -65,7 +65,7 @@
                         {% if images %}
                             <div id="sliderCarousel"
                                  class="carousel slide hero-carousel shadow rounded overflow-hidden mb-4"
-                                data-bs-ride="carousel">
+                                 data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     {% for slide in images %}
                                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
@@ -110,6 +110,9 @@
                 <div class="swiper-wrapper">
                     {% for x in selected %}
                         <div class="swiper-slide">
+                            {% if x.previous %}
+                                <div class="ribbon"><span>پیش ثبت ‌نام</span></div>
+                            {% endif %}
                             <div class="card shadow rounded overflow-hidden">
                                 {% if x.image %}
                                     <img src="{{ x.image.url }}" class="card-img-top" alt="{{ x.title }}">

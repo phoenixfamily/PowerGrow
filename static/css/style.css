@@ -828,3 +828,29 @@ table i:hover {
 .panel-form-h4 {
     color: var(--primary-light);
 }
+
+.ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    z-index: 10;
+}
+
+.ribbon span {
+    position: absolute;
+    display: block;
+    width: 200px;
+    padding: 5px 0;
+    background: #28a745;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    transform: rotate(45deg);
+    top: 30px;
+    right: -50px;
+    font-size: 0.8rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}

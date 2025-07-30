@@ -113,10 +113,10 @@
 
                 <!-- عکس سمت چپ -->
                 <div class="col-lg-6 d-flex">
-                    {% if course.previous %}
-                        <div class="ribbon"><span>پیش ثبت‌نام</span></div>
-                    {% endif %}
                     <div class="img-wrapper w-100 d-flex align-items-center justify-content-center">
+                        {% if product.previous %}
+                            <div class="ribbon"><span>پیش ثبت‌نام</span></div>
+                        {% endif %}
                         {% if product.image %}
                             <img src="{{ product.image.url }}" alt="باشگاه بانوان" class="img-fluid rounded shadow">
                         {% else %}

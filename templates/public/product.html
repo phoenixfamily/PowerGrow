@@ -226,16 +226,16 @@
 
 
     <script>
-            let sessionId = 0;
-            let dayId = 0;
+        let sessionId = 0;
+        let dayId = 0;
 
-            // همه روزها رو اول مخفی می‌کنیم
-            document.querySelectorAll('.day-btn').forEach(day => {
+        // همه روزها رو اول مخفی می‌کنیم
+        document.querySelectorAll('.day-btn').forEach(day => {
             day.style.display = 'none';
         });
 
-            // لیسنر کلیک روی روزها
-            document.querySelectorAll('.day-btn').forEach(day => {
+        // لیسنر کلیک روی روزها
+        document.querySelectorAll('.day-btn').forEach(day => {
             day.addEventListener('click', () => {
                 document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
                 day.classList.add('active');
@@ -244,8 +244,8 @@
             });
         });
 
-            // لیسنر کلیک روی جلسات
-            document.querySelectorAll('.session-btn').forEach(btn => {
+        // لیسنر کلیک روی جلسات
+        document.querySelectorAll('.session-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 // تغییر استایل انتخاب جلسه
                 document.querySelectorAll('.session-btn').forEach(b => b.classList.remove('active'));
@@ -358,18 +358,17 @@
             });
 
             function registerUser() {
-                if (sessionId !== 0 && dayId !== 0) {
-                    window.location.assign(`/product/payment/${course}/${sessionId}/${dayId}/${currentDayId}`)
-                } else if (sessionId === 0) {
-                    alert("لطفا تعداد جلسات در ماه انتخاب کنید")
+                if (sessionId === 0) {
+                    alert("لطفا تعداد جلسات در ماه انتخاب کنید");
                 } else if (dayId === 0) {
-                    alert("لطفا روز های برگزاری در هفته را انتخاب کنید")
+                    alert("لطفا روز های برگزاری در هفته را انتخاب کنید");
                 } else if (currentDayId === null) {
-                    alert("لطفا تاریخ شروع دوره رو انتخاب کنید")
+                    alert("لطفا تاریخ شروع دوره رو انتخاب کنید");
                 } else {
-                    alert("تمامی موارد الزامی است")
+                    window.location.assign(`/product/payment/${course}/${sessionId}/${dayId}/${currentDayId}`);
                 }
             }
+
         });
 
     </script>

@@ -94,8 +94,8 @@
                             <div class="d-flex gap-3 align-items-start">
                                 <i class="fa fa-users fa-2x"></i>
                                 <div>
-                                    <h5 class="mb-1">ظرفیت باقی‌مانده</h5>
-                                    <p class="mb-0 small text-white ">3 نفر</p>
+                                    <h5 class="mb-1">ظرفیت دوره</h5>
+                                    <p class="mb-0 small text-white ">{{ product.capacity }}</p>
                                 </div>
                             </div>
 
@@ -145,18 +145,6 @@
                     <div class="course-schedule-form bg-white p-4 rounded shadow-sm h-100">
                         <h4 class="fw-bold mb-4">ثبت نام دوره</h4>
 
-                        <!-- انتخاب روزهای هفته -->
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">روزهای برگزاری:</label>
-                            <div class="d-flex flex-wrap gap-2">
-                                {% for x in days %}
-                                    <button type="button" class="btn day-btn rounded-pill px-3"
-                                            data-id="{{ x.id }}">{{ x.title }}</button>
-
-                                {% endfor %}
-                            </div>
-                        </div>
-
                         <!-- تعداد جلسات -->
                         <div class="mb-3">
                             <label class="form-label fw-bold">تعداد جلسات در ماه:</label>
@@ -165,6 +153,18 @@
                                     <button type="button" class="btn session-btn rounded-pill px-3"
                                             data-id="{{ x.id }}">{{ x.number }} جلسه
                                     </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- انتخاب روزهای هفته -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">روزهای برگزاری:</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% for x in days %}
+                                    <button type="button" class="btn day-btn rounded-pill px-3"
+                                            data-id="{{ x.id }}" data-session-id=" {{ x.session.id }}">{{ x.title }}</button>
+
                                 {% endfor %}
                             </div>
                         </div>
@@ -227,6 +227,7 @@
         let currentDayId = 0;
 
         document.querySelectorAll('.day-btn').forEach(btn => {
+            btn.style.display = 'none';
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
@@ -239,12 +240,33 @@
                 document.querySelectorAll('.session-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 sessionId = btn.getAttribute("data-id");  // ✅ اینم برای جلسه
+
+                document.querySelectorAll('.day-btn').forEach(day => {
+                    if (day.getAttribute('data-session-id') === sessionId) {
+                        day.style.display = 'inline-block';
+                    } else {
+                        day.style.display = 'none';
+                    }
+                });
             });
         });
 
 
     </script>
 
+
+    <script>
+
+
+        // وقتی جلسه انتخاب شد
+        document.querySelectorAll('.session-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                let sessionId = btn.getAttribute('data-id');
+
+            });
+        });
+
+    </script>
 
 
     <script>

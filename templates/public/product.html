@@ -242,21 +242,20 @@
 
                 // نمایش روزهای مرتبط
                 document.querySelectorAll('.day-btn').forEach(day => {
+                    day.style.display = 'none';
                     if (day.getAttribute('data-session-id') === sessionId) {
                         day.style.display = 'inline-block';
                     } else {
                         day.style.display = 'none';
                     }
-                });
-            });
-        });
 
-          document.querySelectorAll('.day-btn').forEach(btn => {
-            btn.style.display = 'none';
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                dayId = btn.getAttribute("data-id");  // ✅ اینجوری ID رو می‌گیری
+                    day.addEventListener('click', () => {
+                        document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+                        day.classList.add('active');
+                        dayId = day.getAttribute("data-id");  // ✅ اینجوری ID رو می‌گیری
+                    });
+
+                });
             });
         });
 
@@ -360,7 +359,7 @@
                     alert("لطفا تعداد جلسات در ماه انتخاب کنید")
                 } else if (dayId === 0) {
                     alert("لطفا روز های برگزاری در هفته را انتخاب کنید")
-                } else if (currentDayId === 0) {
+                } else if (currentDayId === null) {
                     alert("لطفا تاریخ شروع دوره رو انتخاب کنید")
                 } else {
                     alert("تمامی موارد الزامی است")

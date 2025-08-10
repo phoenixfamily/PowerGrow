@@ -165,7 +165,7 @@
                                     <button
                                             type="button"
                                             class="btn day-btn rounded-pill px-3"
-                                            data-id="{{ x.id }}"
+                                            data-id="{{ day.id }}"
                                             data-session-id="{{ day.session.id }}">
                                         {{ day.title }}
                                     </button>
@@ -226,39 +226,44 @@
 
 
     <script>
+            let sessionId = 0;
+            let dayId = 0;
 
-        let sessionId = 0;
-        let dayId = 0;
+            // همه روزها رو اول مخفی می‌کنیم
+            document.querySelectorAll('.day-btn').forEach(day => {
+            day.style.display = 'none';
+        });
 
-        document.querySelectorAll('.session-btn').forEach(btn => {
+            // لیسنر کلیک روی روزها
+            document.querySelectorAll('.day-btn').forEach(day => {
+            day.addEventListener('click', () => {
+                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+                day.classList.add('active');
+                dayId = day.getAttribute("data-id");
+                console.log("انتخاب شد روز با ID:", dayId);
+            });
+        });
+
+            // لیسنر کلیک روی جلسات
+            document.querySelectorAll('.session-btn').forEach(btn => {
             btn.addEventListener('click', () => {
+                // تغییر استایل انتخاب جلسه
                 document.querySelectorAll('.session-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 sessionId = btn.getAttribute("data-id");
 
-                // روزهای قبلی رو ریست کن
+                // ریست انتخاب روز
                 dayId = 0;
                 document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
 
-                // نمایش روزهای مرتبط
+                // نمایش روزهای مرتبط با جلسه انتخاب‌شده
                 document.querySelectorAll('.day-btn').forEach(day => {
-                    day.style.display = 'none';
-                    if (day.getAttribute('data-session-id') === sessionId) {
-                        day.style.display = 'inline-block';
-                    } else {
-                        day.style.display = 'none';
-                    }
-
-                    day.addEventListener('click', () => {
-                        document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-                        day.classList.add('active');
-                        dayId = day.getAttribute("data-id");  // ✅ اینجوری ID رو می‌گیری
-                    });
-
+                    day.style.display = (day.getAttribute('data-session-id') === sessionId)
+                        ? 'inline-block'
+                        : 'none';
                 });
             });
         });
-
 
     </script>
 

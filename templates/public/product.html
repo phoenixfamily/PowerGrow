@@ -251,6 +251,15 @@
             });
         });
 
+          document.querySelectorAll('.day-btn').forEach(btn => {
+            btn.style.display = 'none';
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                dayId = btn.getAttribute("data-id");  // ✅ اینجوری ID رو می‌گیری
+            });
+        });
+
 
     </script>
 

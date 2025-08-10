@@ -90,11 +90,37 @@
                 </div>
             </div>
 
-            <div class="text-center mt-4">
-                <button id="registerButton" type="submit" class="btn btn-success px-5 py-2 fw-bold">
-                    ثبت نهایی و پرداخت
-                </button>
+            <div class="mt-4">
+                <div class="border p-3 mb-3"
+                     style="max-height: 200px; overflow-y: auto; text-align: right; font-size: 14px;">
+                    <p>• ثبت نام و پرداخت هزینه در مجموعه ورزشی حجاب به معنای قبول کردن تمامی قوانین و مقررات این مجموعه
+                        است.</p>
+                    <p>• از پذیرش والدین داخل کلاس ها معذوریم.</p>
+                    <p>• بیمه ورزشی برای افراد الزامی است و مجموعه هیچ‌گونه مسئولیتی در این خصوص بر عهده ندارد.</p>
+                    <p>• در بیمه ورزشی اسم مجموعه حجاب شمال غرب انتخاب شود.</p>
+                    <p>• موقع ثبت نام در انتخاب تعداد جلسات دقت فرمایید قابل تغییر نیست: ۸ جلسه‌ای (دو روز در هفته) و ۱۲
+                        جلسه‌ای (۳ روز در هفته).</p>
+                    <p>• در ۸ جلسه‌ای حتما باید مشخص فرمایید کدام دو روز هفته از آن کلاس را تشریف می‌آورید.</p>
+                    <p>• کنسل کردن بعد از گذشت ۲ جلسه از کلاس امکان‌پذیر نیست و هزینه عودت داده نمی‌شود.</p>
+                    <p>• کنسل کردن و عودت وجه طبق شرایطی که مجموعه اعلام می‌کند با کسر تک جلسه‌ای و کسر مالیات تا چند
+                        ساعت قبل از شروع جلسه سوم محاسبه می‌گردد و امکان‌پذیر است.</p>
+                    <p>• پرداخت عودت وجه فقط با پر کردن فرم آن هست و مبلغ طی ۷ تا ۱۰ روز کاری واریز خواهد شد.</p>
+                </div>
+
+                <div class="form-check text-end mb-4">
+                    <input class="form-check-input" type="checkbox" id="acceptRules">
+                    <label class="form-check-label" for="acceptRules">
+                        قوانین فوق را خوانده و قبول دارم
+                    </label>
+                </div>
+
+                <div class="text-center">
+                    <button id="registerButton" type="submit" class="btn btn-success px-5 py-2 fw-bold">
+                        ثبت نهایی و پرداخت
+                    </button>
+                </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -109,6 +135,8 @@
     let start = "{{ start.id }}";
     let final = document.getElementById("final");
     const registerButton = document.getElementById("registerButton");
+    const acceptRules = document.getElementById("acceptRules");
+
 
     let final_price = (parseInt(price) - (parseInt(off) / 100 * parseInt(price)));
     final.innerHTML = final_price + " تومان";
@@ -122,6 +150,11 @@
     }
 
     async function register() {
+
+        if (!acceptRules.checked) {
+            alert("لطفا قوانین را خوانده و تایید کنید.");
+            return;
+        }
         // چک کردن وجود عنصر final
         if (!final) {
             console.error("Final element not found.");

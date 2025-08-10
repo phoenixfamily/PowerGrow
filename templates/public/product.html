@@ -160,14 +160,19 @@
                         <!-- انتخاب روزهای هفته -->
                         <div class="mb-3">
                             <label class="form-label fw-bold">روزهای برگزاری:</label>
-                            <div class="d-flex flex-wrap gap-2">
-                                {% for x in days %}
-                                    <button type="button" class="btn day-btn rounded-pill px-3"
-                                            data-id="{{ x.id }}" data-session-id=" {{ x.session.id }}">{{ x.title }}</button>
-
+                            <div id="days-container" class="d-flex flex-wrap gap-2">
+                                {% for day in days %}
+                                    <button
+                                            type="button"
+                                            class="btn day-btn rounded-pill px-3 d-none"
+                                            data-id="{{ x.id }}"
+                                            data-session-id="{{ day.session.id }}">
+                                        {{ day.title }}
+                                    </button>
                                 {% endfor %}
                             </div>
                         </div>
+
 
                         <!-- تاریخ شروع -->
                         <div class="mb-3">
@@ -224,23 +229,18 @@
 
         let sessionId = 0;
         let dayId = 0;
-        let currentDayId = 0;
-
-        document.querySelectorAll('.day-btn').forEach(btn => {
-            btn.style.display = 'none';
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                dayId = btn.getAttribute("data-id");  // ✅ اینجوری ID رو می‌گیری
-            });
-        });
 
         document.querySelectorAll('.session-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.session-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                sessionId = btn.getAttribute("data-id");  // ✅ اینم برای جلسه
+                sessionId = btn.getAttribute("data-id");
 
+                // روزهای قبلی رو ریست کن
+                dayId = 0;
+                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+
+                // نمایش روزهای مرتبط
                 document.querySelectorAll('.day-btn').forEach(day => {
                     if (day.getAttribute('data-session-id') === sessionId) {
                         day.style.display = 'inline-block';
@@ -256,22 +256,10 @@
 
 
     <script>
-
-
-        // وقتی جلسه انتخاب شد
-        document.querySelectorAll('.session-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                let sessionId = btn.getAttribute('data-id');
-
-            });
-        });
-
-    </script>
-
-
-    <script>
         const apiBase = '/calendar'; // فرض کن آدرس API اینه
         let currentMonthId = null;
+        let currentDayId = null;
+
 
         function loadMonth(monthId) {
             fetch(`${apiBase}/months/${monthId}/`)

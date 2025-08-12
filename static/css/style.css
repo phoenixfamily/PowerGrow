@@ -830,8 +830,8 @@ table i:hover {
 }
 
 .ribbon {
-    width: 120px;
-    height: 120px;
+    width: 90px;
+    height: 90px;
     overflow: hidden;
     position: absolute;
     top: 0;
@@ -842,17 +842,17 @@ table i:hover {
 .ribbon span {
     position: absolute;
     display: block;
-    width: 170px;
-    padding: 8px 0;
-    background: inherit; /* رنگ از کلاس bg-success یا bg-danger بیاد */
+    width: 130px;
+    padding: 6px 0;
+    background: inherit; /* رنگ از bg-success یا bg-danger */
     color: #fff;
     font-weight: bold;
     text-align: center;
-    font-size: 0.85rem;
-    line-height: 1.2;
+    font-size: 0.75rem;
     transform: rotate(45deg);
     transform-origin: center;
-    top: 25px;
-    right: -45px;
+    top: 15px;
+    right: -35px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }
+

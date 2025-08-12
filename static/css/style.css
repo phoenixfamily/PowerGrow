@@ -830,26 +830,29 @@ table i:hover {
 }
 
 .ribbon {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     overflow: hidden;
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: 0;
+    right: 0;
     z-index: 10;
 }
 
 .ribbon span {
     position: absolute;
     display: block;
-    width: 200px;
-    padding: 5px 0;
-    color: white;
+    width: 170px;
+    padding: 8px 0;
+    background: inherit; /* رنگ از کلاس bg-success یا bg-danger بیاد */
+    color: #fff;
     font-weight: bold;
     text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.2;
     transform: rotate(45deg);
-    top: 30px;
-    right: -50px;
-    font-size: 0.8rem;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform-origin: center;
+    top: 25px;
+    right: -45px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }

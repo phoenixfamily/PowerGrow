@@ -239,6 +239,10 @@ section p {
 
 }
 
+.img-wrapper {
+    position: relative;
+    display: inline-block;
+}
 
 @media (max-width: 768px) {
     .hero-split .row {

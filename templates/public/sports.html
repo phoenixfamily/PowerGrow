@@ -50,7 +50,9 @@
                             {% for course in item.courses %}
                                 <div class="swiper-slide">
                                     {% if course.previous %}
-                                        <div class="ribbon"><span>پیش ثبت ‌نام</span></div>
+                                        <div class="ribbon"><span class="bg-success">پیش ثبت ‌نام</span></div>
+                                    {% elif course.is_full %}
+                                        <div class="ribbon"><span class="bg-danger">تکمیل ظرفیت</span></div>
                                     {% endif %}
                                     <div class="card shadow rounded overflow-hidden">
                                         {% if course.image %}
@@ -95,12 +97,12 @@
                                         </div>
                                         <hr class="my-0"/>
                                         <div class="card-body">
-                                                <div class="d-flex justify-content-end">
-                                                    <button class="btn btn-cta btn-sm"
-                                                            onclick="location.assign('{% url 'product:product_view' course.id %}')">
-                                                        ثبت نام
-                                                    </button>
-                                                </div>
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn btn-cta btn-sm"
+                                                        onclick="location.assign('{% url 'product:product_view' course.id %}')">
+                                                    ثبت نام
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

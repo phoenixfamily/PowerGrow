@@ -51,8 +51,10 @@
                              data-title="{{ course.title }}"
                              data-name="{{ course.name }}"
                              data-time="{{ course.time }}">
-                            {% if course.previous %}
-                                <div class="ribbon"><span>پیش ثبت ‌نام</span></div>
+                             {% if course.previous %}
+                                <div class="ribbon"><span class="bg-success">پیش ثبت ‌نام</span></div>
+                            {% elif course.is_full %}
+                                <div class="ribbon"><span class="bg-danger">تکمیل ظرفیت</span></div>
                             {% endif %}
                             {% if course.image %}
                                 <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">

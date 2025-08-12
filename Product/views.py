@@ -1110,3 +1110,21 @@ class UpdateAllParticipantsDaysAPIView(UpdateAPIView):
 
         # در صورت وجود خطا در داده‌های ورودی
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+def update_expired_participants():
+
+    participants_qs = Participants.objects.filter(expired=False)  # فقط کسایی که هنوز False هستند
+
+    for p in participants_qs:
+        if p.endDay and p.endDay.month and p.endDay.month.year:
+            end_date = jdatetime.date(
+                p.endDay.month.year.number,
+                p.endDay.month.number,
+                p.endDay.number
+            )
+            if end_date < jdatetime.date.today():
+                p.expired = True
+                p.save(update_fields=["expired"])

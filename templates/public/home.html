@@ -111,7 +111,9 @@
                     {% for x in selected %}
                         <div class="swiper-slide">
                             {% if x.previous %}
-                                <div class="ribbon"><span>پیش ثبت ‌نام</span></div>
+                                <div class="ribbon bg-success"><span>پیش ثبت ‌نام</span></div>
+                            {% elif x.is_full %}
+                                <div class="ribbon bg-danger"><span>تکمیل ظرفیت</span></div>
                             {% endif %}
                             <div class="card shadow rounded overflow-hidden">
                                 {% if x.image %}

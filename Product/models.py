@@ -42,6 +42,11 @@ class Course(models.Model):
     def __str__(self):
         return f"{self.title}-{self.pk}"  # به جای ID، نام ورزش را نمایش می‌دهد
 
+    def is_full(self):
+        active_participants = self.participants.filter(expired=False, success=True).count()
+        return active_participants >= self.capacity
+
+
 class Session(models.Model):
     number = models.IntegerField(blank=True, null=True, verbose_name="تعداد جلسات")
     active = models.BooleanField(blank=True, null=True, verbose_name='فعال')

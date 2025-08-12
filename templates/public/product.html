@@ -115,7 +115,9 @@
                 <div class="col-lg-6 d-flex">
                     <div class="img-wrapper w-100 d-flex align-items-center justify-content-center position-relative">
                         {% if product.previous %}
-                            <div class="ribbon"><span>پیش ثبت ‌نام</span></div>
+                            <div class="ribbon"><span class="bg-success">پیش ثبت ‌نام</span></div>
+                        {% elif product.is_full %}
+                            <div class="ribbon"><span class="bg-danger">تکمیل ظرفیت</span></div>
                         {% endif %}
                         {% if product.image %}
                             <img src="{{ product.image.url }}" alt="باشگاه بانوان" class="img-fluid rounded shadow">
@@ -134,10 +136,21 @@
             <div class="row d-flex flex-lg-row align-items-stretch">
 
                 <div class="col-lg-3 d-flex justify-content-center align-items-center mt-4 mt-lg-0">
-                    <a id="registerBtn" class="register-btn my-2">
-                        <span>ثبت نام</span>
-                        <i class="fa fa-arrow-left next-icon rtl"></i>
-                    </a>
+
+                    {% if product.is_full %}
+
+                        <a class="register-btn my-2 disabled">
+                            <span>تکمیل ظرفیت</span>
+                        </a>
+
+                    {% else %}
+
+                        <a id="registerBtn" class="register-btn my-2">
+                            <span>ثبت نام</span>
+                            <i class="fa fa-arrow-left next-icon rtl"></i>
+                        </a>
+                    {% endif %}
+
                 </div>
 
                 <div class="col-lg-9">

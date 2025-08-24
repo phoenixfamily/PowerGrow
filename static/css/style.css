@@ -412,9 +412,9 @@ section p {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: auto;
-    line-height: 56px;
-    height: 56px;
+    width: 100px;
+    line-height: 50px;
+    height: 50px;
     cursor: pointer;
     font-weight: 200;
     text-decoration: none;
@@ -438,7 +438,7 @@ section p {
 }
 
 .more-link:hover .next-icon {
-    transform: translateX(10px) !important; /* به سمت راست حرکت کند */
+    transform: translateX(-10px) !important; /* به سمت راست حرکت کند */
 }
 
 .card img {

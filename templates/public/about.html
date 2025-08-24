@@ -1,35 +1,8 @@
 {% extends 'public/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}درباره ی باشگاه ورزشی حجاب{% endblock %}
-</head>
-<body>
 
-{% block header %}
-    <!-- آیتم‌های منو -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'home:home-view' %}">خانه</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'product:sport-view' %}">دوره ها</a>
-            </li>
+{% block title %}درباره ما | PowerGrow{% endblock %}
 
-            <li class="nav-item">
-                <a class="nav-link disabled" href="{% url 'reservation:reservation-view' %}">رزرو سالن</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="{% url 'about:about-view' %}">درباره ما</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'user:login' %}">ورود و عضویت</a>
-            </li>
-        </ul>
-    </div>
-{% endblock %}
 {% block content %}
     <!-- Hero Section -->
     <section class="about-hero py-5 text-white text-center">
@@ -136,6 +109,3 @@
     </section>
 
 {% endblock %}
-
-</body>
-</html>

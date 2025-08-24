@@ -1,38 +1,9 @@
 {% extends 'public/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}ثبت نام در باشکاه ورزشی حجاب{% endblock %}
-</head>
 
-<body>
+{% block title %}عضویت | PowerGrow{% endblock %}
 
-{% block header %}
-    <!-- آیتم‌های منو -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'home:home-view' %}">خانه</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'product:sport-view' %}">دوره ها</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link disabled" href="{% url 'reservation:reservation-view' %}">رزرو سالن</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'about:about-view' %}">درباره ما</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="{% url 'user:login' %}">ورود و عضویت</a>
-            </li>
-        </ul>
-    </div>
-{% endblock %}
-
-{% block  content %}
+{% block content %}
 
     <section class="swiper-section py-5">
         <div class="container">
@@ -157,7 +128,3 @@
         });
     </script>
 {% endblock %}
-
-</body>
-</html>
-

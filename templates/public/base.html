@@ -61,23 +61,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'home:home-view' %}">خانه</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'home:home-view' %}active{% endif %}" href="{% url 'home:home-view' %}">خانه</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'product:sport-view' %}">دوره ها</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'product:sport-view' %}active{% endif %}" href="{% url 'product:sport-view' %}">دوره ها</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link disabled" href="{% url 'reservation:reservation-view' %}">رزرو سالن</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about:about-view' %}">درباره ما</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'about:about-view' %}active{% endif %}" href="{% url 'about:about-view' %}">درباره ما</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user:login' %}">ورود و عضویت</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'user:login' %}active{% endif %}"  href="{% url 'user:login' %}">ورود و عضویت</a>
                     </li>
                 </ul>
-
 
                 <!-- فرم جست‌وجو -->
                 <form class="d-flex" role="search" method="get" action="{% url 'product:course-search' %}">

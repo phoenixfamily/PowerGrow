@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.utils import json
 import jdatetime
-
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from About.models import AboutUs
 from Calendar.models import Day
 from PowerGrow.decorators import *
@@ -25,7 +25,6 @@ import logging
 
 from Product.utils import normalize_persian_space
 from rest_framework.parsers import MultiPartParser, FormParser
-
 
 logger = logging.getLogger(__name__)
 
@@ -120,6 +119,25 @@ def product_view(request, pk):
     }
 
     return render(request, 'public/product.html', context)
+
+
+def course_search(request):
+    q = (request.GET.get("q") or "").strip()
+    qs = Course.objects.all()
+    if q:
+        vector = SearchVector("title", weight="A") + SearchVector("description", weight="B")
+        query = SearchQuery(q)
+        qs = qs.annotate(rank=SearchRank(vector, query)).filter(rank__gt=0.001).order_by("-rank")
+
+    paginator = Paginator(qs, 12)  # هر صفحه ۱۲ نتیجه (دلخواه)
+    page_obj = paginator.get_page(request.GET.get("page"))
+
+    context = {
+        "q": q,
+        "page_obj": page_obj,
+        "results_count": paginator.count,
+    }
+    return render(request, "public/search_results.html", context)
 
 
 def get_days_for_session(request):
@@ -656,7 +674,6 @@ class CourseDetailView(viewsets.ViewSet):
     permission_classes = [IsAdminUserOrStaff]
     parser_classes = [MultiPartParser, FormParser]
 
-
     def update(self, request, pk):
         try:
             course = Course.objects.get(pk=pk)
@@ -836,7 +853,6 @@ class ParticipationCreateView(viewsets.ViewSet):
                     startDay, endDay = service.get_start_and_end_day()
                 except ValueError as e:
                     return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
 
                 participant_data = {
                     'description': data["description"],
@@ -1112,10 +1128,7 @@ class UpdateAllParticipantsDaysAPIView(UpdateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
 def update_expired_participants():
-
     participants_qs = Participants.objects.filter(expired=False)  # فقط کسایی که هنوز False هستند
 
     for p in participants_qs:

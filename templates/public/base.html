@@ -80,10 +80,10 @@
 
 
                 <!-- فرم جست‌وجو -->
-                <form class="d-flex" role="search" method="get" action=" ">
+                <form class="d-flex" role="search" method="get" action="{% url 'product:course-search' %}">
                     <input class="form-control me-2" type="search" name="q"
                            placeholder="جست‌وجوی دوره‌ها..." aria-label="Search"
-                           value=" ">
+                           value="{{ request.GET.q|default_if_none:'' }}">
                     <button class="btn btn-outline-primary" type="submit">
                         <i class="fa fa-search"></i><span class="d-none d-lg-inline ms-1">جست‌وجو</span>
                     </button>

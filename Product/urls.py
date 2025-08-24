@@ -9,6 +9,8 @@ urlpatterns = [
     path('offer/', offer_view, name='offer_view'),
     path('products/<int:pk>/', product_view, name='product_view'),
     path('payment/<int:pk>/<int:session>/<int:day>/<int:start>/', payment_view, name='payment_view'),
+    path("search/", course_search, name="course-search"),
+
     path('verify/', verify, name='verify'),
     path('manager/sports/', manager_sports_view, name='manager_sports'),
     path('admin/sports/', admin_sports_view, name='admin_sports'),

@@ -412,7 +412,7 @@ section p {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    width: 110px;
     line-height: 50px;
     height: 50px;
     cursor: pointer;
@@ -424,12 +424,12 @@ section p {
 }
 
 .more-link:hover {
-    color: var(--primary-light);
+    color: var(--primary-light) !important;
     border-color: transparent !important;
 }
 
 .more-link span, .btn i {
-    margin-top: 8px;
+    margin-top: 12px;
 }
 
 .next-icon {
@@ -438,6 +438,7 @@ section p {
 }
 
 .more-link:hover .next-icon {
+    color: var(--primary-light) !important;
     transform: translateX(-10px) !important; /* به سمت راست حرکت کند */
 }
 

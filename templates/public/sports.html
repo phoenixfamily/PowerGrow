@@ -100,15 +100,18 @@
                     prevEl: el.querySelector('.swiper-button-prev'),
                 },
                 breakpoints: {
-                    768: {
-                        slidesPerView: 2.2,
-                    },
-                    1200: {
-                        slidesPerView: 3.2,
-                    },
-                }
+                    768: {slidesPerView: 2.2},
+                    1200: {slidesPerView: 3.2},
+                },
+                // ضد کشش در لبه‌ها:
+                resistanceRatio: 0,     // جلوگیری از bounce
+                freeMode: false,
+                loop: false,
+                rewind: false,
+                watchOverflow: true,    // اگر اسلاید کافی نبود، حرکت غیرفعال می‌شود
             });
         });
+
     </script>
 
 {% endblock %}

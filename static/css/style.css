@@ -689,10 +689,6 @@ section p {
     transform: translateX(-8px);
 }
 
-.next-icon {
-    transition: transform 0.3s ease;
-}
-
 .course-description {
     background: linear-gradient(to left, #ffffff, #f9f9f9);
     color: #333;

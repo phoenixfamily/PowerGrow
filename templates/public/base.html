@@ -57,10 +57,39 @@
     <nav class="navbar navbar-expand-lg bg-white shadow-sm">
         <div class="container">
 
+            <!-- آیتم‌های منو -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'home:home-view' %}">خانه</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'product:sport-view' %}">دوره ها</a>
+                    </li>
 
-            {% block header %}
-            {% endblock %}
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="{% url 'reservation:reservation-view' %}">رزرو سالن</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about:about-view' %}">درباره ما</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user:login' %}">ورود و عضویت</a>
+                    </li>
+                </ul>
 
+
+                <!-- فرم جست‌وجو -->
+                <form class="d-flex" role="search" method="get" action="{% url 'courses:course-search' %}">
+                    <input class="form-control me-2" type="search" name="q"
+                           placeholder="جست‌وجوی دوره‌ها..." aria-label="Search"
+                           value="{{ request.GET.q|default_if_none:'' }}">
+                    <button class="btn btn-outline-primary" type="submit">
+                        <i class="fa fa-search"></i><span class="d-none d-lg-inline ms-1">جست‌وجو</span>
+                    </button>
+                </form>
+
+            </div>
 
             <!-- لوگو -->
             <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home:home-view' %}">

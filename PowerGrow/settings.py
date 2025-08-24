@@ -13,7 +13,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 from decouple import config
-
+from django.contrib import staticfiles
 
 from django.template.context_processors import media
 
@@ -66,8 +66,6 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 20971520  # 20 MB
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'powergrow.net',
-    'www.powergrow.net',
     'powergrow.ir',
     'www.powergrow.ir',
 
@@ -137,7 +135,7 @@ MIDDLEWARE = [
 
 
 CORS_ALLOWED_ORIGINS = [
-    "https://powergrow.net/",
+    "https://powergrow.ir/",
     "localhost"
 ]
 
@@ -183,17 +181,7 @@ DATABASES = {
         'PORT': config('DB_PORT', default='5432'),
     }
 }
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'powergro_powergrow',  # نام دیتابیس MySQL
-#         'USER': 'powergro_powergrow',  # نام کاربری MySQL
-#         'PASSWORD': '8NU45dG=5jK)',  # رمز عبور MySQL
-#         'HOST': 'localhost',  # هاست MySQL (به طور پیش‌فرض 'localhost')
-#         'PORT': '3306',  # پورت MySQL (به طور پیش‌فرض '3306')
-#     }
-# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

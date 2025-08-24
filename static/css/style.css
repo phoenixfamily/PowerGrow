@@ -94,17 +94,32 @@ body.dark-mode {
 }
 
 /* سرچ فشرده و خوش‌فرم */
-.searchbar { min-width: 220px; }
-@media (min-width: 992px) {
-  .searchbar { width: 320px; }
+.searchbar {
+    min-width: 220px;
 }
+
+@media (min-width: 992px) {
+    .searchbar {
+        width: 320px;
+    }
+}
+
 /* اگر اختلاف ارتفاع دیدی، این دو خط کمک می‌کنن: */
 .searchbar .form-control,
-.searchbar .btn { line-height: 1.2; }
+.searchbar .btn {
+    line-height: 1.2;
+}
 
 /* اختیاری: گردشدن لطیف */
-.searchbar .form-control { border-top-right-radius: 999px; border-bottom-right-radius: 999px; }
-.searchbar .btn { border-top-left-radius: 999px; border-bottom-left-radius: 999px; }
+.searchbar .form-control {
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+
+.searchbar .btn {
+    border-top-left-radius: 999px;
+    border-bottom-left-radius: 999px;
+}
 
 
 /* دکمه‌های ورود/ثبت‌نام */
@@ -394,13 +409,51 @@ section p {
 }
 
 .more-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    line-height: 56px;
+    height: 56px;
+    cursor: pointer;
+    font-weight: 200;
     text-decoration: none;
-    font-weight: 500;
-    color: var(--primary-light);
+    border: 2px solid var(--btn-bg) !important;
+    color: var(--btn-text) !important;
+    flex-direction: row;
 }
 
 .more-link:hover {
     color: var(--primary-light);
+    border-color: transparent !important;
+}
+
+.more-link span, .btn i {
+    margin-top: 8px;
+}
+
+
+.previous-icon, .next-icon {
+    transform: translateX(0) !important; /* حالت اولیه */
+    transition: transform 0.3s ease !important; /* انیمیشن */
+}
+
+/* حالت LTR */
+.more-link:hover .previous-icon.ltr {
+    transform: translateX(-10px) !important; /* به سمت چپ حرکت کند */
+}
+
+.more-link:hover .next-icon.ltr {
+    transform: translateX(10px) !important; /* به سمت راست حرکت کند */
+}
+
+/* حالت RTL */
+.more-link:hover .previous-icon.rtl {
+    transform: translateX(10px) !important; /* به سمت راست حرکت کند */
+}
+
+.more-link:hover .next-icon.rtl {
+    transform: translateX(-10px) !important; /* به سمت چپ حرکت کند */
 }
 
 .card img {
@@ -870,6 +923,6 @@ table i:hover {
     transform-origin: center;
     top: 15px;
     right: -35px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 

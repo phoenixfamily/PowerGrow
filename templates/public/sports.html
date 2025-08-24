@@ -13,7 +13,11 @@
                 <div class="mb-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h3 class="section-title">{{ item.sport.title }}</h3>
-                        <a href="{% url 'product:category-view' item.sport.id %}" class="more-link">مشاهده همه</a>
+                        <a href="{% url 'product:category-view' item.sport.id %}"
+                           class="more-link my-2 float-end">
+                            <span>مشاهده همه</span>
+                            <i class="fa-solid next-icon  fa-arrow-left"></i>
+                        </a>
                     </div>
 
                     <div class="swiper mySwiper-{{ forloop.counter }}">

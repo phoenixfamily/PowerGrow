@@ -428,10 +428,6 @@ section p {
     border-color: transparent !important;
 }
 
-.more-link span, .btn i {
-    margin-top: 15px;
-}
-
 .next-icon {
     transform: translateX(0) !important; /* حالت اولیه */
     transition: transform 0.3s ease !important; /* انیمیشن */

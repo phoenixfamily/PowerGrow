@@ -52,61 +52,64 @@
 
 </head>
 <body>
-
 <header>
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
-        <div class="container">
+  <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <div class="container align-items-center">
 
-            <!-- آیتم‌های منو -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'home-view' %}active{% endif %}" href="{% url 'home:home-view' %}">خانه</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'sport-view' %}active{% endif %}" href="{% url 'product:sport-view' %}">دوره ها</a>
-                    </li>
+      <!-- لوگو -->
+      <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home:home-view' %}">
+        <span class="fw-bold fs-5">PowerGrow</span>
+        <img src="{% static 'images/logo-transparent.png' %}" alt="PowerGrow" height="36">
+      </a>
 
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="{% url 'reservation:reservation-view' %}">رزرو سالن</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'about-view' %}active{% endif %}" href="{% url 'about:about-view' %}">درباره ما</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}"  href="{% url 'user:login' %}">ورود و عضویت</a>
-                    </li>
-                </ul>
+      <!-- دکمه موبایل -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fa fa-bars"></i></span>
+      </button>
 
-                <!-- فرم جست‌وجو -->
-                <form class="d-flex" role="search" method="get" action="{% url 'product:course-search' %}">
-                    <input class="form-control me-2" type="search" name="q"
-                           placeholder="جست‌وجوی دوره‌ها..." aria-label="Search"
-                           value="{{ request.GET.q|default_if_none:'' }}">
-                    <button class="btn btn-outline-primary" type="submit">
-                        <i class="fa fa-search"></i><span class="d-none d-lg-inline ms-1">جست‌وجو</span>
-                    </button>
-                </form>
+      <!-- آیتم‌های منو + فرم جست‌وجو -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'home-view' %}active{% endif %}"
+               href="{% url 'home:home-view' %}">خانه</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'sport-view' %}active{% endif %}"
+               href="{% url 'product:sport-view' %}">دوره ها</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="{% url 'reservation:reservation-view' %}">رزرو سالن</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'about-view' %}active{% endif %}"
+               href="{% url 'about:about-view' %}">درباره ما</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}"
+               href="{% url 'user:login' %}">ورود و عضویت</a>
+          </li>
+        </ul>
 
-            </div>
-
-            <!-- لوگو -->
-            <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home:home-view' %}">
-                <span class="fw-bold fs-5">PowerGrow</span>
-                <img src="{% static 'images/logo-transparent.png' %}" alt="PowerGrow" height="40">
-
-            </a>
-
-            <!-- دکمه موبایل -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span><i class="fa fa-bars"></i></span>
+        <!-- فرم جست‌وجو (کوچک و تمیز) -->
+        <form class="searchbar ms-3 mt-3 mt-lg-0" role="search" method="get" action="{% url 'product:course-search' %}">
+          <div class="input-group input-group-sm">
+            <input class="form-control"
+                   type="search" name="q"
+                   placeholder="جست‌وجوی دوره‌ها..." aria-label="Search"
+                   value="{{ request.GET.q|default_if_none:'' }}">
+            <button class="btn btn-primary" type="submit" aria-label="جست‌وجو">
+              <i class="fa fa-search"></i><span class="d-none d-xl-inline ms-1">جست‌وجو</span>
             </button>
+          </div>
+        </form>
 
-        </div>
-    </nav>
-
+      </div>
+    </div>
+  </nav>
 </header>
+
 
 <!-- محتوای متغیر -->
 <div id="content">

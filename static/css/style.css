@@ -93,6 +93,20 @@ body.dark-mode {
     position: relative;
 }
 
+/* سرچ فشرده و خوش‌فرم */
+.searchbar { min-width: 220px; }
+@media (min-width: 992px) {
+  .searchbar { width: 320px; }
+}
+/* اگر اختلاف ارتفاع دیدی، این دو خط کمک می‌کنن: */
+.searchbar .form-control,
+.searchbar .btn { line-height: 1.2; }
+
+/* اختیاری: گردشدن لطیف */
+.searchbar .form-control { border-top-right-radius: 999px; border-bottom-right-radius: 999px; }
+.searchbar .btn { border-top-left-radius: 999px; border-bottom-left-radius: 999px; }
+
+
 /* دکمه‌های ورود/ثبت‌نام */
 .btn-outline-primary {
     border-width: 2px;

@@ -432,28 +432,13 @@ section p {
     margin-top: 8px;
 }
 
-
-.previous-icon, .next-icon {
+.next-icon {
     transform: translateX(0) !important; /* حالت اولیه */
     transition: transform 0.3s ease !important; /* انیمیشن */
 }
 
-/* حالت LTR */
-.more-link:hover .previous-icon.ltr {
-    transform: translateX(-10px) !important; /* به سمت چپ حرکت کند */
-}
-
-.more-link:hover .next-icon.ltr {
+.more-link:hover .next-icon {
     transform: translateX(10px) !important; /* به سمت راست حرکت کند */
-}
-
-/* حالت RTL */
-.more-link:hover .previous-icon.rtl {
-    transform: translateX(10px) !important; /* به سمت راست حرکت کند */
-}
-
-.more-link:hover .next-icon.rtl {
-    transform: translateX(-10px) !important; /* به سمت چپ حرکت کند */
 }
 
 .card img {

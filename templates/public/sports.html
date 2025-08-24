@@ -93,22 +93,17 @@
         const swipers = document.querySelectorAll(".swiper");
         swipers.forEach((el) => {
             new Swiper(el, {
-                slidesPerView: 1.1,
+                slidesPerView: 1,
                 spaceBetween: 16,
-                navigation: {
-                    nextEl: el.querySelector('.swiper-button-next'),
-                    prevEl: el.querySelector('.swiper-button-prev'),
-                },
                 breakpoints: {
-                    768: {slidesPerView: 2.2},
-                    1200: {slidesPerView: 3.2},
+                    768: {slidesPerView: 2},
+                    1200: {slidesPerView: 3},
                 },
-                // ضد کشش در لبه‌ها:
-                resistanceRatio: 0,     // جلوگیری از bounce
-                freeMode: false,
+                slidesOffsetBefore: 8,   // برای داشتن یه حاشیه خوشگل
+                slidesOffsetAfter: 8,
+                resistanceRatio: 0,
                 loop: false,
-                rewind: false,
-                watchOverflow: true,    // اگر اسلاید کافی نبود، حرکت غیرفعال می‌شود
+                watchOverflow: true,
             });
         });
 

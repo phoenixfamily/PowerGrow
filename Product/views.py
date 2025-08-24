@@ -123,7 +123,7 @@ def product_view(request, pk):
 
 def course_search(request):
     q = (request.GET.get("q") or "").strip()
-    qs = Course.objects.all()
+    qs = Course.objects.all().filter(active=True)
     if q:
         vector = SearchVector("title", weight="A") + SearchVector("description", weight="B")
         query = SearchQuery(q)

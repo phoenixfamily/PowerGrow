@@ -1,13 +1,7 @@
 {% extends 'admin/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}مدیریت تخفیف ها{% endblock %}
 
-</head>
-
-<body>
+{% block title %}تخفیف ها | PowerGrow{% endblock %}
 
 {% block  header %}
     <a href="{% url 'product:create-off' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن تخفیف</a>
@@ -103,9 +97,63 @@
         });
 
     </script>
+
+        <script>
+        (function () {
+            // تابعی که کانتینر را تا «انتهای راست» می‌برد
+            function scrollToRight(el) {
+                if (!el) return;
+                // بدون انیمیشن و بدون پرش بصری
+                el.scrollLeft = el.scrollWidth;
+            }
+
+            // دی‌بونس برای رویدادهایی مثل resize
+            function debounce(fn, delay) {
+                let t;
+                return function () {
+                    clearTimeout(t);
+                    t = setTimeout(fn, delay);
+                };
+            }
+
+            function initRightStartScroll() {
+                const container = document.querySelector('.table-responsive');
+                if (!container) return;
+
+                // 1) بار اول و بعد از load
+                requestAnimationFrame(() => scrollToRight(container));
+
+                // 2) روی ریسایز (مثلا چرخاندن موبایل)
+                window.addEventListener('resize', debounce(() => scrollToRight(container), 150), {passive: true});
+
+                // 3) اگر محتوا تغییر کرد (فیلتر، صفحه‌بندی ajax، رندر دوباره جدول)
+                const observer = new MutationObserver(() => scrollToRight(container));
+                observer.observe(container, {childList: true, subtree: true});
+
+                // اگر صفحه‌بندی با کلیک لینک‌های داخل .table-responsive انجام می‌شود:
+                container.addEventListener('scroll', () => { /* لازم نیست کاری کنیم؛ فقط برای آینده گذاشتم */
+                });
+
+                // اگر جستجو ورودی جدا دارد، بعد از هر تغییر دوباره ست کن (اختیاری)
+                const search = document.getElementById('searchInput');
+                if (search) {
+                    search.addEventListener('input', debounce(() => scrollToRight(container), 150));
+                }
+            }
+
+            // DOM آماده شد
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initRightStartScroll);
+            } else {
+                initRightStartScroll();
+            }
+
+            // بعضی منابع با تاخیر لود می‌شوند (فونت/آیکن/داده)؛ یک بار هم بعد از load
+            window.addEventListener('load', () => {
+                const container = document.querySelector('.table-responsive');
+                scrollToRight(container);
+            });
+        })();
+    </script>
+
 {% endblock %}
-
-
-</body>
-
-</html>

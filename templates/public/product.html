@@ -251,45 +251,73 @@
 
 
     <script>
-        let sessionId = 0;
-        let dayId = 0;
+    let sessionId = 0;
+    let dayId = 0;
 
-        // همه روزها رو اول مخفی می‌کنیم
-        document.querySelectorAll('.day-btn').forEach(day => {
-            day.style.display = 'none';
+    // همه روزها رو اول مخفی می‌کنیم
+    document.querySelectorAll('.day-btn').forEach(day => {
+        day.style.display = 'none';
+    });
+
+    // لیسنر کلیک روی روزها
+    document.querySelectorAll('.day-btn').forEach(day => {
+        day.addEventListener('click', () => {
+            // فقط یکی انتخاب بشه
+            document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+            day.classList.add('active');
+            dayId = day.getAttribute("data-id");
+
+            // قیمت و تخفیف رو بخون
+            const price = parseFloat(day.dataset.price || 0);
+            const off   = parseFloat(day.dataset.off || 0);
+
+            // محاسبه تخفیف (فرض: off درصدی هست. اگر حالت دیگه داری تغییر بده)
+            const discount = price * (off / 100);
+            const finalPrice = price - discount;
+
+            // نمایش توی کارت
+            document.getElementById('uiPps').textContent = new Intl.NumberFormat('fa-IR').format(price) + ' تومان';
+            document.getElementById('uiDiscount').textContent = discount > 0
+                ? '− ' + new Intl.NumberFormat('fa-IR').format(discount) + ' تومان'
+                : '—';
+            document.getElementById('uiTotal').textContent = new Intl.NumberFormat('fa-IR').format(finalPrice) + ' تومان';
+
+            // اگر می‌خوای ردیف تخفیف مخفی/نمایش بشه
+            const row = document.getElementById('uiDiscountRow');
+            if(discount > 0){
+                row.classList.remove('d-none');
+            } else {
+                row.classList.add('d-none');
+            }
         });
+    });
 
-        // لیسنر کلیک روی روزها
-        document.querySelectorAll('.day-btn').forEach(day => {
-            day.addEventListener('click', () => {
-                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-                day.classList.add('active');
-                dayId = day.getAttribute("data-id");
+    // لیسنر کلیک روی جلسات
+    document.querySelectorAll('.session-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            // تغییر استایل انتخاب جلسه
+            document.querySelectorAll('.session-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            sessionId = btn.getAttribute("data-id");
+
+            // ریست انتخاب روز و پاک‌کردن مقادیر کارت
+            dayId = 0;
+            document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('uiPps').textContent = '—';
+            document.getElementById('uiDiscount').textContent = '—';
+            document.getElementById('uiTotal').textContent = '—';
+            document.getElementById('uiDiscountRow').classList.add('d-none');
+
+            // نمایش روزهای مرتبط با جلسه انتخاب‌شده
+            document.querySelectorAll('.day-btn').forEach(day => {
+                day.style.display = (day.getAttribute('data-session-id') === sessionId)
+                    ? 'inline-block'
+                    : 'none';
             });
         });
+    });
+</script>
 
-        // لیسنر کلیک روی جلسات
-        document.querySelectorAll('.session-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // تغییر استایل انتخاب جلسه
-                document.querySelectorAll('.session-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                sessionId = btn.getAttribute("data-id");
-
-                // ریست انتخاب روز
-                dayId = 0;
-                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-
-                // نمایش روزهای مرتبط با جلسه انتخاب‌شده
-                document.querySelectorAll('.day-btn').forEach(day => {
-                    day.style.display = (day.getAttribute('data-session-id') === sessionId)
-                        ? 'inline-block'
-                        : 'none';
-                });
-            });
-        });
-
-    </script>
 
 
     <script>
@@ -396,59 +424,6 @@
         });
 
     </script>
-
-
-    <script>
-        (function () {
-            const fmt = (n) => n == null ? '—' :
-                new Intl.NumberFormat('fa-IR').format(Math.round(n)) + ' تومان';
-
-            const daysContainer = document.getElementById('days-container');
-            const uiPps = document.getElementById('uiPps');
-            const uiDiscountRow = document.getElementById('uiDiscountRow');
-            const uiDiscount = document.getElementById('uiDiscount');
-            const uiTotal = document.getElementById('uiTotal');
-
-            function calcOff(price, off) {
-                if (off == null || off === '' || isNaN(off)) return 0;
-                const v = parseFloat(off);
-                if (v <= 0) return 0;
-                if (v > 0 && v <= 1) return price * v;        // ضریب (0..1)
-                if (v > 1 && v <= 100) return price * (v / 100); // درصد (1..100)
-                return Math.min(v, price);                    // مبلغ ثابت
-            }
-
-            function recalc() {
-                const selected = daysContainer.querySelector('.day-btn.btn-primary');
-                if (!selected) {
-                    uiPps.textContent = '—';
-                    uiDiscount.textContent = '—';
-                    uiTotal.textContent = '—';
-                    return;
-                }
-                const price = parseFloat(selected.dataset.price || '0');
-                const off = parseFloat(selected.dataset.off || '0');
-                const d = calcOff(price, off);
-                const net = Math.max(0, price - d);
-
-                uiPps.textContent = fmt(price);
-                uiTotal.textContent = fmt(net);
-
-            }
-
-            // ✅ تک‌انتخابی: با هر کلیک، اول همه رو پاک می‌کنیم، بعد همون یکی رو انتخاب می‌کنیم.
-            daysContainer.addEventListener('click', (e) => {
-                const btn = e.target.closest('.day-btn');
-                if (!btn) return;
-
-                recalc();
-            });
-
-            // اگر از قبل مقداری هست
-            recalc();
-        })();
-    </script>
-
 
 
 {% endblock %}

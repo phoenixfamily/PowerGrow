@@ -817,6 +817,7 @@ section p {
     width: 100%;
     padding-left: 10px;
     padding-right: 10px;
+    direction: ltr;
 }
 
 .table-responsive table {
@@ -884,9 +885,9 @@ table i:hover {
     }
 
 
-       table td, table th {
-           white-space: normal; /* نذار متن بشکنه */
-}
+    table td, table th {
+        white-space: normal; /* نذار متن بشکنه */
+    }
 
 }
 

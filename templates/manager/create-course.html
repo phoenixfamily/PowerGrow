@@ -53,8 +53,17 @@
                 <textarea class="form-control" id="description" name="description" rows="3"></textarea>
             </div>
 
+            <div class="col-md-6">
+                <label for="category" class="form-label">دسته بندی:</label>
+                <select class="form-select" id="category" name="category" required>
+                    {% for x in sports  %}
+                        <option value="{{ x.id }}">{{ x.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
             <!-- تصویر -->
-            <div class="col-12">
+            <div class="col-md-6">
                 <label for="image" class="form-label">تصویر:</label>
                 <input type="file" class="form-control" id="image" name="image">
             </div>
@@ -101,6 +110,7 @@ document.getElementById('submit').addEventListener('click', function(event) {
     formData.append('title', document.getElementById('title').value);
     formData.append('name', document.getElementById('name').value);
     formData.append('type', document.getElementById('type').value);
+    formData.append('sport', document.getElementById('category').value);
     formData.append('time', document.getElementById('time').value);
     formData.append('description', document.getElementById('description').value);
     formData.append('selected', document.getElementById('selected').checked);

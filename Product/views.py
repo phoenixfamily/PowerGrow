@@ -558,9 +558,12 @@ def teacher_user_list(request, pk):
 @session_admin_required
 def create_course_view(request):
     about = AboutUs.objects.first()
+    sports = Sport.objects.all()
 
     context = {
         'about': about,
+        'sports': sports,
+
     }
 
     return render(request, 'manager/create-course.html', context)

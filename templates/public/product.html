@@ -158,18 +158,18 @@
                         </div>
 
 
-                        <!-- تاریخ شروع + کارت شهریه کنار تقویم -->
+                        <!-- تاریخ شروع + کارت شهریه (RTL) -->
                         <div class="mb-3">
                             <label class="form-label fw-bold">تاریخ شروع:</label>
 
                             <div class="row g-3 align-items-start calendar-pricing-row">
-                                <!-- ستون: کارت شهریه (لپ‌تاپ چپ / موبایل زیر) -->
+                                <!-- کارت شهریه: در لپ‌تاپ چپ / در موبایل زیر تقویم -->
                                 <div class="col-lg-4 order-2 order-lg-1">
                                     <div class="card shadow-sm pricing-card">
                                         <div class="card-body">
                                             <div class="d-flex align-items-center mb-3 gap-2">
                                                 <i class="fa fa-wallet"></i>
-                                                <h6 class="fw-bold m-0">شهریه شما</h6>
+                                                <h6 class="fw-bold m-0">شهریۀ شما</h6>
                                             </div>
 
                                             <div class="d-flex justify-content-between">
@@ -200,20 +200,21 @@
                                     </div>
                                 </div>
 
-                                <!-- ستون: تقویم (لپ‌تاپ راست / موبایل بالا) -->
+                                <!-- تقویم: در لپ‌تاپ راست / در موبایل بالا -->
                                 <div class="col-lg-8 order-1 order-lg-2">
                                     <div class="calendar-wrapper">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <button id="prevMonth" class="btn btn-cta">
-                                                <i class="fa fa-chevron-right"></i>
+                                            <!-- توجه: در RTL فلش‌ها معکوس می‌شوند -->
+                                            <button id="prevMonth" class="btn btn-cta" aria-label="ماه قبل">
+                                                <i class="fa fa-chevron-right rtl-icon-swap"></i>
                                             </button>
                                             <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
-                                            <button id="nextMonth" class="btn btn-cta">
-                                                <i class="fa fa-chevron-left"></i>
+                                            <button id="nextMonth" class="btn btn-cta" aria-label="ماه بعد">
+                                                <i class="fa fa-chevron-left rtl-icon-swap"></i>
                                             </button>
                                         </div>
 
-                                        <!-- سرتیتر ایام هفته -->
+                                        <!-- سرتیتر ایام هفته (شروع از شنبه) -->
                                         <div class="calendar-grid text-center fw-bold border-bottom pb-2">
                                             <div>ش</div>
                                             <div>ی</div>
@@ -226,7 +227,7 @@
 
                                         <!-- روزهای ماه -->
                                         <div id="calendarDays" class="calendar-grid mt-2">
-                                            <!-- لود میشه از JS -->
+                                            <!-- لود می‌شه از JS شما -->
                                         </div>
                                     </div>
                                 </div>

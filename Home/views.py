@@ -21,7 +21,6 @@ def home_view(request):
     course = Course.objects.filter(pk__in=list(day)).order_by("datetime").values()[:6]
     about = AboutUs.objects.values().first()
 
-    update_expired_participants()
 
     sport = Sport.objects.all().values()
     template = loader.get_template('public/home.html')

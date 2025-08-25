@@ -100,6 +100,8 @@ def product_view(request, pk):
     session = Session.objects.all().filter(course_id=pk, active=True).order_by("number")
     days = Days.objects.all().filter(session__course=pk, session__course__active=True)
 
+    update_expired_participants(pk)
+
     participants = Participants.objects.filter(
         course=product,
         user__is_teacher=False,
@@ -476,18 +478,7 @@ def manager_user_list(request, pk):
 
     participants_qs = Participants.objects.filter(course_id=pk)
 
-    # 💥 قبل از paginate، بروز رسانی وضعیت انقضا
-    for p in participants_qs:
-        if p.endDay and p.endDay.month and p.endDay.month.year:
-            end_date = jdatetime.date(
-                p.endDay.month.year.number,
-                p.endDay.month.number,
-                p.endDay.number
-            )
-            if end_date < jdatetime.date.today():
-                if not p.expired:  # فقط اگر هنوز False بود، ذخیره کن
-                    p.expired = True
-                    p.save(update_fields=["expired"])  # فقط این فیلد آپدیت شه
+    update_expired_participants(pk)
 
     # ✅ بعد از بروزرسانی، paginate کن
     participants = participants_qs.order_by('-endDay', 'startDay')
@@ -514,7 +505,13 @@ def admin_user_list(request, pk):
     about = AboutUs.objects.first()
 
     # بارگذاری دوره با استفاده از get_object_or_404
-    participants = Participants.objects.all().filter(course_id=pk).order_by('-startDay')
+    participants_qs = Participants.objects.filter(course_id=pk)
+
+    update_expired_participants(pk)
+
+    # ✅ بعد از بروزرسانی، paginate کن
+    participants = participants_qs.order_by('-endDay', 'startDay')
+
 
     paginator = Paginator(participants, 150)
     page_number = request.GET.get('page')
@@ -542,21 +539,11 @@ def teacher_user_list(request, pk):
 
     participants_qs = Participants.objects.filter(course_id=pk)
 
-    # 💥 قبل از paginate، بروز رسانی وضعیت انقضا
-    for p in participants_qs:
-        if p.endDay and p.endDay.month and p.endDay.month.year:
-            end_date = jdatetime.date(
-                p.endDay.month.year.number,
-                p.endDay.month.number,
-                p.endDay.number
-            )
-            if end_date < jdatetime.date.today():
-                if not p.expired:  # فقط اگر هنوز False بود، ذخیره کن
-                    p.expired = True
-                    p.save(update_fields=["expired"])  # فقط این فیلد آپدیت شه
+    update_expired_participants(pk)
 
     # ✅ بعد از بروزرسانی، paginate کن
-    participants = participants_qs.filter(expired=False).order_by('-endDay', 'startDay')
+    participants = participants_qs.order_by('-endDay', 'startDay')
+
 
     # آماده‌سازی context برای الگو
     context = {
@@ -1128,8 +1115,8 @@ class UpdateAllParticipantsDaysAPIView(UpdateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-def update_expired_participants():
-    participants_qs = Participants.objects.filter(expired=False)  # فقط کسایی که هنوز False هستند
+def update_expired_participants(pk):
+    participants_qs = Participants.objects.filter(course_id=pk)
 
     for p in participants_qs:
         if p.endDay and p.endDay.month and p.endDay.month.year:
@@ -1141,3 +1128,7 @@ def update_expired_participants():
             if end_date < jdatetime.date.today():
                 p.expired = True
                 p.save(update_fields=["expired"])
+            else:
+                p.expired = False
+                p.save(update_fields=["expired"])
+

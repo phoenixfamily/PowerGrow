@@ -904,9 +904,6 @@ table i:hover {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
-/* ردیفِ این بخش را LTR می‌کنیم تا ترتیب ستون‌ها دقیق باشد */
-.row-dir-fix { direction: ltr; }
-
 /* محتوای هر ستون RTL بماند */
 .rtl-content { direction: rtl; }
 
@@ -930,3 +927,11 @@ table i:hover {
 @media (max-width: 991.98px) {
   .pricing-card { position: static; }
 }
+/* این ردیف خاص رو از row-reverse نجات بده */
+.row-dir-fix {
+  direction: ltr;               /* فقط برای کنترل ترتیب ستون‌ها */
+  display: flex;                /* برخی تم‌های RTL اینو تغییر دادن */
+  flex-wrap: wrap;
+  flex-direction: row !important;  /* مهم: برعکس نشه */
+}
+.row-dir-fix > [class*="col-"] { direction: rtl; } /* محتوای هر ستون RTL بمونه */

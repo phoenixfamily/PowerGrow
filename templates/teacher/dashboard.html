@@ -1,13 +1,6 @@
 {% extends 'teacher/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}پنل مربی{% endblock %}
-
-</head>
-
-<body>
+{% block title %} داشبرد | PowerGrow{% endblock %}
 
 {% block  header %}
     <a href="{% url 'user:logout_api' %}" class="btn btn-cta">خروج</a>
@@ -94,7 +87,3 @@
 
 
 {% endblock %}
-
-</body>
-
-</html>

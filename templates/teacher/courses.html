@@ -1,25 +1,18 @@
 {% extends 'teacher/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}دوره های من{% endblock %}
-
-</head>
-
-<body>
+{% block title %}دوره های من | PowerGrow{% endblock %}
 
 
 {% block content %}
 
-   <div class="search-bar-container">
-    <input type="text" id="searchInput" class="search-input" placeholder="جستجو...">
-   </div>
+    <div class="search-bar-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="جستجو...">
+    </div>
 
 
-<div class="table-responsive" dir="rtl">
-    <table id="myTable" class="table table-hover table-bordered">
-        <thead>
+    <div class="table-responsive" dir="rtl">
+        <table id="myTable" class="table table-hover table-bordered">
+            <thead>
             <tr>
                 <th>#</th>
                 <th colspan="1" class="text-center">مشاهده دوره</th>
@@ -33,95 +26,151 @@
                 <th>ورزش</th>
                 <th>وضعیت</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for x in participants %}
-            <tr>
-                <th scope="row">{{ x.course.id }}</th>
-                <td class="text-center">
-                    <i class="fa fa-eye text-info" aria-hidden="true" style="cursor: pointer" title="مشاهده" onclick="window.open('{% url 'product:product_view' x.course.id %}')"></i>
-                </td>
-                <td class="text-center">
-                    <i class="fa fa-solid fa-address-book" aria-hidden="true" style="cursor: pointer" title="لیست" onclick="window.location.assign('{% url 'product:teacher_user_list' x.course.id %}')"></i>
-                </td>
+                <tr>
+                    <th scope="row">{{ x.course.id }}</th>
+                    <td class="text-center">
+                        <i class="fa fa-eye text-info" aria-hidden="true" style="cursor: pointer" title="مشاهده"
+                           onclick="window.open('{% url 'product:product_view' x.course.id %}')"></i>
+                    </td>
+                    <td class="text-center">
+                        <i class="fa fa-solid fa-address-book" aria-hidden="true" style="cursor: pointer" title="لیست"
+                           onclick="window.location.assign('{% url 'product:teacher_user_list' x.course.id %}')"></i>
+                    </td>
 
-                <td>{{ x.course.title }}</td>
-                <td>{{ x.course.name }}</td>
-                <td>{{ x.course.time }}</td>
-                <td>
-                    {% if x.course.gender == "male" %}
-                    آقایان
-                    {% elif x.course.gender == "female" %}
-                    بانوان
-                    {% endif %}
-                </td>
-                <td>
-                    {% if x.course.type == "public" %}
-                    عمومی
-                    {% elif x.course.type == "private" %}
-                    خصوصی
-                    {% elif x.course.type == "semi_private" %}
-                    نیمه خصوصی
-                {% endif %}
-                </td>
-                <td>{{ x.course.capacity }}</td>
-                <td>{{ x.course.sport.title }}</td>
-                <td class="text-center">
-                    {% if x.course.active %}
-                        <i title="فعال" class="fa fa-check-circle text-success"></i>
-                    {% else %}
-                        <i title="غیرفعال" class="fa fa-ban text-danger"></i>
-                    {% endif %}
-                </td>
-            </tr>
+                    <td>{{ x.course.title }}</td>
+                    <td>{{ x.course.name }}</td>
+                    <td>{{ x.course.time }}</td>
+                    <td>
+                        {% if x.course.gender == "male" %}
+                            آقایان
+                        {% elif x.course.gender == "female" %}
+                            بانوان
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if x.course.type == "public" %}
+                            عمومی
+                        {% elif x.course.type == "private" %}
+                            خصوصی
+                        {% elif x.course.type == "semi_private" %}
+                            نیمه خصوصی
+                        {% endif %}
+                    </td>
+                    <td>{{ x.course.capacity }}</td>
+                    <td>{{ x.course.sport.title }}</td>
+                    <td class="text-center">
+                        {% if x.course.active %}
+                            <i title="فعال" class="fa fa-check-circle text-success"></i>
+                        {% else %}
+                            <i title="غیرفعال" class="fa fa-ban text-danger"></i>
+                        {% endif %}
+                    </td>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 
-<script>
+    <script>
 
-document.getElementById('searchInput').addEventListener('keyup', function() {
-    var input, filter, table, tr, td, i, j, txtValue;
-    input = document.getElementById('searchInput');
-    filter = input.value.toUpperCase().trim().split(" "); // ورودی را به کلمات جداگانه تقسیم می‌کند
-    table = document.getElementById('myTable');
-    tr = table.getElementsByTagName('tr');
+        document.getElementById('searchInput').addEventListener('keyup', function () {
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById('searchInput');
+            filter = input.value.toUpperCase().trim().split(" "); // ورودی را به کلمات جداگانه تقسیم می‌کند
+            table = document.getElementById('myTable');
+            tr = table.getElementsByTagName('tr');
 
-    for (i = 1; i < tr.length; i++) {
-        tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
-        td = tr[i].getElementsByTagName('td');
-        var rowMatches = true; // فرض می‌کنیم که ردیف با شرایط جستجو مطابقت دارد
+            for (i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
+                td = tr[i].getElementsByTagName('td');
+                var rowMatches = true; // فرض می‌کنیم که ردیف با شرایط جستجو مطابقت دارد
 
-        for (j = 0; j < filter.length; j++) { // برای هر کلمه جستجو
-            var wordMatched = false; // فرض می‌کنیم که هیچ کلمه‌ای مطابقت ندارد
+                for (j = 0; j < filter.length; j++) { // برای هر کلمه جستجو
+                    var wordMatched = false; // فرض می‌کنیم که هیچ کلمه‌ای مطابقت ندارد
 
-            for (let k = 0; k < td.length; k++) { // هر سلول را بررسی می‌کنیم
-                if (td[k]) {
-                    txtValue = td[k].textContent || td[k].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter[j]) > -1) {
-                        wordMatched = true; // اگر کلمه پیدا شد
+                    for (let k = 0; k < td.length; k++) { // هر سلول را بررسی می‌کنیم
+                        if (td[k]) {
+                            txtValue = td[k].textContent || td[k].innerText;
+                            if (txtValue.toUpperCase().indexOf(filter[j]) > -1) {
+                                wordMatched = true; // اگر کلمه پیدا شد
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!wordMatched) {
+                        rowMatches = false; // اگر هیچ کلمه‌ای در ردیف مطابقت نداشت
                         break;
                     }
                 }
+
+                if (rowMatches) {
+                    tr[i].style.display = ""; // اگر ردیف با تمام کلمات مطابقت داشت، نمایش داده شود
+                }
+            }
+        });
+
+    </script>
+
+    <script>
+        (function () {
+            // تابعی که کانتینر را تا «انتهای راست» می‌برد
+            function scrollToRight(el) {
+                if (!el) return;
+                // بدون انیمیشن و بدون پرش بصری
+                el.scrollLeft = el.scrollWidth;
             }
 
-            if (!wordMatched) {
-                rowMatches = false; // اگر هیچ کلمه‌ای در ردیف مطابقت نداشت
-                break;
+            // دی‌بونس برای رویدادهایی مثل resize
+            function debounce(fn, delay) {
+                let t;
+                return function () {
+                    clearTimeout(t);
+                    t = setTimeout(fn, delay);
+                };
             }
-        }
 
-        if (rowMatches) {
-            tr[i].style.display = ""; // اگر ردیف با تمام کلمات مطابقت داشت، نمایش داده شود
-        }
-    }
-});
+            function initRightStartScroll() {
+                const container = document.querySelector('.table-responsive');
+                if (!container) return;
 
-</script>
+                // 1) بار اول و بعد از load
+                requestAnimationFrame(() => scrollToRight(container));
+
+                // 2) روی ریسایز (مثلا چرخاندن موبایل)
+                window.addEventListener('resize', debounce(() => scrollToRight(container), 150), {passive: true});
+
+                // 3) اگر محتوا تغییر کرد (فیلتر، صفحه‌بندی ajax، رندر دوباره جدول)
+                const observer = new MutationObserver(() => scrollToRight(container));
+                observer.observe(container, {childList: true, subtree: true});
+
+                // اگر صفحه‌بندی با کلیک لینک‌های داخل .table-responsive انجام می‌شود:
+                container.addEventListener('scroll', () => { /* لازم نیست کاری کنیم؛ فقط برای آینده گذاشتم */
+                });
+
+                // اگر جستجو ورودی جدا دارد، بعد از هر تغییر دوباره ست کن (اختیاری)
+                const search = document.getElementById('searchInput');
+                if (search) {
+                    search.addEventListener('input', debounce(() => scrollToRight(container), 150));
+                }
+            }
+
+            // DOM آماده شد
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initRightStartScroll);
+            } else {
+                initRightStartScroll();
+            }
+
+            // بعضی منابع با تاخیر لود می‌شوند (فونت/آیکن/داده)؛ یک بار هم بعد از load
+            window.addEventListener('load', () => {
+                const container = document.querySelector('.table-responsive');
+                scrollToRight(container);
+            });
+        })();
+    </script>
 
 {% endblock %}
-
-</body>
-
-</html>

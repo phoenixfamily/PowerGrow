@@ -1,13 +1,7 @@
 {% extends 'manager/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}پنل کاربری{% endblock %}
+{% block title %}داشبرد | PowerGrow{% endblock %}
 
-</head>
-
-<body>
 
 {% block  header %}
     <a href="{% url 'user:logout_api' %}" class="btn btn-cta">خروج</a>
@@ -96,9 +90,3 @@
 
 
 {% endblock %}
-
-</body>
-
-</html>
-
-

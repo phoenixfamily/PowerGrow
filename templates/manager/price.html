@@ -1,13 +1,7 @@
 {% extends 'manager/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}مدیریت سانس ها{% endblock %}
+{% block title %}هزینه | PowerGrow{% endblock %}
 
-</head>
-
-<body>
 
 {% block  header %}
     <a href="{% url 'calendar:create_time' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن زمان</a>
@@ -113,7 +107,3 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
 </script>
 
 {% endblock %}
-
-</body>
-
-</html>

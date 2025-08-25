@@ -1,13 +1,8 @@
 {% extends 'manager/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}مدیریت تقویم{% endblock %}
 
-</head>
+{% block title %}تقویم | PowerGrow{% endblock %}
 
-<body>
 
 {% block  header %}
     <a href="{% url 'calendar:create_day' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن تاریخ</a>
@@ -120,7 +115,3 @@
 
     </script>
 {% endblock %}
-
-</body>
-
-</html>

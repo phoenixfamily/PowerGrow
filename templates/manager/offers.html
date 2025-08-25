@@ -1,13 +1,6 @@
 {% extends 'manager/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}مدیریت تخفیف ها{% endblock %}
-
-</head>
-
-<body>
+{% block title %}تخفیف ها | PowerGrow{% endblock %}
 
 {% block  header %}
     <a href="{% url 'product:create-off' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن تخفیف</a>
@@ -109,8 +102,3 @@
 
     </script>
 {% endblock %}
-
-
-</body>
-
-</html>

@@ -566,7 +566,7 @@ def create_course_view(request):
 
     }
 
-    return render(request, 'manager/create-course.html', context)
+    return render(request, 'api/create-course.html', context)
 
 
 @session_admin_required
@@ -583,7 +583,7 @@ def update_course(request, pk):
 
     }
 
-    return render(request, 'manager/update_course.html', context)
+    return render(request, 'api/update_course.html', context)
 
 
 @session_admin_required
@@ -597,7 +597,7 @@ def update_session(request, pk):
         'about': about,
     }
 
-    return render(request, 'manager/update_sessions.html', context)
+    return render(request, 'api/update_sessions.html', context)
 
 
 @session_admin_required
@@ -611,7 +611,7 @@ def create_off_view(request):
         'course': course,
     }
 
-    return render(request, 'admin/create_off.html', context)
+    return render(request, 'api/create_off.html', context)
 
 
 @session_admin_required
@@ -630,7 +630,7 @@ def create_participants(request, course_id):  # تغییر نام پارامتر
         'user': user
     }
 
-    return render(request, 'manager/participants.html', context)
+    return render(request, 'api/create-participants.html', context)
 
 
 @session_admin_required
@@ -653,7 +653,7 @@ def update_participant_view(request, participant_id):
         'user': user
 
     }
-    return render(request, 'manager/update_participants.html', context)
+    return render(request, 'api/update_participants.html', context)
 
 
 class CourseListCreateView(generics.CreateAPIView):

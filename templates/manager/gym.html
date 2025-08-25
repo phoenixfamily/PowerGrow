@@ -1,13 +1,6 @@
 {% extends 'manager/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}مدیریت سالن ها{% endblock %}
-
-</head>
-
-<body>
+{% block title %}سالن | PowerGrow{% endblock %}
 
 {% block  header %}
     <a href="{% url 'reservation:create_gym' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن سالن</a>
@@ -110,8 +103,3 @@
     </script>
 
 {% endblock %}
-
-
-</body>
-
-</html>

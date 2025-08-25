@@ -1,13 +1,6 @@
 {% extends 'manager/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}مدیریت کاربران{% endblock %}
-
-</head>
-
-<body>
+{% block title %}کاربران | PowerGrow{% endblock %}
 
 {% block  header %}
     <a href="{% url 'user:create-user' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن کاربر</a>
@@ -221,7 +214,3 @@ ${user.description}
 </script>
 
 {% endblock %}
-
-</body>
-
-</html>

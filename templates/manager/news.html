@@ -1,13 +1,6 @@
 {% extends 'manager/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}مدیریت اطلاعیه ها{% endblock %}
-
-</head>
-
-<body>
+{% block title %}اطلاعیه ها | PowerGrow{% endblock %}
 
 {% block  header %}
     <a href="{% url 'seo:create_news' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن اطلاعیه</a>
@@ -113,7 +106,3 @@
     </script>
 
 {% endblock %}
-
-</body>
-
-</html>

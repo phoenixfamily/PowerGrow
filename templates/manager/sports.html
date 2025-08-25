@@ -1,13 +1,7 @@
 {% extends 'manager/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}مدیریت دوره ها{% endblock %}
+{% block title %}ورزش ها | PowerGrow{% endblock %}
 
-</head>
-
-<body>
 
 {% block  header %}
     <a href="{% url 'product:manager-create-sport' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن ورزش</a>
@@ -101,6 +95,3 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
 </script>
 
 {% endblock %}
-</body>
-
-</html>

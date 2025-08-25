@@ -1,13 +1,7 @@
-{% extends 'manager/base.html' %}
+{% extends 'api/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    {% block title %}ساخت دوره{% endblock %}
+{% block title %}ساخت دوره | PowerGrow{% endblock %}
 
-</head>
-
-<body>
 
 {% block header %}
     <div class="d-flex justify-content-end my-3 me-3">
@@ -150,6 +144,3 @@ document.getElementById('submit').addEventListener('click', function(event) {
 </script>
 
 {% endblock %}
-
-</body>
-</html>

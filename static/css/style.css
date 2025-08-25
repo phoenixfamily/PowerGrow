@@ -817,12 +817,16 @@ section p {
     width: 100%;
     padding-left: 10px;
     padding-right: 10px;
+    direction: ltr;
 }
 
 .table-responsive table {
     width: 100% !important;
     table-layout: auto;
+    direction: rtl;
+    text-align: center;
 }
+
 
 table thead {
     background-color: #f8f9fa;
@@ -846,8 +850,6 @@ table i:hover {
 @media (max-width: 768px) {
     table {
         width: 100%;
-        display: block;
-
     }
 
     table i {
@@ -856,15 +858,36 @@ table i:hover {
     }
 
     .table-responsive {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding-left: 5px;
-        padding-right: 5px;
+        padding-left: 0;
+        padding-right: 0;
     }
 
-    table td, table th {
-        white-space: normal; /* نذار متن بشکنه */
+    .table-responsive table {
+        display: table;
+        width: auto;
     }
+
+
+    /* حذف پدینگ‌های اضافه */
+    #listTable {
+        width: auto !important; /* اجازه بده با محتوا بزرگ شه */
+        min-width: 720px; /* به اندازه‌ای که جدول قشنگ خونده شه (بنابر ستون‌ها تغییر بده) */
+        table-layout: auto;
+    }
+
+    #listTable th, #listTable td {
+        white-space: nowrap;
+    }
+
+    /* اگر ستونی متن بلند دارد (مثلاً نام دوره)، فقط همان را اجازه‌ی wrap بده */
+    #listTable td:nth-child(4) {
+        white-space: normal;
+    }
+
+
+       table td, table th {
+           white-space: normal; /* نذار متن بشکنه */
+}
 
 }
 
@@ -905,33 +928,43 @@ table i:hover {
 }
 
 /* محتوای هر ستون RTL بماند */
-.rtl-content { direction: rtl; }
+.rtl-content {
+    direction: rtl;
+}
 
 /* کارت شهریه چسبان در دسکتاپ */
 .pricing-card {
-  position: sticky;
-  top: 1rem;
-  border: 1px solid #eee;
-  border-radius: 12px;
+    position: sticky;
+    top: 1rem;
+    border: 1px solid #eee;
+    border-radius: 12px;
 }
 
 /* گرید تقویم 7ستونه */
 .calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: .25rem;
-  text-align: center;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: .25rem;
+    text-align: center;
 }
 
 /* در موبایل کارت استیکی نباشد */
 @media (max-width: 991.98px) {
-  .pricing-card { position: static; }
+    .pricing-card {
+        position: static;
+    }
 }
+
 /* این ردیف خاص رو از row-reverse نجات بده */
 .row-dir-fix {
-  direction: ltr;               /* فقط برای کنترل ترتیب ستون‌ها */
-  display: flex;                /* برخی تم‌های RTL اینو تغییر دادن */
-  flex-wrap: wrap;
-  flex-direction: row !important;  /* مهم: برعکس نشه */
+    direction: ltr; /* فقط برای کنترل ترتیب ستون‌ها */
+    display: flex; /* برخی تم‌های RTL اینو تغییر دادن */
+    flex-wrap: wrap;
+    flex-direction: row !important; /* مهم: برعکس نشه */
 }
-.row-dir-fix > [class*="col-"] { direction: rtl; } /* محتوای هر ستون RTL بمونه */
+
+.row-dir-fix > [class*="col-"] {
+    direction: rtl;
+}
+
+/* محتوای هر ستون RTL بمونه */

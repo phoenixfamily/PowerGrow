@@ -265,7 +265,6 @@
                 document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
                 day.classList.add('active');
                 dayId = day.getAttribute("data-id");
-                console.log("انتخاب شد روز با ID:", dayId);
             });
         });
 
@@ -410,77 +409,46 @@
             const uiDiscount = document.getElementById('uiDiscount');
             const uiTotal = document.getElementById('uiTotal');
 
-            // اگر می‌خوای آیدی روزهای انتخابی را به فرم بفرستی
-            const daysInput = document.getElementById('daysInput'); // اختیاری
-
-            // محاسبۀ تخفیف یک روز بر اساس مقدار off
             function calcOff(price, off) {
                 if (off == null || off === '' || isNaN(off)) return 0;
                 const v = parseFloat(off);
                 if (v <= 0) return 0;
-
-                // 0-1 => ضریب (مثلا 0.1 یعنی 10%)
-                if (v > 0 && v <= 1) return price * v;
-
-                // 1-100 => درصد
-                if (v > 1 && v <= 100) return price * (v / 100);
-
-                // >100 => مبلغ ثابت
-                return Math.min(v, price); // سقف: از قیمت روز بیشتر نشه
+                if (v > 0 && v <= 1) return price * v;        // ضریب (0..1)
+                if (v > 1 && v <= 100) return price * (v / 100); // درصد (1..100)
+                return Math.min(v, price);                    // مبلغ ثابت
             }
 
             function recalc() {
-                const selectedBtns = daysContainer.querySelectorAll('.day-btn.btn-primary');
-                if (selectedBtns.length === 0) {
+                const selected = daysContainer.querySelector('.day-btn.btn-primary');
+                if (!selected) {
                     uiPps.textContent = '—';
                     uiDiscount.textContent = '—';
                     uiTotal.textContent = '—';
-                    uiDiscountRow.classList.add('d-none');
-                    if (daysInput) daysInput.value = '[]';
                     return;
                 }
+                const price = parseFloat(selected.dataset.price || '0');
+                const off = parseFloat(selected.dataset.off || '0');
+                const d = calcOff(price, off);
+                const net = Math.max(0, price - d);
 
-                let gross = 0;      // مجموع قبل تخفیف
-                let discount = 0;   // مجموع تخفیف‌ها
-                const selectedIds = [];
-
-                selectedBtns.forEach(btn => {
-                    const price = parseFloat(btn.dataset.price || '0');
-                    const off = parseFloat(btn.dataset.off || '0');
-                    const d = calcOff(price, off);
-
-                    gross += price;
-                    discount += d;
-                    if (btn.dataset.id) selectedIds.push(btn.dataset.id);
-                });
-
-                const net = Math.max(0, gross - discount);
-
-                uiPps.textContent = fmt(gross);
+                uiPps.textContent = fmt(price);
                 uiTotal.textContent = fmt(net);
 
-                if (discount > 0) {
-                    uiDiscount.textContent = '− ' + fmt(discount);
-                    uiDiscountRow.classList.remove('d-none');
-                } else {
-                    uiDiscountRow.classList.add('d-none');
-                }
-
-                if (daysInput) daysInput.value = JSON.stringify(selectedIds);
             }
 
-            // هندل انتخاب/لغو انتخاب روز
+            // ✅ تک‌انتخابی: با هر کلیک، اول همه رو پاک می‌کنیم، بعد همون یکی رو انتخاب می‌کنیم.
             daysContainer.addEventListener('click', (e) => {
                 const btn = e.target.closest('.day-btn');
                 if (!btn) return;
-                btn.classList.toggle('btn-primary'); // حالت انتخابی
+
                 recalc();
             });
 
-            // اگر در لود اولیه روزی از قبل انتخاب شده بود:
+            // اگر از قبل مقداری هست
             recalc();
         })();
     </script>
+
 
 
 {% endblock %}

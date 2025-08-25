@@ -904,6 +904,13 @@ table i:hover {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
+/* ردیفِ این بخش را LTR می‌کنیم تا ترتیب ستون‌ها دقیق باشد */
+.row-dir-fix { direction: ltr; }
+
+/* محتوای هر ستون RTL بماند */
+.rtl-content { direction: rtl; }
+
+/* کارت شهریه چسبان در دسکتاپ */
 .pricing-card {
   position: sticky;
   top: 1rem;
@@ -911,26 +918,15 @@ table i:hover {
   border-radius: 12px;
 }
 
-/* فاصله عمودی بین ستون‌ها */
-.calendar-pricing-row { row-gap: 1rem; }
-
-/* گرید تقویم با 7 ستون و چینش راست‌به‌چپ */
+/* گرید تقویم 7ستونه */
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: .25rem;
-  direction: rtl;       /* سلول اول در سمت راست */
   text-align: center;
 }
 
-/* دکمه‌های ناوبری تقویم در RTL: جهت فلش‌ها طبیعی می‌شود */
-.rtl-icon-swap { transform: scaleX(-1); }
-/* توضیح: چون آیکون‌ها chevron-left/right هستند، با این ترنسفورم بدون تغییر HTML، جهت ادراکی‌شان با RTL یکی می‌شود. */
-
-/* دکمه‌های انتخابی (جلسات/روزها) در حالت انتخاب */
-.session-btn.btn-primary, .day-btn.btn-primary { color: #fff; }
-
-/* موبایل: کارت استیکی نباشد تا زیر تقویم طبیعی اسکرول شود */
+/* در موبایل کارت استیکی نباشد */
 @media (max-width: 991.98px) {
   .pricing-card { position: static; }
 }

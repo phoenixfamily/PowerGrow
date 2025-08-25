@@ -817,7 +817,6 @@ section p {
     width: 100%;
     padding-left: 10px;
     padding-right: 10px;
-    direction: ltr;
 }
 
 .table-responsive table {

@@ -60,7 +60,7 @@
                     <label for="category" class="form-label">دسته بندی:</label>
                     <select class="form-select" id="category" name="category" required>
                         {% for x in sports %}
-                            <option value="{{ x.id }}" {% if course.sport == x.id %}selected{% endif %}>{{ x.title }}</option>
+                            <option value="{{ x.id }}" {% if course.sport.id == x.id %}selected{% endif %}>{{ x.title }}</option>
                         {% endfor %}
                     </select>
                 </div>

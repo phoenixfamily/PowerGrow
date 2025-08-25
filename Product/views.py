@@ -573,10 +573,14 @@ def create_course_view(request):
 def update_course(request, pk):
     course = get_object_or_404(Course, pk=pk)
     about = AboutUs.objects.first()
+    sports = Sport.objects.all()
+
 
     context = {
         'course': course,
         'about': about,
+        'sports': sports,
+
     }
 
     return render(request, 'manager/update_course.html', context)

@@ -904,3 +904,17 @@ table i:hover {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
+/* کارت شهریه چسبان کنار تقویم در لپ‌تاپ/دسکتاپ */
+.pricing-card {
+  position: sticky;
+  top: 1rem;       /* فاصله از بالا */
+  border: 1px solid #eee;
+  border-radius: 12px;
+}
+@media (max-width: 991.98px) {
+  /* در موبایل sticky نباشه تا طبیعی زیر تقویم بیاد */
+  .pricing-card { position: static; }
+}
+
+/* اگر می‌خوای فاصله بین ستون‌ها کمی بیشتر باشه */
+.calendar-pricing-row { row-gap: 1rem; }

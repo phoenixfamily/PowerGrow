@@ -10,7 +10,7 @@ class EnrollmentService:
         self.allowed_day_names = allowed_day_names
 
     def get_valid_days(self):
-        normalized_allowed = [normalize_persian_text(d) for d in self.allowed_day_names]
+        normalized_allowed = [normalize_persian_text(d.weekday_name) for d in self.allowed_day_names]
 
         raw_days = Day.objects.filter(
             holiday=False,
@@ -19,12 +19,7 @@ class EnrollmentService:
 
 
         # حالا فیلتر بر اساس allowed
-        raw_days = [d for d in raw_days if normalize_persian_text(d.name) in normalized_allowed]
-
-        # 👇 فیکس خاص برای پنجشنبه
-        for d in raw_days:
-            if normalize_persian_text(d.name) == "پنج‌شنبه":
-                d.name = "پنجشنبه"  # نیم‌فاصله‌دار
+        raw_days = [d for d in raw_days if normalize_persian_text(d.weekday_name) in normalized_allowed]
 
         start_jdate = self.start_day.jdate
 

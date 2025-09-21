@@ -17,13 +17,14 @@ class EnrollmentService:
             month__year__number__gte=self.start_day.month.year.number - 1
         ).select_related("month", "month__year")
 
+
+        # حالا فیلتر بر اساس allowed
+        raw_days = [d for d in raw_days if normalize_persian_text(d.name) in normalized_allowed]
+
         # 👇 فیکس خاص برای پنجشنبه
         for d in raw_days:
             if normalize_persian_text(d.name) == "پنجشنبه":
                 d.name = "پنج‌شنبه"  # نیم‌فاصله‌دار
-
-        # حالا فیلتر بر اساس allowed
-        raw_days = [d for d in raw_days if normalize_persian_text(d.name) in normalized_allowed]
 
         start_jdate = self.start_day.jdate
 

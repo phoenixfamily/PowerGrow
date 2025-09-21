@@ -10,7 +10,7 @@ class EnrollmentService:
         self.allowed_day_names = allowed_day_names
 
     def get_valid_days(self):
-        normalized_allowed = [normalize_persian_text(d.weekday_name) for d in self.allowed_day_names]
+        normalized_allowed = [normalize_persian_text(d) for d in self.allowed_day_names]
 
         raw_days = Day.objects.filter(
             holiday=False,

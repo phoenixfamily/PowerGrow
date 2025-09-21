@@ -9,7 +9,7 @@ from rest_framework.response import Response
 
 from PowerGrow.decorators import session_auth_required
 from Product.models import *
-from Product.utils import normalize_persian_space
+from Product.utils import normalize_persian_text
 from Reservation.models import *
 from About.models import AboutUs
 from Calendar.serializer import *
@@ -216,7 +216,7 @@ class DayView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         data = self.request.data
 
-        normalized_name = normalize_persian_space(data.get("name", ""))
+        normalized_name = normalize_persian_text(data.get("name", ""))
 
         day = Day.objects.create(
             number=data["number"],

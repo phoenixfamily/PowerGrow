@@ -7,10 +7,9 @@ class EnrollmentService:
     def __init__(self, start_day, session_count, allowed_day_names):
         self.start_day = start_day  # instance of Day
         self.session_count = session_count
-        self.allowed_day_names = [normalize_persian_text(d) for d in allowed_day_names]
+        self.allowed_day_names = allowed_day_names
 
     def get_valid_days(self):
-        # نرمال‌سازی allowed_day_names
         normalized_allowed = [normalize_persian_text(d) for d in self.allowed_day_names]
 
         raw_days = Day.objects.filter(
@@ -18,7 +17,12 @@ class EnrollmentService:
             month__year__number__gte=self.start_day.month.year.number - 1
         ).select_related("month", "month__year")
 
-        # حالا نرمال‌سازی اسامی دیتابیس
+        # 👇 فیکس خاص برای پنجشنبه
+        for d in raw_days:
+            if normalize_persian_text(d.name) == "پنجشنبه":
+                d.name = "پنج‌شنبه"  # نیم‌فاصله‌دار
+
+        # حالا فیلتر بر اساس allowed
         raw_days = [d for d in raw_days if normalize_persian_text(d.name) in normalized_allowed]
 
         start_jdate = self.start_day.jdate

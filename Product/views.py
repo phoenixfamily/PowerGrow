@@ -23,7 +23,7 @@ from PowerGrow.permissions import *
 from Product.services.enrollment import EnrollmentService
 import logging
 
-from Product.utils import normalize_persian_space
+from Product.utils import normalize_persian_text
 from rest_framework.parsers import MultiPartParser, FormParser
 
 logger = logging.getLogger(__name__)
@@ -828,7 +828,8 @@ class ParticipationCreateView(viewsets.ViewSet):
                 start = Day.objects.filter(id=data["startDay"]).first()
                 course = Course.objects.get(id=data["course"])
 
-                day_names = [normalize_persian_space(d) for d in week.title.split("،")]
+                day_names = [normalize_persian_text(d) for d in week.title.split("،")]
+
 
                 if not all([course, week, start, session]):
                     return Response({
@@ -898,7 +899,7 @@ class ManagerParticipationView(viewsets.ViewSet):
         start = Day.objects.filter(id=data["startDay"]).select_related('month', 'month__year').first()
         session = Session.objects.filter(id=data["session"]).first()
 
-        day_names = [normalize_persian_space(d) for d in week.title.split("،")]
+        day_names = [normalize_persian_text(d) for d in week.title.split("،")]
 
         if not all([course, user, week, start, session]):
             return Response({

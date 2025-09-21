@@ -1,4 +1,5 @@
 from Calendar.models import Day  # یا مسیر درست مدل خودت
+from Product.utils import normalize_persian_text
 
 
 class EnrollmentService:
@@ -9,18 +10,19 @@ class EnrollmentService:
         self.allowed_day_names = allowed_day_names  # list like ["شنبه", "سه‌شنبه"]
 
     def get_valid_days(self):
+        # نرمال‌سازی allowed_day_names
+        normalized_allowed = [normalize_persian_text(d) for d in self.allowed_day_names]
 
-        # دیتای خام رو بگیر
         raw_days = Day.objects.filter(
-            name__in=self.allowed_day_names,
             holiday=False,
             month__year__number__gte=self.start_day.month.year.number - 1
         ).select_related("month", "month__year")
 
-        # تاریخ شمسی شروع
+        # حالا نرمال‌سازی اسامی دیتابیس
+        raw_days = [d for d in raw_days if normalize_persian_text(d.name) in normalized_allowed]
+
         start_jdate = self.start_day.jdate
 
-        # فیلتر دستی با jdate و سورت
         valid_days = sorted(
             [d for d in raw_days if d.jdate and d.jdate >= start_jdate],
             key=lambda d: d.jdate

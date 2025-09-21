@@ -23,8 +23,8 @@ class EnrollmentService:
 
         # 👇 فیکس خاص برای پنجشنبه
         for d in raw_days:
-            if normalize_persian_text(d.name) == "پنجشنبه":
-                d.name = "پنج‌شنبه"  # نیم‌فاصله‌دار
+            if normalize_persian_text(d.name) == "پنج‌شنبه":
+                d.name = "پنجشنبه"  # نیم‌فاصله‌دار
 
         start_jdate = self.start_day.jdate
 

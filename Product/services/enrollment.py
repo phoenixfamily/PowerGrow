@@ -21,8 +21,8 @@ class EnrollmentService:
 
         normalized_raw = []
         for d in raw_days:
-            norm_name = normalize_persian_text(d.weekday_name)
-            print(f"📅 Day {d} → raw='{d.weekday_name}' → normalized='{norm_name}'")
+            norm_name = normalize_persian_text(d.name)
+            print(f"📅 Day {d} → raw='{d.name}' → normalized='{norm_name}'")
             if norm_name in normalized_allowed:
                 normalized_raw.append(d)
 

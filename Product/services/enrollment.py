@@ -7,7 +7,7 @@ class EnrollmentService:
     def __init__(self, start_day, session_count, allowed_day_names):
         self.start_day = start_day  # instance of Day
         self.session_count = session_count
-        self.allowed_day_names = allowed_day_names  # list like ["شنبه", "سه‌شنبه"]
+        self.allowed_day_names = [normalize_persian_text(d) for d in allowed_day_names]
 
     def get_valid_days(self):
         # نرمال‌سازی allowed_day_names

@@ -904,13 +904,14 @@ class ManagerParticipationView(viewsets.ViewSet):
         if not all([course, user, week, start, session]):
             return Response({
                 'error': 'برخی از داده‌ها نامعتبر هستند.',
-                'debug': {
-                    'course': bool(course),
-                    'user': bool(user),
-                    'week': bool(week),
-                    'start': bool(start),
-                    'session': bool(session),
-                }
+                'day_names': day_names
+                # 'debug': {
+                #     'course': bool(course),
+                #     'user': bool(user),
+                #     'week': bool(week),
+                #     'start': bool(start),
+                #     'session': bool(session),
+                # }
             }, status=status.HTTP_400_BAD_REQUEST)
 
         try:

@@ -5,7 +5,7 @@ def normalize_persian_text(text: str) -> str:
         return ""
 
         # حذف فاصله‌های اضافه (Space, non-breaking space, ZWNJ, ...)
-    text = re.sub(r"[\u200c\u200f\u202a\u202b\u202c\u00a0]", " ", text)
+    text = re.sub(r"[\u200c\u200f\u202a\u202b\u202c\u00a0]", "", text)
 
     # یکی‌سازی ک عربی (ك) → ک فارسی
     text = text.replace("ك", "ک")

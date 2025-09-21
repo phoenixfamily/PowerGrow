@@ -19,7 +19,7 @@ class EnrollmentService:
 
 
         # حالا فیلتر بر اساس allowed
-        raw_days = [d for d in raw_days if normalize_persian_text(d.weekday_name) in normalized_allowed]
+        raw_days = [d for d in raw_days if normalize_persian_text(d.name) in normalized_allowed]
 
         start_jdate = self.start_day.jdate
 

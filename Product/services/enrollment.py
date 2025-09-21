@@ -11,6 +11,7 @@ class EnrollmentService:
 
     def get_valid_days(self):
         normalized_allowed = [normalize_persian_text(d) for d in self.allowed_day_names]
+        print("✅ normalized_allowed =", normalized_allowed)
 
         raw_days = Day.objects.filter(
             holiday=False,
@@ -18,8 +19,12 @@ class EnrollmentService:
         ).select_related("month", "month__year")
 
 
-        # حالا فیلتر بر اساس allowed
-        raw_days = [d for d in raw_days if normalize_persian_text(d.name) in normalized_allowed]
+        normalized_raw = []
+        for d in raw_days:
+            norm_name = normalize_persian_text(d.weekday_name)
+            print(f"📅 Day {d} → raw='{d.weekday_name}' → normalized='{norm_name}'")
+            if norm_name in normalized_allowed:
+                normalized_raw.append(d)
 
         start_jdate = self.start_day.jdate
 

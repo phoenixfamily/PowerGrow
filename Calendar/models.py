@@ -47,12 +47,6 @@ class Day(models.Model):
         except:
             return None
 
-    @property
-    def weekday_name(self):
-        """اسم روز هفته بر اساس jdate برگردونه (استاندارد جلالی)"""
-        if self.jdate:
-            return self.jdate.strftime("%A")  # مثلا "پنج‌شنبه"
-        return None
 
 
 class Time(models.Model):

@@ -236,37 +236,17 @@ LOGIN_REDIRECT_URL = '/'  # URL بعد از ورود موفق
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
-
-    'formatters': {
-        'verbose': {
-            'format': '[{asctime}] {levelname} {name} - {message}',
-            'style': '{',
-        },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
-        },
-    },
-
+    'disable_existing_loggers': True,  # غیرفعال کردن تمام لاگرهای موجود
     'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-        },
-        'file': {
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
-            'formatter': 'verbose',
+        'null': {
+            'class': 'logging.NullHandler',  # لاگ‌ها به هیچ‌جا ارسال نمی‌شوند
         },
     },
-
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],  # هم تو کنسول هم فایل
+            'handlers': ['null'],
             'level': 'DEBUG',
-            'propagate': True,
+            'propagate': False,
         },
-
     }
 }

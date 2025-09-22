@@ -1,4 +1,3 @@
-import jdatetime
 from django.db import models
 
 TYPE_CALENDAR = (

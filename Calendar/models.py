@@ -36,9 +36,7 @@ class Day(models.Model):
                               verbose_name="ماه")
 
     def __str__(self):
-        # فرض بر این است که شماره روز و شماره ماه و سال را می‌خواهیم نمایش دهیم
-        year = self.month.year.number if self.month and self.month.year else "Unknown Year"
-        return f"{year}/{self.month.number}/{self.number}"  # به فرمت YYYY/MM/DD
+        return f"{self.month.year.number}/{self.month.number}/{self.number}"  # به فرمت YYYY/MM/DD
 
 class Time(models.Model):
     time = models.TimeField(blank=True, null=True, verbose_name="زمان")

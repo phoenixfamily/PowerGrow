@@ -15,7 +15,7 @@ class EnrollmentService:
         raw_days = Day.objects.filter(
             holiday=False,
             month__year__number__gte=self.start_day.month.year.number - 1
-        ).select_related("month", "month__year")
+        ).select_related("month", "month__year").order_by('id')
 
         # فقط روزهایی که اسمشون داخل لیست مجاز هست
         raw_days = [d for d in raw_days if normalize_persian_text(d.name) in normalized_allowed]

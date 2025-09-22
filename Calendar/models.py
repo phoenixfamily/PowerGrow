@@ -35,11 +35,6 @@ class Day(models.Model):
     month = models.ForeignKey(Month, on_delete=models.CASCADE, related_name='days', null=True, blank=True,
                               verbose_name="ماه")
 
-    def __str__(self):
-        # فرض بر این است که شماره روز و شماره ماه و سال را می‌خواهیم نمایش دهیم
-        year = self.month.year.number if self.month and self.month.year else "Unknown Year"
-        return f"{year}/{self.month.number}/{self.number}"  # به فرمت YYYY/MM/DD
-
     @property
     def jdate(self):
         try:

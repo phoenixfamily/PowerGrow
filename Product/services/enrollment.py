@@ -1,4 +1,4 @@
-from Calendar.models import Day  # یا مسیر درست مدل خودت
+from Calendar.models import Day
 from Product.utils import normalize_persian_text
 
 
@@ -18,25 +18,25 @@ class EnrollmentService:
             month__year__number__gte=self.start_day.month.year.number - 1
         ).select_related("month", "month__year")
 
-
-        normalized_raw = []
-        for d in raw_days:
-            norm_name = normalize_persian_text(d.name)
-            print(f"📅 Day {d} → raw='{d.name}' → normalized='{norm_name}'")
-            if norm_name in normalized_allowed:
-                normalized_raw.append(d)
+        # فیلتر دستی
+        filtered_days = [d for d in raw_days if normalize_persian_text(d.weekday_name) in normalized_allowed]
 
         start_jdate = self.start_day.jdate
 
         valid_days = sorted(
-            [d for d in raw_days if d.jdate and d.jdate >= start_jdate],
+            [d for d in filtered_days if d.jdate and d.jdate >= start_jdate],
             key=lambda d: d.jdate
         )
 
-        return valid_days[:self.session_count]
+        return valid_days, normalized_allowed, filtered_days
 
     def get_start_and_end_day(self):
-        days = self.get_valid_days()
-        if len(days) < self.session_count:
-            raise ValueError("تعداد روزهای معتبر کافی نیست.")
-        return days[0], days[-1]
+        valid_days, normalized_allowed, filtered_days = self.get_valid_days()
+        if len(valid_days) > self.session_count:
+            raise ValueError({
+                "normalized_allowed": normalized_allowed,
+                "filtered_days": [(d.id, d.name, d.weekday_name, d.jdate) for d in filtered_days],
+                "valid_days": [(d.id, d.name, d.weekday_name, d.jdate) for d in valid_days],
+                "needed_session_count": self.session_count
+            })
+        return valid_days[0], valid_days[-1]

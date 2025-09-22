@@ -1,6 +1,6 @@
 from Calendar.models import Day  # یا مسیر درست مدل خودت
 from Product.utils import normalize_persian_text
-
+import logging
 
 class EnrollmentService:
 
@@ -11,7 +11,7 @@ class EnrollmentService:
 
     def get_valid_days(self):
         normalized_allowed = [normalize_persian_text(d) for d in self.allowed_day_names]
-        print("Normalized allowed days:", normalized_allowed)  # دیباگ
+        logging.debug(f"Normalized allowed days: {normalized_allowed}")
 
         raw_days = Day.objects.filter(
             holiday=False,
@@ -19,8 +19,7 @@ class EnrollmentService:
         ).select_related("month", "month__year").order_by('id')
 
         for d in raw_days:
-            print(f"Raw day: {d.name}, Normalized: {normalize_persian_text(d.name)}")
-
+            logging.debug(f"Raw day: {d.name}, Normalized: {normalize_persian_text(d.name)}")
         # فقط روزهایی که اسمشون داخل لیست مجاز هست
         raw_days = [d for d in raw_days if normalize_persian_text(d.name) in normalized_allowed]
 
@@ -48,7 +47,7 @@ class EnrollmentService:
             )
         )
 
-        print("Valid days found:", [(d.name, d.number, d.month.name) for d in valid_days])  # دیباگ
+        logging.debug(f"Valid days found: {[(d.name, d.number, d.month.name) for d in valid_days]}")
         return valid_days[:self.session_count]
 
     def get_start_and_end_day(self):

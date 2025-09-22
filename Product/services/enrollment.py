@@ -23,7 +23,7 @@ class EnrollmentService:
 
         valid_days = sorted(
             [d for d in raw_days if d.jdate and d.jdate >= start_jdate],
-            key=lambda d: d.id
+            key=lambda d: (d.month.year.number, d.month.number, d.number, d.id)
         )
 
         return valid_days[:self.session_count]

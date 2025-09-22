@@ -267,11 +267,6 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        # لاگر اختصاصی برای اپ خودت
-        'product': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
+
     }
 }

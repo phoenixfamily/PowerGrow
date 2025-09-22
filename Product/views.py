@@ -21,12 +21,9 @@ import json
 from PowerGrow.permissions import *
 
 from Product.services.enrollment import EnrollmentService
-import logging
 
 from Product.utils import normalize_persian_text
 from rest_framework.parsers import MultiPartParser, FormParser
-
-logger = logging.getLogger(__name__)
 
 User = get_user_model()
 

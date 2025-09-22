@@ -40,15 +40,6 @@ class Day(models.Model):
         year = self.month.year.number if self.month and self.month.year else "Unknown Year"
         return f"{year}/{self.month.number}/{self.number}"  # به فرمت YYYY/MM/DD
 
-    @property
-    def jdate(self):
-        try:
-            return jdatetime.date(self.month.year.number, self.month.number, self.number)
-        except:
-            return None
-
-
-
 class Time(models.Model):
     time = models.TimeField(blank=True, null=True, verbose_name="زمان")
     duration = models.IntegerField(blank=True, null=True, verbose_name="مدت به دقیقه")

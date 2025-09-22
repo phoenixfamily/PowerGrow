@@ -236,7 +236,6 @@ LOGIN_REDIRECT_URL = '/'  # URL بعد از ورود موفق
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,  # غیرفعال کردن تمام لاگرهای موجود
     'handlers': {
         'null': {
             'class': 'logging.NullHandler',  # لاگ‌ها به هیچ‌جا ارسال نمی‌شوند

@@ -86,13 +86,6 @@ class Participants(models.Model):
     success = models.BooleanField(blank=True, null=True)
     expired = models.BooleanField(default=False)
 
-    # 👇 متد جدید برای تبدیل به jdate
-    def to_jdate(self):
-        try:
-            return jdate(self.month.year.number, self.month.number, self.number)
-        except Exception:
-            return None
-
 
 class Offers(models.Model):
     TYPE_CHOICES = [

@@ -17,13 +17,31 @@ class EnrollmentService:
             month__year__number__gte=self.start_day.month.year.number - 1
         ).select_related("month", "month__year")
 
+        # فقط روزهایی که اسمشون داخل لیست مجاز هست
         raw_days = [d for d in raw_days if normalize_persian_text(d.name) in normalized_allowed]
 
-        start_jdate = self.start_day.jdate
+        # تبدیل start_day به یک کلید عددی (سال، ماه، روز)
+        start_key = (
+            self.start_day.month.year.number,
+            self.start_day.month.number,
+            self.start_day.number,
+        )
 
+        # فیلتر و مرتب‌سازی
         valid_days = sorted(
-            [d for d in raw_days if d.jdate and d.jdate >= start_jdate],
-            key=lambda d: (d.month.year.number, d.month.number, d.number, d.id)
+            [
+                d for d in raw_days
+                if (
+                    d.month and d.month.year and d.number and
+                    (d.month.year.number, d.month.number, d.number) >= start_key
+            )
+            ],
+            key=lambda d: (
+                d.month.year.number,
+                d.month.number,
+                d.number,
+                d.id  # برای پایداری مرتب‌سازی
+            )
         )
 
         return valid_days[:self.session_count]

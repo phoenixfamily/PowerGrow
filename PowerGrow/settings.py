@@ -236,16 +236,24 @@ LOGIN_REDIRECT_URL = '/'  # URL بعد از ورود موفق
 
 LOGGING = {
     'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '{message}',  # فقط پیام لاگ بدون اطلاعات اضافی
+            'style': '{',
+        },
+    },
     'handlers': {
-        'null': {
-            'class': 'logging.NullHandler',  # لاگ‌ها به هیچ‌جا ارسال نمی‌شوند
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['null'],
+            'handlers': ['console'],  # فقط در کنسول نمایش داده شود
             'level': 'DEBUG',
-            'propagate': False,
+            'propagate': False,  # جلوگیری از انتشار لاگ به لاگرهای دیگر
         },
     }
 }

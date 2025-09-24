@@ -251,72 +251,72 @@
 
 
     <script>
-    let sessionId = 0;
-    let dayId = 0;
+        let sessionId = 0;
+        let dayId = 0;
 
-    // همه روزها رو اول مخفی می‌کنیم
-    document.querySelectorAll('.day-btn').forEach(day => {
-        day.style.display = 'none';
-    });
-
-    // لیسنر کلیک روی روزها
-    document.querySelectorAll('.day-btn').forEach(day => {
-        day.addEventListener('click', () => {
-            // فقط یکی انتخاب بشه
-            document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-            day.classList.add('active');
-            dayId = day.getAttribute("data-id");
-
-            // قیمت و تخفیف رو بخون
-            const price = parseFloat(day.dataset.price || 0);
-            const off   = parseFloat(day.dataset.off || 0);
-
-            // محاسبه تخفیف (فرض: off درصدی هست. اگر حالت دیگه داری تغییر بده)
-            const discount = price * (off / 100);
-            const finalPrice = price - discount;
-
-            // نمایش توی کارت
-            document.getElementById('uiPps').textContent = new Intl.NumberFormat('fa-IR').format(price) + ' تومان';
-            document.getElementById('uiDiscount').textContent = discount > 0
-                ? '− ' + new Intl.NumberFormat('fa-IR').format(discount) + ' تومان'
-                : '—';
-            document.getElementById('uiTotal').textContent = new Intl.NumberFormat('fa-IR').format(finalPrice) + ' تومان';
-
-            // اگر می‌خوای ردیف تخفیف مخفی/نمایش بشه
-            const row = document.getElementById('uiDiscountRow');
-            if(discount > 0){
-                row.classList.remove('d-none');
-            } else {
-                row.classList.add('d-none');
-            }
+        // همه روزها رو اول مخفی می‌کنیم
+        document.querySelectorAll('.day-btn').forEach(day => {
+            day.style.display = 'none';
         });
-    });
 
-    // لیسنر کلیک روی جلسات
-    document.querySelectorAll('.session-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            // تغییر استایل انتخاب جلسه
-            document.querySelectorAll('.session-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            sessionId = btn.getAttribute("data-id");
+        // لیسنر کلیک روی روزها
+        document.querySelectorAll('.day-btn').forEach(day => {
+            day.addEventListener('click', () => {
+                // فقط یکی انتخاب بشه
+                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+                day.classList.add('active');
+                dayId = day.getAttribute("data-id");
 
-            // ریست انتخاب روز و پاک‌کردن مقادیر کارت
-            dayId = 0;
-            document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('uiPps').textContent = '—';
-            document.getElementById('uiDiscount').textContent = '—';
-            document.getElementById('uiTotal').textContent = '—';
-            document.getElementById('uiDiscountRow').classList.add('d-none');
+                // قیمت و تخفیف رو بخون
+                const price = parseFloat(day.dataset.price || 0);
+                const off = parseFloat(day.dataset.off || 0);
 
-            // نمایش روزهای مرتبط با جلسه انتخاب‌شده
-            document.querySelectorAll('.day-btn').forEach(day => {
-                day.style.display = (day.getAttribute('data-session-id') === sessionId)
-                    ? 'inline-block'
-                    : 'none';
+                // محاسبه تخفیف (فرض: off درصدی هست. اگر حالت دیگه داری تغییر بده)
+                const discount = price * (off / 100);
+                const finalPrice = price - discount;
+
+                // نمایش توی کارت
+                document.getElementById('uiPps').textContent = new Intl.NumberFormat('fa-IR').format(price) + ' تومان';
+                document.getElementById('uiDiscount').textContent = discount > 0
+                    ? '− ' + new Intl.NumberFormat('fa-IR').format(discount) + ' تومان'
+                    : '—';
+                document.getElementById('uiTotal').textContent = new Intl.NumberFormat('fa-IR').format(finalPrice) + ' تومان';
+
+                // اگر می‌خوای ردیف تخفیف مخفی/نمایش بشه
+                const row = document.getElementById('uiDiscountRow');
+                if (discount > 0) {
+                    row.classList.remove('d-none');
+                } else {
+                    row.classList.add('d-none');
+                }
             });
         });
-    });
-</script>
+
+        // لیسنر کلیک روی جلسات
+        document.querySelectorAll('.session-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // تغییر استایل انتخاب جلسه
+                document.querySelectorAll('.session-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                sessionId = btn.getAttribute("data-id");
+
+                // ریست انتخاب روز و پاک‌کردن مقادیر کارت
+                dayId = 0;
+                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('uiPps').textContent = '—';
+                document.getElementById('uiDiscount').textContent = '—';
+                document.getElementById('uiTotal').textContent = '—';
+                document.getElementById('uiDiscountRow').classList.add('d-none');
+
+                // نمایش روزهای مرتبط با جلسه انتخاب‌شده
+                document.querySelectorAll('.day-btn').forEach(day => {
+                    day.style.display = (day.getAttribute('data-session-id') === sessionId)
+                        ? 'inline-block'
+                        : 'none';
+                });
+            });
+        });
+    </script>
 
 
 
@@ -336,9 +336,13 @@
                     const daysContainer = document.getElementById("calendarDays");
                     daysContainer.innerHTML = "";
 
-                    // اضافه کردن روزهای خالی اول ماه
-                    const dayNames = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه ‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'];
-                    const startIndex = dayNames.indexOf(month.startDay);
+                    function normalizeDayName(name) {
+                        return name.replace(/\s+/g, ' ').trim(); // همه فاصله‌ها → یک فاصله
+                    }
+
+                    const dayNames = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'];
+                    const startIndex = dayNames.indexOf(normalizeDayName(month.startDay));
+
                     for (let i = 0; i < startIndex; i++) {
                         daysContainer.innerHTML += `<div class="col calendar-day"></div>`;
                     }

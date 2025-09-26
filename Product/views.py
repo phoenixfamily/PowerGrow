@@ -907,13 +907,8 @@ class ManagerParticipationView(viewsets.ViewSet):
                     'week': bool(week),
                     'start': bool(start),
                     'session': bool(session),
-                },
-                'week_info': {
-                    'id': week.id if week else None,
-                    'title': week.title if week else None,
-                },
-                # برگرداندن day_names
-                'day_names': day_names if week else None
+                }
+
             }, status=status.HTTP_400_BAD_REQUEST)
 
         try:

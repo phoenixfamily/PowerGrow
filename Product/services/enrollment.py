@@ -8,7 +8,7 @@ class EnrollmentService:
     def __init__(self, start_day, session_count, allowed_day_names):
         self.start_day = start_day
         self.session_count = session_count
-        self.allowed_day_names = [normalize_persian_text(d) for d in allowed_day_names]
+        self.allowed_day_names = allowed_day_names
 
         # مپینگ استاندارد روزها
         raw_map = {
@@ -27,9 +27,9 @@ class EnrollmentService:
 
     def get_valid_days(self):
         allowed_day_indices = [
-            self.day_name_to_index[name]
+            self.day_name_to_index[normalize_persian_text(name)]
             for name in self.allowed_day_names
-            if name in self.day_name_to_index
+            if normalize_persian_text(name) in self.day_name_to_index
         ]
 
         # تبدیل start_day به تاریخ شمسی

@@ -347,28 +347,9 @@
                     console.log(startIndex);
 
 
-                    let html = "";
-                    let totalCells = startIndex + month.days;
-
-                    for (let i = 0; i < totalCells; i++) {
-                        if (i % 7 === 0) {
-                            html += `<div class="row">`; // شروع هفته
-                        }
-
-                        if (i < startIndex) {
-                            html += `<div class="col calendar-day empty"></div>`;
-                        } else {
-                            let dayNumber = i - startIndex + 1;
-                            html += `<div class="col calendar-day">${dayNumber}</div>`;
-                        }
-
-                        if (i % 7 === 6) {
-                            html += `</div>`; // بستن هفته
-                        }
+                    for (let i = 0; i < startIndex; i++) {
+                        daysContainer.innerHTML += `<div class="col calendar-day"></div>`;
                     }
-
-                    daysContainer.innerHTML = html;
-
 
                     month.days.forEach(day => {
                         const classes = ["calendar-day"];

@@ -34,8 +34,13 @@ class Day(models.Model):
     month = models.ForeignKey(Month, on_delete=models.CASCADE, related_name='days', null=True, blank=True,
                               verbose_name="ماه")
 
+    class Meta:
+        ordering = ["id"]
+
     def __str__(self):
         return f"{self.month.year.number}/{self.month.number}/{self.number}"  # به فرمت YYYY/MM/DD
+
+
 
 class Time(models.Model):
     time = models.TimeField(blank=True, null=True, verbose_name="زمان")

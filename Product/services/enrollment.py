@@ -1,7 +1,5 @@
 from datetime import timedelta
-
 from jdatetime import date
-
 from Calendar.models import Day
 from Product.utils import normalize_persian_text
 

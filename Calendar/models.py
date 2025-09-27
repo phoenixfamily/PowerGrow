@@ -20,18 +20,32 @@ class Year(models.Model):
 class Month(models.Model):
     name = models.CharField(blank=True, null=True, max_length=20)
     number = models.IntegerField(blank=True, null=True)
-    startDay = models.CharField(blank=True, null=True, max_length=20)
-    start_weekday = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
     max = models.IntegerField(blank=True, null=True)
     year = models.ForeignKey(Year, on_delete=models.CASCADE, related_name='months', null=True, blank=True)
+
+    class Meta:
+        unique_together = ('year', 'number')
 
     def __str__(self):
         # فرض بر این است که شماره روز و شماره ماه و سال را می‌خواهیم نمایش دهیم
         year = self.year.number if self and self.year else "Unknown Year"
         return f"{year}-{self.name}"  # به فرمت YYYY/MM/DD
 
-    class Meta:
-        unique_together = ('year', 'number')
+    @property
+    def start_day(self):
+        """اولین روز این ماه"""
+        return self.days.order_by("number").first()
+
+    @property
+    def end_day(self):
+        """آخرین روز این ماه"""
+        return self.days.order_by("-number").first()
+
+    @property
+    def start_weekday(self):
+        """روز هفته شروع ماه"""
+        first_day = self.start_day
+        return first_day.weekday if first_day else None
 
 
 class Day(models.Model):

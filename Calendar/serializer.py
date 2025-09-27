@@ -29,7 +29,7 @@ class MonthSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Month
-        fields = ['id', 'name', 'number', 'startDay', 'max', 'year', 'days']
+        fields = ['id', 'name', 'number', 'max', 'year', 'days']
 
 
 

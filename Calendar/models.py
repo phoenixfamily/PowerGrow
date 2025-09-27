@@ -43,7 +43,7 @@ class Month(models.Model):
 class Day(models.Model):
     number = models.IntegerField(blank=True, null=True, verbose_name="شماره روز")
     name = models.CharField(blank=True, null=True, max_length=20, verbose_name="نام روز در هفته")
-    weekday = models.IntegerField(choices=DAY_CHOICES)
+    weekday = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
     gregorian_date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True, null=True, verbose_name="توضیحات مناسبت")
     holiday = models.BooleanField(blank=True, null=True, verbose_name="تعطیلات")

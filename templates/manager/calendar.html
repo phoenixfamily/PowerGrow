@@ -36,6 +36,8 @@
                 <th>#</th>
                 <th colspan="2" class="text-center">تنظیمات</th>
                 <th>روز</th>
+                <th>ایندکس</th>
+                <th>میلادی</th>
                 <th>هفته</th>
                 <th>ماه</th>
                 <th>سال</th>
@@ -57,6 +59,8 @@
                     </td>
                     <td>{{ x.number }}</td>
                     <td>{{ x.name }}</td>
+                    <td>{{ x.weekday }}</td>
+                    <td>{{ x.gregorian_date }}</td>
                     <td>{{ x.month.name }}</td>
                     <td>{{ x.month.year.number }}</td>
                     <td>{{ x.description }}</td>

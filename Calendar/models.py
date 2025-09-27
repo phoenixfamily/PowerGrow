@@ -1,11 +1,6 @@
 import jdatetime
 from django.db import models
 
-TYPE_CALENDAR = (
-    ('جلالی', 'Jalali'),
-    ('میلادی', 'Gregorian'),
-    ('قمری', 'Lunar')
-)
 
 DAY_CHOICES = [
     (0, "شنبه"),
@@ -19,7 +14,6 @@ DAY_CHOICES = [
 
 class Year(models.Model):
     number = models.IntegerField(unique=True, null=True, blank=True)
-    name = models.CharField(blank=True, null=True, max_length=20, choices=TYPE_CALENDAR)
     leap = models.BooleanField(blank=True, null=True)
 
 

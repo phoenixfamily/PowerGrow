@@ -1,3 +1,4 @@
+import jdatetime
 from django.db import models
 
 TYPE_CALENDAR = (
@@ -6,6 +7,15 @@ TYPE_CALENDAR = (
     ('قمری', 'Lunar')
 )
 
+DAY_CHOICES = [
+    (0, "شنبه"),
+    (1, "یکشنبه"),
+    (2, "دوشنبه"),
+    (3, "سه‌شنبه"),
+    (4, "چهارشنبه"),
+    (5, "پنجشنبه"),
+    (6, "جمعه"),
+]
 
 class Year(models.Model):
     number = models.IntegerField(unique=True, null=True, blank=True)
@@ -17,6 +27,7 @@ class Month(models.Model):
     name = models.CharField(blank=True, null=True, max_length=20)
     number = models.IntegerField(blank=True, null=True)
     startDay = models.CharField(blank=True, null=True, max_length=20)
+    start_weekday = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
     max = models.IntegerField(blank=True, null=True)
     year = models.ForeignKey(Year, on_delete=models.CASCADE, related_name='months', null=True, blank=True)
 
@@ -25,20 +36,31 @@ class Month(models.Model):
         year = self.year.number if self and self.year else "Unknown Year"
         return f"{year}-{self.name}"  # به فرمت YYYY/MM/DD
 
+    class Meta:
+        unique_together = ('year', 'number')
+
 
 class Day(models.Model):
     number = models.IntegerField(blank=True, null=True, verbose_name="شماره روز")
     name = models.CharField(blank=True, null=True, max_length=20, verbose_name="نام روز در هفته")
+    weekday = models.IntegerField(choices=DAY_CHOICES)
+    gregorian_date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True, null=True, verbose_name="توضیحات مناسبت")
     holiday = models.BooleanField(blank=True, null=True, verbose_name="تعطیلات")
     month = models.ForeignKey(Month, on_delete=models.CASCADE, related_name='days', null=True, blank=True,
                               verbose_name="ماه")
 
     class Meta:
-        ordering = ["id"]
+        ordering = ['gregorian_date']  # پیمایش روزانه امن و سریع
+
+    def save(self, *args, **kwargs):
+        # اگر gregorian_date پر نشده، محاسبه کن
+        if not self.gregorian_date:
+            self.gregorian_date = jdatetime.date(self.month.year.number, self.month.number, self.number).togregorian()
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.month.year.number}/{self.month.number}/{self.number}"  # به فرمت YYYY/MM/DD
+        return f"{self.month.year.number}/{self.month.number}/{self.number} ({self.get_weekday_display()})"
 
 
 

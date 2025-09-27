@@ -35,7 +35,7 @@ class Course(models.Model):
     capacity = models.IntegerField(blank=True, null=True, verbose_name='ظرفیت')
     gender = models.CharField(max_length=10, choices=GENDER_CHOICE, verbose_name='جنسیت')
     datetime = models.DateTimeField(default=timezone.now)
-    active = models.BooleanField(blank=True, null=True, verbose_name='فعال')
+    active = models.BooleanField(default=False, verbose_name='فعال')
     previous = models.BooleanField(default=False, blank=True, null=True, verbose_name='پیش ثبت نام')
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name='courses', null=True, blank=True,
                               verbose_name='ورزش')
@@ -49,7 +49,7 @@ class Course(models.Model):
 
 class Session(models.Model):
     number = models.IntegerField(blank=True, null=True, verbose_name="تعداد جلسات")
-    active = models.BooleanField(blank=True, null=True, verbose_name='فعال')
+    active = models.BooleanField(default=False, verbose_name='فعال')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='sessions', null=True, blank=True, verbose_name="دوره")
 
     def __str__(self):

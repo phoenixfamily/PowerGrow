@@ -882,60 +882,51 @@ class ManagerParticipationView(viewsets.ViewSet):
 
     def create(self, request, course):
         data = request.data
+        required_fields = ['price', 'session', 'day', 'startDay', 'user']
 
         # بررسی فیلدهای اجباری
-        required_fields = ['price', 'session', 'day', 'startDay', 'user']
-        for field in required_fields:
-            if field not in data:
-                return Response({'error': f'فیلد {field} الزامی است.'}, status=status.HTTP_400_BAD_REQUEST)
+        missing_fields = [f for f in required_fields if f not in data]
+        if missing_fields:
+            return Response({'error': f'فیلدهای الزامی حذف شده: {missing_fields}'}, status=status.HTTP_400_BAD_REQUEST)
 
         # گرفتن آبجکت‌ها
-        course = Course.objects.filter(id=course).first()
-        user = User.objects.filter(number=data["user"]).first()
-        week = Days.objects.filter(id=data["day"]).first()
-        start = Day.objects.filter(id=data["startDay"]).select_related('month', 'month__year').first()
-        session = Session.objects.filter(id=data["session"]).first()
+        course_obj = Course.objects.filter(id=course).first()
+        user_obj = User.objects.filter(number=data["user"]).first()
+        day_obj = Days.objects.filter(id=data["day"]).first()
+        start_day_obj = Day.objects.filter(id=data["startDay"]).select_related('month', 'month__year').first()
+        session_obj = Session.objects.filter(id=data["session"]).first()
 
-        day_names = [normalize_persian_text(d) for d in week.title.split("،")]
-
-        if not all([course, user, week, start, session]):
+        if not all([course_obj, user_obj, day_obj, start_day_obj, session_obj]):
             return Response({
                 'error': 'برخی از داده‌ها نامعتبر هستند.',
                 'debug': {
-                    'course': bool(course),
-                    'user': bool(user),
-                    'week': bool(week),
-                    'start': bool(start),
-                    'session': bool(session),
+                    'course': bool(course_obj),
+                    'user': bool(user_obj),
+                    'day': bool(day_obj),
+                    'startDay': bool(start_day_obj),
+                    'session': bool(session_obj),
                 }
-
             }, status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            service = EnrollmentService(start_day=start, session_count=session.number, allowed_day_names=day_names)
-            startDay, endDay = service.get_start_and_end_day()
-        except ValueError as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        # normalize روزها
+        day_names = [normalize_persian_text(d) for d in day_obj.title.split("،")]
 
         participant_data = {
             'description': data.get("description", ""),
-            'startDay': startDay.id,
-            'endDay': endDay.id,
-            'session': session.id,
-            'day': week.id,
+            'startDay': start_day_obj.id,
+            'session': session_obj.id,
+            'day': day_obj.id,
             'price': data["price"],
-            'user': user.id,
-            'course': course.id,
+            'user': user_obj.id,
+            'course': course_obj.id,
             'success': True,
             'created': request.user.id
         }
 
         serializer = self.serializer_class(data=participant_data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response({
-                'status': 'موفقیت‌آمیز'
-            }, status=status.HTTP_201_CREATED)
+            serializer.save()  # endDay توسط مدل محاسبه می‌شود
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response({'error': 'ولیدیشن ناموفق', 'details': serializer.errors},
                             status=status.HTTP_400_BAD_REQUEST)
@@ -947,54 +938,28 @@ class ManagerParticipationView(viewsets.ViewSet):
             return Response({'error': 'موردی با این شناسه پیدا نشد.'}, status=status.HTTP_404_NOT_FOUND)
 
         data = request.data
-        updatable_fields = ['description', 'price', 'session', 'day', 'startDay', 'endDay', 'user', 'course']
 
-        for field in updatable_fields:
-            if field not in data:
-                continue
+        # Mapping فیلدهای ForeignKey به مدلشون
+        fk_fields = {
+            'user': User,
+            'course': Course,
+            'day': Days,
+            'session': Session,
+            'startDay': Day
+        }
 
-            value = data[field]
-
-            if field == 'user':
-                user = User.objects.filter(number=value).first()
-                if not user:
-                    return Response({'error': 'کاربر نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
-                participant.user = user
-
-            elif field == 'course':
-                course = Course.objects.filter(id=value).first()
-                if not course:
-                    return Response({'error': 'دوره نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
-                participant.course = course
-
-            elif field == 'day':
-                day_obj = Days.objects.filter(id=value).first()
-                if not day_obj:
-                    return Response({'error': 'روز هفته نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
-                participant.day = day_obj
-
-            elif field == 'session':
-                session = Session.objects.filter(id=value).first()
-                if not session:
-                    return Response({'error': 'جلسه نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
-                participant.session = session
-
-            elif field == 'startDay':
-                start_day = Day.objects.filter(id=value).first()
-                if not start_day:
-                    return Response({'error': 'روز شروع نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
-                participant.startDay = start_day
-
-            elif field == 'endDay':
-                end_day = Day.objects.filter(id=value).first()
-                if not end_day:
-                    return Response({'error': 'روز پایان نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
-                participant.endDay = end_day
-
+        for field, value in data.items():
+            if field in fk_fields:
+                # گرفتن آبجکت
+                obj = fk_fields[field].objects.filter(id=value).first() if field != 'user' else fk_fields[
+                    field].objects.filter(number=value).first()
+                if not obj:
+                    return Response({'error': f'{field} نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
+                setattr(participant, field, obj)
             else:
                 setattr(participant, field, value)
 
-        participant.save()
+        participant.save()  # endDay خودش توسط مدل محاسبه می‌شود
         serializer = self.serializer_class(participant)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -1002,10 +967,9 @@ class ManagerParticipationView(viewsets.ViewSet):
         try:
             participant = Participants.objects.get(pk=pk)
             participant.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response({'status': 'Deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
         except Participants.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
+            return Response({'error': 'موردی با این شناسه پیدا نشد.'}, status=status.HTTP_404_NOT_FOUND)
 
 class ChangeDayPriceView(UpdateAPIView):
     serializer_class = ChangeDayPriceSerializer

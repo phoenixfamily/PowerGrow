@@ -21,7 +21,7 @@ class YearSerializer(serializers.ModelSerializer):
 class DaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Day
-        fields = ['id', 'number', 'name', 'description', 'holiday']
+        fields = ['id', 'number', 'name', 'description', 'holiday', 'weekday']
 
 class MonthSerializer(serializers.ModelSerializer):
     year = YearSerializer()

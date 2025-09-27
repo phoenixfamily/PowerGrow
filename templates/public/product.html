@@ -336,17 +336,11 @@
                     const daysContainer = document.getElementById("calendarDays");
                     daysContainer.innerHTML = "";
 
-                    function normalizeDayName(name) {
-                        return name.replace(/\s+/g, ' ').trim(); // همه فاصله‌ها → یک فاصله
-                    }
-
-                    const dayNames = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'];
-                    const startIndex = dayNames.indexOf(normalizeDayName(month.startDay));
-
-                    console.log(JSON.stringify(month.days));
+                    const startIndex = month.start_weekday; // 0=شنبه ... 6=جمعه
 
                     for (let i = 0; i < startIndex; i++) {
-                        daysContainer.innerHTML += `<div class="col calendar-day"></div>`;
+                            daysContainer.innerHTML += `<div class="col calendar-day empty disabled"></div>`;
+
                     }
 
                     month.days.forEach(day => {

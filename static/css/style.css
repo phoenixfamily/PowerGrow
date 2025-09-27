@@ -967,4 +967,11 @@ table i:hover {
     direction: rtl;
 }
 
+.calendar-day.disabled {
+    pointer-events: none;  /* کلیک نشه */
+    background-color: #f5f5f5; /* رنگ کم‌رنگ یا خاکستری */
+    color: #aaa;
+    cursor: default;
+}
+
 /* محتوای هر ستون RTL بمونه */

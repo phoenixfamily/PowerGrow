@@ -58,7 +58,7 @@ class Session(models.Model):
 
 class Days(models.Model):
     title = models.TextField(blank=True, null=True, verbose_name="روز هفته")
-    days = models.JSONField(verbose_name="روزهای هفته")
+    days = models.JSONField(blank=True, null=True, verbose_name="روزهای هفته")
     active = models.BooleanField(default=False, verbose_name='فعال')
     tuition = models.IntegerField(verbose_name="شهریه")
     off = models.IntegerField(blank=True, null=True, verbose_name="تخفیف")

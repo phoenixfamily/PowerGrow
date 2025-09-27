@@ -34,7 +34,6 @@
                 <th>#</th>
                 <th colspan="3" class="text-center">تنظیمات</th>
                 <th scope="col">روزها</th>
-                <th scope="col">ایندکس</th>
                 <th scope="col">شهریه</th>
                 <th scope="col">تخفیف</th>
                 <th scope="col">شناسه جلسه</th>
@@ -62,7 +61,6 @@
                            title="قیمت" onclick="window.open('{% url 'product:change-day-price' x.id %}')"></i>
                     </td>
                     <td>{{ x.title }}</td>
-                    <td>{{ x.days }}</td>
                     <td>{{ x.tuition }}</td>
                     <td>{{ x.off }}</td>
                     <td>{{ x.session.id }}</td>

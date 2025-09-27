@@ -25,11 +25,13 @@ class DaySerializer(serializers.ModelSerializer):
 
 class MonthSerializer(serializers.ModelSerializer):
     year = YearSerializer()
-    days = DaySerializer(source='days.all', many=True)
+    days = DaySerializer(many=True, read_only=True)
+    start_weekday = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Month
-        fields = ['id', 'name', 'number', 'max', 'year', 'days']
+        fields = ['id', 'name', 'number', 'max', 'year', 'days', 'start_weekday']
 
 
 

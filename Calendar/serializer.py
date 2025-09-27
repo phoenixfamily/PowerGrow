@@ -33,6 +33,9 @@ class MonthSerializer(serializers.ModelSerializer):
         model = Month
         fields = ['id', 'name', 'number', 'max', 'year', 'days', 'start_weekday']
 
+    def get_start_weekday(self, obj):
+        return obj.start_weekday
+
 
 
 class ChangeCostSerializer(serializers.ModelSerializer):

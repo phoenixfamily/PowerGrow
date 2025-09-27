@@ -19,10 +19,6 @@ from Product.serializer import *
 from django.conf import settings
 import json
 from PowerGrow.permissions import *
-
-from Product.services.enrollment import EnrollmentService
-
-from Product.utils import normalize_persian_text
 from rest_framework.parsers import MultiPartParser, FormParser
 
 User = get_user_model()
@@ -803,10 +799,11 @@ class ParticipationCreateView(viewsets.ViewSet):
         data = request.data
         # Validate required fields
         required_fields = ['price', 'session', 'day', 'startDay', 'course']
-        for field in required_fields:
-            if field not in data:
-                return Response({'error': f'Missing field: {field}'}, status=status.HTTP_400_BAD_REQUEST)
 
+        missing_fields = [f for f in required_fields if f not in data]
+        if missing_fields:
+            return Response({'error': f'فیلدهای الزامی حذف شده: {missing_fields}'},
+                                status=status.HTTP_400_BAD_REQUEST)
         authority_data = {
             "MerchantID": settings.MERCHANT,
             "Amount": data["price"],
@@ -820,41 +817,35 @@ class ParticipationCreateView(viewsets.ViewSet):
             response_data = response.json()
 
             if response_data.get('Status') == 100:
-                session = Session.objects.filter(id=data["session"]).first()
-                week = Days.objects.filter(id=data["day"]).first()
-                start = Day.objects.filter(id=data["startDay"]).first()
-                course = Course.objects.get(id=data["course"])
 
-                day_names = [normalize_persian_text(d) for d in week.title.split("،")]
+                # گرفتن آبجکت‌ها
+                course_obj = Course.objects.filter(id=data["course"]).first()
+                day_obj = Days.objects.filter(id=data["day"]).first()
+                start_day_obj = Day.objects.filter(id=data["startDay"]).select_related('month', 'month__year').first()
+                session_obj = Session.objects.filter(id=data["session"]).first()
+                price = data["price"]
 
-
-                if not all([course, week, start, session]):
+                if not all([course_obj, day_obj, start_day_obj, session_obj, price]):
                     return Response({
                         'error': 'برخی از داده‌ها نامعتبر هستند.',
                         'debug': {
-                            'course': bool(course),
-                            'week': bool(week),
-                            'start': bool(start),
-                            'session': bool(session),
+                            'course': bool(course_obj),
+                            'day': bool(day_obj),
+                            'startDay': bool(start_day_obj),
+                            'session': bool(session_obj),
+                            'price': bool(price),
                         }
                     }, status=status.HTTP_400_BAD_REQUEST)
 
-                try:
-                    service = EnrollmentService(start_day=start, session_count=session.number,
-                                                allowed_day_names=day_names)
-                    startDay, endDay = service.get_start_and_end_day()
-                except ValueError as e:
-                    return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
                 participant_data = {
                     'description': data["description"],
-                    'startDay': startDay.id,
-                    'endDay': endDay.id,
-                    'session': session.id,
-                    'day': week.id,
-                    'price': data["price"],
+                    'startDay': start_day_obj.id,
+                    'session': session_obj.id,
+                    'day': day_obj.id,
+                    'price': price,
                     'user': request.user.id,
-                    'course': course.id,
+                    'course': course_obj.id,
                     'authority': str(response_data['Authority']),
                     'success': False
                 }
@@ -907,9 +898,6 @@ class ManagerParticipationView(viewsets.ViewSet):
                     'session': bool(session_obj),
                 }
             }, status=status.HTTP_400_BAD_REQUEST)
-
-        # normalize روزها
-        day_names = [normalize_persian_text(d) for d in day_obj.title.split("،")]
 
         participant_data = {
             'description': data.get("description", ""),

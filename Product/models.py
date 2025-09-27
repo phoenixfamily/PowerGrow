@@ -87,6 +87,28 @@ class Participants(models.Model):
     success = models.BooleanField(blank=True, null=True)
     expired = models.BooleanField(default=False)
 
+    def calculate_start_day(self):
+        """
+        محاسبه اولین روز واقعی کلاس بعد از startDay کاربر،
+        با توجه به روزهای انتخاب‌شده (مثلا یکشنبه/سه‌شنبه).
+        """
+        start_day = self.startDay
+        selected_weekdays = self.day.days if self.day and self.day.days else []
+
+        if not start_day or not selected_weekdays:
+            return None
+
+        days_qs = Day.objects.filter(
+            gregorian_date__gte=start_day.gregorian_date
+        ).order_by('gregorian_date').only('id', 'weekday', 'gregorian_date')
+
+        for d in days_qs.iterator():
+            if d.weekday in selected_weekdays:
+                return d
+
+        return None
+
+
     def calculate_end_day(self):
         start_day = self.startDay
         session_count = self.session.number if self.session else 0
@@ -111,6 +133,9 @@ class Participants(models.Model):
 
     def save(self, *args, **kwargs):
         if self.startDay and self.session and self.day:
+            real_start = self.calculate_start_day()
+            if real_start:
+                self.startDay = real_start
             self.endDay = self.calculate_end_day()
         super().save(*args, **kwargs)
 

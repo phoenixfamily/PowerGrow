@@ -23,7 +23,7 @@ class DaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Day
-        fields = ['id', 'number', 'name', 'description', 'holiday', 'weekday', 'month']
+        fields = ['id', 'number', 'weekday', 'month', 'holiday', 'description','name']
 
     def validate(self, attrs):
         # بررسی وجود ماه و سال

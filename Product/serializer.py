@@ -31,6 +31,8 @@ class ParticipantsSerializer(serializers.ModelSerializer):
 class DaysSerializer(serializers.ModelSerializer):
     title = serializers.CharField(read_only=True)  # فقط برای read
     participants = ParticipantsSerializer(read_only=True, many=True)
+    days = serializers.ListField(child=serializers.IntegerField(), required=True)  # این مهمه
+
 
 
     class Meta:

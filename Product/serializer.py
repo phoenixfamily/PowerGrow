@@ -148,11 +148,9 @@ class TodayParticipantsSerializer(serializers.ModelSerializer):
     session = SessionSerializer()
     datetime_jalali = serializers.SerializerMethodField()
 
-
-
     class Meta:
         model = Participants
         fields = "__all__"
 
-    def get_datetime(self, obj):
+    def get_datetime_jalali(self, obj):   # 👈 نام درست
         return jdatetime.datetime.fromgregorian(datetime=obj.datetime).strftime("%Y/%m/%d %H:%M")

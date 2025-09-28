@@ -916,40 +916,30 @@ class ManagerParticipationView(viewsets.ViewSet):
             start_day_obj = Day.objects.filter(id=data["startDay"]).first()
             if not start_day_obj:
                 return Response({"error": "startDay نامعتبر است"}, status=status.HTTP_400_BAD_REQUEST)
-            update_fields["startDay"] = start_day_obj
+            update_fields["startDay_id"] = start_day_obj.id  # دقت کن _id باید بدی
 
         # هندل endDay
         if "endDay" in data:
             end_day_obj = Day.objects.filter(id=data["endDay"]).first()
             if not end_day_obj:
                 return Response({"error": "endDay نامعتبر است"}, status=status.HTTP_400_BAD_REQUEST)
-            update_fields["endDay"] = end_day_obj
+            update_fields["endDay_id"] = end_day_obj.id
 
-        # باقی فیلدها
-        fk_fields = {
-            "day": Days,
-            "session": Session,
-            "course": Course,
-            "user": User,
-        }
-        normal_fields = ["description", "price", "success"]
-
-        for field, model in fk_fields.items():
+        # بقیه فیلدها
+        allowed_fields = ["description", "price", "day", "session", "course", "user", "success"]
+        for field in allowed_fields:
             if field in data:
-                obj = model.objects.filter(id=data[field]).first()
-                if not obj:
-                    return Response({f"error": f"{field} نامعتبر است"}, status=status.HTTP_400_BAD_REQUEST)
-                update_fields[field] = obj
+                # برای FK ها باید _id بدی
+                if field in ["day", "session", "course", "user"]:
+                    update_fields[f"{field}_id"] = data[field]
+                else:
+                    update_fields[field] = data[field]
 
-        for field in normal_fields:
-            if field in data:
-                update_fields[field] = data[field]
+        # اجرای آپدیت مستقیم → بدون save()
+        Participants.objects.filter(pk=participant.pk).update(**update_fields)
 
-        # اعمال تغییرات
-        for field, value in update_fields.items():
-            setattr(participant, field, value)
-        participant.save(update_fields=list(update_fields.keys()))
-
+        # واکشی دوباره برای خروجی
+        participant.refresh_from_db()
         serializer = self.serializer_class(participant)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

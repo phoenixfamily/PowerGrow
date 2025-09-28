@@ -149,6 +149,12 @@ class Participants(models.Model):
         # fallback: آخرین روز موجود در queryset
         return days_qs.last()
 
+    @property
+    def datetime_jalali(self):
+        if not self.datetime:
+            return ""
+        return jdatetime.datetime.fromgregorian(datetime=self.datetime).strftime("%Y/%m/%d %H:%M")
+
     def save(self, *args, **kwargs):
         if self.startDay and self.session and self.day:
             real_start = self.calculate_start_day()

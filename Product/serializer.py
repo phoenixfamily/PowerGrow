@@ -24,6 +24,8 @@ class ManagerParticipantsSerializer(serializers.ModelSerializer):
 
 
 class ParticipantsSerializer(serializers.ModelSerializer):
+    datetime = serializers.SerializerMethodField()  # 👈
+
     class Meta:
         model = Participants
         fields = ['description', 'startDay', 'session', 'day', 'price', 'user', 'course',
@@ -144,6 +146,8 @@ class TodayParticipantsSerializer(serializers.ModelSerializer):
     endDay = DaySerializer()
     day = DaysSerializer()
     session = SessionSerializer()
+    datetime_jalali = serializers.SerializerMethodField()
+
 
 
     class Meta:

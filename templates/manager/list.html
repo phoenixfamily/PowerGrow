@@ -72,10 +72,10 @@
                     <td>{{ x.user.name }}</td>
                     <td dir="ltr">{{ x.user.number }}</td>
                     <td>{{ x.user.birthdate }}</td>
-                    <td>{{ x.datetime }}</td>
+                    <td>{{ x.datetime_jalali }}</td>
 
-                   <td>{{ x.startDay}}</td>
-                    <td>{{ x.endDay}}</td>
+                    <td>{{ x.startDay }}</td>
+                    <td>{{ x.endDay }}</td>
 
                     <!-- جزئیات جلسه -->
                     <td>{{ x.day.title }}</td>
@@ -203,7 +203,7 @@
              <td>
             ${x.description}
             <br>
-            <small class="text-muted">${ x.created.name }</small>
+            <small class="text-muted">${x.created.name}</small>
             </td>
             <td class="text-center">${statusIcon}</td>
         </tr>

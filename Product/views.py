@@ -618,7 +618,7 @@ def update_days_view(request, pk):
 
 @session_admin_required
 def create_session_view(request):
-    courses = Course.objects.all()
+    courses = Course.objects.all().order_by('-id')
     about = AboutUs.objects.first()
     context = {
         'courses': courses,

@@ -1093,8 +1093,7 @@ class TodayParticipantsView(ListAPIView):
 
     def get_queryset(self):
         pk = self.kwargs['pk']
-        # today_index = jdatetime.date.today().weekday()
-        today_index = 0
+        today_index = jdatetime.date.today().weekday()
         return Participants.objects.filter(
             course_id=pk,
             expired=False,

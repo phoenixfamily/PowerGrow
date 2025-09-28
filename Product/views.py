@@ -905,7 +905,7 @@ class ManagerParticipationView(viewsets.ViewSet):
             return Response({'error': 'ولیدیشن ناموفق', 'details': serializer.errors},
                             status=status.HTTP_400_BAD_REQUEST)
 
-    def partial_update(self, request, pk=None):  # PATCH → به صورت پیش‌فرض map میشه به partial_update
+    def partial_update(self, request, pk=None):
         participant = get_object_or_404(Participants, pk=pk)
         data = request.data.copy()
 
@@ -925,18 +925,31 @@ class ManagerParticipationView(viewsets.ViewSet):
                 return Response({"error": "endDay نامعتبر است"}, status=status.HTTP_400_BAD_REQUEST)
             update_fields["endDay"] = end_day_obj
 
-        # باقی فیلدها (به صورت داینامیک)
-        allowed_fields = ["description", "price", "day", "session", "course", "user", "success"]
-        for field in allowed_fields:
+        # باقی فیلدها
+        fk_fields = {
+            "day": Days,
+            "session": Session,
+            "course": Course,
+            "user": User,
+        }
+        normal_fields = ["description", "price", "success"]
+
+        for field, model in fk_fields.items():
+            if field in data:
+                obj = model.objects.filter(id=data[field]).first()
+                if not obj:
+                    return Response({f"error": f"{field} نامعتبر است"}, status=status.HTTP_400_BAD_REQUEST)
+                update_fields[field] = obj
+
+        for field in normal_fields:
             if field in data:
                 update_fields[field] = data[field]
 
-        # اجرای آپدیت مستقیم بدون save()
+        # اعمال تغییرات
         for field, value in update_fields.items():
             setattr(participant, field, value)
         participant.save(update_fields=list(update_fields.keys()))
 
-        # خروجی با serializer
         serializer = self.serializer_class(participant)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

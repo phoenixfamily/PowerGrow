@@ -68,7 +68,7 @@ document.getElementById('submit').addEventListener('click', function(e) {
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    fetch(`/api/days/${{{ day.id }}}/update/`, {
+    fetch("{% url 'product:manager-update-day' day.id %}", {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

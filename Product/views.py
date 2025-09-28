@@ -529,7 +529,7 @@ def teacher_user_list(request, pk):
     # بارگذاری اطلاعات مربوط به AboutUs
     about = AboutUs.objects.first()
 
-    participants_qs = Participants.objects.filter(course_id=pk,expired=False, user__is_teacher=False, user__is_superuser=False, user__is_staff=False)
+    participants_qs = Participants.objects.filter(course_id=pk,expired=False, user__is_teacher=False, user__is_superuser=False, user__is_staff=False, success=True)
 
     update_expired_participants(pk)
 

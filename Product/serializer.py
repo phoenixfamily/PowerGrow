@@ -141,6 +141,7 @@ class UpdateDaySerializer(serializers.ModelSerializer):
 
 class TodayParticipantsSerializer(serializers.ModelSerializer):
     user = UserSerializer()
+    created = UserSerializer()
     startDay = DaySerializer()
     endDay = DaySerializer()
     day = DaysSerializer()

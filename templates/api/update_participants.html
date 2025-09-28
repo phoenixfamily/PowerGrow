@@ -161,6 +161,8 @@
 
             // شماره‌ی کاربر فعلی داخل input
             userHolder.value = "{{ participant.user.number }}".replace("+98", "");
+            userHolder.dataset.userId = "{{ participant.user.id }}"; // 👈 همینو اضافه کن!
+
 
             {% for x in user.all %}
                 userList.push({

@@ -20,10 +20,15 @@ class YearSerializer(serializers.ModelSerializer):
 
 class DaySerializer(serializers.ModelSerializer):
     name = serializers.CharField(read_only=True)  # فقط read
+    str = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Day
-        fields = ['id', 'number', 'weekday', 'month', 'holiday', 'description','name']
+        fields = ['id', 'number', 'weekday', 'month', 'holiday', 'description','name', 'str']
+
+        def get_str(self, obj):
+            return str(obj)  # همون __str__ مدل Day
 
     def validate(self, attrs):
         # بررسی وجود ماه و سال

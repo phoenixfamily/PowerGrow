@@ -30,14 +30,6 @@ class ParticipantsSerializer(serializers.ModelSerializer):
                   'authority', 'success']
 
 
-class TodayParticipantsSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-    startDay = DaySerializer()
-    endDay = DaySerializer()
-
-    class Meta:
-        model = Participants
-        fields = "__all__"
 
 
 class DaysSerializer(serializers.ModelSerializer):
@@ -144,3 +136,16 @@ class UpdateDaySerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+class TodayParticipantsSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    startDay = DaySerializer()
+    endDay = DaySerializer()
+    day = DaysSerializer()
+    session = SessionSerializer()
+
+
+    class Meta:
+        model = Participants
+        fields = "__all__"

@@ -24,7 +24,7 @@ class DaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Day
-        fields = ['id', 'number', 'weekday', 'month', 'holiday', 'description','name', 'str']
+        fields = ['id', 'number', 'weekday', 'month', 'holiday', 'description','name', 'display']
 
         def get_display(self, obj):
             return str(obj)

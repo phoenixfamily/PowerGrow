@@ -613,7 +613,7 @@ def update_days_view(request, pk):
         'sessions': sessions,
         'DAY_CHOICES': DAY_CHOICES,
     }
-    return render(request, 'calendar/update_days.html', context)
+    return render(request, 'api/update_days.html', context)
 
 
 @session_admin_required

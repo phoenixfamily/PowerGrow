@@ -7,7 +7,8 @@
 {% block header %}
     <div class="d-flex justify-content-end my-3 mx-3">
         <a href="#" class="btn btn-cta mx-2" id="todayButton">لیست امروز</a>
-        <a href="{% url 'product:create-participant' course_id %}" class="btn btn-cta mx-2" target="_blank" rel="noopener noreferrer">ثبت نام</a>
+        <a href="{% url 'product:create-participant' course_id %}" class="btn btn-cta mx-2" target="_blank"
+           rel="noopener noreferrer">ثبت نام</a>
     </div>
 {% endblock %}
 
@@ -57,7 +58,8 @@
 
                     <!-- عملیات -->
                     <td>
-                        <a href="{% url 'product:update-participant' x.id %}" class="text-warning mx-1" title="ویرایش" target="_blank" rel="noopener noreferrer">
+                        <a href="{% url 'product:update-participant' x.id %}" class="text-warning mx-1" title="ویرایش"
+                           target="_blank" rel="noopener noreferrer">
                             <i class="fa fa-pencil"></i>
                         </a>
                         <a href="{% url 'product:manager-delete-participation' x.id %}" class="text-danger mx-1"
@@ -153,40 +155,45 @@
 
     <script>
 
-        document.getElementById('todayButton').addEventListener('click', function () {
-            // تعریف روزهای هفته با شنبه به عنوان اولین روز
-            const daysOfWeek = ["یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه"];
-            const today = new Date();
-            const currentDay = daysOfWeek[today.getDay()]; // 0 = شنبه, 1 = یکشنبه, ...
+        document.getElementById('todayButton').addEventListener('click', function (e) {
+            e.preventDefault();
 
-            console.log(today.getDay());
+            fetch("{% url 'product:participants_today_api' course_id %}")
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.querySelector("#listTable tbody");
+                    tbody.innerHTML = "";
 
-            var table = document.getElementById('listTable');
-            var tr = table.getElementsByTagName('tr');
-
-            for (var i = 1; i < tr.length; i++) {
-                tr[i].style.display = "none"; // همه ردیف‌ها ابتدا مخفی می‌شوند
-                var td = tr[i].getElementsByTagName('td');
-
-                for (var j = 0; j < td.length; j++) {
-                    if (td[j]) {
-                        var txtValue = td[j].textContent || td[j].innerText;
-                        var daysArray = txtValue.split('،').map(day => day.trim()); // جدا کردن روزها با ',' و حذف فضاها
-
-                        // بررسی اگر روز فعلی در آرایه daysArray موجود باشد و وضعیت معتبر باشد
-                        if (daysArray.includes(currentDay)) {
-                            tr[i].style.display = ""; // اگر روز فعلی پیدا شد و وضعیت معتبر بود، ردیف نمایش داده شود
-                            break;
-                        }
+                    if (data.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="6">امروز خالی است</td></tr>`;
+                        return;
                     }
-                }
-            }
+
+                    data.forEach(x => {
+                        tbody.innerHTML += `
+                    <tr>
+                        <th scope="row">${x.id}</th>
+                        <td>${x.user.name}</td>
+                        <td>${x.user.number}</td>
+                        <td>${x.user.birthdate}</td>
+                        <td>${x.datetime}</td>
+                        <td>${x.startDay}</td>
+                        <td>${x.endDay}</td>
+                        <td>${x.day.title}</td>
+                        <td>${x.session.number}</td>
+                        <td>${x.price}</td>
+                        <td>${x.description}</td>
+
+                    </tr>
+                `;
+                    });
+                });
         });
 
 
     </script>
 
-        <script>
+    <script>
         (function () {
             // تابعی که کانتینر را تا «انتهای راست» می‌برد
             function scrollToRight(el) {

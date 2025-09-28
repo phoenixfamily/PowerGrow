@@ -540,6 +540,7 @@ def teacher_user_list(request, pk):
     context = {
         "about": about,
         "participants": participants,
+        "course_id": pk
     }
 
     # استفاده از render برای بارگذاری الگو
@@ -1082,3 +1083,18 @@ def update_expired_participants(pk):
             else:
                 p.expired = False
                 p.save(update_fields=["expired"])
+
+
+
+def participants_today_api(request, pk):
+    today_index = jdatetime.date.today().weekday()
+
+    participants = Participants.objects.filter(
+        course_id=pk, expired=False, user__is_teacher=False,
+        user__is_superuser=False, user__is_staff=False, success=True,
+        day__days__contains=[today_index]
+    )
+
+    data = [model_to_dict(p) for p in participants]
+
+    return JsonResponse(data, safe=False)

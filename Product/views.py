@@ -640,7 +640,7 @@ def update_session(request, pk):
         'about': about,
     }
 
-    return render(request, 'api/update_session.html', context)
+    return render(request, 'api/update_sessions.html', context)
 
 @session_admin_required
 def create_off_view(request):

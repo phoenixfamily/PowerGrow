@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from User.serializer import UserSerializer
 from .models import *
 
 
@@ -29,6 +30,7 @@ class ParticipantsSerializer(serializers.ModelSerializer):
 
 
 class TodayParticipantsSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
     class Meta:
         model = Participants
         fields = "__all__"

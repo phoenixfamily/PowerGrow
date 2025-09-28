@@ -6,14 +6,13 @@ from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
 from rest_framework import viewsets, generics, status
 from rest_framework.decorators import api_view
-from rest_framework.generics import UpdateAPIView
+from rest_framework.generics import UpdateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.utils import json
 import jdatetime
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from About.models import AboutUs
-from Calendar.models import Day
 from PowerGrow.decorators import *
 from Product.serializer import *
 from django.conf import settings
@@ -700,62 +699,22 @@ class SportListCreateView(generics.CreateAPIView):
     permission_classes = [IsAdminUserOrStaff]
 
 
-class SportDetailView(viewsets.ViewSet):
+class SportDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Sport.objects.all()
     serializer_class = SportSerializer
     permission_classes = [IsAdminUserOrStaff]
 
-    def destroy(self, request, pk):
-        try:
-            sport = Sport.objects.get(pk=pk)
-            sport.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except Participants.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-    def update(self, request, pk):
-        try:
-            sport = Sport.objects.get(pk=pk)
-        except Sport.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        serializer = self.serializer_class(sport, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class DaysListCreateView(generics.CreateAPIView):
-    queryset = Days.objects.all()
-    serializer_class = DaysCreateSerializer
-    permission_classes = [IsAdminUserOrStaff]
-
-
-class DaysDetailView(viewsets.ViewSet):
     queryset = Days.objects.all()
     serializer_class = DaysSerializer
     permission_classes = [IsAdminUserOrStaff]
 
-    def destroy(self, request, pk):
-        try:
-            days = Days.objects.get(pk=pk)
-            days.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except Participants.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
 
-    def update(self, request, pk):
-        try:
-            days = Days.objects.get(pk=pk)
-        except Days.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        serializer = self.serializer_class(days, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class DaysDetailView(RetrieveUpdateDestroyAPIView):
+    queryset = Days.objects.all()
+    serializer_class = DaysSerializer
+    permission_classes = [IsAdminUserOrStaff]
 
 
 class SessionListCreateView(generics.CreateAPIView):
@@ -764,30 +723,11 @@ class SessionListCreateView(generics.CreateAPIView):
     permission_classes = [IsAdminUserOrStaff]
 
 
-class SessionDetailView(viewsets.ViewSet):
+class SessionDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Session.objects.all()
     serializer_class = SessionSerializer
     permission_classes = [IsAdminUserOrStaff]
 
-    def update(self, request, pk):
-        try:
-            session = Session.objects.get(pk=pk)
-        except Session.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        serializer = self.serializer_class(session, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def destroy(self, request, pk):
-        try:
-            session = Session.objects.get(pk=pk)
-            session.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except Participants.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class ParticipationCreateView(viewsets.ViewSet):

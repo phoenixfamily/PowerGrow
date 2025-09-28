@@ -1,79 +1,41 @@
 from rest_framework import serializers
 
-from .models import Course, Days, Sport, Session, Participants, Offers
+from .models import *
 
 
 class ManagerParticipantsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Participants
         fields = [
-            'id',  # شناسه
-            'description',  # توضیحات
-            'session',  # جلسه
-            'day',  # روز
-            'startDay',  # روز شروع
-            'endDay',  # روز پایان
-            'price',  # قیمت
-            'user',  # کاربر
-            'course',  # دوره
-            'success',  # وضعیت موفقیت
+            'id',
+            'description',
+            'session',
+            'day',
+            'startDay',
+            'price',
+            'user',
+            'course',
+            'success',
             'created',
         ]
 
-    def create(self, validated_data):
-        return Participants.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.description = validated_data.get('description', instance.description)
-        instance.session = validated_data.get('session', instance.session)
-        instance.day = validated_data.get('day', instance.day)
-        instance.startDay = validated_data.get('startDay', instance.startDay)
-        instance.endDay = validated_data.get('endDay', instance.endDay)
-        instance.price = validated_data.get('price', instance.price)
-        instance.course = validated_data.get('course', instance.course)
-        instance.user = validated_data.get('user', instance.user)
-
-        instance.save()
-        return instance
 
 
 class ParticipantsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Participants
-        fields = ['description', 'startDay', 'endDay', 'session', 'day', 'price', 'user', 'course',
+        fields = ['description', 'startDay', 'session', 'day', 'price', 'user', 'course',
                   'authority', 'success']
-
-    def create(self, validated_data):
-        return Participants.objects.create(**validated_data)
-
-
-class DaysCreateSerializer(serializers.ModelSerializer):
-    participants = ParticipantsSerializer(read_only=True, many=True)
-
-    class Meta:
-        model = Days
-        fields = "__all__"
-
-    def create(self, validated_data):
-        return Days.objects.create(**validated_data)
 
 
 class DaysSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(read_only=True)  # فقط برای read
     participants = ParticipantsSerializer(read_only=True, many=True)
+
 
     class Meta:
         model = Days
-        fields = "__all__"
-        read_only_fields = ('tuition', 'off')
-
-    def create(self, validated_data):
-        return Days.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.session = validated_data.get('session', instance.session)
-        instance.save()
-        return instance
+        fields = ['id', 'title', 'days', 'active', 'tuition', 'off', 'session']
 
 
 class SessionSerializer(serializers.ModelSerializer):

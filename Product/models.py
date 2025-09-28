@@ -16,6 +16,17 @@ GENDER_CHOICE = [
 ]
 
 
+DAY_CHOICES = [
+    (0, "شنبه"),
+    (1, "یکشنبه"),
+    (2, "دوشنبه"),
+    (3, "سه‌شنبه"),
+    (4, "چهارشنبه"),
+    (5, "پنجشنبه"),
+    (6, "جمعه"),
+]
+
+
 
 class Sport(models.Model):
     title = models.CharField(max_length=50, verbose_name='نام')
@@ -35,7 +46,7 @@ class Course(models.Model):
     capacity = models.IntegerField(blank=True, null=True, verbose_name='ظرفیت')
     gender = models.CharField(max_length=10, choices=GENDER_CHOICE, verbose_name='جنسیت')
     datetime = models.DateTimeField(default=timezone.now)
-    active = models.BooleanField(default=False, verbose_name='فعال')
+    active = models.BooleanField(default=True, verbose_name='فعال')
     previous = models.BooleanField(default=False, blank=True, null=True, verbose_name='پیش ثبت نام')
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name='courses', null=True, blank=True,
                               verbose_name='ورزش')
@@ -49,7 +60,7 @@ class Course(models.Model):
 
 class Session(models.Model):
     number = models.IntegerField(blank=True, null=True, verbose_name="تعداد جلسات")
-    active = models.BooleanField(default=False, verbose_name='فعال')
+    active = models.BooleanField(default=True, verbose_name='فعال')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='sessions', null=True, blank=True, verbose_name="دوره")
 
     def __str__(self):
@@ -59,10 +70,17 @@ class Session(models.Model):
 class Days(models.Model):
     title = models.TextField(blank=True, null=True, verbose_name="روز هفته")
     days = models.JSONField(blank=True, null=True, verbose_name="روزهای هفته")
-    active = models.BooleanField(default=False, verbose_name='فعال')
+    active = models.BooleanField(default=True, verbose_name='فعال')
     tuition = models.IntegerField(verbose_name="شهریه")
-    off = models.IntegerField(blank=True, null=True, verbose_name="تخفیف")
+    off = models.IntegerField(default=0, verbose_name="تخفیف")
     session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='days', null=True, blank=True, verbose_name="جلسه")
+
+    def save(self, *args, **kwargs):
+        if self.days:
+            # گرفتن متن روزها از ایندکس‌ها
+            day_map = dict(DAY_CHOICES)
+            self.title = '،'.join([day_map.get(d, '') for d in self.days if d in day_map])
+        super().save(*args, **kwargs)
 
 
 class Participants(models.Model):

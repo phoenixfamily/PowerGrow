@@ -1,11 +1,10 @@
-{% extends 'admin/base.html' %}
+{% extends 'manager/base.html' %}
 {% load static %}
-
 {% block title %}روزها | PowerGrow{% endblock %}
 
 {% block header %}
     <div class="d-flex justify-content-end my-3 me-3">
-        <a href="{% url 'product:manager-create-day' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن روز</a>
+        <a href="{% url 'product:create-days-view' %}" class="btn btn-cta" target="_blank" rel="noopener noreferrer">افزودن روز</a>
     </div>
 {% endblock %}
 
@@ -33,7 +32,7 @@
             <thead class="table-light">
             <tr>
                 <th>#</th>
-                <th colspan="2" class="text-center">تنظیمات</th>
+                <th colspan="1" class="text-center">تنظیمات</th>
                 <th scope="col">روزها</th>
                 <th scope="col">شهریه</th>
                 <th scope="col">تخفیف</th>
@@ -51,11 +50,7 @@
                     <th scope="row">{{ x.id }}</th>
                     <td class="text-center">
                         <i class="fa fa-pencil text-warning" aria-hidden="true" style="cursor: pointer" title="ویرایش"
-                           onclick="window.open('{% url 'product:manager-update-day' x.id %}')"></i>
-                    </td>
-                    <td class="text-center">
-                        <i class="fa-solid fa-sack-dollar text-success" aria-hidden="true" style="cursor: pointer"
-                           title="قیمت" onclick="window.open('{% url 'product:change-day-price' x.id %}')"></i>
+                           onclick="window.open('{% url 'product:update-days-view' x.id %}')"></i>
                     </td>
                     <td>{{ x.title }}</td>
                     <td>{{ x.tuition }}</td>
@@ -173,4 +168,3 @@
 
 
 {% endblock %}
-

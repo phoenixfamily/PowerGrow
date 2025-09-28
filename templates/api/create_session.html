@@ -1,0 +1,72 @@
+{% extends 'api/base.html' %}
+{% load static %}
+{% block title %}ساخت جلسه | PowerGrow{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow rounded-4 p-4">
+        <h4 class="fw-bold mb-4 text-center">افزودن جلسه جدید</h4>
+        <form id="session-form">
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label for="number" class="form-label fw-semibold">شماره جلسه</label>
+                    <input type="number" class="form-control rounded-3" id="number" required>
+                </div>
+
+
+                <div class="col-md-6">
+                    <label for="course" class="form-label fw-semibold">دوره مرتبط</label>
+                    <select class="form-select rounded-3" id="course" required>
+                        <option value="" disabled selected>انتخاب کنید</option>
+                        {% for course in courses %}
+                            <option value="{{ course.id }}">{{ course.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">فعال بودن جلسه</label>
+                    <input type="checkbox" id="active" checked>
+                </div>
+
+            </div>
+            <div class="mt-4 text-center">
+                <button type="submit" class="btn btn-cta">ثبت جلسه</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById('session-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const data = {
+        number: parseInt(document.getElementById('number').value),
+        course: document.getElementById('course').value,
+        active: document.getElementById('active').checked
+    };
+
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch('{% url "product:manager-create-session" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => {
+        if (res.ok) {
+            alert('جلسه با موفقیت ثبت شد!');
+            location.reload();  // فرم ریست و صفحه دوباره لود
+        } else {
+            return res.json().then(err => alert('خطا: ' + JSON.stringify(err)));
+        }
+    })
+    .catch(err => console.error(err));
+});
+</script>
+{% endblock %}

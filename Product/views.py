@@ -617,6 +617,17 @@ def update_days_view(request, pk):
 
 
 @session_admin_required
+def create_session_view(request):
+    courses = Course.objects.all()
+    about = AboutUs.objects.first()
+    context = {
+        'courses': courses,
+        'about': about,
+    }
+    return render(request, 'api/create_session.html', context)
+
+
+@session_admin_required
 def update_session(request, pk):
     session = get_object_or_404(Session, pk=pk)
     about = AboutUs.objects.first()

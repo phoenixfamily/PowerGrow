@@ -48,16 +48,6 @@ class SessionSerializer(serializers.ModelSerializer):
         model = Session
         fields = "__all__"
 
-    def create(self, validated_data):
-        return Session.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.number = validated_data.get('number', instance.number)
-        instance.active = validated_data.get('active', instance.active)
-        instance.course = validated_data.get('course', instance.course)
-        instance.save()
-        return instance
-
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:

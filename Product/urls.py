@@ -30,6 +30,9 @@ urlpatterns = [
 
     path('course/create/', create_course_view, name='create_course_view'),
     path('course/update/<int:pk>/', update_course, name='update_course'),
+
+    path('days/create/', create_days_page, name='create-days-view'),
+
     path('session/update/<int:pk>/', update_session, name='update_session'),
     path('participants/create/<int:course_id>/', create_participants, name='create-participant'),  # URL برای نمایش فرم
     path('participants/update/<int:participant_id>/', update_participant_view, name='update-participant'),

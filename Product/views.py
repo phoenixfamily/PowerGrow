@@ -579,6 +579,32 @@ def update_course(request, pk):
 
 
 @session_admin_required
+def update_course(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    about = AboutUs.objects.first()
+    sports = Sport.objects.all()
+
+
+    context = {
+        'course': course,
+        'about': about,
+        'sports': sports,
+
+    }
+
+    return render(request, 'api/update_course.html', context)
+
+
+@session_admin_required
+def create_days_page(request):
+    sessions = Session.objects.all()
+    context = {
+        'sessions': sessions,
+        'DAY_CHOICES': DAY_CHOICES,
+    }
+    return render(request, 'api/create_days.html', context)
+
+@session_admin_required
 def update_session(request, pk):
     session = get_object_or_404(Session, pk=pk)
     about = AboutUs.objects.first()

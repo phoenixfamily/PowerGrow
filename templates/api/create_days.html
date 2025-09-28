@@ -1,0 +1,97 @@
+{% extends 'api/base.html' %}
+{% load static %}
+{% block title %}افزودن روزها | PowerGrow{% endblock %}
+
+{% block header %}
+<div class="d-flex justify-content-end my-3 me-3">
+    <a href="#" id="submit" class="btn btn-cta">ثبت روزها</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow rounded-4 p-4">
+        <h4 class="fw-bold mb-4 text-center panel-form-h4">افزودن روزهای هفته</h4>
+        <form id="days-form">
+            <div class="row g-3">
+
+                <!-- روزهای هفته -->
+                <div class="col-md-6">
+                    <label for="days" class="form-label fw-semibold">روزهای هفته</label>
+                    <select class="form-select rounded-3" id="days" multiple required>
+                        {% for i, day_name in DAY_CHOICES %}
+                        <option value="{{ i }}">{{ day_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <small class="text-muted">چند روز را می‌توانید همزمان انتخاب کنید</small>
+                </div>
+
+                <!-- شهریه -->
+                <div class="col-md-6">
+                    <label for="tuition" class="form-label fw-semibold">شهریه</label>
+                    <input type="number" class="form-control rounded-3" id="tuition" required>
+                </div>
+
+                <!-- تخفیف -->
+                <div class="col-md-6">
+                    <label for="off" class="form-label fw-semibold">تخفیف</label>
+                    <input type="number" class="form-control rounded-3" id="off">
+                </div>
+
+                <!-- وضعیت فعال -->
+                <div class="col-md-6">
+                    <label for="active" class="form-label fw-semibold">فعال</label>
+                    <input type="checkbox" id="active" checked>
+                </div>
+
+                <!-- جلسه مرتبط -->
+                <div class="col-md-6">
+                    <label for="session" class="form-label fw-semibold">جلسه</label>
+                    <select class="form-select rounded-3" id="session" required>
+                        <option value="" disabled selected>انتخاب کنید</option>
+                        {% for s in sessions %}
+                            <option value="{{ s.id }}">{{ s.number }} جلسه</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById('submit').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    const selectedDays = Array.from(document.getElementById('days').selectedOptions).map(o => parseInt(o.value));
+    const tuition = document.getElementById('tuition').value;
+    const off = document.getElementById('off').value || null;
+    const active = document.getElementById('active').checked;
+    const session = document.getElementById('session').value;
+
+    const data = { days: selectedDays, tuition, off, active, session };
+
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch("{% url 'product:manager-create-day' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(resp => {
+        if (resp.id) {
+            alert('روزها با موفقیت ثبت شد!');
+            document.getElementById('days-form').reset();
+        } else {
+            alert('خطا: ' + JSON.stringify(resp));
+        }
+    })
+    .catch(err => console.error(err));
+});
+</script>
+{% endblock %}

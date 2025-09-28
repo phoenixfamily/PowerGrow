@@ -1088,7 +1088,7 @@ def update_expired_participants(pk):
 
 
 class TodayParticipantsView(ListAPIView):
-    serializer_class = ParticipantsSerializer
+    serializer_class = TodayParticipantsSerializer
     permission_classes = [IsAuthenticated]  # بسته به نیاز تغییر بده
 
     def get_queryset(self):

@@ -28,6 +28,12 @@ class ParticipantsSerializer(serializers.ModelSerializer):
                   'authority', 'success']
 
 
+class TodayParticipantsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Participants
+        fields = "__all__"
+
+
 class DaysSerializer(serializers.ModelSerializer):
     title = serializers.CharField(read_only=True)  # فقط برای read
     participants = ParticipantsSerializer(read_only=True, many=True)

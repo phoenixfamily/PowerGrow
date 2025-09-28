@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from Calendar.serializer import DaySerializer
 from User.serializer import UserSerializer
 from .models import *
 
@@ -31,6 +32,9 @@ class ParticipantsSerializer(serializers.ModelSerializer):
 
 class TodayParticipantsSerializer(serializers.ModelSerializer):
     user = UserSerializer()
+    startDay = DaySerializer()
+    endDay = DaySerializer()
+
     class Meta:
         model = Participants
         fields = "__all__"

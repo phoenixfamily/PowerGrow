@@ -911,10 +911,29 @@ class ManagerParticipationView(viewsets.ViewSet):
 
     def update(self, request, pk=None):
         participant = get_object_or_404(Participants, pk=pk)
-        serializer = self.serializer_class(participant, data=request.data, partial=True)
+
+        data = request.data.copy()
+
+        # اگه فرانت استارت‌دی فرستاده، آبجکتشو بگیر
+        if "startDay" in data:
+            start_day_obj = Day.objects.filter(id=data["startDay"]).first()
+            if not start_day_obj:
+                return Response({"error": "startDay نامعتبر است"}, status=status.HTTP_400_BAD_REQUEST)
+            participant.startDay = start_day_obj
+
+        # اگه فرانت اند‌دی فرستاده
+        if "endDay" in data:
+            end_day_obj = Day.objects.filter(id=data["endDay"]).first()
+            if not end_day_obj:
+                return Response({"error": "endDay نامعتبر است"}, status=status.HTTP_400_BAD_REQUEST)
+            participant.endDay = end_day_obj
+
+        # باقی فیلدها
+        serializer = self.serializer_class(participant, data=data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def destroy(self, request, pk):
         try:

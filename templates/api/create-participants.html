@@ -10,76 +10,94 @@
 
 
 {% block content %}
-<div class="container py-5">
-    <div class="card shadow rounded-4 p-4">
-        <h4 class="fw-bold mb-4 text-center panel-form-h4">افزودن شرکت‌ کننده</h4>
-        <form id="participant-form">
-            <div class="row g-3">
-                <!-- عنوان -->
-                <div class="col-md-6">
-                    <label for="title" class="form-label fw-semibold">عنوان دوره</label>
-                    <input type="text" class="form-control rounded-3" id="title" value="{{ course.title }}" readonly>
+    <div class="container py-5">
+        <div class="card shadow rounded-4 p-4">
+            <h4 class="fw-bold mb-4 text-center panel-form-h4">افزودن شرکت‌ کننده</h4>
+            <form id="participant-form">
+                <div class="row g-3">
+                    <!-- عنوان -->
+                    <div class="col-md-6">
+                        <label for="title" class="form-label fw-semibold">عنوان دوره</label>
+                        <input type="text" class="form-control rounded-3" id="title" value="{{ course.title }}"
+                               readonly>
+                    </div>
+
+                    <!-- توضیحات -->
+                    <div class="col-md-6">
+                        <label for="description" class="form-label fw-semibold">توضیحات</label>
+                        <textarea class="form-control rounded-3" id="description" rows="3"></textarea>
+                    </div>
+
+                    <!-- تعداد جلسه -->
+                    <div class="col-md-6">
+                        <label for="session" class="form-label fw-semibold">تعداد جلسه</label>
+                        <select class="form-select rounded-3" id="session" required>
+                            <option value="" disabled selected>انتخاب کنید</option>
+                            {% for x in course.sessions.all %}
+                                <option dir="rtl" value="{{ x.id }}">{{ x.number }} جلسه</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- روزهای هفته -->
+                    <div class="col-md-6">
+                        <label for="day" class="form-label fw-semibold">روزهای هفته</label>
+                        <select class="form-select rounded-3" id="day" required>
+                            <option value="" disabled selected>انتخاب کنید</option>
+                            {% for x in days %}
+                                <option dir="rtl" value="{{ x.id }}">{{ x.title }} | {{ x.session }} جلسه</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label fw-semibold">تاریخ شروع</label>
+                        <div class="calendar-wrapper">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <button id="prevMonth" class="btn btn-cta" aria-label="ماه قبل">
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                                <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
+                                <button id="nextMonth" class="btn btn-cta" aria-label="ماه بعد">
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
+                            </div>
+
+                            <div class="calendar-grid text-center fw-bold border-bottom pb-2">
+                                <div>ش</div>
+                                <div>ی</div>
+                                <div>د</div>
+                                <div>س</div>
+                                <div>چ</div>
+                                <div>پ</div>
+                                <div>ج</div>
+                            </div>
+
+                            <div id="calendarDays" class="calendar-grid mt-2">
+                                <!-- روزها با JS پر میشه -->
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="startDay" name="startDay">
+
+
+                    <!-- قیمت -->
+                    <div class="col-md-6">
+                        <label for="price" class="form-label fw-semibold">قیمت (تومان)</label>
+                        <input type="number" class="form-control rounded-3" id="price" required>
+                    </div>
+
+                    <!-- کاربر -->
+                    <div class="col-md-12">
+                        <label for="user" class="form-label fw-semibold">کاربر (شماره همراه)</label>
+                        <input class="form-control rounded-3" dir="ltr" id="user" type="number" name="user"
+                               placeholder="مثلاً: 9123456789" required>
+                    </div>
                 </div>
 
-                <!-- توضیحات -->
-                <div class="col-md-6">
-                    <label for="description" class="form-label fw-semibold">توضیحات</label>
-                    <textarea class="form-control rounded-3" id="description" rows="3"></textarea>
-                </div>
-
-                <!-- تعداد جلسه -->
-                <div class="col-md-6">
-                    <label for="session" class="form-label fw-semibold">تعداد جلسه</label>
-                    <select class="form-select rounded-3" id="session" required>
-                        <option value="" disabled selected>انتخاب کنید</option>
-                        {% for x in course.sessions.all %}
-                            <option dir="rtl" value="{{ x.id }}">{{ x.number }} جلسه</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <!-- روزهای هفته -->
-                <div class="col-md-6">
-                    <label for="day" class="form-label fw-semibold">روزهای هفته</label>
-                    <select class="form-select rounded-3" id="day" required>
-                        <option value="" disabled selected>انتخاب کنید</option>
-                        {% for x in days %}
-                            <option dir="rtl" value="{{ x.id }}">{{ x.title }} | {{ x.session }} جلسه</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <!-- تاریخ شروع -->
-                <div class="col-md-6">
-                    <label for="startDay" class="form-label fw-semibold">تاریخ شروع</label>
-                    <select class="form-select rounded-3" id="startDay" required>
-                        <option value="">انتخاب کنید</option>
-                        {% for x in day %}
-                            <option dir="rtl" value="{{ x.id }}">
-                                {{ x.name }} {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-
-                <!-- قیمت -->
-                <div class="col-md-6">
-                    <label for="price" class="form-label fw-semibold">قیمت (تومان)</label>
-                    <input type="number" class="form-control rounded-3" id="price" required>
-                </div>
-
-                <!-- کاربر -->
-                <div class="col-md-12">
-                    <label for="user" class="form-label fw-semibold">کاربر (شماره همراه)</label>
-                    <input class="form-control rounded-3" dir="ltr" id="user" type="number" name="user"
-                           placeholder="مثلاً: 9123456789" required>
-                </div>
-            </div>
-
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
 
     <script>
@@ -94,7 +112,7 @@
         });
 
         // ارسال فرم
-        document.getElementById('submit').addEventListener('click', function(event) {
+        document.getElementById('submit').addEventListener('click', function (event) {
             event.preventDefault();
             // جمع‌آوری داده‌ها و ارسال به API
             const data = {
@@ -118,121 +136,210 @@
                 },
                 body: JSON.stringify(data)
             })
-            .then(response => {
-                if (response.ok) {
-                    alert('شرکت‌کننده با موفقیت ثبت شد!');
-                    // فرم را پاک کن یا به صفحه دیگر برو
-                } else {
-                    return response.json().then(errorData => {
-                        alert('خطا: ' + JSON.stringify(errorData));
-        });
-    }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                .then(response => {
+                    if (response.ok) {
+                        alert('شرکت‌کننده با موفقیت ثبت شد!');
+                        // فرم را پاک کن یا به صفحه دیگر برو
+                    } else {
+                        return response.json().then(errorData => {
+                            alert('خطا: ' + JSON.stringify(errorData));
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
     </script>
 
-<script>
+    <script>
 
-    async function getAllUser() {
-    const userList = [];
-    let phone;
+        async function getAllUser() {
+            const userList = [];
+            let phone;
 
-    {% for x in user.all %}
-        phone = "{{ x.number }}".replace("+98", "");
-        userList.push(phone);
-    {% endfor %}
+            {% for x in user.all %}
+                phone = "{{ x.number }}".replace("+98", "");
+                userList.push(phone);
+            {% endfor %}
 
-    setupAutocomplete(document.getElementById("user"), userList);
-}
+            setupAutocomplete(document.getElementById("user"), userList);
+        }
 
-function setupAutocomplete(input, arr) {
-    let currentFocus = -1;
+        function setupAutocomplete(input, arr) {
+            let currentFocus = -1;
 
-    input.addEventListener("input", function() {
-        const val = this.value;
-        closeAllLists();
-        if (!val) return;
+            input.addEventListener("input", function () {
+                const val = this.value;
+                closeAllLists();
+                if (!val) return;
 
-        // ایجاد div برای نمایش نتایج
-        const autocompleteList = document.createElement("div");
-        autocompleteList.setAttribute("class", "autocomplete-items");
-        this.parentNode.appendChild(autocompleteList); // اضافه کردن به parent
+                // ایجاد div برای نمایش نتایج
+                const autocompleteList = document.createElement("div");
+                autocompleteList.setAttribute("class", "autocomplete-items");
+                this.parentNode.appendChild(autocompleteList); // اضافه کردن به parent
 
-        let hasResults = false; // متغیری برای بررسی وجود نتایج
+                let hasResults = false; // متغیری برای بررسی وجود نتایج
 
-        arr.forEach(item => {
-            if (item.substr(0, val.length).toLowerCase() === val.toLowerCase()) {
-                hasResults = true; // اگر نتیجه‌ای پیدا شد
-                const itemDiv = document.createElement("div");
-                itemDiv.innerHTML = `<strong>${item.substr(0, val.length)}</strong>${item.substr(val.length)}`;
-                itemDiv.innerHTML += `<input type='hidden' value='${item}'>`;
-                itemDiv.addEventListener("click", function() {
-                    input.value = this.getElementsByTagName("input")[0].value;
-                    closeAllLists();
+                arr.forEach(item => {
+                    if (item.substr(0, val.length).toLowerCase() === val.toLowerCase()) {
+                        hasResults = true; // اگر نتیجه‌ای پیدا شد
+                        const itemDiv = document.createElement("div");
+                        itemDiv.innerHTML = `<strong>${item.substr(0, val.length)}</strong>${item.substr(val.length)}`;
+                        itemDiv.innerHTML += `<input type='hidden' value='${item}'>`;
+                        itemDiv.addEventListener("click", function () {
+                            input.value = this.getElementsByTagName("input")[0].value;
+                            closeAllLists();
+                        });
+                        autocompleteList.appendChild(itemDiv); // اضافه کردن itemDiv به autocompleteList
+                    }
                 });
-                autocompleteList.appendChild(itemDiv); // اضافه کردن itemDiv به autocompleteList
+
+                if (!hasResults) {
+                    const noResultsDiv = document.createElement("div");
+                    noResultsDiv.innerHTML = "نتیجه‌ای یافت نشد";
+                    autocompleteList.appendChild(noResultsDiv);
+                }
+            });
+
+            input.addEventListener("keydown", function (e) {
+                const items = document.querySelectorAll(".autocomplete-items div");
+                if (items.length > 0) {
+                    if (e.keyCode === 40) { // down
+                        currentFocus++;
+                        addActive(items);
+                    } else if (e.keyCode === 38) { // up
+                        currentFocus--;
+                        addActive(items);
+                    } else if (e.keyCode === 13) { // enter
+                        e.preventDefault();
+                        if (currentFocus > -1) items[currentFocus].click();
+                    }
+                }
+            });
+
+            document.addEventListener("click", function (e) {
+                closeAllLists(e.target);
+            });
+
+            function closeAllLists(exceptElement) {
+                const items = document.querySelectorAll(".autocomplete-items");
+                items.forEach(item => {
+                    item.parentNode.removeChild(item);
+                });
+            }
+
+            function addActive(items) {
+                if (!items) return;
+                removeActive(items);
+                if (currentFocus >= items.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = items.length - 1;
+                items[currentFocus].classList.add("autocomplete-active");
+            }
+
+            function removeActive(items) {
+                items.forEach(item => {
+                    item.classList.remove("autocomplete-active");
+                });
+            }
+        }
+
+        // Run the getAllUser function when the document is fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            getAllUser();
+        });
+
+
+    </script>
+
+      <script>
+        const apiBase = '/calendar'; // فرض کن آدرس API اینه
+        let currentMonthId = null;
+        let currentDayId = null;
+
+
+        function loadMonth(monthId) {
+            fetch(`${apiBase}/months/${monthId}/`)
+                .then(res => res.json())
+                .then(month => {
+                    currentMonthId = month.id;
+                    document.getElementById("monthTitle").innerText = `${month.name} ${month.year.number}`;
+
+                    const daysContainer = document.getElementById("calendarDays");
+                    daysContainer.innerHTML = "";
+
+                    const startIndex = month.start_weekday; // 0=شنبه ... 6=جمعه
+
+                    console.log(startIndex)
+
+                    for (let i = 0; i < startIndex; i++) {
+                            daysContainer.innerHTML += `<div class="col calendar-day empty disabled"></div>`;
+
+                    }
+
+                    month.days.forEach(day => {
+                        const classes = ["calendar-day"];
+                        if (day.holiday) classes.push("holiday");
+                        if (day.today) classes.push("today");
+
+                        daysContainer.innerHTML += `
+      <div class="${classes.join(" ")}" data-id="${day.id}" title="${day.description || ''}">
+        ${day.number}
+      </div>`;
+                    });
+
+                });
+        }
+
+        // Navigation
+        document.getElementById("prevMonth").addEventListener("click", () => {
+            fetch(`${apiBase}/months/${currentMonthId}/prev/`).then(res => res.json()).then(m => loadMonth(m.id));
+        });
+        document.getElementById("nextMonth").addEventListener("click", () => {
+            fetch(`${apiBase}/months/${currentMonthId}/next/`).then(res => res.json()).then(m => loadMonth(m.id));
+        });
+
+        // First load
+        window.onload = () => {
+            fetch(`${apiBase}/months/current/`).then(res => res.json()).then(m => loadMonth(m.id));
+        };
+
+
+        document.addEventListener('click', function (e) {
+            const dayEl = e.target.closest('.calendar-day');
+            if (dayEl) {
+                // اول همه روزها از حالت انتخابی درمیاد
+                document.querySelectorAll('.calendar-day').forEach(el => {
+                    el.classList.remove('selected-day');
+                });
+
+                // فقط همونی که کلیک شد انتخاب میشه
+                dayEl.classList.add('selected-day');
             }
         });
 
-        if (!hasResults) {
-            const noResultsDiv = document.createElement("div");
-            noResultsDiv.innerHTML = "نتیجه‌ای یافت نشد";
-            autocompleteList.appendChild(noResultsDiv);
-        }
-    });
+        document.addEventListener("click", function (e) {
+            if (e.target.classList.contains("calendar-day") && !e.target.classList.contains("holiday") && !e.target.classList.contains("past")) {
+                document.querySelectorAll(".calendar-day").forEach(d => d.classList.remove("selected-day"));
+                e.target.classList.add("selected-day");
 
-    input.addEventListener("keydown", function(e) {
-        const items = document.querySelectorAll(".autocomplete-items div");
-        if (items.length > 0) {
-            if (e.keyCode === 40) { // down
-                currentFocus++;
-                addActive(items);
-            } else if (e.keyCode === 38) { // up
-                currentFocus--;
-                addActive(items);
-            } else if (e.keyCode === 13) { // enter
-                e.preventDefault();
-                if (currentFocus > -1) items[currentFocus].click();
+                currentDayId = e.target.getAttribute("data-id");  // ✅ آیدی روز تقویم
             }
-        }
-    });
-
-    document.addEventListener("click", function(e) {
-        closeAllLists(e.target);
-    });
-
-    function closeAllLists(exceptElement) {
-        const items = document.querySelectorAll(".autocomplete-items");
-        items.forEach(item => {
-            item.parentNode.removeChild(item);
         });
-    }
 
-    function addActive(items) {
-        if (!items) return;
-        removeActive(items);
-        if (currentFocus >= items.length) currentFocus = 0;
-        if (currentFocus < 0) currentFocus = items.length - 1;
-        items[currentFocus].classList.add("autocomplete-active");
-    }
+        document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("calendar-day") && !e.target.classList.contains("holiday") && !e.target.classList.contains("past")) {
+        document.querySelectorAll(".calendar-day").forEach(d => d.classList.remove("selected-day"));
+        e.target.classList.add("selected-day");
 
-    function removeActive(items) {
-        items.forEach(item => {
-            item.classList.remove("autocomplete-active");
-        });
+        currentDayId = e.target.getAttribute("data-id");
+        document.getElementById("startDay").value = currentDayId; // 👈 ست به input hidden
     }
-}
-
-// Run the getAllUser function when the document is fully loaded
-document.addEventListener("DOMContentLoaded", function() {
-    getAllUser();
 });
 
 
 
-</script>
+    </script>
+
 
 {% endblock %}

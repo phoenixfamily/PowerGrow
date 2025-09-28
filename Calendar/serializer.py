@@ -26,8 +26,8 @@ class DaySerializer(serializers.ModelSerializer):
         model = Day
         fields = ['id', 'number', 'weekday', 'month', 'holiday', 'description','name', 'display']
 
-        def get_display(self, obj):
-            return str(obj)
+    def get_display(self, obj):
+        return str(obj)
 
     def validate(self, attrs):
         # بررسی وجود ماه و سال

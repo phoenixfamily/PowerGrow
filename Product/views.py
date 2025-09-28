@@ -504,7 +504,6 @@ def admin_user_list(request, pk):
     # ✅ بعد از بروزرسانی، paginate کن
     participants = participants_qs.order_by('-endDay', 'startDay')
 
-
     paginator = Paginator(participants, 150)
     page_number = request.GET.get('page')
 
@@ -529,13 +528,13 @@ def teacher_user_list(request, pk):
     # بارگذاری اطلاعات مربوط به AboutUs
     about = AboutUs.objects.first()
 
-    participants_qs = Participants.objects.filter(course_id=pk,expired=False, user__is_teacher=False, user__is_superuser=False, user__is_staff=False, success=True)
+    participants_qs = Participants.objects.filter(course_id=pk, expired=False, user__is_teacher=False,
+                                                  user__is_superuser=False, user__is_staff=False, success=True)
 
     update_expired_participants(pk)
 
     # ✅ بعد از بروزرسانی، paginate کن
     participants = participants_qs.order_by('-endDay', 'startDay')
-
 
     # آماده‌سازی context برای الگو
     context = {
@@ -567,7 +566,6 @@ def update_course(request, pk):
     about = AboutUs.objects.first()
     sports = Sport.objects.all()
 
-
     context = {
         'course': course,
         'about': about,
@@ -583,7 +581,6 @@ def update_course(request, pk):
     course = get_object_or_404(Course, pk=pk)
     about = AboutUs.objects.first()
     sports = Sport.objects.all()
-
 
     context = {
         'course': course,
@@ -603,6 +600,7 @@ def create_days_page(request):
         'DAY_CHOICES': DAY_CHOICES,
     }
     return render(request, 'api/create_days.html', context)
+
 
 @session_admin_required
 def update_days_view(request, pk):
@@ -627,7 +625,6 @@ def create_session_view(request):
     return render(request, 'api/create_session.html', context)
 
 
-
 @session_admin_required
 def update_session(request, pk):
     session = get_object_or_404(Session, pk=pk)
@@ -641,6 +638,7 @@ def update_session(request, pk):
     }
 
     return render(request, 'api/update_sessions.html', context)
+
 
 @session_admin_required
 def create_off_view(request):
@@ -779,7 +777,6 @@ class SessionDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAdminUserOrStaff]
 
 
-
 class ParticipationCreateView(viewsets.ViewSet):
     queryset = Participants.objects.all()
     serializer_class = ParticipantsSerializer
@@ -793,7 +790,7 @@ class ParticipationCreateView(viewsets.ViewSet):
         missing_fields = [f for f in required_fields if f not in data]
         if missing_fields:
             return Response({'error': f'فیلدهای الزامی حذف شده: {missing_fields}'},
-                                status=status.HTTP_400_BAD_REQUEST)
+                            status=status.HTTP_400_BAD_REQUEST)
         authority_data = {
             "MerchantID": settings.MERCHANT,
             "Amount": data["price"],
@@ -826,7 +823,6 @@ class ParticipationCreateView(viewsets.ViewSet):
                             'price': bool(price),
                         }
                     }, status=status.HTTP_400_BAD_REQUEST)
-
 
                 participant_data = {
                     'description': data["description"],
@@ -909,30 +905,39 @@ class ManagerParticipationView(viewsets.ViewSet):
             return Response({'error': 'ولیدیشن ناموفق', 'details': serializer.errors},
                             status=status.HTTP_400_BAD_REQUEST)
 
-    def update(self, request, pk=None):
+    def partial_update(self, request, pk=None):  # PATCH → به صورت پیش‌فرض map میشه به partial_update
         participant = get_object_or_404(Participants, pk=pk)
-
         data = request.data.copy()
 
-        # اگه فرانت استارت‌دی فرستاده، آبجکتشو بگیر
+        update_fields = {}
+
+        # هندل startDay
         if "startDay" in data:
             start_day_obj = Day.objects.filter(id=data["startDay"]).first()
             if not start_day_obj:
                 return Response({"error": "startDay نامعتبر است"}, status=status.HTTP_400_BAD_REQUEST)
-            participant.startDay = start_day_obj
+            update_fields["startDay"] = start_day_obj
 
-        # اگه فرانت اند‌دی فرستاده
+        # هندل endDay
         if "endDay" in data:
             end_day_obj = Day.objects.filter(id=data["endDay"]).first()
             if not end_day_obj:
                 return Response({"error": "endDay نامعتبر است"}, status=status.HTTP_400_BAD_REQUEST)
-            participant.endDay = end_day_obj
+            update_fields["endDay"] = end_day_obj
 
-        # باقی فیلدها
-        serializer = self.serializer_class(participant, data=data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+        # باقی فیلدها (به صورت داینامیک)
+        allowed_fields = ["description", "price", "day", "session", "course", "user", "success"]
+        for field in allowed_fields:
+            if field in data:
+                update_fields[field] = data[field]
 
+        # اجرای آپدیت مستقیم بدون save()
+        for field, value in update_fields.items():
+            setattr(participant, field, value)
+        participant.save(update_fields=list(update_fields.keys()))
+
+        # خروجی با serializer
+        serializer = self.serializer_class(participant)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def destroy(self, request, pk):
@@ -942,6 +947,7 @@ class ManagerParticipationView(viewsets.ViewSet):
             return Response({'status': 'Deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
         except Participants.DoesNotExist:
             return Response({'error': 'موردی با این شناسه پیدا نشد.'}, status=status.HTTP_404_NOT_FOUND)
+
 
 class ChangeDayPriceView(UpdateAPIView):
     serializer_class = ChangeDayPriceSerializer
@@ -1073,4 +1079,3 @@ def update_expired_participants(pk):
             else:
                 p.expired = False
                 p.save(update_fields=["expired"])
-

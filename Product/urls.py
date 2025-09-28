@@ -65,7 +65,7 @@ urlpatterns = [
          ManagerParticipationView.as_view({'post': 'create'}),
          name='manager-create-participation'),
     path('api/manager/participations/update/<int:pk>/',
-         ManagerParticipationView.as_view({'put': 'update'}),
+         ManagerParticipationView.as_view({'patch': 'partial_update'}),
          name='manager-update-participation'),
     path('api/manager/participations/delete/<int:pk>/',
          ManagerParticipationView.as_view({'delete': 'destroy'}),

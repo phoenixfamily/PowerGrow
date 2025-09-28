@@ -52,31 +52,66 @@
                         </select>
                     </div>
 
-                    <!-- تاریخ شروع -->
-                    <div class="col-md-6">
-                        <label for="startDay" class="form-label fw-semibold">تاریخ شروع</label>
-                        <select class="form-select rounded-3" id="startDay" required>
-                            <option value="">انتخاب کنید</option>
-                            {% for x in day %}
-                                <option value="{{ x.id }}" {% if x.id == participant.startDay.id %}selected{% endif %}>
-                                    {{ x.name }} {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}
-                                </option>
-                            {% endfor %}
-                        </select>
+                     <div class="col-md-12">
+                        <label class="form-label fw-semibold">تاریخ شروع</label>
+                        <div class="calendar-wrapper">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <button id="prevMonth" class="btn btn-cta" aria-label="ماه قبل">
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                                <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
+                                <button id="nextMonth" class="btn btn-cta" aria-label="ماه بعد">
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
+                            </div>
+
+                            <div class="calendar-grid text-center fw-bold border-bottom pb-2">
+                                <div>ش</div>
+                                <div>ی</div>
+                                <div>د</div>
+                                <div>س</div>
+                                <div>چ</div>
+                                <div>پ</div>
+                                <div>ج</div>
+                            </div>
+
+                            <div id="calendarDays" class="calendar-grid mt-2">
+                                <!-- روزها با JS پر میشه -->
+                            </div>
+                        </div>
                     </div>
+                    <input type="hidden" id="startDay" name="startDay">
 
                     <!-- تاریخ پایان -->
-                    <div class="col-md-6">
-                        <label for="endDay" class="form-label fw-semibold">تاریخ پایان</label>
-                        <select class="form-select rounded-3" id="endDay" required>
-                            <option value="">انتخاب کنید</option>
-                            {% for x in day %}
-                                <option value="{{ x.id }}" {% if x.id == participant.endDay.id %}selected{% endif %}>
-                                    {{ x.name }} {{ x.month.year.number }}/{{ x.month.number }}/{{ x.number }}
-                                </option>
-                            {% endfor %}
-                        </select>
+                     <div class="col-md-12">
+                        <label class="form-label fw-semibold">تاریخ پایان</label>
+                        <div class="calendar-wrapper">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <button id="prevMonth" class="btn btn-cta" aria-label="ماه قبل">
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                                <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
+                                <button id="nextMonth" class="btn btn-cta" aria-label="ماه بعد">
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
+                            </div>
+
+                            <div class="calendar-grid text-center fw-bold border-bottom pb-2">
+                                <div>ش</div>
+                                <div>ی</div>
+                                <div>د</div>
+                                <div>س</div>
+                                <div>چ</div>
+                                <div>پ</div>
+                                <div>ج</div>
+                            </div>
+
+                            <div id="calendarDays" class="calendar-grid mt-2">
+                                <!-- روزها با JS پر میشه -->
+                            </div>
+                        </div>
                     </div>
+                    <input type="hidden" id="endDay" name="endDay">
 
                     <!-- قیمت -->
                     <div class="col-md-6">

@@ -80,6 +80,6 @@ urlpatterns = [
 
     path('api/change-day-salary/', UpdateAllParticipantsDaysAPIView.as_view(), name='change-day-salary'),
 
-    path("api/participants/today/<int:pk>/", participants_today_api, name="participants_today_api"),
+    path("api/participants/today/<int:pk>/", TodayParticipantsView.as_view(), name="participants_today_api"),
 
 ]

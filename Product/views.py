@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
 from rest_framework import viewsets, generics, status
 from rest_framework.decorators import api_view
-from rest_framework.generics import UpdateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import UpdateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.utils import json
@@ -1087,15 +1087,19 @@ def update_expired_participants(pk):
 
 
 
-def participants_today_api(request, pk):
-    today_index = jdatetime.date.today().weekday()
+class TodayParticipantsView(ListAPIView):
+    serializer_class = ParticipantsSerializer
+    permission_classes = [IsAuthenticated]  # بسته به نیاز تغییر بده
 
-    participants = Participants.objects.filter(
-        course_id=pk, expired=False, user__is_teacher=False,
-        user__is_superuser=False, user__is_staff=False, success=True,
-        day__days__contains=[today_index]
-    )
-
-    data = [model_to_dict(p) for p in participants]
-
-    return JsonResponse(data, safe=False)
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        today_index = jdatetime.date.today().weekday()
+        return Participants.objects.filter(
+            course_id=pk,
+            expired=False,
+            user__is_teacher=False,
+            user__is_superuser=False,
+            user__is_staff=False,
+            success=True,
+            day__days__contains=[today_index]
+        )

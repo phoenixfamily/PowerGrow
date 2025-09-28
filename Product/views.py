@@ -627,19 +627,20 @@ def create_session_view(request):
     return render(request, 'api/create_session.html', context)
 
 
+
 @session_admin_required
 def update_session(request, pk):
     session = get_object_or_404(Session, pk=pk)
+    courses = Course.objects.all()  # برای انتخاب دوره مرتبط
     about = AboutUs.objects.first()
-    course = Course.objects.all()  # فرض بر این است که participant به course مرتبط است
+
     context = {
         'session': session,
-        'course': course,
+        'courses': courses,
         'about': about,
     }
 
-    return render(request, 'api/update_sessions.html', context)
-
+    return render(request, 'api/update_session.html', context)
 
 @session_admin_required
 def create_off_view(request):

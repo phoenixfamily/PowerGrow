@@ -35,7 +35,7 @@ class DaysSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Days
-        fields = ['id', 'title', 'days', 'active', 'tuition', 'off', 'session']
+        fields = ['id', 'title', 'days', 'active', 'tuition', 'off', 'session', 'participants']
 
 
 class SessionSerializer(serializers.ModelSerializer):

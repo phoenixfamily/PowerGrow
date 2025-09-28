@@ -161,7 +161,12 @@
                     data.forEach(x => {
                         tbody.innerHTML += `
                     <tr>
-                        <th scope="row">${x.id}</th>
+                    <th scope="row">${x.id}</th>
+                    <td>
+                        <a href="{% url 'product:update-participant' x.id %}" class="text-warning mx-1" title="ویرایش" target="_blank" rel="noopener noreferrer">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </td>
                         <td>${x.user.name}</td>
                         <td>${x.user.number}</td>
                         <td>${x.user.birthdate}</td>
@@ -172,6 +177,17 @@
                         <td>${x.session.number}</td>
                         <td>${x.price}</td>
                         <td>${x.description}</td>
+                        <td class="text-center">
+                        {% if x.success %}
+                            {% if x.expired %}
+                                <i class="fa fa-exclamation-circle text-warning" title="منقضی شده"></i>
+                            {% else %}
+                                <i class="fa fa-check-circle text-success" title="معتبر"></i>
+                            {% endif %}
+                        {% else %}
+                            <i class="fa fa-ban text-danger" title="پرداخت ناموفق"></i>
+                        {% endif %}
+                    </td>
 
                     </tr>
                 `;

@@ -20,9 +20,19 @@ class YearSerializer(serializers.ModelSerializer):
 
 class DaySerializer(serializers.ModelSerializer):
     name = serializers.CharField(read_only=True)  # فقط read
+
     class Meta:
         model = Day
-        fields = ['id', 'number', 'name', 'description', 'holiday', 'weekday']
+        fields = ['id', 'number', 'name', 'description', 'holiday', 'weekday', 'month']
+
+    def validate(self, attrs):
+        # بررسی وجود ماه و سال
+        month = attrs.get('month')
+        if not month:
+            raise serializers.ValidationError("ماه برای ساخت روز الزامی است.")
+        if not month.year:
+            raise serializers.ValidationError("سال ماه مشخص نشده است.")
+        return attrs
 
 class MonthSerializer(serializers.ModelSerializer):
     year = YearSerializer()

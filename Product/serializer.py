@@ -24,7 +24,6 @@ class ManagerParticipantsSerializer(serializers.ModelSerializer):
 
 
 class ParticipantsSerializer(serializers.ModelSerializer):
-    datetime = serializers.SerializerMethodField()  # 👈
 
     class Meta:
         model = Participants
@@ -153,3 +152,6 @@ class TodayParticipantsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Participants
         fields = "__all__"
+
+    def get_datetime(self, obj):
+        return jdatetime.datetime.fromgregorian(datetime=obj.datetime).strftime("%Y/%m/%d %H:%M")

@@ -910,36 +910,11 @@ class ManagerParticipationView(viewsets.ViewSet):
                             status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, pk=None):
-        try:
-            participant = Participants.objects.get(pk=pk)
-        except Participants.DoesNotExist:
-            return Response({'error': 'موردی با این شناسه پیدا نشد.'}, status=status.HTTP_404_NOT_FOUND)
-
-        data = request.data
-
-        # Mapping فیلدهای ForeignKey به مدلشون
-        fk_fields = {
-            'user': User,
-            'course': Course,
-            'day': Days,
-            'session': Session,
-            'startDay': Day
-        }
-
-        for field, value in data.items():
-            if field in fk_fields:
-                # گرفتن آبجکت
-                obj = fk_fields[field].objects.filter(id=value).first() if field != 'user' else fk_fields[
-                    field].objects.filter(number=value).first()
-                if not obj:
-                    return Response({'error': f'{field} نامعتبر است.'}, status=status.HTTP_400_BAD_REQUEST)
-                setattr(participant, field, obj)
-            else:
-                setattr(participant, field, value)
-
-        participant.save()  # endDay خودش توسط مدل محاسبه می‌شود
-        serializer = self.serializer_class(participant)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        participant = get_object_or_404(Participants, pk=pk)
+        serializer = self.serializer_class(participant, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
     def destroy(self, request, pk):
         try:

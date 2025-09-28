@@ -11,6 +11,7 @@ DAY_CHOICES = [
     (5, "پنجشنبه"),
     (6, "جمعه"),
 ]
+WEEKDAY_NAMES = {num: name for num, name in DAY_CHOICES}
 
 class Year(models.Model):
     number = models.IntegerField(unique=True, null=True, blank=True)
@@ -49,7 +50,7 @@ class Month(models.Model):
 
 
 class Day(models.Model):
-    number = models.IntegerField(blank=True, null=True, verbose_name="شماره روز")
+    number = models.IntegerField(blank=True, null=True, verbose_name="شماره روز در ماه")
     name = models.CharField(blank=True, null=True, max_length=20, verbose_name="نام روز در هفته")
     weekday = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
     gregorian_date = models.DateField(blank=True, null=True)
@@ -65,6 +66,10 @@ class Day(models.Model):
         # اگر gregorian_date پر نشده، محاسبه کن
         if not self.gregorian_date:
             self.gregorian_date = jdatetime.date(self.month.year.number, self.month.number, self.number).togregorian()
+
+        if self.weekday is not None:
+            self.name = WEEKDAY_NAMES.get(self.weekday)
+
         super().save(*args, **kwargs)
 
     def __str__(self):

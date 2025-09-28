@@ -19,6 +19,7 @@ class YearSerializer(serializers.ModelSerializer):
         fields = ['number']
 
 class DaySerializer(serializers.ModelSerializer):
+    name = serializers.CharField(read_only=True)  # فقط read
     class Meta:
         model = Day
         fields = ['id', 'number', 'name', 'description', 'holiday', 'weekday']

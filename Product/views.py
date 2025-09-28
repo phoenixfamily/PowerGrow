@@ -597,12 +597,24 @@ def update_course(request, pk):
 
 @session_admin_required
 def create_days_page(request):
-    sessions = Session.objects.all()
+    sessions = Session.objects.all().order_by('-id')
     context = {
         'sessions': sessions,
         'DAY_CHOICES': DAY_CHOICES,
     }
     return render(request, 'api/create_days.html', context)
+
+@session_admin_required
+def update_days_view(request, pk):
+    day_obj = get_object_or_404(Days, pk=pk)
+    sessions = Session.objects.all()  # یا میخوای فقط جلسات مربوط به این روز؟
+    context = {
+        'day': day_obj,
+        'sessions': sessions,
+        'DAY_CHOICES': DAY_CHOICES,
+    }
+    return render(request, 'calendar/update_days.html', context)
+
 
 @session_admin_required
 def update_session(request, pk):

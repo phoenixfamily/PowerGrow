@@ -1,10 +1,8 @@
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
-from Product.models import Course, Sport, Days, Participants
+from Product.models import Course, Sport, Days
 from About.models import AboutUs
 from django.template import loader
-
-from Product.views import update_expired_participants
 from .serializer import *
 from django.http import HttpResponse
 from django.views.decorators.cache import cache_page

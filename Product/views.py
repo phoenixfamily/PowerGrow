@@ -19,7 +19,6 @@ from django.conf import settings
 import json
 from PowerGrow.permissions import *
 from rest_framework.parsers import MultiPartParser, FormParser
-from django.forms.models import model_to_dict
 
 User = get_user_model()
 
@@ -469,12 +468,10 @@ def admin_offers_view(request):
 def manager_user_list(request, pk):
     about = AboutUs.objects.first()
 
-    participants_qs = Participants.objects.filter(course_id=pk)
-
-    # update_expired_participants(pk)
+    update_expired_participants(pk)
 
     # ✅ بعد از بروزرسانی، paginate کن
-    participants = participants_qs.order_by('-endDay', 'startDay')
+    participants = Participants.objects.filter(course_id=pk).order_by('-endDay', 'startDay')
 
     paginator = Paginator(participants, 150)
     page_number = request.GET.get('page')
@@ -497,13 +494,10 @@ def admin_user_list(request, pk):
     # بارگذاری اطلاعات مربوط به AboutUs
     about = AboutUs.objects.first()
 
-    # بارگذاری دوره با استفاده از get_object_or_404
-    participants_qs = Participants.objects.filter(course_id=pk)
-
-    # update_expired_participants(pk)
+    update_expired_participants(pk)
 
     # ✅ بعد از بروزرسانی، paginate کن
-    participants = participants_qs.order_by('-endDay', 'startDay')
+    participants = Participants.objects.filter(course_id=pk).order_by('-endDay', 'startDay')
 
     paginator = Paginator(participants, 150)
     page_number = request.GET.get('page')
@@ -529,13 +523,11 @@ def teacher_user_list(request, pk):
     # بارگذاری اطلاعات مربوط به AboutUs
     about = AboutUs.objects.first()
 
-    participants_qs = Participants.objects.filter(course_id=pk, expired=False, user__is_teacher=False,
-                                                  user__is_superuser=False, user__is_staff=False, success=True)
-
     update_expired_participants(pk)
 
     # ✅ بعد از بروزرسانی، paginate کن
-    participants = participants_qs.order_by('-endDay', 'startDay')
+    participants = Participants.objects.filter(course_id=pk, expired=False, user__is_teacher=False,
+                                                  user__is_superuser=False, user__is_staff=False, success=True).order_by('-endDay', 'startDay')
 
     # آماده‌سازی context برای الگو
     context = {
@@ -1068,9 +1060,12 @@ class UpdateAllParticipantsDaysAPIView(UpdateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-def update_expired_participants(pk):
-    participants_qs = Participants.objects.filter(course_id=pk)
+def update_expired_participants(course_id):
+    today = jdatetime.date.today()
+    participants_qs = Participants.objects.filter(course_id=course_id, endDay__isnull=False)
 
+    # set expired = True where endDay < today
+    expired_ids = []
     for p in participants_qs:
         if p.endDay and p.endDay.month and p.endDay.month.year:
             end_date = jdatetime.date(
@@ -1078,12 +1073,15 @@ def update_expired_participants(pk):
                 p.endDay.month.number,
                 p.endDay.number
             )
-            if end_date < jdatetime.date.today():
-                p.expired = True
-                p.save(update_fields=["expired"])
-            else:
-                p.expired = False
-                p.save(update_fields=["expired"])
+            if end_date < today:
+                expired_ids.append(p.id)
+
+    # ابتدا همه participants مربوطه expired=False می‌کنیم
+    participants_qs.update(expired=False)
+
+    if expired_ids:
+        Participants.objects.filter(id__in=expired_ids).update(expired=True)
+
 
 
 

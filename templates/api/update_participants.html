@@ -74,8 +74,8 @@
                             <div class="calendar-grid mt-2 calendarDays"></div>
                         </div>
                         <input type="hidden" id="startDay" name="startDay"
-                               value="{{ participant.startDay.id}}"
-                               data-month-id="{{ participant.startDay.month.id}}">
+                               value="{{ participant.startDay.id }}"
+                               data-month-id="{{ participant.startDay.month.id }}">
                     </div>
 
                     <!-- تاریخ پایان -->
@@ -102,8 +102,8 @@
                         </div>
 
                         <input type="hidden" id="endDay" name="endDay"
-                               value="{{ participant.endDay.id}}"
-                               data-month-id="{{ participant.endDay.month.id}}">
+                               value="{{ participant.endDay.id }}"
+                               data-month-id="{{ participant.endDay.month.id }}">
 
                     </div>
 
@@ -252,6 +252,8 @@
     <script>
         function initCalendar(wrapperSelector, hiddenInputSelector) {
             const wrapper = document.querySelector(wrapperSelector);
+            if (!wrapper) return;
+
             const inputHidden = document.querySelector(hiddenInputSelector);
             let currentMonthId = inputHidden.dataset.monthId || null;
             let currentDayId = inputHidden.value || null;
@@ -277,7 +279,7 @@
                             const classes = ["calendar-day"];
                             if (day.holiday) classes.push("holiday");
                             if (day.today) classes.push("today");
-                            if (day.id === currentDayId) classes.push("selected-day");
+                            if (day.id == currentDayId) classes.push("selected-day");
 
                             daysContainer.innerHTML += `
                             <div class="${classes.join(" ")}"
@@ -310,12 +312,12 @@
 
                 currentDayId = dayEl.getAttribute("data-id");
                 inputHidden.value = currentDayId;
-                inputHidden.dataset.monthId = currentMonthId; // برای نگه‌داشتن ماه
+                inputHidden.dataset.monthId = currentMonthId;
             });
 
-            // لود اولیه
+            // ✅ لود اولیه فقط یک بار
             if (currentMonthId) {
-                loadMonth(currentMonthId); // اگر ماه از قبل داریم، همون رو لود کن
+                loadMonth(currentMonthId); // همون ماهی که قبلاً ست شده
             } else {
                 fetch(`/calendar/months/current/`)
                     .then(res => res.json())
@@ -327,6 +329,5 @@
         initCalendar('#startDay-wrapper', '#startDay');
         initCalendar('#endDay-wrapper', '#endDay');
     </script>
-
 
 {% endblock %}

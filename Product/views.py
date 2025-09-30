@@ -1,3 +1,5 @@
+from datetime import datetime, date
+
 import requests
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -10,7 +12,6 @@ from rest_framework.generics import UpdateAPIView, RetrieveUpdateDestroyAPIView,
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.utils import json
-import jdatetime
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from About.models import AboutUs
 from PowerGrow.decorators import *
@@ -1061,26 +1062,19 @@ class UpdateAllParticipantsDaysAPIView(UpdateAPIView):
 
 
 def update_expired_participants(course_id):
-    today = jdatetime.date.today()
-    participants_qs = Participants.objects.filter(course_id=course_id, endDay__isnull=False)
+    today = date.today()
 
-    # set expired = True where endDay < today
-    expired_ids = []
-    for p in participants_qs:
-        if p.endDay and p.endDay.month and p.endDay.month.year:
-            end_date = jdatetime.date(
-                p.endDay.month.year.number,
-                p.endDay.month.number,
-                p.endDay.number
-            )
-            if end_date < today:
-                expired_ids.append(p.id)
+    # کسایی که تاریخ پایانشون گذشته
+    Participants.objects.filter(
+        course_id=course_id,
+        endDay__gregorian_date__lt=today
+    ).update(expired=True)
 
-    # ابتدا همه participants مربوطه expired=False می‌کنیم
-    participants_qs.update(expired=False)
-
-    if expired_ids:
-        Participants.objects.filter(id__in=expired_ids).update(expired=True)
+    # کسایی که هنوز تاریخ پایانشون نرسیده
+    Participants.objects.filter(
+        course_id=course_id,
+        endDay__gregorian_date__gte=today
+    ).update(expired=False)
 
 
 

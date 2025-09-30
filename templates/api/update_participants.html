@@ -56,13 +56,9 @@
                         <label class="form-label fw-semibold">تاریخ شروع</label>
                         <div id="startDay-wrapper" class="calendar-wrapper">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <button id="prevMonth" class="btn btn-cta" aria-label="ماه قبل">
-                                    <i class="fa fa-chevron-right"></i>
-                                </button>
-                                <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
-                                <button id="nextMonth" class="btn btn-cta" aria-label="ماه بعد">
-                                    <i class="fa fa-chevron-left"></i>
-                                </button>
+                                <button class="btn btn-cta prevMonth"><i class="fa fa-chevron-right"></i></button>
+                                <h5 class="text-center fw-bold m-0 monthTitle"></h5>
+                                <button class="btn btn-cta nextMonth"><i class="fa fa-chevron-left"></i></button>
                             </div>
 
                             <div class="calendar-grid text-center fw-bold border-bottom pb-2">
@@ -75,25 +71,19 @@
                                 <div>ج</div>
                             </div>
 
-                            <div id="calendarDays" class="calendar-grid mt-2">
-                                <!-- روزها با JS پر میشه -->
-                            </div>
+                            <div class="calendar-grid mt-2 calendarDays"></div>
                         </div>
+                        <input type="hidden" id="startDay" value="{{ participant.startDay.id }}">
                     </div>
-                    <input type="hidden" VALUE="{{ participant.startDay.id }}" id="startDay" name="startDay">
 
                     <!-- تاریخ پایان -->
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">تاریخ پایان</label>
                         <div id="endDay-wrapper" class="calendar-wrapper">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <button id="prevMonth" class="btn btn-cta" aria-label="ماه قبل">
-                                    <i class="fa fa-chevron-right"></i>
-                                </button>
-                                <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
-                                <button id="nextMonth" class="btn btn-cta" aria-label="ماه بعد">
-                                    <i class="fa fa-chevron-left"></i>
-                                </button>
+                                <button class="btn btn-cta prevMonth"><i class="fa fa-chevron-right"></i></button>
+                                <h5 class="text-center fw-bold m-0 monthTitle"></h5>
+                                <button class="btn btn-cta nextMonth"><i class="fa fa-chevron-left"></i></button>
                             </div>
 
                             <div class="calendar-grid text-center fw-bold border-bottom pb-2">
@@ -106,12 +96,11 @@
                                 <div>ج</div>
                             </div>
 
-                            <div id="calendarDays" class="calendar-grid mt-2">
-                                <!-- روزها با JS پر میشه -->
-                            </div>
+                            <div class="calendar-grid mt-2 calendarDays"></div>
                         </div>
+
+                        <input type="hidden" id="endDay" value="{{ participant.endDay.id }}">
                     </div>
-                    <input type="hidden" value="{{ participant.endDay.id }}" id="endDay" name="endDay">
 
                     <!-- قیمت -->
                     <div class="col-md-6">

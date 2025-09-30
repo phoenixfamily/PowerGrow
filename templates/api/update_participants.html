@@ -55,93 +55,93 @@
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">تاریخ شروع</label>
                         <div id="startDay-wrapper" class="calendar-wrapper">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <button id="prevMonth" class="btn btn-cta" aria-label="ماه قبل">
-                                <i class="fa fa-chevron-right"></i>
-                            </button>
-                            <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
-                            <button id="nextMonth" class="btn btn-cta" aria-label="ماه بعد">
-                                <i class="fa fa-chevron-left"></i>
-                            </button>
-                        </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <button id="prevMonth" class="btn btn-cta" aria-label="ماه قبل">
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                                <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
+                                <button id="nextMonth" class="btn btn-cta" aria-label="ماه بعد">
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
+                            </div>
 
-                        <div class="calendar-grid text-center fw-bold border-bottom pb-2">
-                            <div>ش</div>
-                            <div>ی</div>
-                            <div>د</div>
-                            <div>س</div>
-                            <div>چ</div>
-                            <div>پ</div>
-                            <div>ج</div>
-                        </div>
+                            <div class="calendar-grid text-center fw-bold border-bottom pb-2">
+                                <div>ش</div>
+                                <div>ی</div>
+                                <div>د</div>
+                                <div>س</div>
+                                <div>چ</div>
+                                <div>پ</div>
+                                <div>ج</div>
+                            </div>
 
-                        <div id="calendarDays" class="calendar-grid mt-2">
-                            <!-- روزها با JS پر میشه -->
-                        </div>
-                    </div>
-                </div>
-                <input type="hidden" VALUE="{{ participant.startDay.id }}" id="startDay" name="startDay">
-
-                <!-- تاریخ پایان -->
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">تاریخ پایان</label>
-                    <div id="endDay-wrapper" class="calendar-wrapper">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <button id="prevMonth" class="btn btn-cta" aria-label="ماه قبل">
-                                <i class="fa fa-chevron-right"></i>
-                            </button>
-                            <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
-                            <button id="nextMonth" class="btn btn-cta" aria-label="ماه بعد">
-                                <i class="fa fa-chevron-left"></i>
-                            </button>
-                        </div>
-
-                        <div class="calendar-grid text-center fw-bold border-bottom pb-2">
-                            <div>ش</div>
-                            <div>ی</div>
-                            <div>د</div>
-                            <div>س</div>
-                            <div>چ</div>
-                            <div>پ</div>
-                            <div>ج</div>
-                        </div>
-
-                        <div id="calendarDays" class="calendar-grid mt-2">
-                            <!-- روزها با JS پر میشه -->
+                            <div id="calendarDays" class="calendar-grid mt-2">
+                                <!-- روزها با JS پر میشه -->
+                            </div>
                         </div>
                     </div>
-                </div>
-                <input type="hidden" value="{{ participant.endDay.id }}" id="endDay" name="endDay">
+                    <input type="hidden" VALUE="{{ participant.startDay.id }}" id="startDay" name="startDay">
 
-                <!-- قیمت -->
-                <div class="col-md-6">
-                    <label for="price" class="form-label fw-semibold">قیمت</label>
-                    <input type="number" class="form-control rounded-3" id="price" value="{{ participant.price }}"
-                           required>
+                    <!-- تاریخ پایان -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">تاریخ پایان</label>
+                        <div id="endDay-wrapper" class="calendar-wrapper">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <button id="prevMonth" class="btn btn-cta" aria-label="ماه قبل">
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                                <h5 id="monthTitle" class="text-center fw-bold m-0"></h5>
+                                <button id="nextMonth" class="btn btn-cta" aria-label="ماه بعد">
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
+                            </div>
+
+                            <div class="calendar-grid text-center fw-bold border-bottom pb-2">
+                                <div>ش</div>
+                                <div>ی</div>
+                                <div>د</div>
+                                <div>س</div>
+                                <div>چ</div>
+                                <div>پ</div>
+                                <div>ج</div>
+                            </div>
+
+                            <div id="calendarDays" class="calendar-grid mt-2">
+                                <!-- روزها با JS پر میشه -->
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" value="{{ participant.endDay.id }}" id="endDay" name="endDay">
+
+                    <!-- قیمت -->
+                    <div class="col-md-6">
+                        <label for="price" class="form-label fw-semibold">قیمت</label>
+                        <input type="number" class="form-control rounded-3" id="price" value="{{ participant.price }}"
+                               required>
+                    </div>
+
+                    <!-- دوره -->
+                    <div class="col-md-6">
+                        <label for="course" class="form-label fw-semibold">دوره</label>
+                        <select class="form-select rounded-3" id="course" required>
+                            <option value="">انتخاب کنید</option>
+                            {% for x in course %}
+                                <option value="{{ x.id }}" {% if x.id == participant.course.id %}selected{% endif %}>
+                                    {{ x.title }} - {{ x.id }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- کاربر -->
+                    <div class="col-12">
+                        <label for="user" class="form-label fw-semibold">کاربر (موبایل)</label>
+                        <input type="number" class="form-control rounded-3" dir="ltr" id="user" name="user" required>
+                    </div>
                 </div>
 
-                <!-- دوره -->
-                <div class="col-md-6">
-                    <label for="course" class="form-label fw-semibold">دوره</label>
-                    <select class="form-select rounded-3" id="course" required>
-                        <option value="">انتخاب کنید</option>
-                        {% for x in course %}
-                            <option value="{{ x.id }}" {% if x.id == participant.course.id %}selected{% endif %}>
-                                {{ x.title }} - {{ x.id }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <!-- کاربر -->
-                <div class="col-12">
-                    <label for="user" class="form-label fw-semibold">کاربر (موبایل)</label>
-                    <input type="number" class="form-control rounded-3" dir="ltr" id="user" name="user" required>
-                </div>
+            </form>
         </div>
-
-        </form>
-    </div>
     </div>
 
 
@@ -262,10 +262,10 @@
             let currentMonthId = null;
             let currentDayId = inputHidden.value || null;
 
-            const monthTitle = wrapper.querySelector('#monthTitle');
-            const daysContainer = wrapper.querySelector('#calendarDays');
-            const prevBtn = wrapper.querySelector('#prevMonth');
-            const nextBtn = wrapper.querySelector('#nextMonth');
+            const monthTitle = wrapper.querySelector('.monthTitle');
+            const daysContainer = wrapper.querySelector('.calendarDays');
+            const prevBtn = wrapper.querySelector('.prevMonth');
+            const nextBtn = wrapper.querySelector('.nextMonth');
 
             function loadMonth(monthId) {
                 fetch(`/calendar/months/${monthId}/`)
@@ -294,33 +294,45 @@
             }
 
             prevBtn.addEventListener("click", () => {
-                fetch(`/calendar/months/${currentMonthId}/prev/`).then(res => res.json()).then(m => loadMonth(m.id));
+                fetch(`/calendar/months/${currentMonthId}/prev/`)
+                    .then(res => res.json())
+                    .then(m => loadMonth(m.id));
             });
+
             nextBtn.addEventListener("click", () => {
-                fetch(`/calendar/months/${currentMonthId}/next/`).then(res => res.json()).then(m => loadMonth(m.id));
+                fetch(`/calendar/months/${currentMonthId}/next/`)
+                    .then(res => res.json())
+                    .then(m => loadMonth(m.id));
             });
 
             daysContainer.addEventListener("click", function (e) {
                 const dayEl = e.target.closest(".calendar-day");
                 if (!dayEl || dayEl.classList.contains("holiday") || dayEl.classList.contains("past")) return;
 
-                // حذف کلاس انتخابی قبلی
                 daysContainer.querySelectorAll(".calendar-day").forEach(d => d.classList.remove("selected-day"));
                 dayEl.classList.add("selected-day");
 
-                // ست کردن hidden input
                 currentDayId = dayEl.getAttribute("data-id");
                 inputHidden.value = currentDayId;
             });
 
             // لود اولیه
-            fetch(`/calendar/months/current/`).then(res => res.json()).then(m => loadMonth(m.id));
+            if (currentDayId) {
+                // اگه hidden input پر باشه (مثلاً برای آپدیت)، ماه همون روز رو لود کن
+                fetch(`/calendar/days/${currentDayId}/`)
+                    .then(res => res.json())
+                    .then(day => loadMonth(day.month.id));
+            } else {
+                // وگرنه ماه جاری رو لود کن
+                fetch(`/calendar/months/current/`)
+                    .then(res => res.json())
+                    .then(m => loadMonth(m.id));
+            }
         }
 
         // استفاده برای startDay و endDay
         initCalendar('#startDay-wrapper', '#startDay');
         initCalendar('#endDay-wrapper', '#endDay');
-
-
     </script>
+
 {% endblock %}

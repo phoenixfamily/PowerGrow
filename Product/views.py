@@ -471,7 +471,7 @@ def manager_user_list(request, pk):
 
     participants_qs = Participants.objects.filter(course_id=pk)
 
-    update_expired_participants(pk)
+    # update_expired_participants(pk)
 
     # ✅ بعد از بروزرسانی، paginate کن
     participants = participants_qs.order_by('-endDay', 'startDay')
@@ -500,7 +500,7 @@ def admin_user_list(request, pk):
     # بارگذاری دوره با استفاده از get_object_or_404
     participants_qs = Participants.objects.filter(course_id=pk)
 
-    update_expired_participants(pk)
+    # update_expired_participants(pk)
 
     # ✅ بعد از بروزرسانی، paginate کن
     participants = participants_qs.order_by('-endDay', 'startDay')

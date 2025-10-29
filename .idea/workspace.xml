@@ -99,9 +99,8 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="PowerGrow.settings" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\abbas\PycharmProjects\PowerGrow\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -283,7 +282,10 @@
       <workItem from="1758899442753" duration="14477000" />
       <workItem from="1758991214097" duration="31785000" />
       <workItem from="1759075284824" duration="16243000" />
-      <workItem from="1759225104487" duration="6053000" />
+      <workItem from="1759225104487" duration="7009000" />
+      <workItem from="1761411296579" duration="730000" />
+      <workItem from="1761417110510" duration="8000" />
+      <workItem from="1761418097542" duration="722000" />
     </task>
     <task id="LOCAL-02784" summary="font awsome updated">
       <created>1737797848541</created>

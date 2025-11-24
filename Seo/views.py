@@ -80,10 +80,19 @@ def teacher_news_view(request):
             news.save()
 
     news_items = News.objects.all().order_by('-pk')
+    # پیاده‌سازی pagination
+    paginator = Paginator(news_items, 100)
+    page_number = request.GET.get('page')
 
+    try:
+        page_obj = paginator.get_page(page_number)
+    except (PageNotAnInteger, EmptyPage):
+        page_obj = paginator.page(1)  # اگر شماره صفحه معتبر نبود، به صفحه اول برگردیم
+
+    # آماده‌سازی context برای الگو
     context = {
-        "news": news_items,
         "about": about,
+        "page_obj": page_obj,
     }
     return render(request, 'user/news.html', context)
 
@@ -101,10 +110,21 @@ def user_news_view(request):
 
     news_items = News.objects.all().order_by('-pk')
 
+    # پیاده‌سازی pagination
+    paginator = Paginator(news_items, 100)
+    page_number = request.GET.get('page')
+
+    try:
+        page_obj = paginator.get_page(page_number)
+    except (PageNotAnInteger, EmptyPage):
+        page_obj = paginator.page(1)  # اگر شماره صفحه معتبر نبود، به صفحه اول برگردیم
+
+    # آماده‌سازی context برای الگو
     context = {
-        "news": news_items,
         "about": about,
+        "page_obj": page_obj,
     }
+
     return render(request, 'user/news.html', context)
 
 

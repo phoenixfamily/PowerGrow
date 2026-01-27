@@ -72,7 +72,7 @@
     "django.template.preview.state": "SHOW_EDITOR",
     "ignore.virus.scanning.warn.message": "true",
     "ignore_missing_gitignore": "true",
-    "last_opened_file_path": "C:/Users/abbas/PycharmProjects/PowerGrow/static/jalalidatepicker",
+    "last_opened_file_path": "C:/Users/abbas/PycharmProjects/PowerGrow/static/fontawesome",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -85,6 +85,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\abbas\PycharmProjects\PowerGrow\static\fontawesome" />
       <recent name="C:\Users\abbas\PycharmProjects\PowerGrow\static\jalalidatepicker" />
       <recent name="C:\Users\abbas\PycharmProjects\PowerGrow\static\bootstrap" />
     </key>
@@ -307,7 +308,7 @@
       <workItem from="1767365141349" duration="7000" />
       <workItem from="1767520020075" duration="4742000" />
       <workItem from="1767717110264" duration="1670000" />
-      <workItem from="1769475563576" duration="1698000" />
+      <workItem from="1769475563576" duration="2466000" />
     </task>
     <task id="LOCAL-02784" summary="font awsome updated">
       <created>1737797848541</created>

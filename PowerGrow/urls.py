@@ -28,7 +28,7 @@ urlpatterns = [
     path('home/', include('Home.urls', namespace='home')),
     path('product/', include('Product.urls', namespace='product')),
     path('reservation/', include('Reservation.urls', namespace='reservation')),
-    path('about/', include('About.urls', namespace='about')),
+    path("about/", TemplateView.as_view(template_name="public/about.html"), name="about"),
     path('user/', include('User.urls', namespace='user')),
     path('calendar/', include('Calendar.urls', namespace='calendar')),
     path('seo/', include('Seo.urls', namespace='seo')),
